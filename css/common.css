@@ -268,7 +268,7 @@ a {
     gap: 40px;
 }
 
-.scrollable{
+.scrollable {
     overflow: scroll;
 }
 
@@ -286,14 +286,14 @@ a {
     gap: 10px;
 }
 
-.itembox-top{
+.itembox-top {
     display: flex;
     justify-content: center;
     justify-items: center;
     gap: 5px;
 }
 
-.itembox-top-button{
+.itembox-top-button {
     display: flex;
     justify-self: center;
     align-items: center;
@@ -308,16 +308,16 @@ a {
 }
 
 .itembox-top-button span {
-   color: white;
-   font-size: 15px;
-}
-
-.item_name{
     color: white;
     font-size: 15px;
 }
 
-.enchants-div-container{
+.item_name {
+    color: white;
+    font-size: 15px;
+}
+
+.enchants-div-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
