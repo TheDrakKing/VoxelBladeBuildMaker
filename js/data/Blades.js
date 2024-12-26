@@ -14,7 +14,7 @@ export const Blades = {
         damageTypes: {
             Physical: 1,
         },
-        img: "/blades/basicblade.png",
+        img: "image/blades/basicblade.png",
     },
     scourgers_blade: {
         id: "scourgers_blade",
