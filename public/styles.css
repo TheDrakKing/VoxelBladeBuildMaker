@@ -1,0 +1,297 @@
+/*********************************** trending bar ***********************************/
+.bar-container {
+    width: 95%;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+}
+
+.content-title{
+    width: 100%;
+    height: 50px;
+}
+
+.content-title h3 {
+    display: inline-block;
+    font-size: 25px;
+}
+
+.content-title button {
+    width: 80px;
+    height: 30px;
+    background-color: black;
+    border-radius: 10px;
+    color: white;
+}
+
+.items_selector {
+    position: fixed;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 70%;
+    left: 50%;
+    top: 50%;
+    border-radius: 15px;
+    border: none;
+    background-color: whitesmoke;
+}
+
+.items_container {
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+    overflow: auto;
+    gap: 20px;
+    width: 95%;
+    height: 500px;
+    border-radius: 15px;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+/*********************************** Level ***********************************/
+#level_bar{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 50px;
+}
+
+#levelLabel {
+}
+
+#levelValue {
+}
+
+/*********************************** item Boxes Select ***********************************/
+.itemBox_Select {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 15px;
+    border: none;
+    background-color: white;
+}
+
+.select-box_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 90%;
+    border-radius: 15px;
+    border: none;
+    background: transparent;
+}
+
+.select-box_button {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border-radius: 15px;
+    border: none;
+    background: transparent;
+}
+
+.item-box_img {
+    color: black;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 15px;
+    background: transparent;
+}
+
+.items_selector_top{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.items_selector_top h3 {
+    width: 90%;
+}
+
+.items_selector_top button {
+    border-radius: 50%;
+    border: none;
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+}
+
+/*********************************** Stats display ***********************************/
+
+.statHolder-bar{
+    padding-top: 20px;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 20px;
+}
+
+.statHolder-Div{
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    height: 300px;
+    gap: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: lightgrey;
+}
+
+.statHolder-Div span {
+    font-size: 20px;
+}
+
+.stat_Container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    height: 100%;
+    overflow: auto;
+    gap: 20px;
+    border: none;
+    border-radius: 15px;
+}
+
+/* Scrollbar styles */
+.flow_scrollbar::-webkit-scrollbar {
+    width: 12px;/* Scrollbar width */
+}
+
+/* Scrollbar track (background) */
+.flow_scrollbar::-webkit-scrollbar-track {
+    border-radius: 10px;/* Rounded track corners */
+}
+
+/* Scrollbar thumb (the draggable part) */
+.flow_scrollbar::-webkit-scrollbar-thumb {
+    background: #888;/* Dark gray scrollbar */
+    border-radius: 10px;/* Rounded scrollbar */
+    border: 3px solid #f0f0f0;/* Adds padding around the thumb */
+}
+
+/*********************************** buff and debuff display ***********************************/
+.buffHolder-Div {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 45%;
+    height: 300px;
+    gap: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: lightgrey;
+    padding-bottom: 10px;
+}
+
+.buff_Container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 95%;
+    height: 100%;
+    overflow: auto;
+    gap: 20px;
+    border: none;
+    border-radius: 15px;
+}
+
+.buff_Select{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: white;
+}
+
+.add_buff_button{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border-radius: 10px;
+    border: none;
+    background: transparent;
+}
+/*********************************** damage display ***********************************/
+
+.damageHolder-Div {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    max-height: 300px;
+    gap: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: lightgrey;
+}
+
+.damageHolder_label{
+    font-size: 15px;
+}
+
+.table_container-div{
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    padding-bottom: 10px;
+    overflow: auto;
+}
+/*********************************** damage table display ***********************************/
+.damage_Table_Container{
+    table-layout: fixed;
+    border: none;
+    border-radius: 15px;
+    padding-bottom: 10px;
+    column-span: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.damage_colunm_cell, .damage_row_cell {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    text-align: center; /* Align text in the center */
+    font-size: 15px;
+}
+
+.damage_colunm_cell span {
+    display: block;
+    font-size: 15px;
+    width: 100px;
+}

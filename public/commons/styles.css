@@ -1,0 +1,359 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: white;
+    /* background-color: #202124; */
+}
+
+a {
+    text-decoration: none;
+}
+
+/*********************************** Main Header Styles ***********************************/
+.main-header {
+    top: 0px;
+    border-radius: 5px;
+    border: none;
+    z-index: 1000;
+    /* Ensure it stays above other content */
+    background-color: white;
+}
+
+.sticky-header {
+    position: sticky;
+}
+
+.flex-header {
+    display: flex;
+}
+
+/*********************************** header left ***********************************/
+.header-left {
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Centers vertically */
+    width: 20%;
+}
+
+.hamburger_menu {
+    width: 40%;
+    height: 50px;
+}
+
+.hamburger-menu-button {
+    width: 50%;
+    height: 100%;
+    border: none;
+    background: transparent;
+}
+
+.hamburger-menu-button:hover {}
+
+.hamburger_image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+}
+
+.home-link_wapper {
+    display: flex;
+    justify-content: center;
+    /* Centers horizontally */
+    align-items: center;
+    /* Centers vertically */
+    height: 50px;
+    /* Set the desired height for the wrapper */
+    width: 60%;
+}
+
+.home-link {
+    width: 33%;
+    /* Set width */
+    height: 100%;
+    /* Set height (equal to width) */
+    border-radius: 50%;
+    /* Makes the button circular */
+    border: none;
+}
+
+/*********************************** header content ***********************************/
+.header-content {
+    display: flex;
+    flex-basis: 100%;
+}
+
+.navigation-header {
+    display: flex;
+    justify-content: space-evenly;
+    justify-items: stretch;
+    width: 30%;
+}
+
+.main-menu-link__wrapper {
+    display: flex;
+    justify-content: center;
+    /* Centers horizontally */
+    align-items: center;
+    /* Centers vertically */
+    height: 75px;
+    /* Set the desired height for the wrapper */
+    width: 100%;
+}
+
+.main-menu-link {
+    width: 90%;
+    /* Set width */
+    height: 50%;
+    /* Set height (equal to width) */
+    border-radius: 15px;
+    /* Makes the button circular */
+    background-color: #e0e0e0;
+    /* Example background color */
+    border: none;
+    background: transparent;
+}
+
+.main-menu-link:hover {
+    background-color: silver;
+}
+
+/*********************************** search content ***********************************/
+.search-header {
+    display: flex;
+    justify-content: center;
+    /* Centers horizontally */
+    align-items: center;
+    /* Centers vertically */
+    width: 40%;
+}
+
+.search-box {
+    width: 90%;
+    height: 40%;
+    border-radius: 15px;
+    /* Makes the button circular */
+    background-color: #e0e0e0;
+    /* Example background color */
+    text-indent: 10px;
+    border: none;
+}
+
+/*********************************** sign up content ***********************************/
+.sign-up-header {
+    display: flex;
+    justify-content: space-evenly;
+    width: 15%;
+}
+
+.sign-up-link_wapper {
+    display: flex;
+    justify-content: center;
+    /* Centers horizontally */
+    align-items: center;
+    /* Centers vertically */
+    width: 100%;
+}
+
+.sign-up-link {
+    width: 90%;
+    /* Set width */
+    height: 50%;
+    /* Set height (equal to width) */
+    border-radius: 15px;
+    /* Makes the button circular */
+    border: none;
+    background: transparent;
+    background-color: skyblue;
+}
+
+.sign-up-link:hover {
+    background-color: silver;
+}
+
+/*********************************** Main Page ***********************************/
+.main-page {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/*********************************** Side Bar Menu ***********************************/
+.side-Menu {
+    width: 10%;
+    height: 600px;
+    display: none;
+    background-color: black;
+}
+
+.side-ui {
+    background-color: black;
+}
+
+/*********************************** main-page-content ***********************************/
+.main-page-content {
+    width: 80%;
+}
+
+/*********************************** Title Bar ***********************************/
+.title-bar {
+    display: flex;
+    justify-items: center;
+    width: 80%;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    padding-left: 20px;
+    margin-left: 15%;
+    background-color: black;
+}
+
+.title-bar-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.title-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 15%;
+    position: relative;
+    top: 20px;
+    background-color: black;
+    background: transparent;
+}
+
+.title-bar-button {
+    width: 90%;
+    /* Set width */
+    height: 50px;
+    /* Set height (equal to width) */
+    border-radius: 20px;
+    /* Makes the button circular */
+    border: none;
+    background-color: black;
+}
+
+.title-bar-button:hover {
+    background-color: silver;
+}
+
+.title-bar-button__title {
+    color: white;
+}
+
+/*********************************** Below The Selectors ***********************************/
+
+.content-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-top: 5%;
+    margin-left: 15%;
+    width: 80%;
+}
+
+
+.item_Box_Containers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    gap: 40px;
+}
+
+.scrollable{
+    overflow: scroll;
+}
+
+/*********************************** item Boxes 2 ***********************************/
+.itemBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 225px;
+    height: 225px;
+    border-radius: 15px;
+    border: none;
+    background-color: black;
+    gap: 10px;
+}
+
+.itembox-top{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    gap: 5px;
+}
+
+.itembox-top-button{
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    border: none;
+    background: transparent;
+}
+
+.itembox-top select {
+    color: white;
+    background: transparent;
+    border-color: black;
+}
+
+.itembox-top-button span {
+   color: white;
+   font-size: 15px;
+}
+
+.item_name{
+    color: white;
+    font-size: 15px;
+}
+
+.enchants-div-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    width: 80%;
+    height: 70%;
+    border-radius: 15px;
+    border: none;
+    background-color: white;
+}
+
+.enchants-div-container button {
+    width: 90%;
+    height: 30px;
+    border-radius: 15px;
+    border: none;
+    background-color: silver;
+}
+
+.item-box_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 70%;
+    border-radius: 15px;
+    border: none;
+    background: transparent;
+}
+
+.item-box_button {
+    width: 100%;
+    height: 100%;
+    color: white;
+    border-radius: 15px;
+    border: none;
+    background-color: white;
+}
