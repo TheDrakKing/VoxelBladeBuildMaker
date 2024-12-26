@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voxel Build Maker</title>
+  <link rel="stylesheet" href="commons/styles.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>  
+  <div class="main-page" id="main-page">
+
+    <div class="main-page-content">
+      <div class="title-bar">
+        <h3 style="color: white;">
+          Voxel Build Maker
+        </h3>
+      </div>
+
+      <div class="items_selector" id="itemsSelectorDiv">
+        <div class="items_selector_top">
+          <h3>Select an Item</h3>
+          <button id="close_items_selector">
+            X
+          </button>
+        </div>
+       
+        <div class="items_container" id="itemsContainer" >
+            <div class="itemBox_Select" id="selectItem_template">
+              <div class="select-box_wrapper">
+                <button class="select-box_button">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="content-bar" id="weaponDiv">
+         <div class="item_Box_Containers" id="middle">
+
+            <div class="itemBox" id="raceDiv">
+              <div class="itembox-top">
+                <button class="itembox-top-button weapon_clear_button" name="Race">
+                  <span>🗑️</span>
+                </button>
+                <button class="itembox-top-button">
+                  <span>Race</span>
+                </button>
+              </div>
+              <div class="item-box_wrapper">
+                <button class="item-box_button weaponMakeUp" name="Race">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+
+            <div class="itemBox" id="handleDiv">
+                <div class="itembox-top">
+                <button class="itembox-top-button weapon_clear_button" name="Handle">
+                  <span>🗑️</span>
+                </button>
+                <button class="itembox-top-button">
+                  <span>Handle</span>
+                </button>
+              </div>
+              <div class="item-box_wrapper">
+                <button class="item-box_button weaponMakeUp" name="Handle">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+
+            <div class="itemBox" id="bladeDiv">
+             <div class="itembox-top">
+                <button class="itembox-top-button weapon_clear_button" name="Blade">
+                  <span>🗑️</span>
+                </button>
+                <button class="itembox-top-button">
+                  <span>Blade</span>
+                </button>
+              </div>
+              <div class="item-box_wrapper">
+                <button class="item-box_button weaponMakeUp" name="Blade">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+
+            <div class="itemBox" id="weaponArtDiv">
+              <div class="itembox-top">
+                <button class="itembox-top-button weapon_clear_button" name="WeaponArt">
+                  <span>🗑️</span>
+                </button>
+                <button class="itembox-top-button">
+                  <span>Weapon Art</span>
+                </button>
+              </div>
+              <div class="item-box_wrapper">
+                <button class="item-box_button weaponMakeUp" name="WeaponArt">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="content-bar" style="background-color: white;">
+        <div id="weapon_type_div">
+          <span id="weapon_type_text">Weapon Type: </span>
+        </div>
+        <div id="level_bar">
+          <label for="hpValue" id="healthLabel">Health</label>
+          <input type="text" id="hpValue" placeholder="100/100">
+        </div>
+        <div id="level_bar">
+          <label for="levelValue" id="levelLabel">Level</label>
+          <input type="text" id="levelValue">
+        </div>
+      </div>
+      
+      <div class="content-bar" id="infusions_gear" style="display: none;">
+         <div class="content-title">
+          <h3>Infusions</h3>
+          <button id="showMainGear">
+           <span>Armor</span>
+          </button>
+        </div>
+
+        <div class="item_Box_Containers" id="infuse_top">
+            <div class="itemBox" id="infuse_headDiv">
+              <div class="itembox-top">
+                <button class="itembox-top-button infuse_clear_button" name="Helmet">
+                  <span>🗑️</span>
+                </button>
+                <button class="itembox-top-button">
+                  <span>Helmet</span>
+                </button>
+              </div>
+              <div class="item-box_wrapper">
+                <button class="item-box_button infuseGear" name="Helmet">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+        </div>
+
+        <div class="item_Box_Containers" id="infuse_middle">
+            <div class="itemBox" id="infuse_ringDiv" >
+              <div class="itembox-top">
+                <button class="itembox-top-button infuse_clear_button" name="Ring">
+                  <span>🗑️</span>
+                </button>
+                 <button class="itembox-top-button">
+                  <span>Ring</span>
+                </button>
+              </div>
+              <div class="item-box_wrapper">
+                <button class="item-box_button infuseGear" name="Ring">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+
+            <div class="itemBox" id="infuse_chestplateDiv" >
+              <div class="itembox-top">
+                <button class="itembox-top-button infuse_clear_button" name="Chestplate">
+                  <span>🗑️</span>
+                </button>
+                 <button class="itembox-top-button">
+                  <span>Chestplate</span>
+                </button>
+              </div>
+              <div class="item-box_wrapper">
+                <button class="item-box_button infuseGear" name="Chestplate">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+
+            <div class="itemBox" id="infuse_runeDiv" style="display: none;" >
+              <div class="itembox-top">
+                <button class="itembox-top-button infuse_clear_button" name="Rune">
+                  <span>🗑️</span>
+                </button>
+                <button class="itembox-top-button">
+                  <span>Rune</span>
+                </button>
+              </div>
+              <div class="item-box_wrapper">
+                <button class="item-box_button infuseGear" name="Rune">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" >
+                </button>
+              </div>
+            </div>
+        </div>
+ 
+        <div class="item_Box_Containers" id="infuse_bottom">
+            <div class="itemBox" id="infuse_leggingsDiv">
+              <div class="itembox-top">
+                <button class="itembox-top-button infuse_clear_button" name="Legging">
+                  <span>🗑️</span>
+                </button>
+                 <button class="itembox-top-button">
+                  <span>Leggings</span>
+                </button>
+              </div>
+              <div class="item-box_wrapper">
+                <button class="item-box_button infuseGear" name="Legging">
+                  <img class="item-box_img" src="/image/Plus_symbol.png">
+                </button>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="content-bar" id="main_gear">
+        <div class="content-title">
+          <h3>Main Armor</h3>
+          <button id="showInfusions">
+           <span>Infusions</span>
+          </button>
+        </div>
+
+        <div class="item_Box_Containers" id="top">
+            <div class="itemBox" id="headDiv">
+              <div class="itembox-top">
+                <button class="itembox-top-button clear_button" name="Helmet">
+                  <span>🗑️</span>
+                </button>
+                <button class="itembox-top-button">
+                  <span>Helmet</span>
+                </button>
+                <button class="itembox-top-button">
+                  <span>✨</span>
+                </button>
+              </div>
+              <div class="enchants-div-container">
+                <select class="select_enchant" name="Helmet" required>
+                    <option value="" disabled selected>Choose an enchantment</option>
+                </select>
+
+                <select class="select_enchant" name="Helmet" required>
+                      <option value="" disabled selected>Choose an enchantment</option>
+                </select>
+
+                <select class="select_enchant" name="Helmet" required>
+                      <option value="" disabled selected>Choose an enchantment</option>
+                </select>
+              </div>
+              <div class="item-box_wrapper" style="display: none;">
+                <button class="item-box_button mainGear" name="Helmet">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+        </div>
+
+        <div class="item_Box_Containers" id="middle">
+            <div class="itemBox" id="ringDiv" >
+              <div class="itembox-top">
+                <button class="itembox-top-button clear_button" name="Ring">
+                  <span>🗑️</span>
+                </button>
+                 <button class="itembox-top-button">
+                  <span>Ring</span>
+                </button>
+                <button class="itembox-top-button">
+                  <span>✨</span>
+                </button>
+              </div>
+              <div class="item-box_wrapper">
+                <button class="item-box_button mainGear" name="Ring">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+
+            <div class="itemBox" id="chestplateDiv" >
+              <div class="itembox-top">
+                <button class="itembox-top-button clear_button" name="Chestplate">
+                  <span>🗑️</span>
+                </button>
+                 <button class="itembox-top-button">
+                  <span>Chestplate</span>
+                </button>
+                <button class="itembox-top-button">
+                  <span>✨</span>
+                </button>
+              </div>
+              <div class="item-box_wrapper">
+                <button class="item-box_button mainGear" name="Chestplate">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+
+            <div class="itemBox" id="runeDiv" >
+              <div class="itembox-top">
+                <button class="itembox-top-button clear_button" name="Rune">
+                  <span>🗑️</span>
+                </button>
+                <button class="itembox-top-button">
+                  <span>Rune</span>
+                </button>
+                <button class="itembox-top-button">
+                  <span>✨</span>
+                </button>
+              </div>
+              <div class="item-box_wrapper">
+                <button class="item-box_button mainGear" name="Rune">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" >
+                </button>
+              </div>
+            </div>
+        </div>
+ 
+        <div class="item_Box_Containers" id="bottom">
+            <div class="itemBox" id="leggingsDiv">
+              <div class="itembox-top">
+                <button class="itembox-top-button clear_button" name="Legging">
+                  <span>🗑️</span>
+                </button>
+                 <button class="itembox-top-button">
+                  <span>Leggings</span>
+                </button>
+                <button class="itembox-top-button">
+                  <span>✨</span>
+                </button>
+              </div>
+              <div class="item-box_wrapper">
+                <button class="item-box_button mainGear" name="Legging">
+                  <img class="item-box_img" src="/image/Plus_symbol.png">
+                </button>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="statHolder_template" style="display: none;" id="statHolder_template">
+        <span class="stat_text"></span>
+        <span class="stat_value"></span>
+      </div>
+
+      <div class="content-bar statHolder-bar">
+
+        <div class="statHolder-Div">
+          <span>Stats</span>
+          <div class="stat_Container flow_scrollbar" id="stats">
+      
+          </div>
+        </div>
+
+        <div class="statHolder-Div">
+          <span>Perks</span>
+          <div class="stat_Container flow_scrollbar" id="perks">
+      
+          </div>
+        </div>
+
+        <div class="statHolder-Div">
+          <span>Potencies</span>
+          <div class="stat_Container flow_scrollbar" id="potencies">
+      
+          </div>
+        </div>
+
+        <div class="statHolder-Div">
+          <span>Damage Scalings</span>
+          <div class="stat_Container flow_scrollbar" id="damageScalings">
+      
+          </div>
+        </div>
+
+        <div class="statHolder-Div">
+          <span>Damage Types</span>
+          <div class="stat_Container flow_scrollbar" id="damageTypes">
+      
+          </div>
+        </div>
+      </div>
+
+      <div class="content-bar statHolder-bar">
+        
+        <div class="buffHolder-Div">
+          <span>Buffs</span>
+          <div class="buff_Container flow_scrollbar" id="buffs">
+            <div class="buff_Select" id="selectbuff_template">
+              <div class="select_buff_wrapper">
+                <button class="add_buff_button" id="addBuff">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="buffHolder-Div">
+          <span>Debuffs</span>
+          <div class="buff_Container flow_scrollbar" id="debuffs">
+            <div class="buff_Select" id="selectbuff_template">
+              <div class="select-box_wrapper">
+                <button class="add_buff_button" id="addDeBuff">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-bar statHolder-bar">
+
+        <div class="statHolder-Div">
+          <span>Damage Modifications & Bonuses</span>
+          <div class="stat_Container flow_scrollbar" id="damageModifications">
+      
+          </div>
+        </div>
+
+        <div class="statHolder-Div">
+          <span>Total Damage Multipliers</span>
+          <div class="stat_Container flow_scrollbar" id="damageMultiplier ">
+      
+          </div>
+        </div>
+      </div>
+
+      <div class="content-bar statHolder-bar">
+        <div class="damageHolder-Div">
+          <span class="damageHolder_label">M1 damage</span>
+          <div class="table_container-div flow_scrollbar">
+            <table class="damage_Table_Container " id="m1_damage_table">
+              <tr class="damage_Table_column" id="damage_table_header" >
+                <th class="damage_colunm_cell" id="damage_header"><span>Damage</span></th> 
+              </tr>
+              <tr class="damage_Table_row" style="display: none;" id="damage_row_template">
+                <td class="damage_row_cell">True</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="damageHolder-Div">
+          <span class="damageHolder_label">M2 damage</span>
+          <div class="table_container-div flow_scrollbar">
+            <table class="damage_Table_Container " id="m2_damage_table">
+              <tr class="damage_Table_column" id="damage_table_header" >
+                <th class="damage_colunm_cell" id="damage_header"><span>Damage</span></th> 
+              </tr>
+              
+            </table>
+          </div>
+        </div>
+
+        <div class="damageHolder-Div">
+          <span>Perk damage</span>
+          <div class="stat_Container flow_scrollbar" id="perk_damage">
+           
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="/dist/public/script.js"></script>
+</body>
+</html>
+
+ <!-- <div class="main-menu-link__wrapper">
+  <button class="main-menu-link" type="button" onclick="window.location.href = 'users/index.html';">
+    <div class="main-menu-link__title">
+      <span style="white-space:pre-line">Users</span>
+    </div>
+    <span class="main-menu-link__arrow"><svg class="arrow-vertical-animated" height="8" width="12"><path d="M2 2 L6 6"></path><path d="M6 6 L10 2"></path></svg></span>
+  </button>
+</div> -->
