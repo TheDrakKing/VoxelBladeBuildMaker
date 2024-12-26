@@ -65,6 +65,8 @@ const m2DamageTable = document.getElementById("m2_damage_table") as HTMLDivEleme
 const damageHeaderTemplate = document.getElementById("damage_header") as HTMLDivElement;
 const damageRowTemplate = document.getElementById("damage_row_template") as HTMLDivElement;
 
+let t = 0;
+
 // Create the build object
 let build: Build.Build = {
  mainArmor: {},
