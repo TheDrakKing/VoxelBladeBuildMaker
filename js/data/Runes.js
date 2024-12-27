@@ -10,6 +10,6 @@ export const Runes = {
     stats: {
       JumpBoost: 5,
     },
-    img: "VoxelBladeBuildMaker/image/runes/bouncerune.png",
+    img: "/image/runes/bouncerune.png",
   },
 };

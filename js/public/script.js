@@ -295,18 +295,18 @@ function updateBuild(item, section, action, key, enchantIndex, htmlElement) {
     if (action == "remove" && key) {
         if (key == "blade" || key == "handle" || key == "weaponArt") {
             delete build[key];
-            imgHolders[key].src = "VoxelBladeBuildMaker/image/Plus_symbol.png";
+            imgHolders[key].src = "/image/Plus_symbol.png";
             imgHolders[key].alt = "add Item";
         }
         else if (section) {
             if (section == "infuseArmor" || section == "mainArmor") {
                 delete build[section][key];
                 if (section == "infuseArmor") {
-                    infusionImgHolders[key].src = "VoxelBladeBuildMaker/image/Plus_symbol.png";
+                    infusionImgHolders[key].src = "/image/Plus_symbol.png";
                     infusionImgHolders[key].alt = "add Item";
                 }
                 else {
-                    imgHolders[key].src = "VoxelBladeBuildMaker/image/Plus_symbol.png";
+                    imgHolders[key].src = "/image/Plus_symbol.png";
                     imgHolders[key].alt = "add Item";
                 }
             }
@@ -429,7 +429,7 @@ function loadSelectorPage(category, section, index, htmlElement) {
     let blankItem = new ItemModule.Item();
     blankItem.name = "none";
     blankItem.id = "none";
-    blankItem.img = "VoxelBladeBuildMaker/image/close_X.png";
+    blankItem.img = "/image/close_X.png";
 
     let removeItemBox = createItemBox(blankItem);
     selectItemDivs.push([removeItemBox, blankItem]);

@@ -10,6 +10,6 @@ export const Rings = {
         perks: {
             Ignition: 1,
         },
-        img: "VoxelBladeBuildMaker/image/rings/firering.png",
+        img: "/image/rings/firering.png",
     },
 };

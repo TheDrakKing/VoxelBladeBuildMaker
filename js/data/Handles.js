@@ -11,7 +11,7 @@ export const Handles = {
             Physical: 0.15,
             Dexterity: 0.15,
         },
-        img: "VoxelBladeBuildMaker/image/handles/basichandle.png",
+        img: "/image/handles/basichandle.png",
     },
     scourgers_Handle: {
         id: "scourgers_Handle",
@@ -30,7 +30,7 @@ export const Handles = {
         perks: {
             scourge: 1,
         },
-        img: "VoxelBladeBuildMaker/image/handles/scourgers_handle.png",
+        img: "/image/handles/scourgers_handle.png",
     },
     zweihander_handle: {
         id: "zweihander_handle",
@@ -51,7 +51,7 @@ export const Handles = {
         perks: {
             highlander: 1,
         },
-        img: "VoxelBladeBuildMaker/image/handles/zweihander_handle.png",
+        img: "/image/handles/zweihander_handle.png",
     },
     spike_pole: {
         id: "spike_pole",
@@ -71,7 +71,7 @@ export const Handles = {
         perks: {
             hemorrhage: 1,
         },
-        img: "VoxelBladeBuildMaker/image/handles/spike_pole.png",
+        img: "/image/handles/spike_pole.png",
     },
     serrated_handle: {
         id: "serrated_handle",
@@ -93,7 +93,7 @@ export const Handles = {
         perks: {
             vicious_edge: 1,
         },
-        img: "VoxelBladeBuildMaker/image/handles/serrated_handle.png",
+        img: "/image/handles/serrated_handle.png",
     },
     bloodied_guard: {
         id: "bloodied_guard",
@@ -115,7 +115,7 @@ export const Handles = {
             duelist_stance: 1,
             bloodlust: 1,
         },
-        img: "VoxelBladeBuildMaker/image/handles/bloodied_guard.png",
+        img: "/image/handles/bloodied_guard.png",
     },
     beastial_handle: {
         id: "beastial_handle",
@@ -138,7 +138,7 @@ export const Handles = {
         perks: {
             beastial_rage: 1,
         },
-        img: "VoxelBladeBuildMaker/image/handles/beastial_handle.png",
+        img: "/image/handles/beastial_handle.png",
     },
     omega_lance_handle: {
         id: "omega_lance_handle",
@@ -161,6 +161,6 @@ export const Handles = {
         perks: {
             heat_drill: 1,
         },
-        img: "VoxelBladeBuildMaker/image/handles/omegalancehandle.png",
+        img: "/image/handles/omegalancehandle.png",
     },
 };
