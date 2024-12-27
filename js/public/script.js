@@ -429,7 +429,7 @@ function loadSelectorPage(category, section, index, htmlElement) {
     let blankItem = new ItemModule.Item();
     blankItem.name = "none";
     blankItem.id = "none";
-    blankItem.img = "../../image/close_X.png";
+    blankItem.img = "/image/Plus_symbol.png";
 
     let removeItemBox = createItemBox(blankItem);
     selectItemDivs.push([removeItemBox, blankItem]);
