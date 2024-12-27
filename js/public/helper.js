@@ -11,7 +11,6 @@ function totalMultiplier(dmgBonusMults) {
     return total;
 }
 function levelBoost(build) {
-    console.log(build.level);
     return build.level * 1.25;
 }
 function getAtkPerkModifications(event, holder, baseDamage, outputType) {
