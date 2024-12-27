@@ -429,7 +429,8 @@ function loadSelectorPage(category, section, index, htmlElement) {
     let blankItem = new ItemModule.Item();
     blankItem.name = "none";
     blankItem.id = "none";
-    blankItem.img = "/image/close_X.png";
+    blankItem.img = "../../image/close_X.png";
+
     let removeItemBox = createItemBox(blankItem);
     selectItemDivs.push([removeItemBox, blankItem]);
     let key = category.toLowerCase();
