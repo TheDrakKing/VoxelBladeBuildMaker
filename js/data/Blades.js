@@ -14,7 +14,7 @@ export const Blades = {
     damageTypes: {
       Physical: 1,
     },
-    img: "VoxelBladeBuildMaker/image/blades/basicblade.png",
+    img: "/image/blades/basicblade.png",
   },
   scourgers_blade: {
     id: "scourgers_blade",
@@ -37,7 +37,7 @@ export const Blades = {
     perks: {
       scourge: 1,
     },
-    img: "VoxelBladeBuildMaker/image/blades/scourgers_blade.png",
+    img: "/image/blades/scourgers_blade.png",
   },
   zweihander_blade: {
     id: "zweihander_blade",
