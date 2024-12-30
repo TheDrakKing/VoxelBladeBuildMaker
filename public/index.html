@@ -30,6 +30,7 @@
               <div class="select-box_wrapper">
                 <button class="select-box_button">
                   <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -140,6 +141,7 @@
               <div class="item-box_wrapper">
                 <button class="item-box_button infuseGear" name="Helmet">
                   <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -158,6 +160,7 @@
               <div class="item-box_wrapper">
                 <button class="item-box_button infuseGear" name="Ring">
                   <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -174,6 +177,7 @@
               <div class="item-box_wrapper">
                 <button class="item-box_button infuseGear" name="Chestplate">
                   <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -190,6 +194,7 @@
               <div class="item-box_wrapper">
                 <button class="item-box_button infuseGear" name="Rune">
                   <img class="item-box_img" src="/image/Plus_symbol.png" >
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -208,6 +213,7 @@
               <div class="item-box_wrapper">
                 <button class="item-box_button infuseGear" name="Legging">
                   <img class="item-box_img" src="/image/Plus_symbol.png">
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -259,6 +265,7 @@
               <div class="item-box_wrapper">
                 <button class="item-box_button mainGear" name="Helmet">
                   <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -301,6 +308,7 @@
               <div class="item-box_wrapper">
                 <button class="item-box_button mainGear" name="Ring">
                   <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -341,6 +349,7 @@
               <div class="item-box_wrapper">
                 <button class="item-box_button mainGear" name="Chestplate">
                   <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -381,6 +390,7 @@
               <div class="item-box_wrapper">
                 <button class="item-box_button mainGear" name="Rune">
                   <img class="item-box_img" src="/image/Plus_symbol.png" >
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -423,6 +433,7 @@
               <div class="item-box_wrapper">
                 <button class="item-box_button mainGear" name="Legging">
                   <img class="item-box_img" src="/image/Plus_symbol.png">
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -472,31 +483,75 @@
         </div>
       </div>
 
+      <div class="buff_Select" style="display: none;" id="buff_template">
+        <div class="select_buff_wrapper">
+          <button class="add_buff_button" id="removeBuff">
+            <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+            <span></span>
+          </button>
+        </div>
+      </div>
+
       <div class="content-bar statHolder-bar">
-        
         <div class="buffHolder-Div">
           <span>Buffs</span>
-          <div class="buff_Container flow_scrollbar" id="buffs">
-            <div class="buff_Select" id="selectbuff_template">
+          <div class="buff_Container flow_scrollbar" id="buffs_container">
+
+            <div class="buff_Select" id="selectbuff">
               <div class="select_buff_wrapper">
                 <button class="add_buff_button" id="addBuff">
                   <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
                 </button>
               </div>
             </div>
+
           </div>
         </div>
 
         <div class="buffHolder-Div">
           <span>Debuffs</span>
-          <div class="buff_Container flow_scrollbar" id="debuffs">
-            <div class="buff_Select" id="selectbuff_template">
+          <div class="buff_Container flow_scrollbar" id="debuffs_container">
+            
+            <div class="buff_Select" id="selectdebuff">
               <div class="select-box_wrapper">
                 <button class="add_buff_button" id="addDeBuff">
                   <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
                 </button>
               </div>
             </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="content-bar statHolder-bar" id="target_status">
+        <div class="buffHolder-Div">
+          <span>Buffs</span>
+          <div class="buff_Container flow_scrollbar" id="target_buffs_container">
+
+            <div class="buff_Select" id="selectTargetBuff">
+              <div class="select_buff_wrapper">
+                <button class="add_buff_button" id="addBuff">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="buffHolder-Div">
+          <span>Debuffs</span>
+          <div class="buff_Container flow_scrollbar" id="target_debuffs_container">
+            
+            <div class="buff_Select" id="selectTargetDebuff">
+              <div class="select-box_wrapper">
+                <button class="add_buff_button" id="addDeBuff">
+                  <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

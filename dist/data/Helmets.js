@@ -20,7 +20,7 @@ export const Helmets = {
         perks: {
             potion_chugger: 1,
         },
-        img: "/BrillGem.png",
+        img: "",
     },
     animal_tamer_hat: {
         id: "animal_tamer_hat",
@@ -39,7 +39,7 @@ export const Helmets = {
         perks: {
             rider: 1,
         },
-        img: "/BrillGem.png",
+        img: "",
     },
     berserking_helmet: {
         id: "berserking_helmet",
@@ -57,7 +57,7 @@ export const Helmets = {
         perks: {
             berserkingstrength: 1,
         },
-        img: "/BrillGem.png",
+        img: "",
     },
     winter_woof_hood: {
         id: "winter_woof_hood",
@@ -75,7 +75,7 @@ export const Helmets = {
         perks: {
             blood_thirsty: +1,
         },
-        img: "/BrillGem.png",
+        img: "",
     },
     croakernaut_helmet: {
         id: "croakernaut_helmet",
@@ -95,6 +95,131 @@ export const Helmets = {
         perks: {
             shielding_gong: +1,
         },
-        img: "/BrillGem.png",
+        img: "",
+    },
+    thornmaiden_helmet: {
+        id: "thornmaiden_helmet",
+        name: "Thorn Maiden Helmet",
+        category: "Armor",
+        type: "Helmet",
+        description: "A crimson red helmet made by combining Blood Iron and Caci, very sharp.",
+        stats: {
+            PhysicalDefense: 10,
+            PhysicalBoost: 10,
+            Protection: 8,
+            DexterityBoost: 10,
+        },
+        perks: {
+            barbskin: +1,
+        },
+        img: "",
+    },
+    dunefang_helmet: {
+        id: "dunefang_helmet",
+        name: "Dunefang Helemt",
+        category: "Armor",
+        type: "Helmet",
+        description: "The unwavering resolve of the Dunefang resides within this helmet!.",
+        stats: {
+            SpeedBoost: 11,
+            Tenacity: -0.1,
+            HeatResistance: 200,
+            EarthBoost: 18,
+            FireDefense: 20,
+        },
+        perks: {
+            pulverizing_rush: +1,
+        },
+        img: "",
+    },
+    gladiator_helmet: {
+        id: "gladiator_helmet",
+        name: "Gladiator Helemt",
+        category: "Armor",
+        type: "Helmet",
+        description: "Mask worn by many fighters who have bested the arena!",
+        stats: {
+            EarthDefense: -10,
+            SpeedBoost: 9,
+            DexterityBoost: 11,
+            PhysicalBoost: 12,
+            JumpBoost: 1,
+            AttackSpeed: 5,
+        },
+        perks: {
+            fury: +1,
+        },
+        img: "",
+    },
+    ironslayer_helmet: {
+        id: "ironslayer_helmet",
+        name: "Iron Slayer Helemt",
+        category: "Armor",
+        type: "Helmet",
+        description: "A helmet corrupted by the void. Fits oddly snug on your head.",
+        stats: {
+            SpeedBoost: -5,
+            PhysicalDefense: 15,
+            PhysicalBoost: 25,
+            Protection: 5,
+            MagicDefense: -20,
+        },
+        perks: {
+            void_rage: +1,
+        },
+        img: "",
+    },
+    omegabatty_helmet: {
+        id: "omegabatty_helmet",
+        name: "Omega-Batty Helemt",
+        category: "Armor",
+        type: "Helmet",
+        description: "A warm tempestuous energy courses though your mind while wearing this helmet.",
+        stats: {
+            FireBoost: 15,
+            AirBoost: 15,
+            PhysicalDefense: 15,
+            JumpBoost: 3,
+            AirDefense: 12,
+            AttackSpeed: 2,
+        },
+        perks: {
+            echo_incineration: +1,
+        },
+        img: "",
+    },
+    sunkenpirate_hat: {
+        id: "sunkenpirate_hat",
+        name: "Sunken Pirate Hat",
+        category: "Armor",
+        type: "Helmet",
+        description: "Murky pirate hat found deep in the coral.",
+        stats: {
+            WaterDefense: -5,
+            WaterBoost: 15,
+            PhysicalBoost: 15,
+            AttackSpeed: 3,
+        },
+        perks: {
+            strong_tides: +1,
+        },
+        img: "",
+    },
+    reaperninja_hood: {
+        id: "reaperninja_hood",
+        name: "Reaper Ninja Hood",
+        category: "Armor",
+        type: "Helmet",
+        description: "Eyes in the dark.",
+        stats: {
+            PhysicalDefense: 5,
+            DexterityBoost: 12,
+            SpeedBoost: 5,
+            HexBoost: 12,
+        },
+        perks: {
+            reaper: +1,
+        },
+        img: "",
     },
 };

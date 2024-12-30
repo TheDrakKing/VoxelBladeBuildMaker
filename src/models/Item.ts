@@ -1,4 +1,4 @@
-import * as Build from "./Build";
+import * as Build from "./Build.js";
 import { Helmets } from "../data/Helmets.js";
 import { Chestplate } from "../data/Chestplates.js";
 import { Leggings } from "../data/Leggings.js";
@@ -7,7 +7,6 @@ import { Handles } from "../data/Handles.js";
 import { Rings } from "../data/Rings.js";
 import { Runes } from "../data/Runes.js";
 import { Enchantments } from "../data/Enchantments.js";
-
 
 export type ItemDataTable = { [id: string]: Item };
 
@@ -23,7 +22,8 @@ const enchantmentsTable: ItemDataTable = Enchantments;
 export class events {
   onAdded?: (this: Build.Build, perkAmount: number, armor: Item) => void;
   onRemove?: (this: Build.Build, perkAmount: number, armor: Item) => void;
-  onStatCalculation?: (this: Build.Build, perkAmount: number, armor: Item) => void;
+  onStatCalculation?: (this: Build.Build, perkAmount?: number, stat?: Build.stats) => void;
+  onArmorStatModified?: (this: Build.Build, perkAmount?: number, stat?: Build.stats) => void;
   onStatModified?: (this: Build.Build, perkAmount: number) => number | false | null;
   onArmorModified?: (this: Build.Build, perkAmount: number) => number | false | null;
   onBuffAdded?: (this: Build.Build, perkAmount: number) => number | false | null;
@@ -36,12 +36,16 @@ export class events {
 export type potency =
   | "bouncepotency"
   | "bleedpotency"
-  | "burnboost";
+  | "burnboost"
+  | "poisonpotency"
+  | "ragepotency";
 
-export const potencyAliases: { [id: string]: string } = {
+export const potencyAliases: { [k in potency]: string } = {
   bouncepotency: "Bounce Potency",
   bleedpotency: "Bounce Potency",
   burnboost: "Bounce Potency",
+  ragepotency: "Rage Potency",
+  poisonpotency: "Poison Potency",
 };
 
 export type stat =
@@ -87,7 +91,7 @@ export type scale =
 
 export type damageType = scale;
 
-export class Item {
+export class Item extends events {
   id: string;
   name: string;
   category?: string;
@@ -101,18 +105,8 @@ export class Item {
   damageScalings?: { [k in scale]?: number };
   damageTypes?: { [k in damageType]?: number };
 
-  onAdded?: (this: Build.Build, perkAmount: number, armor: Item) => void;
-  onRemove?: (this: Build.Build, perkAmount: number, armor: Item) => void;
-  onStatCalculation?: (this: Build.Build, perkAmount?: number, stat?: Build.stats) => void;
-  onArmorStatModified?: (this: Build.Build, perkAmount?: number, stat?: Build.stats) => void;
-  onStatModified?: (this: Build.Build, perkAmount: number) => number | false | null;
-  onArmorModified?: (this: Build.Build, perkAmount: number) => number | false | null;
-  onBuffAdded?: (this: Build.Build, perkAmount: number) => number | false | null;
-  onDeBuffAdded?: (this: Build.Build, perkAmount: number) => number | false | null;
-  onBuffRemoved?: (this: Build.Build, perkAmount: number) => number | false | null;
-  onDeBuffRemoved?: (this: Build.Build, perkAmount: number) => number | false | null;
-
   constructor(data?: any) {
+    super()
     Object.assign(this, data)
     this.id = data?.id || undefined;
     this.name = data?.name || "";

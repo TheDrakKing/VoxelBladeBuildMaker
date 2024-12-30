@@ -20,7 +20,7 @@ export const Chestplate: import("../models/Item").ItemDataTable = {
     perks: {
       potion_chugger: 1,
     },
-    img: "/BrillGem.png",
+    img: "",
   },
   alchemical_tamer_shirt: {
     id: "alchemical_tamer_shirt",
@@ -39,7 +39,7 @@ export const Chestplate: import("../models/Item").ItemDataTable = {
     perks: {
       rider: 1,
     },
-    img: "/BrillGem.png",
+    img: "",
   },
   berserking_chestplate: {
     id: "berserking_chestplate",
@@ -57,7 +57,7 @@ export const Chestplate: import("../models/Item").ItemDataTable = {
     perks: {
       berserkingstrength: 1,
     },
-    img: "/BrillGem.png",
+    img: "",
   },
   winter_woof_cloak: {
     id: "winter_woof_cloak",
@@ -76,14 +76,15 @@ export const Chestplate: import("../models/Item").ItemDataTable = {
     perks: {
       blood_thirsty: +1,
     },
-    img: "/BrillGem.png",
+    img: "",
   },
   croakernaut_chestplate: {
     id: "croakernaut_chestplate",
     name: "Croakernaut Chestplate",
     category: "Armor",
     type: "Chestplate",
-    description: "Chestplate worn by the hearty and prideful Croakernaut, gong!",
+    description:
+      "Chestplate worn by the hearty and prideful Croakernaut, gong!",
     stats: {
       PhysicalDefense: 16,
       PhysicalBoost: 8,
@@ -96,6 +97,134 @@ export const Chestplate: import("../models/Item").ItemDataTable = {
     perks: {
       shielding_gong: +1,
     },
-    img: "/BrillGem.png",
+    img: "",
+  },
+  thornmaiden_chestplate: {
+    id: "thornmaiden_chestplate",
+    name: "Thorn Maiden Chestplate",
+    category: "Armor",
+    type: "Chestplate",
+    description:
+      "A crimson red chestplate made by combining Blood Iron and Caci, very sharp.",
+    stats: {
+      PhysicalDefense: 10,
+      PhysicalBoost: 10,
+      Protection: 8,
+      DexterityBoost: 10,
+    },
+    perks: {
+      barbskin: +1,
+    },
+    img: "",
+  },
+  dunefang_chestplate: {
+    id: "dunefang_chestplate",
+    name: "Dunefang Chestplate",
+    category: "Armor",
+    type: "Chestplate",
+    description:
+      "The wild untapped potentional of the Dunefang resides within this chestplate!.",
+    stats: {
+      SpeedBoost: 11,
+      Tenacity: -0.1,
+      HeatResistance: 200,
+      EarthBoost: 18,
+      FireDefense: 20,
+    },
+    perks: {
+      pulverizing_rush: +1,
+    },
+    img: "",
+  },
+  gladiator_chestplate: {
+    id: "gladiator_chestplate",
+    name: "Gladiator Chestplate",
+    category: "Armor",
+    type: "Chestplate",
+    description: "Chestplate worn by many brutal combatants of the arena!.",
+    stats: {
+      EarthDefense: -10,
+      SpeedBoost: 9,
+      DexterityBoost: 11,
+      PhysicalBoost: 12,
+      JumpBoost: 1,
+      AttackSpeed: 5,
+    },
+    perks: {
+      fury: +1,
+    },
+    img: "",
+  },
+  ironslayer_chestplate: {
+    id: "ironslayer_chestplate",
+    name: "Iron Slayer Chestplate",
+    category: "Armor",
+    type: "Chestplate",
+    description:
+      "A chestplate corrupted by the void. A little spacious but it works.",
+    stats: {
+      SpeedBoost: -5,
+      PhysicalDefense: 15,
+      PhysicalBoost: 25,
+      Protection: 5,
+      MagicDefense: -20,
+    },
+    perks: {
+      void_rage: +1,
+    },
+    img: "",
+  },
+  omegabatty_chestplate: {
+    id: "omegabatty_chestplate",
+    name: "Omega-Batty Chestplate",
+    category: "Armor",
+    type: "Chestplate",
+    description: "Heat courses though this armor waiting to be released.",
+    stats: {
+      FireBoost: 15,
+      AirBoost: 15,
+      PhysicalDefense: 15,
+      JumpBoost: 3,
+      AirDefense: 12,
+      AttackSpeed: 2,
+    },
+    perks: {
+      echo_incineration: +1,
+    },
+    img: "",
+  },
+  sunkenpirate_shirt: {
+    id: "sunkenpirate_shirt",
+    name: "Sunken Pirate Shirt",
+    category: "Armor",
+    type: "Chestplate",
+    description: "Murky pirate shirt found deep in the coral.",
+    stats: {
+      WaterDefense: -5,
+      WaterBoost: 15,
+      PhysicalBoost: 15,
+      AttackSpeed: 3,
+    },
+    perks: {
+      strong_tides: +1,
+    },
+    img: "",
+  },
+  reaperninja_cloak: {
+    id: "reaperninja_cloak",
+    name: "Reaper Ninja Cloak",
+    category: "Armor",
+    type: "Chestplate",
+    description: "Silent as the night.",
+    stats: {
+      PhysicalDefense: 5,
+      DexterityBoost: 12,
+      SpeedBoost: 5,
+      HexBoost: 12,
+    },
+    perks: {
+      reaper: +1,
+    },
+    img: "",
   },
 };

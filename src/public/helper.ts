@@ -215,12 +215,12 @@ function runDamages(attacker: Build.Build, damageType: ItemModule.damageType, ta
   });
 }
 
-export function runDamageCalculation(build:Build.Build) {
+export function runDamageCalculation(build:Build.Build, target?:Build.Build) {
   if (!build.blade || !build.handle) return;
 
   for (const [key, value] of Object.entries(build.damageTypes) as [ItemModule.damageType,number?][]) {
     if (value === undefined) continue;
-    runDamages(build, key, targets.Dummy);
+    runDamages(build, key, target || targets.Dummy);
   }
 }
 

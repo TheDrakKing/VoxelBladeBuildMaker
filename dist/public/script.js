@@ -1,4 +1,5 @@
 import * as ItemModule from "../models/Item.js";
+import * as BuffModule from "../models/Buffs.js";
 import * as helper from "./helper.js";
 //Buttons
 const infuseGearButtons = document.querySelectorAll('.infuseGear');
@@ -20,8 +21,12 @@ const weaponContentDiv = document.getElementById("weaponDiv");
 const items_selector = document.getElementById("itemsSelectorDiv");
 const SelectorClose = document.getElementById("close_items_selector");
 const items_container = document.getElementById("itemsContainer");
+const buffs_container = document.getElementById("buffs_container");
+const debuffs_container = document.getElementById("debuffs_container");
+//template
 const selectItem_template = document.getElementById("selectItem_template");
 const statHolder_template = document.getElementById("statHolder_template");
+const buff_template = document.getElementById("buff_template");
 //Armor
 const headDiv = document.getElementById("headDiv");
 const chestplateDiv = document.getElementById("chestplateDiv");
@@ -64,6 +69,21 @@ let build = {
     totEffBoost: 0,
     m1: [],
     m2: []
+};
+let target = {
+    mainArmor: {},
+    infuseArmor: {},
+    enchantments: {},
+    level: 1,
+    potencies: {},
+    stats: {},
+    effectiveBoosts: {},
+    perks: {},
+    damageScalings: {},
+    damageTypes: {},
+    totEffBoost: 0,
+    m1: [],
+    m2: [],
 };
 let infusionImgHolders = {
     helmet: infuseHeadDiv.children[1].children[0].children[0],
@@ -110,9 +130,46 @@ function createItemBox(item) {
     clonedDiv.style.display = "flex";
     var itemBoxImg = clonedDiv.children[0].children[0].children[0];
     itemBoxImg.src = item.img ? item.img : "";
-    itemBoxImg.alt = item.name;
+    itemBoxImg.alt = item.name ? item.name : "";
+    var itemBoxspan = clonedDiv.children[0].children[0].children[1];
+    itemBoxspan.innerHTML = item.name ? item.name : "";
+    if (!item.img) {
+        itemBoxImg.style.display = "none";
+    }
+    else {
+        itemBoxspan.style.display = "none";
+    }
+    ;
     // Create a clickable link for each game
     items_container?.appendChild(clonedDiv);
+    return clonedDiv;
+}
+function createBuffBox(buff, ContainerDiv) {
+    if (buff_template == null)
+        return null;
+    const clonedDiv = buff_template.cloneNode(true);
+    // Optionally, update the cloned div (e.g., clear input fields)
+    const inputs = clonedDiv.querySelectorAll("input");
+    inputs.forEach((input) => (input.value = ""));
+    clonedDiv.style.display = "flex";
+    var itemBoxImg = clonedDiv.children[0].children[0].children[0];
+    itemBoxImg.src = buff.img ? buff.img : "";
+    itemBoxImg.alt = buff.name ? buff.name : "";
+    var itemBoxspan = clonedDiv.children[0].children[0].children[1];
+    itemBoxspan.innerHTML = buff.name ? buff.name : "";
+    var itemButton = clonedDiv.children[0].children[0];
+    if (!buff.img) {
+        itemBoxImg.style.display = "none";
+    }
+    else {
+        itemBoxspan.style.display = "none";
+    }
+    ;
+    itemButton?.addEventListener("click", () => {
+        removeBuffToBuild(buff, buff.category);
+    });
+    // Create a clickable link for each game
+    ContainerDiv?.appendChild(clonedDiv);
     return clonedDiv;
 }
 function addHeaderToTable(atkSource, holderRows, ContainerDiv) {
@@ -183,9 +240,40 @@ function displayStats() {
             continue;
         createStatHolder(key, value, damageTypesContainerDiv);
     }
+    let div = document.getElementById("selectbuff");
+    //Wipe Buff
+    buffs_container.innerHTML = "";
+    let cloneDiv = div?.cloneNode(true);
+    buffs_container.appendChild(cloneDiv);
+    //add the new ones
+    if (build.buff) {
+        for (let index = 0; index < build.buff.length; index++) {
+            const buff = build.buff[index];
+            //console.log(buff);
+            if (!buff)
+                continue;
+            createBuffBox(buff, buffs_container);
+        }
+    }
+    //Wipe deBuff
+    debuffs_container.innerHTML = "";
+    cloneDiv = div?.cloneNode(true);
+    cloneDiv.id = "selectdebuff";
+    cloneDiv.children[0].children[0].id = "addDeBuff";
+    debuffs_container.appendChild(cloneDiv);
+    //add the new ones
+    if (build.deBuffs) {
+        for (let index = 0; index < build.deBuffs.length; index++) {
+            const buff = build.deBuffs[index];
+            if (!buff)
+                continue;
+            createBuffBox(buff, debuffs_container);
+        }
+    }
+    setBuffEvents();
 }
 /////////////////////////////////////// Functions ///////////////////////////////////////
-function addItemToBuild(item, isInfuse, key) {
+function addItemStatsToBuild(item, isInfuse, key) {
     // Loop through the stats using Object.entries
     if (item) {
         if (item.stats) {
@@ -278,7 +366,42 @@ function wipeDamages(atkSource, holderRows, ContainerDiv) {
     });
     atkSource.length = 0;
 }
-function updateBuild(item, section, action, key, enchantIndex, htmlElement) {
+function removeFromBuild(key, section, enchantIndex, htmlElement) {
+    if (section !== "enchantments") {
+        key = key.toLowerCase();
+    }
+    if (key == "blade" || key == "handle" || key == "weaponArt") {
+        delete build[key];
+        imgHolders[key].src = "/Plus_symbol.png";
+        imgHolders[key].alt = "add Item";
+    }
+    else if (section) {
+        if (section == "infuseArmor" || section == "mainArmor") {
+            delete build[section][key];
+            if (section == "infuseArmor") {
+                infusionImgHolders[key].src = "/Plus_symbol.png";
+                infusionImgHolders[key].alt = "add Item";
+            }
+            else {
+                imgHolders[key].src = "/Plus_symbol.png";
+                imgHolders[key].alt = "add Item";
+            }
+        }
+        else if (section === "enchantments" && enchantIndex != undefined) {
+            if (!build.enchantments[key])
+                return;
+            delete build.enchantments[key][enchantIndex];
+            if (htmlElement) {
+                htmlElement.children[0].innerHTML = "Choose an enchantment";
+            }
+        }
+    }
+    else {
+        return;
+    }
+    resetBuild();
+}
+function addItemToBuild(item, section, key, enchantIndex, htmlElement) {
     //Clear out the selectItemDivs and there listeners
     selectItemDivs.forEach(([div]) => div.remove());
     // Clear the selectItemDivs array
@@ -292,99 +415,131 @@ function updateBuild(item, section, action, key, enchantIndex, htmlElement) {
             key = item.category === "Armor" ? item.type?.toLowerCase() : item.category?.toLowerCase();
         }
     }
-    if (action == "remove" && key) {
-        if (key == "blade" || key == "handle" || key == "weaponArt") {
-            delete build[key];
-            imgHolders[key].src = "/Plus_symbol.png";
-            imgHolders[key].alt = "add Item";
-        }
-        else if (section) {
-            if (section == "infuseArmor" || section == "mainArmor") {
-                delete build[section][key];
-                if (section == "infuseArmor") {
-                    infusionImgHolders[key].src = "/Plus_symbol.png";
-                    infusionImgHolders[key].alt = "add Item";
-                }
-                else {
-                    imgHolders[key].src = "/Plus_symbol.png";
-                    imgHolders[key].alt = "add Item";
-                }
-            }
-            else if (section === "enchantments" && enchantIndex != undefined) {
-                if (!build.enchantments[key])
-                    return;
-                delete build.enchantments[key][enchantIndex];
-                if (htmlElement) {
-                    htmlElement.children[0].innerHTML = "Choose an enchantment";
-                }
-            }
-        }
-        else {
-            return;
-        }
+    if (!key || item instanceof ItemModule.Item === false)
+        return;
+    if (key == "blade" || key == "handle" || key == "weaponArt") {
+        build[key] = item;
+        imgHolders[key].src = item.img ? item.img : "";
+        imgHolders[key].alt = item.name;
     }
-    else if (item && key) {
-        if (item instanceof ItemModule.Item) {
-            if (key == "blade" || key == "handle" || key == "weaponArt") {
-                build[key] = item;
+    else if (section) {
+        if (section === "infuseArmor" || section === "mainArmor") {
+            build[section][key] = item;
+            if (section === "infuseArmor") {
+                infusionImgHolders[key].src = item.img ? item.img : "";
+                infusionImgHolders[key].alt = item.name;
+            }
+            else {
                 imgHolders[key].src = item.img ? item.img : "";
                 imgHolders[key].alt = item.name;
             }
-            else if (section) {
-                if (section === "infuseArmor" || section === "mainArmor") {
-                    build[section][key] = item;
-                    if (section === "infuseArmor") {
-                        infusionImgHolders[key].src = item.img ? item.img : "";
-                        infusionImgHolders[key].alt = item.name;
-                    }
-                    else {
-                        imgHolders[key].src = item.img ? item.img : "";
-                        imgHolders[key].alt = item.name;
-                    }
-                }
-                else if (section === "enchantments" && enchantIndex != undefined) {
-                    if (!build.enchantments[key])
-                        build.enchantments[key] = [];
-                    build.enchantments[key][enchantIndex] = item;
-                    if (htmlElement) {
-                        htmlElement.children[0].innerHTML = item.name;
-                    }
-                }
+        }
+        else if (section === "enchantments" && enchantIndex != undefined) {
+            if (!build.enchantments[key])
+                build.enchantments[key] = [];
+            build.enchantments[key][enchantIndex] = item;
+            if (htmlElement) {
+                htmlElement.children[0].innerHTML = item.name;
             }
         }
-        else {
-            return;
-        }
     }
+    resetBuild();
+}
+function findBuffInBuild(buffToFind, category) {
+    let array;
+    if (category == "Buff") {
+        if (!build.buff)
+            return null;
+        array = build.buff;
+    }
+    else {
+        if (!build.deBuffs)
+            return null;
+        array = build.deBuffs;
+    }
+    let buff = array.find((buff) => buff?.id === buffToFind);
+    return buff;
+}
+function removeBuffToBuild(buffToFind, category) {
+    if (buffToFind instanceof BuffModule.Buff) {
+        buffToFind = buffToFind.id;
+    }
+    let buff = findBuffInBuild(buffToFind, category);
+    if (!buff)
+        return;
+    let array;
+    if (category == "Buff") {
+        if (!build.buff)
+            return;
+        let indexToFind = build.buff.indexOf(buff);
+        delete build.buff[indexToFind];
+        build.buff = build.buff.filter((_, index) => index !== indexToFind); // Remove element at index 0
+    }
+    else {
+        if (!build.deBuffs)
+            return;
+        let indexToFind = build.deBuffs.indexOf(buff);
+        delete build.deBuffs[indexToFind];
+        build.deBuffs = build.deBuffs.filter((_, index) => index !== indexToFind); // Remove element at index 0
+    }
+    // console.log(build.buff);
+    // console.log(build.buff?.length);
+    resetBuild();
+}
+function addBuffToBuild(buff) {
+    //Clear out the selectItemDivs and there listeners
+    selectItemDivs.forEach(([div]) => div.remove());
+    // Clear the selectItemDivs array
+    selectItemDivs.length = 0;
+    //reset the items selector element to none
+    items_selector.style.display = "none";
+    if (findBuffInBuild(buff.id, buff.category))
+        return; // that buff is already in the build
+    if (buff.category == "Buff") {
+        if (!build.buff)
+            build.buff = [];
+        build.buff.push(buff);
+    }
+    else {
+        if (!build.deBuffs)
+            build.deBuffs = [];
+        build.deBuffs.push(buff);
+    }
+    // console.log(build.buff);
+    // console.log(build.buff?.length);
+    resetBuild();
+}
+function resetBuild(item) {
+    ////////////////////////////////////////////////wipe the Html Elements to make way for the updates ///////////////////////////////////////////////////
     wipeStatHolders();
     build.totEffBoost = 0;
     ////////////////////////////////////////////////Add the Item stats, perks etc to the stat containers///////////////////////////////////////////////////
     if (build.blade)
-        addItemToBuild(build.blade);
+        addItemStatsToBuild(build.blade);
     if (build.handle)
-        addItemToBuild(build.handle);
+        addItemStatsToBuild(build.handle);
     if (build.weaponArt)
-        addItemToBuild(build.weaponArt);
+        addItemStatsToBuild(build.weaponArt);
     for (const [key, value] of Object.entries(build.enchantments)) {
         // key is a string, value is a number or undefined
         if (value === undefined)
             continue;
         for (let index = 0; index < value.length; index++) {
             const enchantment = value[index];
-            addItemToBuild(enchantment);
+            addItemStatsToBuild(enchantment);
         }
     }
     for (const [key, value] of Object.entries(build.infuseArmor)) {
         if (value === undefined)
             continue;
-        addItemToBuild(value, true);
+        addItemStatsToBuild(value, true);
     }
     for (const [key, value] of Object.entries(build.mainArmor)) {
         if (value === undefined)
             continue;
-        addItemToBuild(value, false, key);
+        addItemStatsToBuild(value, false, key);
     }
-    addItemToBuild(); // incase none of the others did run
+    addItemStatsToBuild(); // incase none of the others did run
     //////////////////////// Enchants activation ////////////////////////
     for (const [key, value] of Object.entries(build.enchantments)) {
         // key is a string, value is a number or undefined
@@ -400,32 +555,27 @@ function updateBuild(item, section, action, key, enchantIndex, htmlElement) {
         }
     }
     //////////////////////// Perk activation ////////////////////////
+    //////////////////////// Run the displayStats() to add show the build stats ////////////////////////
     displayStats();
+    //////////////////////// Damage Calcautuons ////////////////////////
     //Clears the damage from the tables
     wipeDamages(build.m1, m1Rows, m1DamageTable);
     wipeDamages(build.m2, m2Rows, m2DamageTable);
     //Rune the damage calculation
     build.constructionType = undefined;
-    helper.runDamageCalculation(build);
+    helper.runDamageCalculation(build, target);
     if (build.constructionType) {
         weaponTypeText.innerHTML = "Weapon Type: " + build.constructionType;
     }
     else {
         weaponTypeText.innerHTML = "Weapon Type: None";
     }
-    ;
     //Displays the Damages to the table
     addHeaderToTable(build.m1, m1Rows, m1DamageTable);
     addHeaderToTable(build.m2, m2Rows, m2DamageTable);
 }
-function loadSelectorPage(category, section, index, htmlElement) {
-    let items;
-    if (section === "enchantments") {
-        items = ItemModule.ItemStore.getByCategory("Enchantment");
-    }
-    else {
-        items = ItemModule.ItemStore.getByCategory(category);
-    }
+function loadSelectorPage(source, category, section, index, htmlElement) {
+    //Set a Dummy Item to act has a remove
     let blankItem = new ItemModule.Item();
     blankItem.name = "none";
     blankItem.id = "none";
@@ -434,9 +584,28 @@ function loadSelectorPage(category, section, index, htmlElement) {
     selectItemDivs.push([removeItemBox, blankItem]);
     let key = category.toLowerCase();
     removeItemBox?.children[0].children[0].addEventListener("click", () => {
-        updateBuild(category, section, "remove", key, index, htmlElement);
+        //Clear out the selectItemDivs and there listeners
+        selectItemDivs.forEach(([div]) => div.remove());
+        // Clear the selectItemDivs array
+        selectItemDivs.length = 0;
+        //reset the items selector element to none
+        items_selector.style.display = "none";
+        removeFromBuild(key, section, index, htmlElement);
     });
-    items.forEach((item) => {
+    //Get the actual items
+    let items;
+    if (source == "Items") {
+        if (section === "enchantments") {
+            items = ItemModule.ItemStore.getByCategory("Enchantment");
+        }
+        else {
+            items = ItemModule.ItemStore.getByCategory(category);
+        }
+    }
+    else if (source == "Buffs") {
+        items = BuffModule.BuffStore.getByCategory(category);
+    }
+    items?.forEach((item) => {
         let itemBox = createItemBox(item);
         if (!itemBox)
             return;
@@ -446,12 +615,18 @@ function loadSelectorPage(category, section, index, htmlElement) {
         if (itemBox != removeItemBox) {
             var itemBoxButton = itemBox.children[0].children[0];
             itemBoxButton.addEventListener("click", () => {
-                updateBuild(item, section, undefined, key, index, htmlElement);
+                if (item instanceof ItemModule.Item) {
+                    addItemToBuild(item, section, key, index, htmlElement);
+                }
+                else if (item instanceof BuffModule.Buff) {
+                    addBuffToBuild(item);
+                }
             });
         }
     });
     items_selector.style.display = "flex";
 }
+///////////////////////////////////////Button & input Listeners///////////////////////////////////////
 SelectorClose.addEventListener("click", () => {
     selectItemDivs.forEach(([div]) => div.remove());
     // Clear the selectItemDivs array
@@ -477,19 +652,19 @@ levelInput.addEventListener("change", () => {
     }
     levelInput.value = level.toString();
     build.level = level;
-    updateBuild();
+    resetBuild();
 });
 ///////////////////////////////////////Add the Items///////////////////////////////////////
 mainGearButtons.forEach((itembutton) => {
     itembutton.addEventListener("click", () => {
-        loadSelectorPage(itembutton.name, "mainArmor");
+        loadSelectorPage("Items", itembutton.name, "mainArmor");
     });
     let itemBox = itembutton.parentElement?.parentElement;
     let enchantmentsContainer = itemBox.children[1];
     for (let index = 0; index < enchantmentsContainer.children.length; index++) {
         const enchantSelector = enchantmentsContainer.children[index];
         enchantSelector.addEventListener("click", () => {
-            loadSelectorPage(enchantSelector.name, "enchantments", index, enchantSelector);
+            loadSelectorPage("Items", enchantSelector.name, "enchantments", index, enchantSelector);
         });
     }
     let showEnchantments = itemBox.children[0].children[2];
@@ -510,32 +685,45 @@ mainGearButtons.forEach((itembutton) => {
         if (!key || !upgradeNumber || !build.mainArmor[key])
             return;
         build.mainArmor[key].upgrade = Number(upgradeNumber);
-        updateBuild();
+        resetBuild();
     });
 });
 infuseGearButtons.forEach((itembutton) => {
     itembutton.addEventListener("click", () => {
-        loadSelectorPage(itembutton.name, "infuseArmor");
+        loadSelectorPage("Items", itembutton.name, "infuseArmor");
     });
 });
 weaponMakeUpButtons.forEach((itembutton) => {
     itembutton.addEventListener("click", () => {
-        loadSelectorPage(itembutton.name);
+        loadSelectorPage("Items", itembutton.name);
     });
 });
+function setBuffEvents() {
+    const selectBuff = document.getElementById("selectbuff");
+    const selectDebuff = document.getElementById("selectdebuff");
+    const selectTargetBuff = document.getElementById("selectTargetBuff");
+    const selectTargetDebuff = document.getElementById("selectTargetDebuff");
+    selectBuff?.addEventListener("click", () => {
+        loadSelectorPage("Buffs", "Buff");
+    });
+    selectDebuff?.addEventListener("click", () => {
+        loadSelectorPage("Buffs", "Debuff");
+    });
+}
 ///////////////////////////////////////Clear out the items///////////////////////////////////////
 infuseClearButtons.forEach((clearbutton) => {
     clearbutton.addEventListener("click", () => {
-        updateBuild(clearbutton.name, "infuseArmor", "remove");
+        removeFromBuild(clearbutton.name, "infuseArmor");
     });
 });
 clearItemButtons.forEach((clearbutton) => {
     clearbutton.addEventListener("click", () => {
-        updateBuild(clearbutton.name, "mainArmor", "remove");
+        removeFromBuild(clearbutton.name, "mainArmor");
     });
 });
 weaponClearButtons.forEach((clearbutton) => {
     clearbutton.addEventListener("click", () => {
-        updateBuild(clearbutton.name, undefined, "remove");
+        removeFromBuild(clearbutton.name, undefined);
     });
 });
+setBuffEvents();

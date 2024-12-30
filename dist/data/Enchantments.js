@@ -21,7 +21,6 @@ export const Enchantments = {
         category: "Enchantment",
         description: "Times all Positive Stats by x1.2 and half Negative stats",
         onArmorStatModified(perkAmount, stats) {
-            console.log(stats);
             if (!stats)
                 return;
             for (const [key, value] of Object.entries(stats)) {
@@ -46,7 +45,6 @@ export const Enchantments = {
             PhysicalBoost: 10,
         },
         onStatCalculation(perkAmount) {
-            console.log(this.stats);
             if (!this.stats || !this.stats.PhysicalBoost)
                 return;
             this.stats.PhysicalBoost = Math.trunc((this.stats.PhysicalBoost * 1.2) * 10) / 10;

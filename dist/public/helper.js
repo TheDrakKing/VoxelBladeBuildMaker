@@ -169,13 +169,13 @@ function runDamages(attacker, damageType, target) {
         m2Index++;
     });
 }
-export function runDamageCalculation(build) {
+export function runDamageCalculation(build, target) {
     if (!build.blade || !build.handle)
         return;
     for (const [key, value] of Object.entries(build.damageTypes)) {
         if (value === undefined)
             continue;
-        runDamages(build, key, targets.Dummy);
+        runDamages(build, key, target || targets.Dummy);
     }
 }
 export function calculateUpgrade(stats, upgrade) {
