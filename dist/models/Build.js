@@ -1,14 +1,5 @@
 import * as ItemModule from "../models/Item.js";
 import * as BuffModule from "../models/Buffs.js";
-let damageModifications = {
-    damage_bonus_mods: {},
-    damage_reduced_mods: {},
-    output_mods: {},
-    type_specific_mods: {},
-    crit_mods: {},
-    armor_mods: {},
-    special_mods: {},
-};
 let damageMultiplier = {
     // damageMultiplier is the total of damage modification of a type
     damage_bonus_multiplier: {},
@@ -32,18 +23,28 @@ export class Build {
         this.damageScalings = {};
         this.damageTypes = {};
         this.totEffBoost = 0;
+        this.guildPromotion = 0;
+        this.damageModifications = {
+            damage_bonus_mods: {},
+            damage_reduced_mods: {},
+            specific_bonus_mods: {},
+            specific_reduced_mods: {},
+            crit_mods: {},
+            armor_mods: {},
+            special_mods: {},
+        };
         this.m1 = [];
         this.m2 = [];
     }
     calculateUpgrade(stats, upgrade) {
         if (!stats)
             return stats;
-        let multiplier = (upgrade / 10);
+        let multiplier = upgrade / 10;
         for (const [key, value] of Object.entries(stats)) {
             if (value === undefined || !stats[key])
                 continue;
             let statAmount = value >= 0 ? value : value * -1;
-            stats[key] += Math.trunc((statAmount * multiplier) * 10) / 10;
+            stats[key] += Math.trunc(statAmount * multiplier * 10) / 10;
         }
         return stats;
     }
@@ -63,7 +64,7 @@ export class Build {
                             const enchantment = this.enchantments[key][index];
                             if (!enchantment.onArmorStatModified)
                                 continue;
-                            let args = [1, stats];
+                            let args = [1, undefined, stats];
                             enchantment.onArmorStatModified.apply(this, args);
                         }
                     }
@@ -71,13 +72,15 @@ export class Build {
                 //Adds the stats to the Build
                 for (const [key, value] of Object.entries(stats)) {
                     // key is a string, value is a number or undefined
-                    if (value === undefined)
+                    if (!value)
                         continue;
                     let amount = value;
                     let previousValue = this.stats[key];
-                    if (isInfuse)
+                    if (isInfuse) {
                         amount = value / 2;
+                    }
                     this.stats[key] = previousValue ? previousValue + amount : amount;
+                    this.stats[key] = Math.trunc(this.stats[key] * 100) / 100;
                 }
             }
             if (item.perks) {
@@ -104,7 +107,9 @@ export class Build {
                     if (value === undefined)
                         continue;
                     let previousValue = this.damageScalings[key];
-                    this.damageScalings[key] = previousValue ? previousValue + value : value;
+                    this.damageScalings[key] = previousValue
+                        ? previousValue + value
+                        : value;
                 }
             }
             if (item.damageTypes) {
@@ -148,13 +153,13 @@ export class Build {
         }
         // console.log(this.buff);
         // console.log(this.buff?.length);
-        //this.resetBuild();
+        this.resetBuild();
     }
     removeBuffToBuild(buffToFind, category) {
         if (buffToFind instanceof BuffModule.Buff) {
             buffToFind = buffToFind.id;
         }
-        let buff = findBuffInBuild(buffToFind, category);
+        let buff = this.findBuffInBuild(buffToFind, category);
         if (!buff)
             return;
         let array;
@@ -174,51 +179,66 @@ export class Build {
         }
         // console.log(this.buff);
         // console.log(this.buff?.length);
-        //this.resetBuild();
+        this.resetBuild();
     }
-    addItemToBuild(item, section, key, enchantIndex, htmlElement) {
-        if (section !== "enchantments") {
-            if (typeof item == "string") {
-                key = item.toLowerCase();
-            }
-            else if (item instanceof ItemModule.Item) {
+    addItemToBuild(item, section, key, enchantIndex) {
+        if (section !== "enchantments" || key !== "guild") {
+            if (item instanceof ItemModule.Item) {
                 key = item.category === "Armor" ? item.type?.toLowerCase() : item.category?.toLowerCase();
             }
         }
-        if (!key || item instanceof ItemModule.Item === false)
+        if (!key)
             return;
-        if (key == "blade" || key == "handle" || key == "weaponArt") {
+        if (key == "blade" || key == "handle" || key == "weaponArt" || key == "guild") {
             this[key] = item;
-            imgHolders[key].src = item.img ? item.img : "";
-            imgHolders[key].alt = item.name;
         }
         else if (section) {
             if (section === "infuseArmor" || section === "mainArmor") {
-                build[section][key] = item;
-                if (section === "infuseArmor") {
-                    infusionImgHolders[key].src = item.img ? item.img : "";
-                    infusionImgHolders[key].alt = item.name;
-                }
-                else {
-                    imgHolders[key].src = item.img ? item.img : "";
-                    imgHolders[key].alt = item.name;
-                }
+                this[section][key] = item;
             }
             else if (section === "enchantments" && enchantIndex != undefined) {
                 if (!this.enchantments[key])
                     this.enchantments[key] = [];
                 this.enchantments[key][enchantIndex] = item;
-                if (htmlElement) {
-                    htmlElement.children[0].innerHTML = item.name;
-                }
             }
         }
-        this.resetBuild();
+        //this.resetBuild();
+    }
+    removeFromBuild(key, section, enchantIndex) {
+        if (section !== "enchantments") {
+            key = key.toLowerCase();
+        }
+        if (key == "blade" || key == "handle" || key == "weaponArt" || key == "guild") {
+            delete this[key];
+        }
+        else if (section) {
+            if (section == "infuseArmor" || section == "mainArmor") {
+                delete this[section][key];
+            }
+            else if (section === "enchantments" && enchantIndex != undefined) {
+                if (!this.enchantments[key])
+                    return;
+                delete this.enchantments[key][enchantIndex];
+            }
+        }
+        else {
+            return;
+        }
+        //this.resetBuild();
     }
     resetBuild(item) {
         ////////////////////////////////////////////////wipe the Html Elements to make way for the updates ///////////////////////////////////////////////////
         //wipeStatHolders();
         this.totEffBoost = 0;
+        this.damageModifications = {
+            damage_bonus_mods: {},
+            damage_reduced_mods: {},
+            specific_bonus_mods: {},
+            specific_reduced_mods: {},
+            crit_mods: {},
+            armor_mods: {},
+            special_mods: {},
+        };
         ////////////////////////////////////////////////Add the Item stats, perks etc to the stat containers///////////////////////////////////////////////////
         if (this.blade)
             this.addItemStatsToBuild(this.blade);
@@ -226,6 +246,12 @@ export class Build {
             this.addItemStatsToBuild(this.handle);
         if (this.weaponArt)
             this.addItemStatsToBuild(this.weaponArt);
+        if (this.guild && this.guild.promotions) {
+            let promotion = this.guild.promotions[this.guildPromotion];
+            let guild = new ItemModule.Item({ id: this.guild.id, stats: promotion.stats, perks: promotion.perks });
+            console.log(guild);
+            this.addItemStatsToBuild(guild);
+        }
         for (const [key, value] of Object.entries(this.enchantments)) {
             // key is a string, value is a number or undefined
             if (value === undefined)
@@ -245,7 +271,6 @@ export class Build {
                 continue;
             this.addItemStatsToBuild(value, false, key);
         }
-        this.addItemStatsToBuild(); // incase none of the others did run
         //////////////////////// Enchants activation ////////////////////////
         for (const [key, value] of Object.entries(this.enchantments)) {
             // key is a string, value is a number or undefined
@@ -262,9 +287,6 @@ export class Build {
         }
         //////////////////////// Perk activation ////////////////////////
         //////////////////////// Run the displayStats() to add show the build stats ////////////////////////
-        //displayStats();
-        //////////////////////// Damage Calcautuons ////////////////////////
-        //Run the damage calculation
         this.constructionType = undefined;
     }
 }

@@ -1,3 +1,4 @@
+let images = "/image/chestplates/";
 export const Chestplate = {
     alchemical_ropes: {
         id: "alchemical_ropes",

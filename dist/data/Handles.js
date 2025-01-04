@@ -1,3 +1,4 @@
+let images = "/image/handles/";
 export const Handles = {
     basic_handle: {
         id: "basic_handle",
@@ -11,7 +12,7 @@ export const Handles = {
             Physical: 0.15,
             Dexterity: 0.15,
         },
-        img: "/handles/basichandle.png",
+        img: images + "basichandle.png",
     },
     scourgers_Handle: {
         id: "scourgers_Handle",
@@ -30,7 +31,7 @@ export const Handles = {
         perks: {
             scourge: 1,
         },
-        img: "/handles/scourgers_handle.png",
+        img: images + "scourgers_handle.png",
     },
     zweihander_handle: {
         id: "zweihander_handle",
@@ -51,7 +52,7 @@ export const Handles = {
         perks: {
             highlander: 1,
         },
-        img: "/handles/zweihander_handle.png",
+        img: images + "zweihander_handle.png",
     },
     spike_pole: {
         id: "spike_pole",
@@ -71,7 +72,7 @@ export const Handles = {
         perks: {
             hemorrhage: 1,
         },
-        img: "/handles/spike_pole.png",
+        img: images + "spike_pole.png",
     },
     serrated_handle: {
         id: "serrated_handle",
@@ -93,7 +94,7 @@ export const Handles = {
         perks: {
             vicious_edge: 1,
         },
-        img: "/handles/serrated_handle.png",
+        img: images + "serrated_handle.png",
     },
     bloodied_guard: {
         id: "bloodied_guard",
@@ -115,7 +116,7 @@ export const Handles = {
             duelist_stance: 1,
             bloodlust: 1,
         },
-        img: "/handles/bloodied_guard.png",
+        img: images + "bloodied_guard.png",
     },
     beastial_handle: {
         id: "beastial_handle",
@@ -138,7 +139,7 @@ export const Handles = {
         perks: {
             beastial_rage: 1,
         },
-        img: "/handles/beastial_handle.png",
+        img: images + "beastial_handle.png",
     },
     omega_lance_handle: {
         id: "omega_lance_handle",
@@ -161,6 +162,6 @@ export const Handles = {
         perks: {
             heat_drill: 1,
         },
-        img: "/handles/omegalancehandle.png",
+        img: images + "omegalancehandle.png",
     },
 };

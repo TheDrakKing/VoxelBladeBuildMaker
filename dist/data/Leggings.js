@@ -1,3 +1,4 @@
+let images = "/image/leggings/";
 export const Leggings = {
     alchemical_pants: {
         id: "alchemical_pants",

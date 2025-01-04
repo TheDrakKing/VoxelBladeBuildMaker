@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +12,17 @@
 
     <div class="main-page-content">
       <div class="title-bar">
-        <h3 style="color: white;">
+        <h3>
           Voxel Build Maker
         </h3>
+
+        <div class="toggle-container post_entry" id="theme_Selector">
+          <span class="toggle-label">Theme</span>
+          <label class="switch">
+              <input type="checkbox" id="theme_Selector_input">
+              <span class="slider"></span>
+          </label>
+        </div>
       </div>
 
       <div class="items_selector" id="itemsSelectorDiv">
@@ -38,20 +46,26 @@
       </div>
 
       <div class="content-bar" id="weaponDiv">
-         <div class="item_Box_Containers" id="middle">
 
-            <div class="itemBox" id="raceDiv">
+         <div class="item_Box_Containers" id="middle">
+            <div class="itemBox" id="guildDiv">
               <div class="itembox-top">
-                <button class="itembox-top-button weapon_clear_button" name="Race">
+                <button class="itembox-top-button" id="guild_clear_button" name="Guild">
                   <span>🗑️</span>
                 </button>
                 <button class="itembox-top-button">
-                  <span>Race</span>
+                  <span>Guild</span>
                 </button>
+                <select name="Guild" id="guild_promotion">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
               </div>
               <div class="item-box_wrapper">
-                <button class="item-box_button weaponMakeUp" name="Race">
+                <button class="item-box_button" name="Guild" id="guild_selector">
                   <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -68,6 +82,7 @@
               <div class="item-box_wrapper">
                 <button class="item-box_button weaponMakeUp" name="Handle">
                   <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -84,6 +99,7 @@
               <div class="item-box_wrapper">
                 <button class="item-box_button weaponMakeUp" name="Blade">
                   <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                  <span></span>
                 </button>
               </div>
             </div>
@@ -100,23 +116,30 @@
               <div class="item-box_wrapper">
                 <button class="item-box_button weaponMakeUp" name="WeaponArt">
                   <img class="item-box_img" src="/image/Plus_symbol.png" alt="">
+                  <span></span>
                 </button>
               </div>
             </div>
         </div>
       </div>
 
-      <div class="content-bar" style="background-color: white;">
+      <div class="content-bar">
         <div id="weapon_type_div">
           <span id="weapon_type_text">Weapon Type: None </span>
         </div>
-        <div id="level_bar">
+        <div id="hp_bar">
           <label for="hpValue" id="healthLabel">Health</label>
           <input type="text" id="hpValue" placeholder="100/100">
         </div>
         <div id="level_bar">
           <label for="levelValue" id="levelLabel">Level</label>
           <input type="text" id="levelValue" value="1">
+        </div>
+        <div id="race_bar">
+          <label for="Race" id="RaceLabel">Race</label>
+          <select name="" id="race_selector">
+            <option value="">Choose a Race</option>
+          </select>
         </div>
       </div>
       
@@ -526,7 +549,7 @@
 
       <div class="content-bar statHolder-bar" id="target_status">
         <div class="buffHolder-Div">
-          <span>Buffs</span>
+          <span>Target Buffs</span>
           <div class="buff_Container flow_scrollbar" id="target_buffs_container">
 
             <div class="buff_Select" id="selectTargetBuff">
@@ -541,7 +564,7 @@
         </div>
 
         <div class="buffHolder-Div">
-          <span>Debuffs</span>
+          <span>Target Debuffs</span>
           <div class="buff_Container flow_scrollbar" id="target_debuffs_container">
             
             <div class="buff_Select" id="selectTargetDebuff">
@@ -556,16 +579,16 @@
         </div>
       </div>
 
-      <div class="content-bar statHolder-bar" style="display: none;">
+      <div class="content-bar statHolder-bar">
 
         <div class="statHolder-Div">
           <span>Damage Modifications & Bonuses</span>
           <div class="stat_Container flow_scrollbar" id="damageModifications">
-      
+            
           </div>
         </div>
 
-        <div class="statHolder-Div">
+        <div class="statHolder-Div" style="display: none;">
           <span>Total Damage Multipliers</span>
           <div class="stat_Container flow_scrollbar" id="damageMultiplier ">
       

@@ -1,3 +1,4 @@
+let images = "/image/Helmets/";
 export const Helmets = {
     alchemical_band: {
         id: "alchemical_Band",

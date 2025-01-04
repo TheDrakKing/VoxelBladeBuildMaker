@@ -4,35 +4,26 @@ import { Perks } from "../data/Perks.js";
 export type perkDataTable = { [id: string]: Perk };
 const perksTable: perkDataTable = Perks;
 
-export interface perkData extends Item.events {
-  id: string;
-  name: string;
-}
-
-export class Perk implements perkData {
+export class Perk extends Item.events {
   id: string;
   name: string;
   category?: string;
   description?: string;
-  Multiplier?: string;
 
-  constructor(data: any) {
-    this.id = data.id;
-    this.name = data.name ? data.name : "";
-    this.category = data.category;
-    this.description = data.description ? data.description : "";
-    this.Multiplier = data.Multiplier ? data.Multiplier : undefined;
+  constructor(data?: any) {
+    super()
+    Object.assign(this, data);
+    this.id = data?.id || "";
+    this.name = data?.name || "";
+    this.category = data?.category || "";
+    this.description = data?.description || "";
   }
-}
-
-function toID(name: string) {
-  return name.toLowerCase().replace(" ", "_");
 }
 
 export class PerkStore {
   static readonly perkCache = new Map<string, Perk>();
   static allCache: readonly Perk[] | null = null;
-  static itemNames: readonly string[] = [];
+  static perkNames: readonly string[] = [];
 
   constructor() {}
 
@@ -40,13 +31,13 @@ export class PerkStore {
     if (name && typeof name !== "string") return name;
 
     name = (name || "").trim();
-    const id = toID(name);
+    const id = Item.toID(name);
     return this.getByID(id);
   }
 
   static getByID(id: string): Perk {
     let perk = this.perkCache.get(id);
-    if (perk) return perk;
+    if (perk) return Object.assign(new Perk(), perk) as Perk;
 
     let Data = perksTable[id] as any;
 
@@ -58,16 +49,21 @@ export class PerkStore {
 
     perk = Object.freeze(perk);
     this.perkCache.set(id, perk);
-    return perk;
+
+    return Object.assign(new Perk(), perk) as Perk;
   }
 
   static all(): readonly Perk[] {
     if (this.allCache) return this.allCache;
     const perks = [];
+    const perkNames:string[] = [];
     for (const id in perksTable) {
-      perks.push(this.getByID(id as string));
+      let item = this.getByID(id as string);
+      perks.push(item);
+      perkNames.push(item.name);
     }
     this.allCache = Object.freeze(perks);
+    this.perkNames = Object.freeze(perkNames);
     return this.allCache;
   }
 }

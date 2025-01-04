@@ -1,15 +1,2 @@
-export let Dummy = {
-    mainArmor: {},
-    infuseArmor: {},
-    enchantments: {},
-    level: 1,
-    potencies: {},
-    stats: {},
-    effectiveBoosts: {},
-    perks: {},
-    damageScalings: {},
-    damageTypes: {},
-    totEffBoost: 0,
-    m1: [],
-    m2: [],
-};
+import * as Build from "../models/Build.js";
+export let Dummy = new Build.Build();

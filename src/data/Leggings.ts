@@ -1,3 +1,5 @@
+let images = "/image/leggings/";
+
 export const Leggings: import("../models/Item").ItemDataTable = {
   alchemical_pants: {
     id: "alchemical_pants",

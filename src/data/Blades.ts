@@ -1,3 +1,5 @@
+let images = "/image/blades/";
+
 export const Blades: import("../models/Item").ItemDataTable = {
   basic_blade: {
     id: "basic_blade",
@@ -14,7 +16,7 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageTypes: {
       Physical: 1,
     },
-    img: "/blades/basicblade.png",
+    img: images + "basicblade.png",
   },
   scourgers_blade: {
     id: "scourgers_blade",
@@ -37,7 +39,7 @@ export const Blades: import("../models/Item").ItemDataTable = {
     perks: {
       scourge: 1,
     },
-    img: "/blades/scourgers_blade.png",
+    img: images + "scourgers_blade.png",
   },
   zweihander_blade: {
     id: "zweihander_blade",
@@ -61,7 +63,7 @@ export const Blades: import("../models/Item").ItemDataTable = {
     perks: {
       highlander: 1,
     },
-    img: "/blades/zweihander_blade.png",
+    img: images + "zweihander_blade.png",
   },
   dark_steel_mace: {
     id: "dark_steel_mace",
@@ -84,7 +86,7 @@ export const Blades: import("../models/Item").ItemDataTable = {
     perks: {
       hemorrhage: 1,
     },
-    img: "/blades/dark_steel_mace.png",
+    img: images + "dark_steel_mace.png",
   },
   serrated_blade: {
     id: "serrated_blade",
@@ -106,7 +108,7 @@ export const Blades: import("../models/Item").ItemDataTable = {
     perks: {
       vicious_edge: 1,
     },
-    img: "/blades/serrated_blade.png",
+    img: images + "serrated_blade.png",
   },
   bloodied_needle: {
     id: "bloodied_needle",
@@ -131,7 +133,7 @@ export const Blades: import("../models/Item").ItemDataTable = {
     perks: {
       bloodlust: 1,
     },
-    img: "/blades/bloodied_needle.png",
+    img: images + "bloodied_needle.png",
   },
   beastial_dagger_blade: {
     id: "beastial_dagger_blade",
@@ -154,7 +156,7 @@ export const Blades: import("../models/Item").ItemDataTable = {
     perks: {
       beastial_rage: 1,
     },
-    img: "/blades/beastial_dagger_blade.png",
+    img: images + "beastial_dagger_blade.png",
   },
   omega_lance_blade: {
     id: "omega_lance_blade",
@@ -181,6 +183,6 @@ export const Blades: import("../models/Item").ItemDataTable = {
       lance: 1,
       heat_drill: 1,
     },
-    img: "/blades/omegalanceblade.png",
+    img: images + "omegalanceblade.png",
   },
 };

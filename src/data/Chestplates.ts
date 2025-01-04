@@ -1,3 +1,5 @@
+let images = "/image/chestplates/";
+
 export const Chestplate: import("../models/Item").ItemDataTable = {
   alchemical_ropes: {
     id: "alchemical_ropes",

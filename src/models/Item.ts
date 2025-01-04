@@ -20,17 +20,30 @@ const runeTable: ItemDataTable = Runes;
 const enchantmentsTable: ItemDataTable = Enchantments;
 
 export class events {
-  onAdded?: (this: Build.Build, perkAmount: number, armor: Item) => void;
-  onRemove?: (this: Build.Build, perkAmount: number, armor: Item) => void;
-  onStatCalculation?: (this: Build.Build, perkAmount?: number, stat?: Build.stats) => void;
-  onArmorStatModified?: (this: Build.Build, perkAmount?: number, stat?: Build.stats) => void;
-  onStatModified?: (this: Build.Build, perkAmount: number) => number | false | null;
-  onArmorModified?: (this: Build.Build, perkAmount: number) => number | false | null;
-  onBuffAdded?: (this: Build.Build, perkAmount: number) => number | false | null;
-  onDeBuffAdded?: (this: Build.Build, perkAmount: number) => number | false | null;
-  onBuffRemoved?: (this: Build.Build, perkAmount: number) => number | false | null;
-  onDeBuffRemoved?: (this: Build.Build, perkAmount: number) => number | false | null;
+  onAdded?: (this: Build.Build, perkAmount?: number, outputType?: string) => number | null | void;
+  onRemove?: (this: Build.Build, perkAmount?: number, outputType?: string) => number | null | void; 
+  onStatCalculation?: (this: Build.Build, perkAmount?: number, outputType?: string, stat?: any) => void;
+  onArmorStatModified?: (this: Build.Build, perkAmount?: number, outputType?: string, stat?: any) => void;
+  onStatModified?: (this: Build.Build, perkAmount?: number) => number | null;
+  onArmorModified?: (this: Build.Build, perkAmount?: number) => number | null;
+  onDmgBonusMultiplier?: (this: Build.Build, perkAmount?: number) => number | null;
+  onDmgReducedMultiplier?: (this: Build.Build, perkAmount?: number) => number | null;
+  onSpecificDmgBonusMultiplier?: (this: Build.Build, perkAmount?: number, outputType?:string) => number | null;
+  onSpecificDmgReducedMultiplier?: (this: Build.Build, perkAmount?: number, outputType?:string) => number | null;
+  onBuffAdded?: (this: Build.Build, perkAmount?: number) => number | null;
+  onDeBuffAdded?: (this: Build.Build, perkAmount?: number) => number | null;
+  onBuffRemoved?: (this: Build.Build, perkAmount?: number) => number | null;
+  onDeBuffRemoved?: (this: Build.Build, perkAmount?: number) => number | null;
+  onOutputCalculation?: (this: Build.Build, perkAmount?: number) => number | null;
 }
+
+// export class perkEvents {
+//   onStatCalculation?: (this: Build.Build, perkAmount: number) => number | false | null;
+//   onDmgBonusMultiplier?: (this: Build.Build, perkAmount: number) => number | null;
+//   onDmgReducedMultiplier?: (this: Build.Build, perkAmount: number) => number | null;
+//   onSpecificDmgBonusMultiplier?: (this: Build.Build, perkAmount: number, outputType?:string) => number | null;
+//   onSpecificDmgReducedMultiplier?: (this: Build.Build, perkAmount: number, outputType?:string) => number | null;
+// }
 
 
 export type potency =
@@ -38,7 +51,9 @@ export type potency =
   | "bleedpotency"
   | "burnboost"
   | "poisonpotency"
-  | "ragepotency";
+  | "ragepotency"
+  | "reinforcepotency"
+  | "weakeningpotency";
 
 export const potencyAliases: { [k in potency]: string } = {
   bouncepotency: "Bounce Potency",
@@ -46,6 +61,8 @@ export const potencyAliases: { [k in potency]: string } = {
   burnboost: "Bounce Potency",
   ragepotency: "Rage Potency",
   poisonpotency: "Poison Potency",
+  reinforcepotency: "Reinforce Potency",
+  weakeningpotency: "Weakening Potency",
 };
 
 export type stat =

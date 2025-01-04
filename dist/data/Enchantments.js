@@ -4,14 +4,14 @@ export const Enchantments = {
         name: "Legendary",
         category: "Enchantment",
         description: "Times all Positive Stats by x1.5",
-        onStatCalculation(perkAmount, stats) {
+        onStatCalculation(perkAmount, outputType, stats) {
             if (!stats)
                 return;
             for (const [key, value] of Object.entries(stats)) {
                 // key is a string, value is a number or undefined
-                if (value === undefined || value <= 0)
+                if (!value || value <= 0)
                     continue;
-                stats[key] = Math.trunc((value * 1.5) * 10) / 10;
+                stats[key] = Math.trunc(value * 1.5 * 10) / 10;
             }
         },
     },
@@ -20,7 +20,7 @@ export const Enchantments = {
         name: "Refined",
         category: "Enchantment",
         description: "Times all Positive Stats by x1.2 and half Negative stats",
-        onArmorStatModified(perkAmount, stats) {
+        onArmorStatModified(perkAmount, outputType, stats) {
             if (!stats)
                 return;
             for (const [key, value] of Object.entries(stats)) {
@@ -28,10 +28,10 @@ export const Enchantments = {
                 if (value === undefined)
                     continue;
                 if (value > 0) {
-                    stats[key] = Math.trunc((value * 1.2) * 10) / 10;
+                    stats[key] = Math.trunc(value * 1.2 * 10) / 10;
                 }
                 else if (value < 0) {
-                    stats[key] = Math.trunc((value * 0.5) * 10) / 10;
+                    stats[key] = Math.trunc(value * 0.5 * 10) / 10;
                 }
             }
         },
@@ -47,7 +47,8 @@ export const Enchantments = {
         onStatCalculation(perkAmount) {
             if (!this.stats || !this.stats.PhysicalBoost)
                 return;
-            this.stats.PhysicalBoost = Math.trunc((this.stats.PhysicalBoost * 1.2) * 10) / 10;
+            this.stats.PhysicalBoost =
+                Math.trunc(this.stats.PhysicalBoost * 1.2 * 10) / 10;
         },
     },
     dexterous: {
@@ -63,7 +64,8 @@ export const Enchantments = {
         onStatCalculation(perkAmount) {
             if (!this.stats || !this.stats.DexterityBoost)
                 return;
-            this.stats.DexterityBoost = Math.trunc((this.stats.DexterityBoost * 1.2) * 10) / 10;
+            this.stats.DexterityBoost =
+                Math.trunc(this.stats.DexterityBoost * 1.2 * 10) / 10;
         },
     },
     burning: {
@@ -91,7 +93,7 @@ export const Enchantments = {
         onStatCalculation(perkAmount) {
             if (!this.stats || !this.stats.WaterBoost)
                 return;
-            this.stats.WaterBoost = Math.trunc((this.stats.WaterBoost * 1.2) * 10) / 10;
+            this.stats.WaterBoost = Math.trunc(this.stats.WaterBoost * 1.2 * 10) / 10;
         },
     },
     earthen: {
@@ -105,7 +107,7 @@ export const Enchantments = {
         onStatCalculation(perkAmount) {
             if (!this.stats || !this.stats.EarthBoost)
                 return;
-            this.stats.EarthBoost = Math.trunc((this.stats.EarthBoost * 1.2) * 10) / 10;
+            this.stats.EarthBoost = Math.trunc(this.stats.EarthBoost * 1.2 * 10) / 10;
         },
     },
     magical: {
@@ -119,7 +121,7 @@ export const Enchantments = {
         onStatCalculation(perkAmount) {
             if (!this.stats || !this.stats.MagicBoost)
                 return;
-            this.stats.MagicBoost = Math.trunc((this.stats.MagicBoost * 1.2) * 10) / 10;
+            this.stats.MagicBoost = Math.trunc(this.stats.MagicBoost * 1.2 * 10) / 10;
         },
     },
     cursed: {
@@ -133,7 +135,7 @@ export const Enchantments = {
         onStatCalculation(perkAmount) {
             if (!this.stats || !this.stats.HexBoost)
                 return;
-            this.stats.HexBoost = Math.trunc((this.stats.HexBoost * 1.2) * 10) / 10;
+            this.stats.HexBoost = Math.trunc(this.stats.HexBoost * 1.2 * 10) / 10;
         },
     },
     windy: {
@@ -147,7 +149,7 @@ export const Enchantments = {
         onStatCalculation(perkAmount) {
             if (!this.stats || !this.stats.AirBoost)
                 return;
-            this.stats.AirBoost = Math.trunc((this.stats.AirBoost * 1.2) * 10) / 10;
+            this.stats.AirBoost = Math.trunc(this.stats.AirBoost * 1.2 * 10) / 10;
         },
     },
     enlightened: {
@@ -161,7 +163,7 @@ export const Enchantments = {
         onStatCalculation(perkAmount) {
             if (!this.stats || !this.stats.HolyBoost)
                 return;
-            this.stats.HolyBoost = Math.trunc((this.stats.HolyBoost * 1.2) * 10) / 10;
+            this.stats.HolyBoost = Math.trunc(this.stats.HolyBoost * 1.2 * 10) / 10;
         },
     },
     summoner: {
@@ -175,7 +177,8 @@ export const Enchantments = {
         onStatCalculation(perkAmount) {
             if (!this.stats || !this.stats.SummonBoost)
                 return;
-            this.stats.SummonBoost = Math.trunc((this.stats.SummonBoost * 1.2) * 10) / 10;
+            this.stats.SummonBoost =
+                Math.trunc(this.stats.SummonBoost * 1.2 * 10) / 10;
         },
     },
     hardened: {
@@ -245,12 +248,61 @@ export const Enchantments = {
                     continue;
                 console.log(key);
                 if (value > 0) {
-                    this.stats[key] = Math.trunc((value * 1.5) * 10) / 10;
+                    this.stats[key] = Math.trunc(value * 1.5 * 10) / 10;
                 }
                 else if (value < 0) {
-                    this.stats[key] = Math.trunc((value * 0.5) * 10) / 10;
+                    this.stats[key] = Math.trunc(value * 0.5 * 10) / 10;
                 }
             }
+        },
+    },
+    ////////////////ACD Enchantment ///////////////////////////
+    ferocious: {
+        id: "ferocious",
+        name: "Ferocious",
+        category: "Enchantment",
+        description: "Gives ferocious",
+        stats: {
+            Tenacity: 0.05,
+        },
+        perks: {
+            ferocious: 1,
+        },
+    },
+    quenched: {
+        id: "quenched",
+        name: "Quenched",
+        category: "Enchantment",
+        description: "Adds Bleed Potency",
+        potencies: {
+            bleedpotency: 3,
+        },
+    },
+    acidic: {
+        id: "acidic",
+        name: "Acidic",
+        category: "Enchantment",
+        description: "Adds Poison Potency",
+        potencies: {
+            poisonpotency: 3,
+        },
+    },
+    piercing: {
+        id: "piercing",
+        name: "Piercing",
+        category: "Enchantment",
+        description: "Adds Armor Penetration",
+        stats: {
+            ArmorPenetration: 10,
+        },
+    },
+    warped: {
+        id: "warped",
+        name: "Warped",
+        category: "Enchantment",
+        description: "removes stats but adds perk_effectiveness",
+        perks: {
+            perk_effectiveness: 1,
         },
     },
 };
