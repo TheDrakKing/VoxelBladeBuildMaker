@@ -93,6 +93,7 @@ let imgHolders = {
 let m1Rows = {};
 let m2Rows = {};
 const selectItemDivs = [];
+
 /////////////////////////////////////// Create HTML Elements ///////////////////////////////////////
 function createStatHolder(name, value, ContainerDiv) {
     if (statHolder_template == null)
@@ -491,6 +492,7 @@ function loadSelectorPage(build, source, category, section, index, htmlElement) 
     });
     items_selector.style.display = "flex";
 }
+
 ///////////////////////////////////////Button & input Listeners///////////////////////////////////////
 SelectorClose.addEventListener("click", () => {
     selectItemDivs.forEach(([div]) => div.remove());
@@ -506,6 +508,7 @@ showMainGear.addEventListener("click", () => {
     infusionsContentDiv.style.display = "none";
     mainGearContentDiv.style.display = "flex";
 });
+
 levelInput.addEventListener("change", () => {
     let level = Number(levelInput.value);
     level = Math.floor(level);
@@ -519,27 +522,30 @@ levelInput.addEventListener("change", () => {
     build.level = level;
     resetPage();
 });
+
 theme_Selector_input.addEventListener("change", () => {
     const currentTheme = document.documentElement.getAttribute("data-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
     if (newTheme === "dark") {
-        PlusSymbol = "/image/plus_symbol_white.png";
-        CloseSymbol = "/image/close_X_white.png";
+        PlusSymbol = "/VoxelBladeBuildMaker/image/plus_symbol_white.png";
+        CloseSymbol = "/VoxelBladeBuildMaker/image/close_X_white.png";
     }
     else {
-        PlusSymbol = "/image/plus_symbol_black.png";
-        CloseSymbol = "/image/close_X_black.png";
+        PlusSymbol = "/VoxelBladeBuildMaker/image/plus_symbol_black.png";
+        CloseSymbol = "/VoxelBladeBuildMaker/image/close_X_black.png";
     }
     document.documentElement.setAttribute("data-theme", newTheme);
     setItemButtonImage();
     resetPage();
 });
+
 promotionSelector.addEventListener("change", () => {
     let promotion = Number(promotionSelector.value);
     build.guildPromotion = Number(promotion - 1);
     resetPage();
 });
-;
+
+
 ///////////////////////////////////////Add the Items///////////////////////////////////////
 function setItemButtonImage() {
     mainGearButtons.forEach((itembutton) => {
@@ -557,6 +563,7 @@ function setItemButtonImage() {
     let guildImage = guildSelector.children[0];
     guildImage.src = PlusSymbol;
 }
+
 mainGearButtons.forEach((itembutton) => {
     let buttonImage = itembutton.children[0];
     buttonImage.src = PlusSymbol;
@@ -592,6 +599,7 @@ mainGearButtons.forEach((itembutton) => {
         resetPage();
     });
 });
+
 infuseGearButtons.forEach((itembutton) => {
     let buttonImage = itembutton.children[0];
     buttonImage.src = PlusSymbol;
@@ -609,6 +617,7 @@ weaponMakeUpButtons.forEach((itembutton) => {
 guildSelector.addEventListener("click", () => {
     loadSelectorPage(build, "Guilds", "Guild");
 });
+
 //////////////////////////Set the add buff/Debuff buttons//////////////////////////
 function setBuffEvents() {
     const selectBuff = document.getElementById("selectbuff");
@@ -616,21 +625,13 @@ function setBuffEvents() {
     const selectTargetBuff = document.getElementById("selectTargetBuff");
     const selectTargetDebuff = document.getElementById("selectTargetDebuff");
     selectBuff.children[0].children[0].children[0].src = PlusSymbol;
-    selectBuff?.addEventListener("click", () => {
-        loadSelectorPage(build, "Buffs", "Buff");
-    });
+    selectBuff?.addEventListener("click", () => {loadSelectorPage(build, "Buffs", "Buff");});
     selectDebuff.children[0].children[0].children[0].src = PlusSymbol;
-    selectDebuff?.addEventListener("click", () => {
-        loadSelectorPage(build, "Buffs", "Debuff");
-    });
+    selectDebuff?.addEventListener("click", () => {loadSelectorPage(build, "Buffs", "Debuff");});
     selectTargetBuff.children[0].children[0].children[0].src = PlusSymbol;
-    selectTargetBuff?.addEventListener("click", () => {
-        loadSelectorPage(target, "Buffs", "Buff");
-    });
+    selectTargetBuff?.addEventListener("click", () => {loadSelectorPage(target, "Buffs", "Buff");});
     selectTargetDebuff.children[0].children[0].children[0].src = PlusSymbol;
-    selectTargetDebuff?.addEventListener("click", () => {
-        loadSelectorPage(target, "Buffs", "Debuff");
-    });
+    selectTargetDebuff?.addEventListener("click", () => {loadSelectorPage(target, "Buffs", "Debuff");});
 }
 ///////////////////////////////////////Clear out the items///////////////////////////////////////
 infuseClearButtons.forEach((clearbutton) => {
