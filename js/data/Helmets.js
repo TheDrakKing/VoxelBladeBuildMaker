@@ -1,4 +1,4 @@
-let images = "/image/Helmets/";
+let images = "/VoxelBladeBuildMaker/image/Helmets/";
 export const Helmets = {
     alchemical_band: {
         id: "alchemical_Band",

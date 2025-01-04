@@ -1,4 +1,4 @@
-let images = "/image/chestplates/";
+let images = "/VoxelBladeBuildMaker/image/chestplates/";
 export const Chestplate = {
     alchemical_ropes: {
         id: "alchemical_ropes",

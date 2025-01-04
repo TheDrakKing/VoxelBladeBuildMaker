@@ -1,4 +1,4 @@
-let images = "/image/runes/";
+let images = "/VoxelBladeBuildMaker/image/runes/";
 export const Runes = {
     bounce_rune: {
         id: "bounce_rune",

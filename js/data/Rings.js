@@ -1,4 +1,4 @@
-let images = "/image/rings/";
+let images = "/VoxelBladeBuildMaker/image/rings/";
 export const Rings = {
     fire_ring: {
         id: "fire_ring",

@@ -1,4 +1,4 @@
-let images = "/image/handles/";
+let images = "/VoxelBladeBuildMaker/image/handles/";
 export const Handles = {
     basic_handle: {
         id: "basic_handle",
