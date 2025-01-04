@@ -20,9 +20,14 @@ export const potencyAliases = {
     bouncepotency: "Bounce Potency",
     bleedpotency: "Bounce Potency",
     burnboost: "Bounce Potency",
+    ragepotency: "Rage Potency",
+    poisonpotency: "Poison Potency",
+    reinforcepotency: "Reinforce Potency",
+    weakeningpotency: "Weakening Potency",
 };
-export class Item {
+export class Item extends events {
     constructor(data) {
+        super();
         Object.assign(this, data);
         this.id = data?.id || undefined;
         this.name = data?.name || "";

@@ -1,16 +1,15 @@
+import * as Item from "./Item.js";
 import { Perks } from "../data/Perks.js";
 const perksTable = Perks;
-export class Perk {
+export class Perk extends Item.events {
     constructor(data) {
-        this.id = data.id;
-        this.name = data.name ? data.name : "";
-        this.category = data.category;
-        this.description = data.description ? data.description : "";
-        this.Multiplier = data.Multiplier ? data.Multiplier : undefined;
+        super();
+        Object.assign(this, data);
+        this.id = data?.id || "";
+        this.name = data?.name || "";
+        this.category = data?.category || "";
+        this.description = data?.description || "";
     }
-}
-function toID(name) {
-    return name.toLowerCase().replace(" ", "_");
 }
 export class PerkStore {
     constructor() { }
@@ -18,13 +17,13 @@ export class PerkStore {
         if (name && typeof name !== "string")
             return name;
         name = (name || "").trim();
-        const id = toID(name);
+        const id = Item.toID(name);
         return this.getByID(id);
     }
     static getByID(id) {
         let perk = this.perkCache.get(id);
         if (perk)
-            return perk;
+            return Object.assign(new Perk(), perk);
         let Data = perksTable[id];
         if (!Data) {
             return new Perk({ id });
@@ -32,19 +31,23 @@ export class PerkStore {
         perk = new Perk({ ...Data });
         perk = Object.freeze(perk);
         this.perkCache.set(id, perk);
-        return perk;
+        return Object.assign(new Perk(), perk);
     }
     static all() {
         if (this.allCache)
             return this.allCache;
         const perks = [];
+        const perkNames = [];
         for (const id in perksTable) {
-            perks.push(this.getByID(id));
+            let item = this.getByID(id);
+            perks.push(item);
+            perkNames.push(item.name);
         }
         this.allCache = Object.freeze(perks);
+        this.perkNames = Object.freeze(perkNames);
         return this.allCache;
     }
 }
 PerkStore.perkCache = new Map();
 PerkStore.allCache = null;
-PerkStore.itemNames = [];
+PerkStore.perkNames = [];
