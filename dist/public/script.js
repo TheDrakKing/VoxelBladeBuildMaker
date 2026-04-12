@@ -203,6 +203,97 @@ function addDamageToTable(name, value, holderRows, ContainerDiv) {
     damageValueCell.innerHTML = value.toString();
     clonedDiv?.appendChild(damageValueCell);
 }
+function mouseHover(item, itemType) {
+    const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv");
+    if (!itemHoverInfoDiv)
+        return;
+    let itemName = itemHoverInfoDiv.children[0];
+    itemName.innerHTML = item.name;
+    let hoverDescription = itemHoverInfoDiv.children[1];
+    hoverDescription.innerHTML = item.description || "";
+    let hoverDmgScaleDiv = itemHoverInfoDiv.children[2];
+    hoverDmgScaleDiv.style.display = "none";
+    hoverDmgScaleDiv.innerHTML = "";
+    if (item.damageScalings) {
+        for (const [key, value] of Object.entries(item.damageScalings)) {
+            if (value === undefined)
+                continue;
+            hoverDmgScaleDiv.style.display = "block";
+            createStatHolder(key, value, hoverDmgScaleDiv);
+        }
+    }
+    let hoverDmgTypeDiv = itemHoverInfoDiv.children[3];
+    hoverDmgTypeDiv.style.display = "none";
+    hoverDmgTypeDiv.innerHTML = "";
+    if (item.damageTypes) {
+        for (const [key, value] of Object.entries(item.damageTypes)) {
+            if (value === undefined)
+                continue;
+            hoverDmgTypeDiv.style.display = "block";
+            createStatHolder(key, value, hoverDmgTypeDiv);
+        }
+    }
+    let hoverStatsDiv = itemHoverInfoDiv.children[4];
+    hoverStatsDiv.style.display = "none";
+    hoverStatsDiv.innerHTML = "";
+    if (item.stats) {
+        for (const [key, value] of Object.entries(item.stats)) {
+            if (value === undefined)
+                continue;
+            hoverStatsDiv.style.display = "block";
+            createStatHolder(key, value + "%", hoverStatsDiv);
+        }
+    }
+    let hoverPerksDiv = itemHoverInfoDiv.children[5];
+    hoverPerksDiv.style.display = "none";
+    hoverPerksDiv.innerHTML = "";
+    if (item.perks) {
+        for (const [key, value] of Object.entries(item.perks)) {
+            if (value === undefined)
+                continue;
+            hoverPerksDiv.style.display = "block";
+            let name = Perk.PerkStore.getByID(key)?.name || key;
+            createStatHolder(name, value, hoverPerksDiv);
+        }
+    }
+    let hoverPotenciesDiv = itemHoverInfoDiv.children[6];
+    hoverPotenciesDiv.style.display = "none";
+    hoverPotenciesDiv.innerHTML = "";
+    if (item.potencies) {
+        for (const [key, value] of Object.entries(item.potencies)) {
+            if (value === undefined)
+                continue;
+            hoverPotenciesDiv.style.display = "block";
+            createStatHolder(ItemModule.potencyAliases[key], value, hoverPotenciesDiv);
+        }
+    }
+    itemHoverInfoDiv.style.display = "flex";
+}
+function mouseLeave() {
+    const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv");
+    if (!itemHoverInfoDiv)
+        return;
+    let itemName = itemHoverInfoDiv.children[0];
+    itemName.innerHTML = "";
+    let hoverDescription = itemHoverInfoDiv.children[1];
+    hoverDescription.innerHTML = "";
+    let hoverDmgScaleDiv = itemHoverInfoDiv.children[2];
+    hoverDmgScaleDiv.style.display = "none";
+    hoverDmgScaleDiv.innerHTML = "";
+    let hoverDmgTypeDiv = itemHoverInfoDiv.children[3];
+    hoverDmgTypeDiv.style.display = "none";
+    hoverDmgTypeDiv.innerHTML = "";
+    let hoverStatsDiv = itemHoverInfoDiv.children[4];
+    hoverStatsDiv.style.display = "none";
+    hoverStatsDiv.innerHTML = "";
+    let hoverPerksDiv = itemHoverInfoDiv.children[5];
+    hoverPerksDiv.style.display = "none";
+    hoverPerksDiv.innerHTML = "";
+    let hoverPotenciesDiv = itemHoverInfoDiv.children[6];
+    hoverPotenciesDiv.style.display = "none";
+    hoverPotenciesDiv.innerHTML = "";
+    itemHoverInfoDiv.style.display = "none";
+}
 function displayStats() {
     //Create the stat Holder for reach stat
     statsContainerDiv.innerHTML = "";
@@ -563,6 +654,15 @@ mainGearButtons.forEach((itembutton) => {
     itembutton.addEventListener("click", () => {
         loadSelectorPage(build, "Items", itembutton.name, "mainArmor");
     });
+    itembutton.addEventListener("mouseenter", () => {
+        let item = build.mainArmor[itembutton.name.toLowerCase()];
+        if (!item)
+            return;
+        mouseHover(item);
+    });
+    itembutton.addEventListener("mouseleave", () => {
+        mouseLeave();
+    });
     let itemBox = itembutton.parentElement?.parentElement;
     let enchantmentsContainer = itemBox.children[1];
     for (let index = 0; index < enchantmentsContainer.children.length; index++) {
@@ -598,6 +698,16 @@ infuseGearButtons.forEach((itembutton) => {
     itembutton.addEventListener("click", () => {
         loadSelectorPage(build, "Items", itembutton.name, "infuseArmor");
     });
+    itembutton.addEventListener("mouseenter", () => {
+        let item = build.infuseArmor[itembutton.name.toLowerCase()];
+        if (!item)
+            return;
+        console.log(item);
+        mouseHover(item);
+    });
+    itembutton.addEventListener("mouseleave", () => {
+        mouseLeave();
+    });
 });
 weaponMakeUpButtons.forEach((itembutton) => {
     let buttonImage = itembutton.children[0];
@@ -605,31 +715,52 @@ weaponMakeUpButtons.forEach((itembutton) => {
     itembutton.addEventListener("click", () => {
         loadSelectorPage(build, "Items", itembutton.name);
     });
+    itembutton.addEventListener("mouseenter", () => {
+        let itemName = itembutton.name.toLowerCase();
+        if (itemName != "blade" && itemName != "handle") {
+            return;
+        }
+        ;
+        let item = build[itemName];
+        if (!item)
+            return;
+        mouseHover(item);
+    });
+    itembutton.addEventListener("mouseleave", () => {
+        mouseLeave();
+    });
 });
 guildSelector.addEventListener("click", () => {
     loadSelectorPage(build, "Guilds", "Guild");
 });
 //////////////////////////Set the add buff/Debuff buttons//////////////////////////
+/**
+ * Sets up event listeners for buff/debuff selector buttons
+ * Gets references to the buff/debuff buttons for both build and target
+ * Adds plus symbol images and click handlers to load appropriate selector pages
+ */
 function setBuffEvents() {
-    const selectBuff = document.getElementById("selectbuff");
-    const selectDebuff = document.getElementById("selectdebuff");
-    const selectTargetBuff = document.getElementById("selectTargetBuff");
-    const selectTargetDebuff = document.getElementById("selectTargetDebuff");
-    selectBuff.children[0].children[0].children[0].src = PlusSymbol;
-    selectBuff?.addEventListener("click", () => {
-        loadSelectorPage(build, "Buffs", "Buff");
-    });
-    selectDebuff.children[0].children[0].children[0].src = PlusSymbol;
-    selectDebuff?.addEventListener("click", () => {
-        loadSelectorPage(build, "Buffs", "Debuff");
-    });
-    selectTargetBuff.children[0].children[0].children[0].src = PlusSymbol;
-    selectTargetBuff?.addEventListener("click", () => {
-        loadSelectorPage(target, "Buffs", "Buff");
-    });
-    selectTargetDebuff.children[0].children[0].children[0].src = PlusSymbol;
-    selectTargetDebuff?.addEventListener("click", () => {
-        loadSelectorPage(target, "Buffs", "Debuff");
+    // Define button configurations
+    const buffButtons = [
+        { id: "selectbuff", target: build, type: "Buff" },
+        { id: "selectdebuff", target: build, type: "Debuff" },
+        { id: "selectTargetBuff", target: target, type: "Buff" },
+        { id: "selectTargetDebuff", target: target, type: "Debuff" }
+    ];
+    // Set up each button
+    buffButtons.forEach(({ id, target, type }) => {
+        const button = document.getElementById(id);
+        if (!button)
+            return;
+        // Set plus symbol
+        const imageElement = button.querySelector('img');
+        if (imageElement) {
+            imageElement.src = PlusSymbol;
+        }
+        // Add click handler
+        button.addEventListener("click", () => {
+            loadSelectorPage(target, "Buffs", type);
+        });
     });
 }
 ///////////////////////////////////////Clear out the items///////////////////////////////////////

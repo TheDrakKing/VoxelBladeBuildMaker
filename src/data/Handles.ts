@@ -165,4 +165,87 @@ export const Handles: import("../models/Item").ItemDataTable = {
     },
     img: images + "omegalancehandle.png",
   },
+  spectral_handle: {
+    id: "spectral_handle",
+    name: "Spectral Handle",
+    category: "Handle",
+    type: "Medium Handle",
+    stats: {
+      AttackSpeed: 0.9,
+      HexBoost: 5,
+      EarthBoost: 5,
+      WaterBoost: 10,
+    },
+    damageScalings: {
+      Earth: 0.45,
+      Hex: 0.45,
+      Water: 0.45,
+    },
+    perks: {
+      ghastly_rot: 1,
+    },
+    img: images + "spectralhandle.png",
+  },
+  mungal_pole: {
+    id: "mungal_pole",
+    name: "Mungal Pole",
+    category: "Handle",
+    type: "Pole",
+    stats: {
+      AttackSpeed: 1,
+      HexBoost: 5,
+      MagicBoost: 5,
+      EarthBoost: 5,
+      SpeedBoost: 2,
+    },
+    damageScalings: {
+      Earth: 0.5,
+      Magic: 0.5,
+      Hex: 0.5,
+    },
+    perks: {
+      reinforced_block: 1,
+      proto_tech: 1,
+    },
+    img: images + "mungalpole.png",
+  },
+  crude_magic_handle: {
+    id: "crude_magic_handle",
+    name: "Crude Magic Handle",
+    category: "Handle",
+    type: "Medium Handle",
+    stats: {
+      MagicBoost: 20,
+    },
+    damageScalings: {
+      Magic: 0.7,
+    },
+    perks: {
+      dual_wielding: 1,
+      runic_blades: 1,
+    },
+    img: "",
+  },
+  spellbinderguard: {
+    id: "spellbinderguard",
+    name: "Spellbinder Guard",
+    category: "Handle",
+    type: "Medium Handle",
+    stats: {
+      MagicBoost: 15,
+      DexterityBoost: 5,
+    },
+    damageScalings: {
+      Magic: 0.55,
+      Dexterity: 0.55,
+    },
+    damageTypes: {
+      Magic: 0.2,
+    },
+    perks: {
+      spell_piercer: 1,
+      duelist_stance: 1,
+    },
+    img: "",
+  },
 };

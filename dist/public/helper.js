@@ -152,7 +152,6 @@ export function calculateDamage(weaponDamage, attacker, outputType, target) {
         [totEffMultiplier, totEffBoost] = getTotEffBoost(attacker);
         attacker.totEffBoost = totEffBoost;
     }
-    console.log(totEffMultiplier);
     let baseDamage = getBaseDamage(weaponDamage, totEffMultiplier);
     /////////////////////////////Damage Bonus Multiplier/////////////////////////////
     let dmgBonusMults = getPerkModifications("onDmgBonusMultiplier", attacker, undefined, attacker.damageModifications.damage_bonus_mods);

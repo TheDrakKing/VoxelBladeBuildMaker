@@ -49,11 +49,14 @@ export const Perks: import("../models/Perk").perkDataTable = {
     id: "blood_thirsty",
     name: "Blood Thirsty",
     category: "",
-    description: "If you hit a bleeding opponent bleeding by you remove the bleed, deal bonus damage, and heal. Grants bleed potency.",
+    description:
+      "If you hit a bleeding opponent bleeding by you remove the bleed, deal bonus damage, and heal. Grants bleed potency.",
     onDmgBonusMultiplier(perkAmount) {
-       if (!perkAmount || !this.target || !this.target.deBuffs) return null;
-       let bleed = this.target.deBuffs.find((deBuffs) => deBuffs?.id === "bleed");
-       if (!bleed) return null;
+      if (!perkAmount || !this.target || !this.target.deBuffs) return null;
+      let bleed = this.target.deBuffs.find(
+        (deBuffs) => deBuffs?.id === "bleed"
+      );
+      if (!bleed) return null;
       let baseMultiplier = 20;
       let multiplier = (baseMultiplier * perkAmount) / 100;
       return Math.trunc(multiplier * 100) / 100;
@@ -170,7 +173,9 @@ export const Perks: import("../models/Perk").perkDataTable = {
       if (!bleed) return null;
       let outputMultiplier = 0.1;
       let previousValue = this.damageTypes["True"];
-      this.damageTypes["True"] = previousValue ? previousValue + outputMultiplier : outputMultiplier;
+      this.damageTypes["True"] = previousValue
+        ? previousValue + outputMultiplier
+        : outputMultiplier;
       return null;
     },
   },
@@ -215,5 +220,16 @@ export const Perks: import("../models/Perk").perkDataTable = {
     name: "Ignition",
     category: "",
     description: "Tenacity increases damage dealt.",
+  },
+
+  immoveable: {
+    id: "immoveable",
+    name: "Immoveable",
+    category: "Perk",
+    description: "Your tenacity Boost now affects your physical defense",
+    onStatCalculation(perkAmount) {
+      if (!this.stats || !this.stats.Tenacity) return;
+      let preDefense = this.stats.PhysicalDefense || 0;
+    },
   },
 };

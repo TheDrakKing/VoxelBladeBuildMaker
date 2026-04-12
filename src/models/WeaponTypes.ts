@@ -99,7 +99,7 @@ export const ConstructionTypeTable: ConstructionDataTable = {
     m2: [[4, 3]],
   },
 
-  warhammer: {
+  war_hammer: {
     constructionType: "Warhammer",
     m1: [
       [6, 1],

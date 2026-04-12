@@ -6,20 +6,13 @@ import { Handles } from "../data/Handles.js";
 import { Rings } from "../data/Rings.js";
 import { Runes } from "../data/Runes.js";
 import { Enchantments } from "../data/Enchantments.js";
-const chestplateTable = Chestplate;
-const helmetTable = Helmets;
-const leggingTable = Leggings;
-const bladeTable = Blades;
-const handleTable = Handles;
-const ringTable = Rings;
-const runeTable = Runes;
 const enchantmentsTable = Enchantments;
 export class events {
 }
 export const potencyAliases = {
     bouncepotency: "Bounce Potency",
-    bleedpotency: "Bounce Potency",
-    burnboost: "Bounce Potency",
+    bleedpotency: "Bleed Potency",
+    burnboost: " Burn Potency",
     ragepotency: "Rage Potency",
     poisonpotency: "Poison Potency",
     reinforcepotency: "Reinforce Potency",
@@ -55,157 +48,32 @@ export class ItemStore {
         const id = toID(name);
         return this.getByID(id);
     }
-    static lookMap(id) {
-        if (this.helmetCache.has(id)) {
-            return this.helmetCache.get(id);
-        }
-        else if (this.chestplateCache.has(id)) {
-            return this.chestplateCache.get(id);
-        }
-        else if (this.leggingCache.has(id)) {
-            return this.leggingCache.get(id);
-        }
-        else if (this.bladeCache.has(id)) {
-            return this.bladeCache.get(id);
-        }
-        else if (this.handleCache.has(id)) {
-            return this.handleCache.get(id);
-        }
-        else if (this.runeCache.has(id)) {
-            return this.runeCache.get(id);
-        }
-        else if (this.ringCache.has(id)) {
-            return this.ringCache.get(id);
-        }
-        else if (this.enchantmentCache.has(id)) {
-            return this.enchantmentCache.get(id);
-        }
-    }
     static getByID(id) {
-        let item = this.lookMap(id);
-        if (item)
-            return Object.assign(new Item(), item);
-        let Data;
-        let cache = new Map();
-        if (id in helmetTable) {
-            Data = helmetTable[id];
-            cache = this.helmetCache;
+        // Check cache first
+        if (this.itemCache.has(id)) {
+            return Object.assign(new Item(), this.itemCache.get(id));
         }
-        else if (id in chestplateTable) {
-            Data = chestplateTable[id];
-            cache = this.chestplateCache;
+        // Find item in category tables
+        for (const [category, table] of this.categoryMap) {
+            if (id in table) {
+                const item = Object.freeze(new Item({ ...table[id], category }));
+                this.itemCache.set(id, item);
+                return Object.assign(new Item(), item);
+            }
         }
-        else if (id in leggingTable) {
-            Data = leggingTable[id];
-            cache = this.leggingCache;
-        }
-        else if (id in bladeTable) {
-            Data = bladeTable[id];
-            cache = this.bladeCache;
-        }
-        else if (id in handleTable) {
-            Data = handleTable[id];
-            cache = this.handleCache;
-        }
-        else if (id in runeTable) {
-            Data = runeTable[id];
-            cache = this.runeCache;
-        }
-        else if (id in ringTable) {
-            Data = ringTable[id];
-            cache = this.ringCache;
-        }
-        else if (id in enchantmentsTable) {
-            Data = enchantmentsTable[id];
-            cache = this.enchantmentCache;
-        }
-        if (!Data) {
-            return new Item({ id });
-        }
-        item = new Item({ ...Data });
-        item = Object.freeze(item);
-        cache.set(id, item);
-        return Object.assign(new Item(), item);
-    }
-    static getAllHelmets() {
-        const items = [];
-        for (const id in helmetTable) {
-            items.push(this.getByID(id));
-        }
-        return items;
-    }
-    static getAllChestplates() {
-        const items = [];
-        for (const id in chestplateTable) {
-            items.push(this.getByID(id));
-        }
-        return items;
-    }
-    static getAllLeggings() {
-        const items = [];
-        for (const id in leggingTable) {
-            items.push(this.getByID(id));
-        }
-        return items;
-    }
-    static getAllBlades() {
-        const items = [];
-        for (const id in bladeTable) {
-            items.push(this.getByID(id));
-        }
-        return items;
-    }
-    static getAllHandle() {
-        const items = [];
-        for (const id in handleTable) {
-            items.push(this.getByID(id));
-        }
-        return items;
-    }
-    static getAllRune() {
-        const items = [];
-        for (const id in runeTable) {
-            items.push(this.getByID(id));
-        }
-        return items;
-    }
-    static getAllRing() {
-        const items = [];
-        for (const id in ringTable) {
-            items.push(this.getByID(id));
-        }
-        return items;
-    }
-    static getAllEnchant() {
-        const items = [];
-        for (const id in enchantmentsTable) {
-            items.push(this.getByID(id));
-        }
-        return items;
+        return new Item({ id });
     }
     static getByCategory(category) {
-        switch (category) {
-            case "Blade":
-                return this.getAllBlades();
-            case "Handle":
-                return this.getAllHandle();
-            case "WeaponArt":
-                return [];
-            case "Helmet":
-                return this.getAllHelmets();
-            case "Chestplate":
-                return this.getAllChestplates();
-            case "Legging":
-                return this.getAllLeggings();
-            case "Rune":
-                return this.getAllRune();
-            case "Ring":
-                return this.getAllRing();
-            case "Enchantment":
-                return this.getAllEnchant();
-            default:
-                return [];
+        // Check if category is already cached
+        if (this.categoryCache.has(category)) {
+            return this.categoryCache.get(category);
         }
+        const table = this.categoryMap.get(category.toLowerCase());
+        if (!table)
+            return [];
+        const items = Object.keys(table).map(id => this.getByID(id));
+        this.categoryCache.set(category, items);
+        return items;
     }
     static getEnchantmentNames() {
         if (this.enchantmentNames.length)
@@ -218,14 +86,18 @@ export class ItemStore {
         return this.enchantmentNames;
     }
 }
-ItemStore.helmetCache = new Map();
-ItemStore.chestplateCache = new Map();
-ItemStore.leggingCache = new Map();
-ItemStore.bladeCache = new Map();
-ItemStore.handleCache = new Map();
-ItemStore.ringCache = new Map();
-ItemStore.runeCache = new Map();
-ItemStore.enchantmentCache = new Map();
+ItemStore.itemCache = new Map();
+ItemStore.categoryCache = new Map();
+ItemStore.categoryMap = new Map([
+    ['helmet', Helmets],
+    ['chestplate', Chestplate],
+    ['legging', Leggings],
+    ['blade', Blades],
+    ['handle', Handles],
+    ['ring', Rings],
+    ['rune', Runes],
+    ['enchantment', Enchantments]
+]);
 ItemStore.allCache = null;
 ItemStore.itemNames = [];
 ItemStore.enchantmentNames = [];

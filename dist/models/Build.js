@@ -95,7 +95,7 @@ export class Build {
             if (item.potencies) {
                 for (const [key, value] of Object.entries(item.potencies)) {
                     // key is a string, value is a number or undefined
-                    if (value === undefined)
+                    if (!value)
                         continue;
                     let previousValue = this.potencies[key];
                     this.potencies[key] = previousValue ? previousValue + value : value;
@@ -182,7 +182,7 @@ export class Build {
         this.resetBuild();
     }
     addItemToBuild(item, section, key, enchantIndex) {
-        if (section !== "enchantments" || key !== "guild") {
+        if (section !== "enchantments" && key !== "guild") {
             if (item instanceof ItemModule.Item) {
                 key = item.category === "Armor" ? item.type?.toLowerCase() : item.category?.toLowerCase();
             }
@@ -249,7 +249,6 @@ export class Build {
         if (this.guild && this.guild.promotions) {
             let promotion = this.guild.promotions[this.guildPromotion];
             let guild = new ItemModule.Item({ id: this.guild.id, stats: promotion.stats, perks: promotion.perks });
-            console.log(guild);
             this.addItemStatsToBuild(guild);
         }
         for (const [key, value] of Object.entries(this.enchantments)) {

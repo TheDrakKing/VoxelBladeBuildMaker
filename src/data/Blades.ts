@@ -185,4 +185,79 @@ export const Blades: import("../models/Item").ItemDataTable = {
     },
     img: images + "omegalanceblade.png",
   },
+  spectral_blade: {
+    id: "spectral_blade",
+    name: "Spectral Blade",
+    category: "Blade",
+    type: "Medium Blade",
+    stats: {
+      AttackSpeed: 1,
+      HexBoost: 5,
+      EarthBoost: 5,
+      WaterBoost: 10,
+    },
+    damageScalings: {
+      Earth: 0.45,
+      Hex: 0.45,
+      Water: 0.45,
+    },
+    damageTypes: {
+      Hex: 0.5,
+      Water: 0.5,
+    },
+    perks: {
+      ghastly_rot: 1,
+    },
+    img: images + "spectralblade.png",
+  },
+  mungus_core: {
+    id: "mungus_core",
+    name: "Mungus Core",
+    category: "Blade",
+    type: "Hammer Blade",
+    stats: {
+      AttackSpeed: 1,
+      EarthBoost: 5,
+      MagicBoost: 5,
+      HexBoost: 5,
+      SpeedBoost: 2,
+    },
+    damageScalings: {
+      Earth: 0.45,
+      Magic: 0.45,
+      Hex: 0.45,
+    },
+    damageTypes: {
+      Hex: 0.6,
+      Magic: 0.5,
+    },
+    perks: {
+      virulent_core: 1,
+      proto_tech: 1,
+    },
+    img: images + "munguscore.png",
+  },
+  windiron_needle: {
+    id: "windiron_needle",
+    name: "Windiron Needle",
+    category: "Blade",
+    type: "Medium Blade",
+    stats: {
+      AirBoost: 7,
+      DexterityBoost: 7,
+    },
+    damageScalings: {
+      Air: 0.55,
+      Magic: 0.55,
+    },
+    damageTypes: {
+      Air: 0.7,
+      Magic: 0.3,
+    },
+    perks: {
+      gale_bursts: 1,
+      tailwind: 1,
+    },
+    img: "",
+  },
 };

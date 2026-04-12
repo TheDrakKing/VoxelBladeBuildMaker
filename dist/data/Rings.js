@@ -93,4 +93,19 @@ export const Rings = {
         },
         img: "",
     },
+    fungal_ring: {
+        id: "fungal_ring",
+        name: "Fungal Ring",
+        category: "Ring",
+        description: "Poison becomes more potent when using this ring.",
+        stats: {
+            MagicBoost: +2,
+            HexBoost: +2,
+            EarthBoost: +2,
+        },
+        perks: {
+            mycotic_bloom: 1,
+        },
+        img: "",
+    },
 };

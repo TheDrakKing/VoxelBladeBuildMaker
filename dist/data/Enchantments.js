@@ -256,6 +256,21 @@ export const Enchantments = {
             }
         },
     },
+    corroded: {
+        id: "corroded",
+        name: "Corroded",
+        category: "Enchantment",
+        description: "reduces warding",
+        stats: {
+            Warding: -20,
+        },
+    },
+    corrupt: {
+        id: "corrupt",
+        name: "Corrupt",
+        category: "Enchantment",
+        description: "invert and doubles Negative stats, and remove Positive stats",
+    },
     ////////////////ACD Enchantment ///////////////////////////
     ferocious: {
         id: "ferocious",

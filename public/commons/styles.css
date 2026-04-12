@@ -1,3 +1,9 @@
+/**
+ * Common CSS styles for the application
+ * This file contains the CSS styles for the application, including both light and dark themes.
+ * It defines the color variables for each theme and applies them to various components of the UI.
+ * The styles are organized into sections for the main page, title bar, custom check box, and item boxes.
+ */
 :root {
     --bg-color: white;
     --text-color: black;

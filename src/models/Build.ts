@@ -202,7 +202,7 @@ export class Build {
           number?
         ][]) {
           // key is a string, value is a number or undefined
-          if (value === undefined) continue;
+          if (!value) continue;
           let previousValue = this.potencies[key];
           this.potencies[key] = previousValue ? previousValue + value : value;
         }
@@ -301,7 +301,7 @@ export class Build {
   }
 
   addItemToBuild( item: ItemModule.Item | Guild, section?: keyof Build, key?: gear, enchantIndex?: number): boolean | void {
-    if (section !== "enchantments" || key !== "guild") {
+    if (section !== "enchantments" && key !== "guild") {
       if (item instanceof ItemModule.Item) {key = item.category === "Armor" ? (item.type?.toLowerCase()! as gear) : (item.category?.toLowerCase() as gear);
       }
     }
@@ -362,13 +362,11 @@ export class Build {
     if (this.guild && this.guild.promotions) {
       let promotion = this.guild.promotions[this.guildPromotion];
       let guild = new ItemModule.Item({id: this.guild.id, stats: promotion.stats, perks: promotion.perks});
-      console.log(guild);
       this.addItemStatsToBuild(guild);
     }
 
     for (const [key, value] of Object.entries(this.enchantments) as [
-      keyof Armor,
-      []
+      keyof Armor, []
     ][]) {
       // key is a string, value is a number or undefined
       if (value === undefined) continue;
@@ -396,9 +394,7 @@ export class Build {
 
     //////////////////////// Enchants activation ////////////////////////
 
-    for (const [key, value] of Object.entries(this.enchantments) as [
-      keyof Armor,
-      []
+    for (const [key, value] of Object.entries(this.enchantments) as [keyof Armor, []
     ][]) {
       // key is a string, value is a number or undefined
       if (value === undefined) continue;

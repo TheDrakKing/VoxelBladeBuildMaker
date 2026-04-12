@@ -158,7 +158,9 @@ export const Perks = {
                 return null;
             let outputMultiplier = 0.1;
             let previousValue = this.damageTypes["True"];
-            this.damageTypes["True"] = previousValue ? previousValue + outputMultiplier : outputMultiplier;
+            this.damageTypes["True"] = previousValue
+                ? previousValue + outputMultiplier
+                : outputMultiplier;
             return null;
         },
     },
@@ -197,5 +199,16 @@ export const Perks = {
         name: "Ignition",
         category: "",
         description: "Tenacity increases damage dealt.",
+    },
+    immoveable: {
+        id: "immoveable",
+        name: "Immoveable",
+        category: "Perk",
+        description: "Your tenacity Boost now affects your physical defense",
+        onStatCalculation(perkAmount) {
+            if (!this.stats || !this.stats.Tenacity)
+                return;
+            let preDefense = this.stats.PhysicalDefense || 0;
+        },
     },
 };

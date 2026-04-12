@@ -170,8 +170,6 @@ export function calculateDamage(weaponDamage:number, attacker: Build.Build, outp
     attacker.totEffBoost = totEffBoost;
   }
 
-  console.log(totEffMultiplier);
-
   let baseDamage = getBaseDamage(weaponDamage, totEffMultiplier);
 
   /////////////////////////////Damage Bonus Multiplier/////////////////////////////

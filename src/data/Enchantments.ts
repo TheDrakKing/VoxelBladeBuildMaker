@@ -9,7 +9,10 @@ export const Enchantments: ItemModule.ItemDataTable = {
     description: "Times all Positive Stats by x1.5",
     onStatCalculation(perkAmount, outputType, stats) {
       if (!stats) return;
-      for (const [key, value] of Object.entries(stats as stats) as [ItemModule.stat, number?][]) {
+      for (const [key, value] of Object.entries(stats as stats) as [
+        ItemModule.stat,
+        number?
+      ][]) {
         // key is a string, value is a number or undefined
         if (!value || value <= 0) continue;
         stats[key] = Math.trunc(value * 1.5 * 10) / 10;
@@ -24,7 +27,10 @@ export const Enchantments: ItemModule.ItemDataTable = {
     description: "Times all Positive Stats by x1.2 and half Negative stats",
     onArmorStatModified(perkAmount, outputType, stats) {
       if (!stats) return;
-      for (const [key, value] of Object.entries(stats as stats) as [ItemModule.stat, number?][]) {
+      for (const [key, value] of Object.entries(stats as stats) as [
+        ItemModule.stat,
+        number?
+      ][]) {
         // key is a string, value is a number or undefined
         if (value === undefined) continue;
         if (value > 0) {
@@ -260,6 +266,23 @@ export const Enchantments: ItemModule.ItemDataTable = {
         }
       }
     },
+  },
+
+  corroded: {
+    id: "corroded",
+    name: "Corroded",
+    category: "Enchantment",
+    description: "reduces warding",
+    stats: {
+      Warding: -20,
+    },
+  },
+
+  corrupt: {
+    id: "corrupt",
+    name: "Corrupt",
+    category: "Enchantment",
+    description: "invert and doubles Negative stats, and remove Positive stats",
   },
 
   ////////////////ACD Enchantment ///////////////////////////
