@@ -253,6 +253,29 @@
     font-weight: 600;
 }
 
+.source_option_box .select-box_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.source_option_box .select-box_button > span {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+}
+
+.source_option_name {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.source_option_meta {
+    font-size: 0.82rem;
+    color: var(--muted-text);
+}
+
 .item-box_img {
     color: var(--text-color);
     width: 100%;

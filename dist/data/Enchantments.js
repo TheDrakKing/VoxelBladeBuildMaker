@@ -5,13 +5,14 @@ export const Enchantments = {
         category: "Enchantment",
         description: "Times all Positive Stats by x1.5",
         onStatCalculation(perkAmount, args) {
-            if (!args || !args.stat)
+            const item = args?.item;
+            if (!item || !item.stats)
                 return;
-            for (const [key, value] of Object.entries(args.stat)) {
+            for (const [key, value] of Object.entries(item.stats)) {
                 // key is a string, value is a number or undefined
                 if (!value || value <= 0)
                     continue;
-                args.stat[key] = Math.trunc(value * 1.5 * 10) / 10;
+                item.stats[key] = Math.trunc(value * 1.5 * 10) / 10;
             }
         },
     },
@@ -20,18 +21,19 @@ export const Enchantments = {
         name: "Refined",
         category: "Enchantment",
         description: "Times all Positive Stats by x1.2 and half Negative stats",
-        onArmorStatModified(perkAmount, args) {
-            if (!args || !args.stat)
+        onStatCalculation(perkAmount, args) {
+            const item = args?.item;
+            if (!item || !item.stats)
                 return;
-            for (const [key, value] of Object.entries(args.stat)) {
+            for (const [key, value] of Object.entries(item.stats)) {
                 // key is a string, value is a number or undefined
                 if (value === undefined)
                     continue;
                 if (value > 0) {
-                    args.stat[key] = Math.trunc(value * 1.2 * 10) / 10;
+                    item.stats[key] = Math.trunc(value * 1.2 * 10) / 10;
                 }
                 else if (value < 0) {
-                    args.stat[key] = Math.trunc(value * 0.5 * 10) / 10;
+                    item.stats[key] = Math.trunc(value * 0.5 * 10) / 10;
                 }
             }
         },
@@ -44,11 +46,12 @@ export const Enchantments = {
         stats: {
             PhysicalBoost: 10,
         },
-        onStatCalculation(perkAmount) {
-            if (!this.stats || !this.stats.PhysicalBoost)
+        onStatCalculation(perkAmount, args) {
+            const item = args?.item;
+            if (!item || !item.stats || !item.stats.PhysicalBoost)
                 return;
-            this.stats.PhysicalBoost =
-                Math.trunc(this.stats.PhysicalBoost * 1.2 * 10) / 10;
+            item.stats.PhysicalBoost =
+                Math.trunc(item.stats.PhysicalBoost * 1.2 * 10) / 10;
         },
     },
     dexterous: {
@@ -61,11 +64,12 @@ export const Enchantments = {
             JumpBoost: 2,
             SpeedBoost: 5,
         },
-        onStatCalculation(perkAmount) {
-            if (!this.stats || !this.stats.DexterityBoost)
+        onStatCalculation(perkAmount, args) {
+            const item = args?.item;
+            if (!item || !item.stats || !item.stats.DexterityBoost)
                 return;
-            this.stats.DexterityBoost =
-                Math.trunc(this.stats.DexterityBoost * 1.2 * 10) / 10;
+            item.stats.DexterityBoost =
+                Math.trunc(item.stats.DexterityBoost * 1.2 * 10) / 10;
         },
     },
     burning: {
@@ -76,10 +80,11 @@ export const Enchantments = {
         stats: {
             FireBoost: 10,
         },
-        onStatCalculation(perkAmount) {
-            if (!this.stats || !this.stats.FireBoost)
+        onStatCalculation(perkAmount, args) {
+            const item = args?.item;
+            if (!item || !item.stats || !item.stats.FireBoost)
                 return;
-            this.stats.FireBoost = Math.trunc(this.stats.FireBoost * 1.2 * 10) / 10;
+            item.stats.FireBoost = Math.trunc(item.stats.FireBoost * 1.2 * 10) / 10;
         },
     },
     Wet: {
@@ -90,10 +95,11 @@ export const Enchantments = {
         stats: {
             WaterBoost: 10,
         },
-        onStatCalculation(perkAmount) {
-            if (!this.stats || !this.stats.WaterBoost)
+        onStatCalculation(perkAmount, args) {
+            const item = args?.item;
+            if (!item || !item.stats || !item.stats.WaterBoost)
                 return;
-            this.stats.WaterBoost = Math.trunc(this.stats.WaterBoost * 1.2 * 10) / 10;
+            item.stats.WaterBoost = Math.trunc(item.stats.WaterBoost * 1.2 * 10) / 10;
         },
     },
     earthen: {
@@ -104,10 +110,11 @@ export const Enchantments = {
         stats: {
             EarthBoost: 10,
         },
-        onStatCalculation(perkAmount) {
-            if (!this.stats || !this.stats.EarthBoost)
+        onStatCalculation(perkAmount, args) {
+            const item = args?.item;
+            if (!item || !item.stats || !item.stats.EarthBoost)
                 return;
-            this.stats.EarthBoost = Math.trunc(this.stats.EarthBoost * 1.2 * 10) / 10;
+            item.stats.EarthBoost = Math.trunc(item.stats.EarthBoost * 1.2 * 10) / 10;
         },
     },
     magical: {
@@ -118,10 +125,11 @@ export const Enchantments = {
         stats: {
             MagicBoost: 10,
         },
-        onStatCalculation(perkAmount) {
-            if (!this.stats || !this.stats.MagicBoost)
+        onStatCalculation(perkAmount, args) {
+            const item = args?.item;
+            if (!item || !item.stats || !item.stats.MagicBoost)
                 return;
-            this.stats.MagicBoost = Math.trunc(this.stats.MagicBoost * 1.2 * 10) / 10;
+            item.stats.MagicBoost = Math.trunc(item.stats.MagicBoost * 1.2 * 10) / 10;
         },
     },
     cursed: {
@@ -132,10 +140,11 @@ export const Enchantments = {
         stats: {
             HexBoost: 10,
         },
-        onStatCalculation(perkAmount) {
-            if (!this.stats || !this.stats.HexBoost)
+        onStatCalculation(perkAmount, args) {
+            const item = args?.item;
+            if (!item || !item.stats || !item.stats.HexBoost)
                 return;
-            this.stats.HexBoost = Math.trunc(this.stats.HexBoost * 1.2 * 10) / 10;
+            item.stats.HexBoost = Math.trunc(item.stats.HexBoost * 1.2 * 10) / 10;
         },
     },
     windy: {
@@ -146,10 +155,11 @@ export const Enchantments = {
         stats: {
             AirBoost: 10,
         },
-        onStatCalculation(perkAmount) {
-            if (!this.stats || !this.stats.AirBoost)
+        onStatCalculation(perkAmount, args) {
+            const item = args?.item;
+            if (!item || !item.stats || !item.stats.AirBoost)
                 return;
-            this.stats.AirBoost = Math.trunc(this.stats.AirBoost * 1.2 * 10) / 10;
+            item.stats.AirBoost = Math.trunc(item.stats.AirBoost * 1.2 * 10) / 10;
         },
     },
     enlightened: {
@@ -160,10 +170,11 @@ export const Enchantments = {
         stats: {
             HolyBoost: 10,
         },
-        onStatCalculation(perkAmount) {
-            if (!this.stats || !this.stats.HolyBoost)
+        onStatCalculation(perkAmount, args) {
+            const item = args?.item;
+            if (!item || !item.stats || !item.stats.HolyBoost)
                 return;
-            this.stats.HolyBoost = Math.trunc(this.stats.HolyBoost * 1.2 * 10) / 10;
+            item.stats.HolyBoost = Math.trunc(item.stats.HolyBoost * 1.2 * 10) / 10;
         },
     },
     summoner: {
@@ -174,11 +185,12 @@ export const Enchantments = {
         stats: {
             SummonBoost: 10,
         },
-        onStatCalculation(perkAmount) {
-            if (!this.stats || !this.stats.SummonBoost)
+        onStatCalculation(perkAmount, args) {
+            const item = args?.item;
+            if (!item || !item.stats || !item.stats.SummonBoost)
                 return;
-            this.stats.SummonBoost =
-                Math.trunc(this.stats.SummonBoost * 1.2 * 10) / 10;
+            item.stats.SummonBoost =
+                Math.trunc(item.stats.SummonBoost * 1.2 * 10) / 10;
         },
     },
     hardened: {
@@ -239,19 +251,20 @@ export const Enchantments = {
             PhysicalDefense: 10,
             SpeedBoost: -5,
         },
-        onStatCalculation(perkAmount) {
-            if (!this.stats)
+        onStatCalculation(perkAmount, args) {
+            const item = args?.item;
+            if (!item || !item.stats)
                 return;
-            for (const [key, value] of Object.entries(this.stats)) {
+            for (const [key, value] of Object.entries(item.stats)) {
                 // key is a string, value is a number or undefined
                 if (value === undefined || !key.endsWith("Defense"))
                     continue;
                 console.log(key);
                 if (value > 0) {
-                    this.stats[key] = Math.trunc(value * 1.5 * 10) / 10;
+                    item.stats[key] = Math.trunc(value * 1.5 * 10) / 10;
                 }
                 else if (value < 0) {
-                    this.stats[key] = Math.trunc(value * 0.5 * 10) / 10;
+                    item.stats[key] = Math.trunc(value * 0.5 * 10) / 10;
                 }
             }
         },

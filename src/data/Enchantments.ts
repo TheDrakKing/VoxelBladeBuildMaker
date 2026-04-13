@@ -8,14 +8,15 @@ export const Enchantments: ItemModule.ItemDataTable = {
     category: "Enchantment",
     description: "Times all Positive Stats by x1.5",
     onStatCalculation(perkAmount, args) {
-      if (!args || !args.stat) return;
-      for (const [key, value] of Object.entries(args.stat as stats) as [
+      const item = args?.item
+      if (!item || !item.stats) return;
+      for (const [key, value] of Object.entries(item.stats as stats) as [
         ItemModule.stat,
         number?
       ][]) {
         // key is a string, value is a number or undefined
         if (!value || value <= 0) continue;
-        args.stat[key] = Math.trunc(value * 1.5 * 10) / 10;
+        item.stats[key] = Math.trunc(value * 1.5 * 10) / 10;
       }
     },
   },
@@ -25,18 +26,19 @@ export const Enchantments: ItemModule.ItemDataTable = {
     name: "Refined",
     category: "Enchantment",
     description: "Times all Positive Stats by x1.2 and half Negative stats",
-    onArmorStatModified(perkAmount, args) {
-      if (!args || !args.stat) return;
-      for (const [key, value] of Object.entries(args.stat as stats) as [
+    onStatCalculation(perkAmount, args) {
+      const item = args?.item
+      if (!item || !item.stats) return;
+      for (const [key, value] of Object.entries(item.stats as stats) as [
         ItemModule.stat,
         number?
       ][]) {
         // key is a string, value is a number or undefined
         if (value === undefined) continue;
         if (value > 0) {
-          args.stat[key] = Math.trunc(value * 1.2 * 10) / 10;
+          item.stats[key] = Math.trunc(value * 1.2 * 10) / 10;
         } else if (value < 0) {
-          args.stat[key] = Math.trunc(value * 0.5 * 10) / 10;
+          item.stats[key] = Math.trunc(value * 0.5 * 10) / 10;
         }
       }
     },
@@ -50,10 +52,11 @@ export const Enchantments: ItemModule.ItemDataTable = {
     stats: {
       PhysicalBoost: 10,
     },
-    onStatCalculation(perkAmount) {
-      if (!this.stats || !this.stats.PhysicalBoost) return;
-      this.stats.PhysicalBoost =
-        Math.trunc(this.stats.PhysicalBoost * 1.2 * 10) / 10;
+    onStatCalculation(perkAmount, args) {
+      const item = args?.item
+      if (!item || !item.stats || !item.stats.PhysicalBoost) return;
+      item.stats.PhysicalBoost =
+        Math.trunc(item.stats.PhysicalBoost * 1.2 * 10) / 10;
     },
   },
 
@@ -67,10 +70,11 @@ export const Enchantments: ItemModule.ItemDataTable = {
       JumpBoost: 2,
       SpeedBoost: 5,
     },
-    onStatCalculation(perkAmount) {
-      if (!this.stats || !this.stats.DexterityBoost) return;
-      this.stats.DexterityBoost =
-        Math.trunc(this.stats.DexterityBoost * 1.2 * 10) / 10;
+    onStatCalculation(perkAmount, args) {
+      const item = args?.item
+      if (!item || !item.stats || !item.stats.DexterityBoost) return;
+      item.stats.DexterityBoost =
+        Math.trunc(item.stats.DexterityBoost * 1.2 * 10) / 10;
     },
   },
 
@@ -82,9 +86,10 @@ export const Enchantments: ItemModule.ItemDataTable = {
     stats: {
       FireBoost: 10,
     },
-    onStatCalculation(perkAmount) {
-      if (!this.stats || !this.stats.FireBoost) return;
-      this.stats.FireBoost = Math.trunc(this.stats.FireBoost * 1.2 * 10) / 10;
+    onStatCalculation(perkAmount, args) {
+       const item = args?.item
+      if (!item || !item.stats || !item.stats.FireBoost) return;
+      item.stats.FireBoost = Math.trunc(item.stats.FireBoost * 1.2 * 10) / 10;
     },
   },
 
@@ -96,9 +101,10 @@ export const Enchantments: ItemModule.ItemDataTable = {
     stats: {
       WaterBoost: 10,
     },
-    onStatCalculation(perkAmount) {
-      if (!this.stats || !this.stats.WaterBoost) return;
-      this.stats.WaterBoost = Math.trunc(this.stats.WaterBoost * 1.2 * 10) / 10;
+    onStatCalculation(perkAmount, args) {
+       const item = args?.item
+      if (!item || !item.stats || !item.stats.WaterBoost) return;
+      item.stats.WaterBoost = Math.trunc(item.stats.WaterBoost * 1.2 * 10) / 10;
     },
   },
 
@@ -110,9 +116,10 @@ export const Enchantments: ItemModule.ItemDataTable = {
     stats: {
       EarthBoost: 10,
     },
-    onStatCalculation(perkAmount) {
-      if (!this.stats || !this.stats.EarthBoost) return;
-      this.stats.EarthBoost = Math.trunc(this.stats.EarthBoost * 1.2 * 10) / 10;
+    onStatCalculation(perkAmount, args) {
+      const item = args?.item
+      if (!item || !item.stats || !item.stats.EarthBoost) return;
+      item.stats.EarthBoost = Math.trunc(item.stats.EarthBoost * 1.2 * 10) / 10;
     },
   },
 
@@ -124,9 +131,10 @@ export const Enchantments: ItemModule.ItemDataTable = {
     stats: {
       MagicBoost: 10,
     },
-    onStatCalculation(perkAmount) {
-      if (!this.stats || !this.stats.MagicBoost) return;
-      this.stats.MagicBoost = Math.trunc(this.stats.MagicBoost * 1.2 * 10) / 10;
+    onStatCalculation(perkAmount, args) {
+      const item = args?.item
+      if (!item || !item.stats || !item.stats.MagicBoost) return;
+      item.stats.MagicBoost = Math.trunc(item.stats.MagicBoost * 1.2 * 10) / 10;
     },
   },
 
@@ -138,9 +146,10 @@ export const Enchantments: ItemModule.ItemDataTable = {
     stats: {
       HexBoost: 10,
     },
-    onStatCalculation(perkAmount) {
-      if (!this.stats || !this.stats.HexBoost) return;
-      this.stats.HexBoost = Math.trunc(this.stats.HexBoost * 1.2 * 10) / 10;
+    onStatCalculation(perkAmount, args) {
+      const item = args?.item
+      if (!item || !item.stats || !item.stats.HexBoost) return;
+      item.stats.HexBoost = Math.trunc(item.stats.HexBoost * 1.2 * 10) / 10;
     },
   },
 
@@ -152,9 +161,10 @@ export const Enchantments: ItemModule.ItemDataTable = {
     stats: {
       AirBoost: 10,
     },
-    onStatCalculation(perkAmount) {
-      if (!this.stats || !this.stats.AirBoost) return;
-      this.stats.AirBoost = Math.trunc(this.stats.AirBoost * 1.2 * 10) / 10;
+    onStatCalculation(perkAmount, args) {
+      const item = args?.item
+      if (!item || !item.stats || !item.stats.AirBoost) return;
+      item.stats.AirBoost = Math.trunc(item.stats.AirBoost * 1.2 * 10) / 10;
     },
   },
 
@@ -166,9 +176,10 @@ export const Enchantments: ItemModule.ItemDataTable = {
     stats: {
       HolyBoost: 10,
     },
-    onStatCalculation(perkAmount) {
-      if (!this.stats || !this.stats.HolyBoost) return;
-      this.stats.HolyBoost = Math.trunc(this.stats.HolyBoost * 1.2 * 10) / 10;
+    onStatCalculation(perkAmount, args) {
+      const item = args?.item
+      if (!item || !item.stats || !item.stats.HolyBoost) return;
+      item.stats.HolyBoost = Math.trunc(item.stats.HolyBoost * 1.2 * 10) / 10;
     },
   },
 
@@ -180,10 +191,11 @@ export const Enchantments: ItemModule.ItemDataTable = {
     stats: {
       SummonBoost: 10,
     },
-    onStatCalculation(perkAmount) {
-      if (!this.stats || !this.stats.SummonBoost) return;
-      this.stats.SummonBoost =
-        Math.trunc(this.stats.SummonBoost * 1.2 * 10) / 10;
+    onStatCalculation(perkAmount, args) {
+      const item = args?.item
+      if (!item || !item.stats || !item.stats.SummonBoost) return;
+      item.stats.SummonBoost =
+        Math.trunc(item.stats.SummonBoost * 1.2 * 10) / 10;
     },
   },
 
@@ -250,9 +262,10 @@ export const Enchantments: ItemModule.ItemDataTable = {
       PhysicalDefense: 10,
       SpeedBoost: -5,
     },
-    onStatCalculation(perkAmount) {
-      if (!this.stats) return;
-      for (const [key, value] of Object.entries(this.stats) as [
+    onStatCalculation(perkAmount, args) {
+      const item = args?.item
+      if (!item || !item.stats) return;
+      for (const [key, value] of Object.entries(item.stats) as [
         ItemModule.stat,
         number?
       ][]) {
@@ -260,9 +273,9 @@ export const Enchantments: ItemModule.ItemDataTable = {
         if (value === undefined || !key.endsWith("Defense")) continue;
         console.log(key);
         if (value > 0) {
-          this.stats[key] = Math.trunc(value * 1.5 * 10) / 10;
+          item.stats[key] = Math.trunc(value * 1.5 * 10) / 10;
         } else if (value < 0) {
-          this.stats[key] = Math.trunc(value * 0.5 * 10) / 10;
+          item.stats[key] = Math.trunc(value * 0.5 * 10) / 10;
         }
       }
     },

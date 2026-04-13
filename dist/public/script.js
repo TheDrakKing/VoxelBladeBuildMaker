@@ -32,6 +32,7 @@ const mainGearContentDiv = document.getElementById("main_gear");
 const weaponContentDiv = document.getElementById("weaponDiv");
 const items_selector = document.getElementById("itemsSelectorDiv");
 const SelectorClose = document.getElementById("close_items_selector");
+const itemsSelectorTitle = items_selector.querySelector(".items_selector_top h3");
 const itemsSearchInput = document.getElementById("items_search_input");
 const items_container = document.getElementById("itemsContainer");
 const dmgModContainer = document.getElementById("damageModifications");
@@ -219,6 +220,24 @@ function createItemBox(item) {
     items_container?.appendChild(clonedDiv);
     return clonedDiv;
 }
+function createSourceOptionBox(sourceId, sourceData) {
+    if (selectItem_template == null)
+        return null;
+    const clonedDiv = selectItem_template.cloneNode(true);
+    clonedDiv.style.display = "flex";
+    clonedDiv.classList.add("source_option_box");
+    const itemBoxImg = clonedDiv.children[0].children[0].children[0];
+    itemBoxImg.style.display = "none";
+    const itemBoxspan = clonedDiv.children[0].children[0].children[1];
+    itemBoxspan.style.display = "block";
+    itemBoxspan.innerHTML = `
+    <span class="source_option_name">${sourceData.sourceName}</span>
+    <span class="source_option_meta">${sourceData.type}</span>
+    <span class="source_option_meta">Innate Potency: ${sourceData.inatePotency}</span>
+  `;
+    items_container?.appendChild(clonedDiv);
+    return clonedDiv;
+}
 function clearSelectorItems() {
     selectItemDivs.forEach(([div]) => div.remove());
     selectItemDivs.length = 0;
@@ -227,6 +246,8 @@ function hideSelector() {
     clearSelectorItems();
     activeSelectorContext = null;
     itemsSearchInput.value = "";
+    itemsSearchInput.style.display = "";
+    itemsSelectorTitle.textContent = "Select an Item";
     items_selector.style.display = "none";
 }
 function normalizeFilterValue(value) {
@@ -264,6 +285,32 @@ async function importBuildFromFile(file) {
         importBuildInput.value = "";
     }
 }
+function showBuffSourceSelector(buff, sourceOptions, sourceBuild) {
+    clearSelectorItems();
+    activeSelectorContext = null;
+    itemsSearchInput.value = "";
+    itemsSearchInput.style.display = "none";
+    itemsSelectorTitle.textContent = `Select a Source for ${buff.name}`;
+    Object.entries(sourceOptions).forEach(([sourceId, sourceData]) => {
+        const sourceOption = {
+            sourceName: sourceData.sourceName,
+            type: sourceData.type,
+            inatePotency: sourceData.inatePotency,
+        };
+        const sourceBox = createSourceOptionBox(sourceId, sourceOption);
+        if (!sourceBox)
+            return;
+        selectItemDivs.push([sourceBox, sourceOption]);
+        const sourceButton = sourceBox.children[0].children[0];
+        sourceButton.addEventListener("click", () => {
+            buff.setSourceData(sourceId, sourceData.type, sourceData.inatePotency);
+            sourceBuild.addBuffToBuild(buff);
+            hideSelector();
+            resetPage();
+        });
+    });
+    items_selector.style.display = "flex";
+}
 function createBuffBox(buff, ContainerDiv, source) {
     if (buff_template == null)
         return null;
@@ -292,8 +339,15 @@ function createBuffBox(buff, ContainerDiv, source) {
         else {
             build.removeBuffToBuild(buff, buff.category);
         }
+        mouseLeave();
         console.log("Resetting Debuff");
         resetPage();
+    });
+    itemButton?.addEventListener("mouseenter", () => {
+        buffHover(buff);
+    });
+    itemButton?.addEventListener("mouseleave", () => {
+        mouseLeave();
     });
     // Create a clickable link for each game
     ContainerDiv?.appendChild(clonedDiv);
@@ -428,6 +482,61 @@ function perkHover(perk, value) {
     let hoverPotenciesDiv = itemHoverInfoDiv.children[6];
     hoverPotenciesDiv.style.display = "none";
     hoverPotenciesDiv.innerHTML = "";
+    itemHoverInfoDiv.style.display = "flex";
+}
+function buffHover(buff) {
+    const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv");
+    if (!itemHoverInfoDiv)
+        return;
+    let itemName = itemHoverInfoDiv.children[0];
+    itemName.innerHTML = buff.name || "";
+    let hoverDescription = itemHoverInfoDiv.children[1];
+    hoverDescription.innerHTML = buff.category || "";
+    let hoverDmgScaleDiv = itemHoverInfoDiv.children[2];
+    hoverDmgScaleDiv.style.display = "none";
+    hoverDmgScaleDiv.innerHTML = "";
+    if (buff.damageScalings) {
+        for (const [key, value] of Object.entries(buff.damageScalings)) {
+            if (value === undefined)
+                continue;
+            hoverDmgScaleDiv.style.display = "block";
+            createStatHolder(key, value, hoverDmgScaleDiv);
+        }
+    }
+    let hoverDmgTypeDiv = itemHoverInfoDiv.children[3];
+    hoverDmgTypeDiv.style.display = "none";
+    hoverDmgTypeDiv.innerHTML = "";
+    if (buff.damageTypes) {
+        for (const [key, value] of Object.entries(buff.damageTypes)) {
+            if (value === undefined)
+                continue;
+            hoverDmgTypeDiv.style.display = "block";
+            createStatHolder(key, value, hoverDmgTypeDiv);
+        }
+    }
+    let hoverStatsDiv = itemHoverInfoDiv.children[4];
+    hoverStatsDiv.style.display = "none";
+    hoverStatsDiv.innerHTML = "";
+    hoverStatsDiv.style.display = "block";
+    createStatHolder("Base Duration", buff.baseDuration, hoverStatsDiv);
+    if (buff.potencyId) {
+        createStatHolder("Potency Type", ItemModule.potencyAliases[buff.potencyId] || buff.potencyId, hoverStatsDiv);
+    }
+    if (buff.potency !== undefined && buff.potency !== null) {
+        createStatHolder("Potency", buff.potency, hoverStatsDiv);
+    }
+    let hoverPerksDiv = itemHoverInfoDiv.children[5];
+    hoverPerksDiv.style.display = "none";
+    hoverPerksDiv.innerHTML = "";
+    let hoverPotenciesDiv = itemHoverInfoDiv.children[6];
+    hoverPotenciesDiv.style.display = "none";
+    hoverPotenciesDiv.innerHTML = "";
+    if (buff.sourceData) {
+        hoverPotenciesDiv.style.display = "block";
+        createStatHolder("Source", buff.sourceData.source, hoverPotenciesDiv);
+        createStatHolder("Source Type", buff.sourceData.sourceType, hoverPotenciesDiv);
+        createStatHolder("Source Potency", buff.sourceData.sourceInatePotency, hoverPotenciesDiv);
+    }
     itemHoverInfoDiv.style.display = "flex";
 }
 function mouseLeave() {
@@ -772,6 +881,8 @@ function loadSelectorPage(build, source, category, section, index, htmlElement, 
         htmlElement,
     };
     itemsSearchInput.value = filter || "";
+    itemsSearchInput.style.display = "";
+    itemsSelectorTitle.textContent = "Select an Item";
     clearSelectorItems();
     let removeItemBox = createItemBox(blankItem);
     selectItemDivs.push([removeItemBox, blankItem]);
@@ -817,16 +928,23 @@ function loadSelectorPage(build, source, category, section, index, htmlElement, 
         if (itemBox != removeItemBox) {
             var itemBoxButton = itemBox.children[0].children[0];
             itemBoxButton.addEventListener("click", () => {
-                hideSelector();
                 if (item instanceof ItemModule.Item || item instanceof GuildModule.Guild) {
+                    hideSelector();
                     addItemToPage(item, section, key, index, htmlElement);
                 }
                 else if (item instanceof BuffModule.Buff) {
-                    const source = build.getSourcesForBuff(item.potencyId);
+                    const source = item.potencyId ? build.getSourcesForBuff(item.potencyId) : {};
                     //Buff will now bring up a new UI, for adding a buff to a build
                     // all buffs must have a soruce, so based on user build we can see if the have any sources for his buff
                     // if they don't we can auto add it still but the buff will have potency of 0.1 and source Type will be default
-                    //build.addBuffToBuild(item);
+                    if (Object.keys(source).length === 0) {
+                        item.setSourceData();
+                        hideSelector();
+                        build.addBuffToBuild(item);
+                    }
+                    else {
+                        showBuffSourceSelector(item, source, build);
+                    }
                     resetPage();
                 }
             });

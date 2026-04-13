@@ -16,6 +16,7 @@ export interface eventsArgs {
   outputType?: string
   stat?: any
   baseDamageData?: baseDamageData
+  item?: Item
 }
 
 export class events {

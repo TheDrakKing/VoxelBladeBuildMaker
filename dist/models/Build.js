@@ -78,7 +78,7 @@ export class Build {
                             let args = [1, {
                                     stat: stats
                                 }];
-                            enchantment.onArmorStatModified.apply(this, args);
+                            //enchantment.onArmorStatModified.apply(this, args);
                         }
                     }
                 }
@@ -193,7 +193,7 @@ export class Build {
         if (this.findBuffInBuild(buff.id, buff.category))
             return; // that buff is already in the build
         //defult call setSourceData just incase the we forgot layer, so it fill in it
-        buff.setSourceData();
+        //buff.setSourceData()
         if (buff.category == "Buff") {
             if (!this.buff)
                 this.buff = [];
@@ -301,22 +301,23 @@ export class Build {
             this.addItemStatsToBuild(this.weaponArt);
         if (this.guild && this.guild.promotions) {
             let promotion = this.guild.promotions[this.guildPromotion];
-            let guild = new ItemModule.Item({ id: this.guild.id, stats: promotion.stats, perks: promotion.perks });
+            let guild = new ItemModule.Item({ id: this.guild.id, stats: Object.assign({}, promotion.stats), perks: Object.assign({}, promotion.perks) });
             this.addItemStatsToBuild(guild);
         }
         if (this.race) {
-            let race = new ItemModule.Item({ id: this.race.id, stats: this.race.stats, perks: this.race.perks });
+            let race = new ItemModule.Item({ id: this.race.id, stats: Object.assign({}, this.race.stats), perks: Object.assign({}, this.race.perks) });
             this.addItemStatsToBuild(race);
         }
-        for (const [key, value] of Object.entries(this.enchantments)) {
-            // key is a string, value is a number or undefined
-            if (value === undefined)
-                continue;
-            for (let index = 0; index < value.length; index++) {
-                const enchantment = value[index];
-                this.addItemStatsToBuild(enchantment);
-            }
-        }
+        // for (const [key, value] of Object.entries(this.enchantments) as [
+        //   keyof Armor, []
+        // ][]) {
+        //   // key is a string, value is a number or undefined
+        //   if (value === undefined) continue;
+        //   for (let index = 0; index < value.length; index++) {
+        //     const enchantment = value[index] as ItemModule.Item;
+        //     this.addItemStatsToBuild(enchantment);
+        //   }
+        // }
         for (const [key, value] of Object.entries(this.infuseArmor)) {
             if (value === undefined)
                 continue;
@@ -325,22 +326,76 @@ export class Build {
         for (const [key, value] of Object.entries(this.mainArmor)) {
             if (value === undefined)
                 continue;
-            this.addItemStatsToBuild(value, false, key);
+            let item = new ItemModule.Item({
+                id: value.id, stats: {}, perks: {}, potencies: {},
+                damageScalings: {}, damageTypes: {},
+            });
+            Object.assign(item.stats, value.stats);
+            Object.assign(item.perks, value.stats);
+            Object.assign(item.potencies, value.potencies);
+            Object.assign(item.damageScalings, value.damageScalings);
+            Object.assign(item.damageTypes, value.damageTypes);
+            //////////////////////// Enchants activation ////////////////////////
+            const armorEnchantments = this.enchantments[key];
+            if (armorEnchantments) {
+                for (let index = 0; index < armorEnchantments.length; index++) {
+                    if (!armorEnchantments[index])
+                        continue;
+                    const enchantment = armorEnchantments[index];
+                    if (enchantment.onStatCalculation) {
+                        enchantment.onStatCalculation.apply(this, [undefined, { item }]);
+                    }
+                    ;
+                    // add the stats from the enchantment to the item 
+                    for (const [stat, amount] of Object.entries(enchantment.stats || {})) {
+                        if (!item.stats)
+                            item.stats = {};
+                        if (item.stats[stat]) {
+                            item.stats[stat] += amount;
+                        }
+                        else {
+                            item.stats[stat] = amount;
+                        }
+                    }
+                    // add the perk from the enchantment to the item 
+                    for (const [perk, amount] of Object.entries(enchantment.perks || {})) {
+                        if (!item.perks)
+                            item.perks = {};
+                        if (item.perks[perk]) {
+                            item.perks[perk] += amount;
+                        }
+                        else {
+                            item.perks[perk] = amount;
+                        }
+                    }
+                    //add Potencys
+                    for (const [potency, amount] of Object.entries(enchantment.potencies || {})) {
+                        if (!item.potencies)
+                            item.potencies = {};
+                        if (item.potencies[potency]) {
+                            item.potencies[potency] += amount;
+                        }
+                        else {
+                            item.potencies[potency] = amount;
+                        }
+                    }
+                }
+            }
+            // when add enchment bounus they go on the armor not the overall build by them slef
+            this.addItemStatsToBuild(item, false, key);
         }
         //////////////////////// Enchants activation ////////////////////////
-        for (const [key, value] of Object.entries(this.enchantments)) {
-            // key is a string, value is a number or undefined
-            if (value === undefined)
-                continue;
-            for (let index = 0; index < value.length; index++) {
-                if (!value[index])
-                    continue;
-                const enchantment = value[index];
-                if (!enchantment.onStatCalculation || !this.mainArmor[key])
-                    continue;
-                enchantment.onStatCalculation.apply(this);
-            }
-        }
+        // for (const [key, value] of Object.entries(this.enchantments) as [keyof Armor, []
+        // ][]) {
+        //   // key is a string, value is a number or undefined
+        //   if (value === undefined) continue;
+        //   for (let index = 0; index < value.length; index++) {
+        //     if (!value[index]) continue;
+        //     const enchantment = value[index] as ItemModule.Item;
+        //     if (!enchantment.onStatCalculation || !this.mainArmor[key]) continue;
+        //     enchantment.onStatCalculation.apply(this);
+        //   }
+        // }
         //////////////////////// Perk activation ////////////////////////
         //////////////////////// Run the displayStats() to add show the build stats ////////////////////////
         const oldMaxHp = this.maxHp;
