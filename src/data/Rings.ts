@@ -1,4 +1,4 @@
-let images = "/image/rings/";
+let images = "./image/rings/";
 
 export const Rings: import("../models/Item").ItemDataTable = {
   fire_ring: {

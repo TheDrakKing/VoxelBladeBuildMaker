@@ -1,4 +1,4 @@
-let images = "/image/runes/";
+let images = "./image/runes/";
 
 export const Runes: import("../models/Item").ItemDataTable = {
   bounce_rune: {
