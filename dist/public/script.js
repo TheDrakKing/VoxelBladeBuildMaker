@@ -77,8 +77,8 @@ const m2DamageTable = document.getElementById("m2_damage_table");
 const damageHeaderTemplate = document.getElementById("damage_header");
 const damageRowTemplate = document.getElementById("damage_row_template");
 //images
-let PlusSymbol = "/image/plus_symbol_white.png";
-let CloseSymbol = "/image/close_X_white.png";
+let PlusSymbol = "../image/plus_symbol_white.png";
+let CloseSymbol = "../image/close_X_white.png";
 let target = new Build.Build();
 //target.stats.PhysicalDefense = -50;
 // Create the build object
@@ -887,12 +887,12 @@ theme_Selector_input.addEventListener("change", () => {
     const currentTheme = document.documentElement.getAttribute("data-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
     if (newTheme === "dark") {
-        PlusSymbol = "/image/plus_symbol_white.png";
-        CloseSymbol = "/image/close_X_white.png";
+        PlusSymbol = "../image/plus_symbol_white.png";
+        CloseSymbol = "../image/close_X_white.png";
     }
     else {
-        PlusSymbol = "/image/plus_symbol_black.png";
-        CloseSymbol = "/image/close_X_black.png";
+        PlusSymbol = "../image/plus_symbol_black.png";
+        CloseSymbol = "../image/close_X_black.png";
     }
     document.documentElement.setAttribute("data-theme", newTheme);
     setItemButtonImage();
