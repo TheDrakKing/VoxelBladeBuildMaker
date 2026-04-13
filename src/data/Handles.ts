@@ -1,4 +1,4 @@
-let images = "./image/handles/";
+let images = "../image/handles/";
 
 export const Handles: import("../models/Item").ItemDataTable = {
   basic_handle: {
