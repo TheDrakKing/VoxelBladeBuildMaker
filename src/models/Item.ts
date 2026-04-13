@@ -12,17 +12,40 @@ export type ItemDataTable = { [id: string]: Item };
 
 const enchantmentsTable: ItemDataTable = Enchantments;
 
+export interface eventsArgs {
+  outputType?: string
+  stat?: any
+  baseDamageData?: baseDamageData
+}
+
 export class events {
-  onAdded?: (this: Build.Build, perkAmount?: number, outputType?: string) => number | null | void;
-  onRemove?: (this: Build.Build, perkAmount?: number, outputType?: string) => number | null | void; 
-  onStatCalculation?: (this: Build.Build, perkAmount?: number, outputType?: string, stat?: any) => void;
-  onArmorStatModified?: (this: Build.Build, perkAmount?: number, outputType?: string, stat?: any) => void;
+  onAdded?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null | void;
+  onRemove?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null | void; 
+  onStatCalculation?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => void;
+  onArmorPenCalculation?:(this: Build.Build, perkAmount?: number) => number | null;
+  onArmorStatModified?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => void;
   onStatModified?: (this: Build.Build, perkAmount?: number) => number | null;
   onArmorModified?: (this: Build.Build, perkAmount?: number) => number | null;
-  onDmgBonusMultiplier?: (this: Build.Build, perkAmount?: number) => number | null;
-  onDmgReducedMultiplier?: (this: Build.Build, perkAmount?: number) => number | null;
-  onSpecificDmgBonusMultiplier?: (this: Build.Build, perkAmount?: number, outputType?:string) => number | null;
-  onSpecificDmgReducedMultiplier?: (this: Build.Build, perkAmount?: number, outputType?:string) => number | null;
+  onDmgBonusMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onDmgReducedMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onSpecificDmgBonusMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onSpecificDmgReducedMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  /**
+   * Function acts has the invser of onSpecificDmgReducedMultiplier, it added to the attacker damage
+   */
+  onIncreaseSpecificDmgTaken?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  /**
+   * Function acts has the invser of onDmgReducedMultiplier, it added to the attacker damage
+   */
+  onIncreaseDmgTaken?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  /**
+   * Function acts has the invser of onSpecificDmgBonusMultiplier, it reduces to the attacker damage
+   */
+  onDecreaseSpecificDmgBonusMultiplier?:(this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  /**
+   * Function acts has the invser of onDmgBonusMultiplier, it reduces to the attacker damage
+   */
+  onDecreaseDmgBonusMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   onBuffAdded?: (this: Build.Build, perkAmount?: number) => number | null;
   onDeBuffAdded?: (this: Build.Build, perkAmount?: number) => number | null;
   onBuffRemoved?: (this: Build.Build, perkAmount?: number) => number | null;
@@ -109,7 +132,14 @@ export class Item extends events {
   type?: string;
   upgrade?:number;
   img?: string;
+  /**
+   * For addtive potecny that get applied to the over build, and can be added to soruce potency
+   */
   potencies?: { [k in potency]?: number };
+  /**
+   * source potencies don't get added to the build, they are for exmaple rage run which has base 0.3 potency when actvited
+   */
+  sourcepotencies?: { [k in potency]?: number };
   stats?: { [k in stat]?: number };
   perks?: { [id: string]: number };
   damageScalings?: { [k in scale]?: number };
@@ -126,6 +156,7 @@ export class Item extends events {
     this.type = data && data?.type || undefined;
     this.description = data?.description || "";
     this.potencies = data?.potencies || {};
+    this.sourcepotencies = data?.sourcepotencies || {};
     this.stats =  data?.stats || {};
     this.perks =  data?.perks || {};
     this.damageScalings = data?.damageScalings || {};

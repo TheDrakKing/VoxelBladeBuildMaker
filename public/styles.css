@@ -1,67 +1,89 @@
 /**
  * Main page CSS styles
- * Styles for the main page of the application
- * This file contains the CSS styles for the main page of the application, including the main bar, level display, item box selection, stats display, buff and debuff display, and damage display.
- * The styles are organized into sections for each component of the main page.
- * The colors and other properties are defined using CSS variables for easy theming and customization.
+ * Dashboard layout, selector overlays, cards, stat panels, and damage tables.
  */
-/*********************************** main bar ***********************************/
+
+/*********************************** Page Shell ***********************************/
 .bar-container {
-    width: 95%;
-    padding: 10px;
-    border-radius: 15px;
-    border: none;
-    background: transparent;
+    width: 100%;
+    padding: 0;
+    border-radius: 24px;
+    border: 1px solid var(--border-soft);
+    background: var(--panel-bg);
+    box-shadow: var(--shadow-soft);
 }
 
-.content-title{
+.content-title {
     width: 100%;
-    height: 50px;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
     background: transparent;
 }
 
 .content-title h3 {
-    display: inline-block;
-    font-size: 25px;
+    margin: 0;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
     color: var(--text-color);
 }
 
 .content-title button {
-    width: 80px;
-    height: 30px;
-    background-color: var(--itemBox--bg-color);
-    border-radius: 10px;
-    color: var(--itemBox--text-color);
+    min-width: 108px;
+    height: 38px;
+    padding: 0 16px;
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    background: var(--button-secondary-bg);
+    color: var(--button-secondary-text);
+    font-weight: 600;
+    transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
 }
 
-.item_hoverinfo{
+.content-title button:hover {
+    transform: translateY(-1px);
+    background: var(--button-secondary-hover);
+    border-color: var(--border-strong);
+}
+
+.item_hoverinfo {
     position: fixed;
     display: none;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
-     transform: translate(-25%, 50%);
-    /* overflow: auto; */
+    align-items: flex-start;
+    top: 24px;
+    right: 24px;
+    transform: none;
     gap: 10px;
-    width: 200px;
-    /* height: 250px; */
-    background-color: var(--itemBox--bg-color);
-    border-radius: 10px;
-    color: var(--itemBox--text-color);
-    font-size: 20px;
-    z-index: 10;
+    width: min(320px, calc(100vw - 32px));
+    max-height: calc(100vh - 48px);
+    overflow: auto;
+    padding: 18px;
+    background: var(--overlay-panel-bg);
+    border: 1px solid var(--border-soft);
+    border-radius: 24px;
+    color: var(--text-color);
+    font-size: 1rem;
+    box-shadow: var(--shadow-strong);
+    backdrop-filter: blur(18px);
+    z-index: 30;
 }
 
 .item_hoverinfo div {
+    width: 100%;
     background: transparent;
-    color: var(--itemBox--text-color);
-    font-size: 15px;
+    color: var(--muted-text);
+    font-size: 0.92rem;
+    text-align: left;
 }
 
-.item_hoverinfo div span{
+.item_hoverinfo div span {
     background: transparent;
-    color: var(--itemBox--text-color);
-    font-size: 15px;
+    color: var(--text-color);
+    font-size: 0.92rem;
 }
 
 .items_selector {
@@ -70,77 +92,141 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    width: 70%;
     left: 50%;
     top: 50%;
-    border-radius: 15px;
-    border: none;
-    background-color: whitesmoke;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: min(1080px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    padding: 18px;
+    border-radius: 28px;
+    border: 1px solid var(--border-soft);
+    background: var(--itemSelector--bg-color);
+    box-shadow: var(--shadow-strong);
 }
 
 .items_container {
     display: flex;
-    -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
-    -webkit-justify-content: flex-start;
     justify-content: flex-start;
+    align-content: flex-start;
     overflow: auto;
-    gap: 20px;
-    width: 95%;
-    height: 500px;
-    border-radius: 15px;
+    gap: 18px;
+    width: 100%;
+    min-height: 240px;
+    max-height: 70vh;
+    padding: 8px 6px 12px;
+    border-radius: 20px;
     border: none;
-    margin-top: 10px;
-    margin-bottom: 30px;
+    margin-top: 8px;
     background: transparent;
 }
 
-.statHolder_template{
+#items_search_input {
+    width: 100%;
+    height: 48px;
+    margin-top: 10px;
+    padding: 0 16px;
+    border-radius: 16px;
+    border: 1px solid var(--border-soft);
+    outline: none;
+    background: var(--field-bg);
     color: var(--text-color);
-    background: transparent;
+}
+
+#items_search_input::placeholder {
+    color: var(--muted-text);
+}
+
+.statHolder_template {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    color: var(--text-color);
+    background: var(--panel-muted);
 }
 
 .statHolder_template span {
-    color: var(--text-color);
+    color: inherit;
     background: transparent;
 }
 
-/*********************************** Level ***********************************/
-#level_bar{
+.stat_text {
+    text-align: left;
+}
+
+.stat_value {
+    font-weight: 700;
+    text-align: right;
+}
+
+/*********************************** Top Inputs ***********************************/
+#weapon_type_div,
+#hp_bar,
+#level_bar,
+#race_bar {
+    width: 100%;
+    min-height: 72px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    height: 50px;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: 20px;
+    background: var(--panel-bg);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-soft);
 }
 
-#levelLabel {
+#weapon_type_text,
+#healthLabel,
+#levelLabel,
+#RaceLabel {
+    font-weight: 700;
+    letter-spacing: 0.02em;
 }
 
-#levelValue {
+#hpValue,
+#levelValue,
+#race_selector {
+    min-width: 140px;
+    height: 42px;
+    padding: 0 14px;
+    border-radius: 14px;
+    border: 1px solid var(--border-soft);
+    outline: none;
+    background: var(--field-bg);
+    color: var(--text-color);
 }
 
-/*********************************** item Boxes Select ***********************************/
+#hpValue::placeholder {
+    color: var(--muted-text);
+}
+
+/*********************************** Item Selector Grid ***********************************/
 .itemBox_Select {
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 150px;
-    height: 150px;
-    border-radius: 15px;
-    border: none;
-    background-color: var(--itemSelectorNodes--bg-color);
+    width: 156px;
+    height: 156px;
+    border-radius: 22px;
+    border: 1px solid var(--border-soft);
+    background: linear-gradient(180deg, var(--itemSelectorNodes--bg-color), var(--panel-muted));
+    box-shadow: var(--shadow-soft);
 }
 
 .select-box_wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%;
-    height: 90%;
-    border-radius: 15px;
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    border-radius: 18px;
     border: none;
     background: transparent;
 }
@@ -148,217 +234,350 @@
 .select-box_button {
     width: 100%;
     height: 100%;
+    padding: 12px;
     text-align: center;
-    border-radius: 15px;
+    border-radius: 18px;
     border: none;
     background: transparent;
+    transition: transform 160ms ease, background-color 160ms ease;
+}
+
+.select-box_button:hover {
+    transform: translateY(-2px);
+    background: var(--interactive-soft);
 }
 
 .select-box_button span {
+    display: block;
     color: var(--text-color);
+    font-weight: 600;
 }
 
 .item-box_img {
     color: var(--text-color);
     width: 100%;
     height: 100%;
+    object-fit: contain;
     border: none;
-    border-radius: 15px;
+    border-radius: 14px;
     background: transparent;
 }
 
-.items_selector_top{
+.items_selector_top {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
+    gap: 16px;
 }
 
 .items_selector_top h3 {
-    color: var(--text-color);
-    width: 90%;
+    margin: 0;
+    color: var(--text-color) !important;
+    text-align: left;
+    width: auto;
 }
 
 .items_selector_top button {
-    border-radius: 50%;
-    border: none;
-    width: 50px;
-    height: 50px;
-    font-size: 25px;
+    border-radius: 999px;
+    border: 1px solid var(--border-soft);
+    width: 48px;
+    height: 48px;
+    font-size: 1.25rem;
+    color: var(--text-color);
+    background: var(--button-secondary-bg);
 }
 
-/*********************************** Stats display ***********************************/
-
-.statHolder-bar{
-    padding-top: 20px;
-    display: -webkit-flex;
+/*********************************** Stats Display ***********************************/
+.statHolder-bar {
+    padding: 8px 0 4px;
     display: flex;
     flex-direction: row;
-    -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
-    -webkit-justify-content: center;
     justify-content: center;
-    -webkit-align-items: center;
-    align-items: center;
-    gap: 10px;
-    padding-bottom: 20px;
+    align-items: stretch;
+    gap: 16px;
 }
 
-.statHolder-Div{
-    padding-top: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 45%;
-    height: 300px;
-    gap: 10px;
-    border: none;
-    border-radius: 15px;
-    background-color: var(--statHolders--bg-color);
-}
-
-.statHolder-Div span {
-    font-size: 20px;
-    color: var(--text-color);
-    background: transparent;
-}
-
-.stat_Container {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 95%;
-    height: 100%;
-    overflow: auto;
-    gap: 20px;
-    border: none;
-    border-radius: 15px;
-    background: transparent;
-}
-
-/* Scrollbar styles */
-.flow_scrollbar::-webkit-scrollbar {
-    width: 12px;/* Scrollbar width */
-}
-
-/* Scrollbar track (background) */
-.flow_scrollbar::-webkit-scrollbar-track {
-    border-radius: 10px;/* Rounded track corners */
-}
-
-/* Scrollbar thumb (the draggable part) */
-.flow_scrollbar::-webkit-scrollbar-thumb {
-    background: #888;/* Dark gray scrollbar */
-    border-radius: 10px;/* Rounded scrollbar */
-    border: 3px solid #f0f0f0;/* Adds padding around the thumb */
-}
-
-/*********************************** buff and debuff display ***********************************/
-.buffHolder-Div {
-    padding-top: 10px;
+.statHolder-Div {
+    padding: 18px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
-    width: 45%;
-    height: 300px;
-    gap: 10px;
+    align-items: stretch;
+    width: calc(50% - 8px);
+    min-height: 320px;
+    gap: 14px;
+    border: 1px solid var(--border-soft);
+    border-radius: 24px;
+    background: var(--panel-bg);
+    box-shadow: var(--shadow-soft);
+}
+
+.statHolder-Div > span {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text-color);
+    background: transparent;
+    text-align: left;
+}
+
+.stat_Container {
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    gap: 12px;
     border: none;
-    border-radius: 15px;
-    background-color: var(--statHolders--bg-color);
-    padding-bottom: 10px;
+    border-radius: 18px;
+    background: transparent;
+}
+
+.non_weapon_damage_section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.non_weapon_damage_section_title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--muted-text);
+    text-transform: uppercase;
+}
+
+.non_weapon_damage_card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 18px;
+    border: 1px solid var(--border-soft);
+    background: var(--panel-muted);
+}
+
+.non_weapon_damage_card_title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-color);
+    text-align: left;
+}
+
+.non_weapon_damage_table {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.non_weapon_damage_row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: var(--panel-bg);
+    color: var(--text-color);
+}
+
+.non_weapon_damage_row span:first-child {
+    text-align: left;
+}
+
+.non_weapon_damage_row span:last-child {
+    text-align: right;
+    font-weight: 700;
+}
+
+.non_weapon_damage_row_header {
+    background: transparent;
+    padding: 0 2px;
+    color: var(--muted-text);
+    font-size: 0.84rem;
+    text-transform: uppercase;
+}
+
+.non_weapon_damage_total_row {
+    border: 1px solid var(--border-soft);
+}
+
+.flow_scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.flow_scrollbar::-webkit-scrollbar-track {
+    border-radius: 999px;
+    background: transparent;
+}
+
+.flow_scrollbar::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
+    border: 2px solid transparent;
+}
+
+/*********************************** Buffs ***********************************/
+.buffHolder-Div {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    width: calc(50% - 8px);
+    min-height: 320px;
+    gap: 14px;
+    border: 1px solid var(--border-soft);
+    border-radius: 24px;
+    background: var(--panel-bg);
+    box-shadow: var(--shadow-soft);
+}
+
+.buffHolder-Div > span {
+    font-weight: 700;
+    text-align: left;
 }
 
 .buff_Container {
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
     align-items: flex-start;
     justify-content: flex-start;
-    width: 95%;
+    width: 100%;
     height: 100%;
     overflow: auto;
-    gap: 20px;
+    gap: 14px;
     border: none;
-    border-radius: 15px;
+    border-radius: 18px;
     background: transparent;
 }
 
-.buff_Select{
+.buff_Select {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 15px;
-    border: none;
-    background-color: var(--buffSelect--bg-color);
+    width: 72px;
+    height: 72px;
+    padding: 6px;
+    border-radius: 18px;
+    border: 1px dashed var(--border-soft);
+    background: var(--buffSelect--bg-color);
 }
 
-.add_buff_button{
+.add_buff_button {
     width: 100%;
     height: 100%;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 14px;
     border: none;
     background: transparent;
+    transition: transform 160ms ease, background-color 160ms ease;
+}
+
+.add_buff_button:hover {
+    transform: translateY(-1px);
+    background: var(--interactive-soft);
 }
 
 .add_buff_button span {
     color: var(--text-color);
+    font-weight: 600;
 }
-/*********************************** damage display ***********************************/
 
+/*********************************** Damage ***********************************/
 .damageHolder-Div {
-    padding-top: 10px;
+    padding: 18px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 45%;
-    max-height: 300px;
-    gap: 10px;
-    border: none;
-    border-radius: 15px;
-    background-color: var(--statHolders--bg-color);
+    justify-content: flex-start;
+    align-items: stretch;
+    width: calc(50% - 8px);
+    min-height: 320px;
+    gap: 14px;
+    border: 1px solid var(--border-soft);
+    border-radius: 24px;
+    background: var(--panel-bg);
+    box-shadow: var(--shadow-soft);
 }
 
-.damageHolder_label{
-    font-size: 15px;
+.damageHolder_label {
+    font-size: 1rem;
+    font-weight: 700;
     background: transparent;
+    text-align: left;
 }
 
-.table_container-div{
+.table_container-div {
     width: 100%;
     height: 100%;
-    border-radius: 15px;
-    padding-bottom: 10px;
+    border-radius: 18px;
     overflow: auto;
-    background: transparent;
+    background: var(--panel-muted);
 }
-/*********************************** damage table display ***********************************/
-.damage_Table_Container{
-    table-layout: fixed;
+
+/*********************************** Damage Table ***********************************/
+.damage_Table_Container {
+    width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
     border: none;
-    border-radius: 15px;
-    padding-bottom: 10px;
-    column-span: inherit;
+    border-radius: 18px;
     margin: 0;
-    padding: 0;
     background: transparent;
 }
 
-.damage_colunm_cell, .damage_row_cell {
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 10px;
-    text-align: center; /* Align text in the center */
-    font-size: 15px;
+.damage_Table_column {
+    position: sticky;
+    top: 0;
+    background: var(--panel-muted);
+}
+
+.damage_colunm_cell,
+.damage_row_cell {
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 0.92rem;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-soft);
 }
 
 .damage_colunm_cell span {
     display: block;
-    font-size: 15px;
-    width: 100px;
+    min-width: 72px;
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+/*********************************** Responsive ***********************************/
+@media (max-width: 1100px) {
+    .statHolder-Div,
+    .buffHolder-Div,
+    .damageHolder-Div {
+        width: 100%;
+    }
+
+    .items_selector {
+        width: calc(100vw - 20px);
+    }
+}
+
+@media (max-width: 820px) {
+    .content-title,
+    #weapon_type_div,
+    #hp_bar,
+    #level_bar,
+    #race_bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .itemBox_Select {
+        width: calc(50% - 9px);
+        height: 148px;
+    }
 }

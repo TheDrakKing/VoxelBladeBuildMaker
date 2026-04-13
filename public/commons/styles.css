@@ -1,252 +1,367 @@
 /**
  * Common CSS styles for the application
- * This file contains the CSS styles for the application, including both light and dark themes.
- * It defines the color variables for each theme and applies them to various components of the UI.
- * The styles are organized into sections for the main page, title bar, custom check box, and item boxes.
+ * Shared theme variables, page framing, controls, and item cards.
  */
+
 :root {
-    --bg-color: white;
-    --text-color: black;
-    --titleBar--bg-color: black;
-    --titleBar--text-color: white;
-    --itemSelector--bg-color: whitesmoke;
-    --itemSelectorNodes--bg-color: white;
-    --itemBox--bg-color: black;
-    --itemBoxButton--bg-color: white;
-    --itemBox--text-color: white;
-    --statHolders--bg-color: lightgrey;
-    --buffSelect--bg-color: white;
+    --bg-color: #f5efe4;
+    --bg-accent: radial-gradient(circle at top left, rgba(196, 118, 59, 0.18), transparent 32%), radial-gradient(circle at top right, rgba(36, 89, 79, 0.16), transparent 28%), linear-gradient(180deg, #f8f3ea 0%, #efe6d8 100%);
+    --text-color: #1e1b16;
+    --muted-text: #60574a;
+
+    --titleBar--bg-color: rgba(255, 250, 243, 0.82);
+    --titleBar--text-color: #1e1b16;
+
+    --itemSelector--bg-color: rgba(255, 251, 246, 0.96);
+    --itemSelectorNodes--bg-color: #fffaf2;
+    --itemBox--bg-color: linear-gradient(180deg, #fffaf1 0%, #f2e7d7 100%);
+    --itemBoxButton--bg-color: #fcf7ef;
+    --itemBox--text-color: #1d1a15;
+
+    --panel-bg: rgba(255, 251, 245, 0.76);
+    --panel-muted: rgba(117, 86, 58, 0.08);
+    --overlay-panel-bg: rgba(255, 250, 244, 0.92);
+    --statHolders--bg-color: rgba(255, 251, 245, 0.76);
+    --buffSelect--bg-color: rgba(255, 248, 239, 0.96);
+
+    --button-secondary-bg: rgba(117, 86, 58, 0.08);
+    --button-secondary-hover: rgba(117, 86, 58, 0.14);
+    --button-secondary-text: #2a241e;
+    --interactive-soft: rgba(117, 86, 58, 0.08);
+
+    --field-bg: rgba(255, 255, 255, 0.78);
+    --border-soft: rgba(67, 52, 38, 0.12);
+    --border-strong: rgba(67, 52, 38, 0.2);
+    --scrollbar-thumb: rgba(67, 52, 38, 0.28);
+
+    --shadow-soft: 0 10px 30px rgba(63, 47, 29, 0.08);
+    --shadow-strong: 0 24px 60px rgba(47, 31, 14, 0.2);
 }
 
 [data-theme="dark"] {
-    --bg-color: #121212;
-    --text-color: #f5f5f5;
-    --titleBar--bg-color: white;
-    --titleBar--text-color: black;
-    --itemSelector--bg-color: #0A0A0A;
-    --itemSelectorNodes--bg-color: black;
-    --itemBox--bg-color: white;
-    --itemBoxButton--bg-color: black;
-    --itemBox--text-color: black;
-    --statHolders--bg-color: darkgrey;
-    --buffSelect--bg-color: black;
+    --bg-color: #11151c;
+    --bg-accent: radial-gradient(circle at top left, rgba(224, 132, 57, 0.18), transparent 28%), radial-gradient(circle at top right, rgba(70, 163, 145, 0.14), transparent 24%), linear-gradient(180deg, #11151c 0%, #1a2029 100%);
+    --text-color: #eef1eb;
+    --muted-text: #aeb7c2;
+
+    --titleBar--bg-color: rgba(17, 22, 28, 0.8);
+    --titleBar--text-color: #f5f2ea;
+
+    --itemSelector--bg-color: rgba(16, 20, 26, 0.96);
+    --itemSelectorNodes--bg-color: #1a2029;
+    --itemBox--bg-color: linear-gradient(180deg, #1d2530 0%, #141a22 100%);
+    --itemBoxButton--bg-color: #111823;
+    --itemBox--text-color: #eef1eb;
+
+    --panel-bg: rgba(17, 22, 28, 0.7);
+    --panel-muted: rgba(255, 255, 255, 0.05);
+    --overlay-panel-bg: rgba(17, 22, 28, 0.9);
+    --statHolders--bg-color: rgba(17, 22, 28, 0.7);
+    --buffSelect--bg-color: rgba(17, 22, 28, 0.92);
+
+    --button-secondary-bg: rgba(255, 255, 255, 0.06);
+    --button-secondary-hover: rgba(255, 255, 255, 0.1);
+    --button-secondary-text: #eef1eb;
+    --interactive-soft: rgba(255, 255, 255, 0.05);
+
+    --field-bg: rgba(7, 10, 15, 0.72);
+    --border-soft: rgba(233, 240, 248, 0.1);
+    --border-strong: rgba(233, 240, 248, 0.18);
+    --scrollbar-thumb: rgba(233, 240, 248, 0.22);
+
+    --shadow-soft: 0 16px 38px rgba(0, 0, 0, 0.28);
+    --shadow-strong: 0 28px 72px rgba(0, 0, 0, 0.44);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
     text-align: center;
     background-color: var(--bg-color);
-    color: var(--text-color);/* background-color: #202124; */
+    background-image: var(--bg-accent);
+    background-attachment: fixed;
+    color: var(--text-color);
 }
 
 a {
     text-decoration: none;
+    color: inherit;
+}
+
+button,
+select,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
 }
 
 /*********************************** Main Page ***********************************/
 .main-page {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    width: 100%;
+    padding: 24px 20px 48px;
 }
 
-/*********************************** main-page-content ***********************************/
+/*********************************** Main Content ***********************************/
 .main-page-content {
-    width: 80%;
+    width: min(1320px, 100%);
+    position: relative;
 }
 
 /*********************************** Title Bar ***********************************/
 .title-bar {
     display: flex;
-    justify-items: center;
-    width: 80%;
-    height: 50px;
-    gap: 70%;
-    border-radius: 10px;
-    border: none;
-    padding-left: 20px;
-    margin-left: 15%;
-    background-color: var(--titleBar--bg-color);
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 82px;
+    gap: 24px;
+    padding: 18px 22px;
+    margin: 0 0 22px;
+    border-radius: 28px;
+    border: 1px solid var(--border-soft);
+    background: var(--titleBar--bg-color);
     color: var(--titleBar--text-color);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(16px);
 }
 
 .title-bar h3 {
-    color: var(--titleBar--text-color) ;
+    margin: 0;
+    font-size: clamp(1.35rem, 2vw, 1.9rem);
+    letter-spacing: 0.03em;
+    color: var(--titleBar--text-color);
+    text-align: left;
 }
 
-/*********************************** Custom Check Box***********************************/
+.title-bar-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.title-bar-button {
+    min-height: 42px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border-soft);
+    background: var(--panel-muted);
+    color: var(--titleBar--text-color);
+    font-weight: 700;
+    transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+.title-bar-button:hover {
+    transform: translateY(-1px);
+    background: var(--button-secondary-hover);
+    border-color: var(--border-strong);
+}
+
+/*********************************** Custom Check Box ***********************************/
 .toggle-container {
     display: inline-flex;
     align-items: center;
     gap: 10px;
+    padding: 6px 8px 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border-soft);
+    background: var(--panel-muted);
 }
 
-/* Label text */
 .toggle-label {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 0.95rem;
+    font-weight: 700;
     color: var(--titleBar--text-color);
-    padding: 8px 16px;
+    padding: 0;
     background: transparent;
-    border-radius: 20px 0 0 20px;
-    /* Rounded corners on the left */
+    border-radius: 0;
 }
 
-/* Toggle Switch */
 .switch {
     position: relative;
     display: inline-block;
-    width: 50px;
-    height: 24px;
+    width: 54px;
+    height: 28px;
 }
 
-/* Hide default checkbox */
 .switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-/* Slider */
 .slider {
     position: absolute;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: 0.4s;
-    border-radius: 24px;
-    /* Fully rounded */
+    inset: 0;
+    background-color: rgba(128, 137, 148, 0.45);
+    transition: 0.3s ease;
+    border-radius: 999px;
 }
 
 .slider:before {
     position: absolute;
     content: "";
-    height: 20px;
-    width: 20px;
-    left: 2px;
-    bottom: 2px;
-    background-color: white;
-    transition: 0.4s;
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff7ef;
+    transition: 0.3s ease;
     border-radius: 50%;
-    /* Circular knob */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 }
 
-/* Checked state */
-input:checked+.slider {
-    background-color: #2196F3;
-    /* Blue */
+input:checked + .slider {
+    background-color: #d37a32;
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
     transform: translateX(26px);
-    /* Move knob */
 }
 
-/*********************************** Below The Selectors ***********************************/
-
+/*********************************** Content Rows ***********************************/
 .content-bar {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 40px;
-    margin-top: 5%;
-    margin-left: 15%;
-    width: 80%;
+    gap: 18px;
+    margin-top: 18px;
+    width: 100%;
     background: transparent;
 }
-
 
 .item_Box_Containers {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     position: relative;
     width: 100%;
-    gap: 40px;
+    gap: 18px;
+    flex-wrap: wrap;
 }
 
-.scrollable{
-    overflow: scroll;
+.scrollable {
+    overflow: auto;
 }
 
-/*********************************** item Boxes 2 ***********************************/
+/*********************************** Item Cards ***********************************/
 .itemBox {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 225px;
-    height: 225px;
-    border-radius: 15px;
-    border: none;
-    background-color: var(--itemBox--bg-color);
+    min-height: 250px;
+    padding: 14px;
+    border-radius: 26px;
+    border: 1px solid var(--border-soft);
+    background: var(--itemBox--bg-color);
     color: var(--itemBox--text-color);
-    gap: 10px;
+    gap: 12px;
+    box-shadow: var(--shadow-soft);
 }
 
-.itembox-top{
+.itembox-top {
     display: flex;
     justify-content: center;
-    justify-items: center;
-    gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 8px;
 }
 
-.itembox-top-button{
-    display: flex;
-    justify-self: center;
+.itembox-top-button {
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
-    border: none;
+    min-height: 32px;
+    padding: 6px 10px;
+    border: 1px solid transparent;
+    border-radius: 999px;
     background: transparent;
+    transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.itembox-top-button:hover {
+    background: var(--interactive-soft);
+    border-color: var(--border-soft);
 }
 
 .itembox-top select {
+    min-width: 58px;
     color: var(--itemBox--text-color);
-    background: var(--itemBox--bg-color);
-    border-color: black;
+    background: var(--field-bg);
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    padding: 6px 8px;
+    appearance: none;
+}
+
+.itembox-top select option {
+    color: var(--text-color);
+    background: var(--panel-bg);
 }
 
 .itembox-top-button span {
-   color: var(--itemBox--text-color);
-   font-size: 15px;
-}
-
-.item_name{
     color: var(--itemBox--text-color);
-    font-size: 15px;
+    font-size: 0.9rem;
+    font-weight: 700;
 }
 
-.enchants-div-container{
+.item_name {
+    color: var(--itemBox--text-color);
+    font-size: 0.95rem;
+}
+
+.enchants-div-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 25px;
-    width: 80%;
-    height: 70%;
-    border-radius: 15px;
-    border: none;
-    background-color: var(--itemBoxButton--bg-color);
+    gap: 12px;
+    width: 100%;
+    min-height: 150px;
+    padding: 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border-soft);
+    background: var(--itemBoxButton--bg-color);
 }
 
 .enchants-div-container button {
-    width: 90%;
-    height: 30px;
-    border-radius: 15px;
-    border: none;
+    width: 100%;
+    min-height: 38px;
+    padding: 8px 12px;
+    border-radius: 14px;
+    border: 1px solid var(--border-soft);
     color: var(--text-color);
-    background-color: var(--statHolders--bg-color);
+    background: var(--panel-muted);
 }
 
 .item-box_wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80%;
-    height: 70%;
-    border-radius: 15px;
+    width: 100%;
+    flex: 1;
+    min-height: 150px;
+    border-radius: 20px;
     border: none;
     background: transparent;
 }
@@ -254,12 +369,52 @@ input:checked+.slider:before {
 .item-box_button {
     width: 100%;
     height: 100%;
+    padding: 12px;
     color: white;
-    border-radius: 15px;
-    border: none;
+    border-radius: 20px;
+    border: 1px solid var(--border-soft);
     background-color: var(--itemBoxButton--bg-color);
+    transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease;
+}
+
+.item-box_button:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-strong);
+    background-color: var(--field-bg);
 }
 
 .item-box_button span {
     color: var(--text-color);
+    font-weight: 700;
+}
+
+/*********************************** Responsive ***********************************/
+@media (max-width: 900px) {
+    .main-page {
+        padding: 16px 12px 40px;
+    }
+
+    .title-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .toggle-container {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .title-bar-actions {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .title-bar-button {
+        flex: 1;
+    }
+
+    .itemBox {
+        width: 100%;
+        max-width: 360px;
+    }
 }

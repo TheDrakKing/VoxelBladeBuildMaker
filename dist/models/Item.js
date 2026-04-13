@@ -30,6 +30,7 @@ export class Item extends events {
         this.type = data && data?.type || undefined;
         this.description = data?.description || "";
         this.potencies = data?.potencies || {};
+        this.sourcepotencies = data?.sourcepotencies || {};
         this.stats = data?.stats || {};
         this.perks = data?.perks || {};
         this.damageScalings = data?.damageScalings || {};

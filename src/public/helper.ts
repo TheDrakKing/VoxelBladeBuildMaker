@@ -4,6 +4,19 @@ import * as WeaponTypes from "../models/WeaponTypes.js";
 import * as Build from "../models/Build.js";
 import * as Perks from "../models/Perk.js";
 import * as targets from "./targets.js";
+import { BuffStore } from "../models/Buffs.js";
+
+export type SerializedBuild = {
+	level: number;
+	stats: { [k in ItemModule.stat]?: number };
+	damageScalings: Build.damageScalings;
+	damageTypes: Build.damageTypes;
+	perks: Build.perks;
+	user: Build.Build;
+	buff: Build.buffs;
+	deBuffs: Build.buffs;
+  target?: SerializedBuild;
+};
 
 function totalMultiplier(dmgBonusMults:Build.stats, Bonus?:boolean) :number  {
 	let total = undefined
@@ -26,10 +39,10 @@ function totalMultiplier(dmgBonusMults:Build.stats, Bonus?:boolean) :number  {
   }
 
   if (Bonus) {
-    total = total == undefined ? 1 : total;
+    total = total === undefined || total === 0 ? 1 : total;
     total = total;
   }else{
-    total = total == undefined ? 1 : total;
+    total = total === undefined ? 1 : total;
   }
 
   //console.log(total);
@@ -37,13 +50,13 @@ function totalMultiplier(dmgBonusMults:Build.stats, Bonus?:boolean) :number  {
 	return total
 }
 
-function levelBoost(build: Build.Build): number {
+function levelBoost(build: SerializedBuild): number {
   let Boost = build.level * 1.25;
-  build.damageModifications.damage_bonus_mods["Level"] = Boost/100
+  build.user.damageModifications.damage_bonus_mods["Level"] = Boost/100
   return Boost;
 }
 
-function getPerkModifications(event: keyof ItemModule.events, holder:Build.Build, outputType?:string,  Modifications?:{ [id: string]: number }): Build.stats {
+function getPerkModifications(event: keyof ItemModule.events, holder:SerializedBuild, outputType?:string, baseDamageData?:baseDamageData,  Modifications?:{ [id: string]: number }) {
   let perkModifications = {} as Build.perks;
 
   for (const [perk, amount] of Object.entries(holder.perks)) {
@@ -51,8 +64,11 @@ function getPerkModifications(event: keyof ItemModule.events, holder:Build.Build
     let perkData = Perks.PerkStore.getByID(perk);
     let callBack = perkData[event];
     if (!callBack) continue;
-    let args: [number?, string?] = [amount, outputType];
-    let value = callBack.apply(holder, args); // if it's def or atk Modification
+    let args: [number?, ItemModule.eventsArgs?] = [amount, {
+      outputType: outputType,
+      baseDamageData: baseDamageData
+    }];
+    let value = callBack.apply(holder as unknown as Build.Build, args); // if it's def or atk Modification
     if (!value) continue // the conditions of the call back were not met
     //console.log(perkData.name + " " + value);
     if(Modifications) Modifications[perkData.name] = value;
@@ -62,13 +78,59 @@ function getPerkModifications(event: keyof ItemModule.events, holder:Build.Build
   return perkModifications;
 }
 
+function getDebuffModifications(event: keyof ItemModule.events, holder:SerializedBuild, outputType?:string, baseDamageData?:baseDamageData, Modifications?:{ [id: string]: number }) {
+  let statusModifications = {} as Build.perks;
+
+  if (!holder.deBuffs) return statusModifications;
+
+  for (const [status, debuff] of Object.entries(holder.deBuffs)) {
+    if (!debuff) continue;
+    let statusData = debuff;
+    let callBack = statusData?.[event];
+    if (!callBack) continue;
+    let args: [number?, ItemModule.eventsArgs?] = [undefined, {
+      outputType: outputType,
+      baseDamageData: baseDamageData
+    }];
+    let value = callBack.apply(holder as unknown as Build.Build, args);
+    if (!value) continue // the conditions of the call back were not met
+    if(Modifications) Modifications[statusData.name!] = value;
+    statusModifications[statusData.name!] = value;
+  }
+
+  return statusModifications;
+}
+
+function getBuffModifications(event: keyof ItemModule.events, holder:SerializedBuild, outputType?:string, baseDamageData?:baseDamageData, Modifications?:{ [id: string]: number }) {
+  let statusModifications = {} as Build.perks;
+
+  if (!holder.buff) return statusModifications;
+
+  for (const [status, buff] of Object.entries(holder.buff)) {
+    if (!buff) continue;
+    let statusData = buff;
+    let callBack = statusData?.[event];
+    if (!callBack) continue;
+    let args: [number?, ItemModule.eventsArgs?] = [undefined, {
+      outputType: outputType,
+      baseDamageData: baseDamageData
+    }];
+    let value = callBack.apply(holder as unknown as Build.Build, args);
+    if (!value) continue // the conditions of the call back were not met
+    if(Modifications) Modifications[statusData.name!] = value;
+    statusModifications[statusData.name!] = value;
+  }
+
+  return statusModifications;
+}
+
 function getStatEffBoost(scale: number, statBoost:number): number {
   if (!scale  || !statBoost) return 0;
   let statEffectiveBoost = scale * statBoost;
   return statEffectiveBoost;
 }
 
-function getTotEffBoost(build: Build.Build): [number, number] {
+function getTotEffBoost(build: SerializedBuild): [number, number] {
   let total = 0; // Decimal vale
   let totEffBoost = 0 // percentage value of totEffBoost
 
@@ -78,7 +140,7 @@ function getTotEffBoost(build: Build.Build): [number, number] {
 		let statBoost = build.stats[statId];
 		if (!statBoost) continue // maybe that Boost doesn't have a scale
     let statEffectiveBoost = getStatEffBoost(value, statBoost);
-    build.effectiveBoosts[statId] = statEffectiveBoost;
+    (build as unknown as SerializedBuild).user.effectiveBoosts[statId] = statEffectiveBoost;
     total += statEffectiveBoost;
   }
 
@@ -137,8 +199,6 @@ function penetrationArmorMultiplier(damageType: ItemModule.damageType, def: numb
     penetrationMultiplier = 1 / (1 + armorMultiplier);
   }
 
-  //console.log(penetrationMultiplier);
-
   return Math.trunc(penetrationMultiplier * 10)/10;
 }
 
@@ -157,42 +217,58 @@ function getBaseDamage(weaponDamage: number, totEffMultiplier: number): number {
   return baseDamage;
 }
 
-export function calculateDamage(weaponDamage:number, attacker: Build.Build, outputType:ItemModule.damageType, target:Build.Build):number {
-  if (!weaponDamage) return 1;
+export function calculateDamage(
+  outputType:ItemModule.damageType,
+  outputTypeMultiplier: number,
+  damagedata: baseDamageData,
+  attacker: SerializedBuild,  
+  target: SerializedBuild):number {
+  if (!damagedata.damage) return 1;
 
-  let outputTypeMultiplier = attacker.damageTypes[outputType]!;
+  outputTypeMultiplier = outputTypeMultiplier || attacker.damageTypes[outputType]!;
 
-  let totEffBoost = attacker.totEffBoost;
+  let totEffBoost = undefined;
   let totEffMultiplier = (totEffBoost || 100) / 100; // incase totEffBoost is nil
 
   if (!totEffBoost) {
     [totEffMultiplier, totEffBoost] = getTotEffBoost(attacker);
-    attacker.totEffBoost = totEffBoost;
+    attacker.user.totEffBoost = totEffBoost;
   }
 
-  let baseDamage = getBaseDamage(weaponDamage, totEffMultiplier);
+  let baseDamage = getBaseDamage(damagedata.damage, totEffMultiplier);
 
   /////////////////////////////Damage Bonus Multiplier/////////////////////////////
-  let dmgBonusMults = getPerkModifications("onDmgBonusMultiplier", attacker, undefined, attacker.damageModifications.damage_bonus_mods)
-  let dmgDeductionMults = getPerkModifications("onDmgReducedMultiplier", target, undefined, attacker.damageModifications.damage_reduced_mods)
+  let dmgBonusMults = getPerkModifications("onDmgBonusMultiplier", attacker, undefined, damagedata, attacker.user.damageModifications.damage_bonus_mods)
+  let dmgDeductionMults = getPerkModifications("onDmgReducedMultiplier", target, undefined, damagedata, attacker.user.damageModifications.damage_reduced_mods)
       
   let totalDmgBonus = totalMultiplier(dmgBonusMults, true)
-  let totalDmgDeduction = totalMultiplier(dmgDeductionMults)
+  let totalDmgDeduction = totalMultiplier(dmgDeductionMults, true)
 
   //console.log(baseDamage * (totalDmgBonus));
   
-  let damageModification = ((baseDamage * (totalDmgBonus)) * totalDmgDeduction) * (outputTypeMultiplier)
+  let damageModification = ((baseDamage * (totalDmgBonus)) / totalDmgDeduction) * (outputTypeMultiplier)
+
+  //Status Multiplier
+  let dmgBufftBonusMults = getBuffModifications("onDmgBonusMultiplier", attacker, outputType, damagedata, attacker.user.damageModifications.damage_bonus_mods)
+  let dmgBuffDeductionMults = getDebuffModifications("onDecreaseDmgBonusMultiplier", attacker, outputType, damagedata, attacker.user.damageModifications.damage_reduced_mods)
+
+  let dmgBuffMults = ((damageModification * totalMultiplier(dmgBufftBonusMults, true)) / (totalMultiplier(dmgBuffDeductionMults, true)));
 
   ////////////////////////////Type Specific Multiplier/////////////////////////////
-  let typeSpecificAtkMults = getPerkModifications("onSpecificDmgBonusMultiplier", attacker, outputType, attacker.damageModifications.specific_bonus_mods)	
-	let typeSpecificDefMults = getPerkModifications("onSpecificDmgReducedMultiplier", target, outputType, attacker.damageModifications.specific_reduced_mods)	
+  let typeSpecificAtkMults = getPerkModifications("onSpecificDmgBonusMultiplier", attacker, outputType, damagedata, attacker.user.damageModifications.specific_bonus_mods)	
+	let typeSpecificDefMults = getPerkModifications("onSpecificDmgReducedMultiplier", target, outputType, damagedata, attacker.user.damageModifications.specific_reduced_mods)	
 		
-	let dmgtypeSpecificMults = ((damageModification * totalMultiplier(typeSpecificAtkMults, true)) * totalMultiplier(typeSpecificDefMults))
+	let dmgtypeSpecificMults = ((dmgBuffMults * totalMultiplier(typeSpecificAtkMults, true)) / totalMultiplier(typeSpecificDefMults, true))
+
+  //Status Type Specific Multiplier
+  let typeBuffsSpecificAtkMults = getBuffModifications("onSpecificDmgBonusMultiplier", attacker, outputType, damagedata, attacker.user.damageModifications.specific_bonus_mods)	
+
+  let dmgBufftypeSpecificMults = (dmgtypeSpecificMults * totalMultiplier(typeBuffsSpecificAtkMults, true))
 
   ////////////////////////////crit calculation/////////////////////////////
   let critMultiplier = 1
 		
-	let critDamage = dmgtypeSpecificMults * critMultiplier;
+	let critDamage = dmgBufftypeSpecificMults * critMultiplier;
 
   ////////////////////////////Armor Multiplier/////////////////////////////
   let defStatAliases = outputType + "Defense" as ItemModule.stat;
@@ -203,48 +279,148 @@ export function calculateDamage(weaponDamage:number, attacker: Build.Build, outp
   
   //console.log(outputDefStat)
   
-  let totPen = attacker.stats["ArmorPenetration"];
-  let defMultiplier = penetrationArmorMultiplier(outputType, outputDefStat, totPen)
+  //Attacker total pen
+  const allAttackerPen = getPerkModifications("onArmorPenCalculation", attacker, outputType, damagedata, attacker.user.damageModifications.armor_mods);
 
-  //console.log(defMultiplier)
+  let attackerPen = Object.values(allAttackerPen).reduce((totPen, pen) => {
+    return totPen + pen;
+  }, 0);
+
+  let totPen = attackerPen + (attacker.stats["ArmorPenetration"] || 0);
+
+  //target total Pen
+
+  const allTargetPen = getDebuffModifications("onArmorPenCalculation", target, outputType, damagedata, attacker.user.damageModifications.armor_mods);
+
+  let targetPen = Object.values(allTargetPen).reduce((totPen, pen) => {
+    return totPen + pen;
+  }, 0);
+
+  // if the targetPen is -10 that it a increase in pen for the attack so turn it postive
+  //if the targetPen is 10 that it a decrease in pen for the attack so turn it neigtive
+
+  targetPen = targetPen * -1
+
+  totPen = totPen + targetPen + (target.stats["ArmorPenetration"] || 0);
+
+
+  let defMultiplier = penetrationArmorMultiplier(outputType, outputDefStat, totPen)
 
   let defDamage = defMultiplier * critDamage
 
-  //////////////////////////// Special Multiplier /////////////////////////////
+  //////////////////////////// Special Multiplier(Debuffs) /////////////////////////////
+  let specialSpecificMultiplier = getDebuffModifications("onIncreaseSpecificDmgTaken", target, outputType, damagedata, attacker.user.damageModifications.special_mods)
+  for (const [key, value] of Object.entries(getDebuffModifications("onIncreaseDmgTaken", target, outputType, damagedata, attacker.user.damageModifications.special_mods))) {
+    if (value === undefined) continue;
+    specialSpecificMultiplier[key] = value
+  }
 
+  let dmgspecialBonusMults = (defDamage * totalMultiplier(specialSpecificMultiplier, true))
   //////////////////////////// Level Multiplier /////////////////////////////
 
-  let levelDamage = defDamage * (1 + (levelBoost(attacker)/100))
+  let levelDamage = dmgspecialBonusMults * (1 + (levelBoost(attacker)/100))
 
   return levelDamage;
 }
 
-function runDamages(attacker: Build.Build, damageType: ItemModule.damageType, target:Build.Build) {
+export function runDamage(
+		baseDamage: baseDamageData,
+		attacker: Build.Build,
+		target: Build.Build,
+		attackerBuild?: SerializedBuild,
+		targetBuild?: SerializedBuild,
+	): [{ [key in ItemModule.scale]?: number }, number] {
+		const outputDamages: { [key in ItemModule.scale]?: number } = {};
+		let totalDamage = 0;
+
+		targetBuild = {
+			level: targetBuild?.level || target.level,
+			stats: targetBuild?.stats || target.stats,
+			perks: targetBuild?.perks || target.perks,
+			damageScalings: targetBuild?.damageScalings || (target.damageScalings),
+			damageTypes: targetBuild?.damageTypes || (target.damageTypes),
+			buff: targetBuild?.buff || target.buff  || [],
+			deBuffs: targetBuild?.deBuffs || target.deBuffs || [],
+			user: target,
+		};
+
+    attackerBuild = {
+			level: attackerBuild?.level || attacker.level,
+			stats: attackerBuild?.stats || attacker.stats,
+			perks: attackerBuild?.perks || attacker.perks,
+			damageScalings: attackerBuild?.damageScalings || (attacker.damageScalings),
+			damageTypes: attackerBuild?.damageTypes || (attacker.damageTypes),
+			buff: attackerBuild?.buff || attacker.buff || [],
+			deBuffs: attackerBuild?.deBuffs || attacker.deBuffs || [],
+			user: attacker,
+      target: targetBuild,
+		};
+
+		const damageTypes = attackerBuild.damageTypes || {} as Build.damageTypes ;
+
+		for (const outputType of Object.keys(damageTypes) as ItemModule.damageType[]) {
+			const outputTypeMultiplier = damageTypes[outputType];
+			if (!outputTypeMultiplier) continue;
+			const Damage = calculateDamage(
+				outputType,
+				outputTypeMultiplier,
+				baseDamage,
+				attackerBuild,
+				targetBuild,
+			);
+			outputDamages[outputType] = Math.round(Damage * 100) / 100;
+			totalDamage += outputDamages[outputType];
+		}
+
+		return [outputDamages, totalDamage];
+	}
+
+function getWeaponDamages(attacker: Build.Build, target:Build.Build) {
   let weaponConstructionData = getWeaponDamage(attacker);
 
   let m1Index = 0;
 
   weaponConstructionData.m1?.forEach(([damage, timesHit]) => {
-    let atkDamage = calculateDamage(damage, attacker, damageType, target);
+    const baseDamageData: baseDamageData = {
+      damage,
+      hitAmount: timesHit,
+      source: weaponConstructionData.constructionType,
+      sourceType: "Weapon",
+      sourceDamageType: "M1",
+    }
+    let outputDamages = runDamage(baseDamageData, attacker, target);
     if (!attacker.m1[m1Index]) {
       attacker.m1[m1Index] = {};
     }
-    attacker.m1[m1Index][damageType] = Math.trunc(atkDamage * 10) / 10;
+    for (const [outputType, damage] of Object.entries(outputDamages[0]) as [ItemModule.damageType, number?][]) {
+      if (damage === undefined) continue;
+      attacker.m1[m1Index][outputType] = Math.trunc(damage * 10) / 10;
+    }
     m1Index++;
   });
 
   let m2Index = 0;
   weaponConstructionData.m2?.forEach(([damage, timesHit]) => {
-    let atkDamage = calculateDamage(damage, attacker, damageType, target);
+    const baseDamageData: baseDamageData = {
+      damage,
+      hitAmount: timesHit,
+      source: weaponConstructionData.constructionType,
+      sourceType: "Weapon",
+      sourceDamageType: "M2",
+    }
+    let outputDamages = runDamage(baseDamageData, attacker, target);
     if (!attacker.m2[m2Index]) {
       attacker.m2[m2Index] = {};
     }
-    attacker.m2[m2Index][damageType] = Math.trunc(atkDamage * 10) / 10;
+    for (const [outputType, damage] of Object.entries(outputDamages[0]) as [ItemModule.damageType, number?][]) {
+      if (damage === undefined) continue;
+      attacker.m2[m2Index][outputType] = Math.trunc(damage * 10) / 10;
+    }
     m2Index++;
   });
 }
 
-export function runDamageCalculation(build:Build.Build, target?:Build.Build) {
+export function runWeaponDamageCalculation(build:Build.Build, target?:Build.Build) {
   if (!build.blade || !build.handle) return;
 
   for (const [perk, amount] of Object.entries(build.perks)) {
@@ -255,10 +431,27 @@ export function runDamageCalculation(build:Build.Build, target?:Build.Build) {
     callBack.apply(build, [amount]);
   }
 
-  for (const [key, value] of Object.entries(build.damageTypes) as [ItemModule.damageType,number?][]) {
-    if (value === undefined) continue;
-    runDamages(build, key, target || targets.Dummy);
+  getWeaponDamages(build, target || targets.Dummy);
+}
+
+export function runNonWeaponDamageCalculation(
+  baseDamageData: baseDamageData, 
+  build:Build.Build, 
+  target?:Build.Build,
+  attackerBuild?: Partial<SerializedBuild>,
+	targetBuild?: Partial<SerializedBuild>,
+) {
+  for (const [perk, amount] of Object.entries(build.perks)) {
+    if (!Perks.PerkStore.getByID(perk)) continue;
+    let perkData = Perks.PerkStore.getByID(perk);
+    let callBack = perkData.onOutputCalculation;
+    if (!callBack) continue;
+    callBack.apply(build, [amount]);
   }
+
+  let [outputs, total] = runDamage(baseDamageData, build, target || targets.Dummy, attackerBuild as SerializedBuild, targetBuild as SerializedBuild);
+
+  return {outputs, total}
 }
 
 export function calculateUpgrade(stats:Build.stats, upgrade:number) :Build.stats {

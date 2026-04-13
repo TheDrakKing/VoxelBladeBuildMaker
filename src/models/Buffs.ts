@@ -1,6 +1,7 @@
 import * as ItemModule from "./Item.js";
 import { Buffs } from "../data/Buffs.js";
 import { Debuffs } from "../data/Debuffs.js";
+import { Build } from "./Build.js";
 
 export type BuffDataTable = { [id: string]: Buff };
 
@@ -13,6 +14,16 @@ export class Buff extends ItemModule.events {
   name?: string;
   category: string;
   baseDuration: number;
+  potency?: number;
+  /**
+   * buff scaling are only for this buff only if it does damage, not to be added to the total build scaling
+   */
+  damageScalings?: { [k in ItemModule.scale]?: number };
+    /**
+   * buff damageType are only for this buff only if it does damage, not to be added to the total build scaling
+   */
+  damageTypes?: { [k in ItemModule.damageType]?: number };
+  getDamageInfo?:(this: Build, perkAmount?: number) => baseDamageData | null;
   img?: string;
 
   constructor(data?: any) {
@@ -22,6 +33,7 @@ export class Buff extends ItemModule.events {
     this.name = data?.name || "";
     this.category = data?.category || "";
     this.baseDuration = data?.baseDuration || "";
+    this.potency = data?.potency || "";
     this.img = data?.img || "";
   }
 }

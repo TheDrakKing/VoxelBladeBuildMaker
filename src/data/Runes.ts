@@ -6,9 +6,9 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Bounce Rune",
     category: "Rune",
     description: "Cast to become bouncy!.",
-    // potencies: {
-    //   bouncepotency: 0.3,
-    // },
+    sourcepotencies: {
+      bouncepotency: 0.3,
+    },
     stats: {
       JumpBoost: 5,
     },
@@ -19,9 +19,9 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Rage Rune",
     category: "Rune",
     description: "Become enraged and deal more damage!",
-    // potencies: {
-    //   ragepotency: 0.3,
-    // },
+    sourcepotencies: {
+      ragepotency: 0.3,
+    },
     stats: {
       PhysicalBoost: 10,
     },
@@ -32,9 +32,9 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Reinforce Rune",
     category: "Rune",
     description: "Cast to reduce incoming damage!.",
-    // potencies: {
-    //   reinforcepotency: 0.5,
-    // },
+    sourcepotencies: {
+      reinforcepotency: 0.5,
+    },
     stats: {
       MagicDefense: 10,
     },
@@ -45,9 +45,9 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Weakening Roar Rune",
     category: "Rune",
     description: "Unleash a mighty roar to weaken those around you!.",
-    // potencies: {
-    //   weakeningpotency: 0.5,
-    // },
+    sourcepotencies: {
+      weakeningpotency: 0.5,
+    },
     stats: {
       HexBoost: 10,
     },

@@ -1,7 +1,8 @@
 import * as ItemModule from "../models/Item.js";
 import * as PerkModule from "../models/Perk.js";
 import * as BuffModule from "../models/Buffs.js";
-import { Guild } from "./Guild.js";
+import { Guild, GuildStore } from "./Guild.js";
+import { Race, RaceStore } from "./Race.js";
 
 export type potencies = { [k in ItemModule.potency]?: number };
 export type stats = {[k in ItemModule.stat]?: number};
@@ -45,7 +46,8 @@ export type gear =
   | "legging"
   | "rune"
   | "ring"
-  | "guild";
+  | "guild"
+  | "race";
 
 export type Armor = {
     helmet?: ItemModule.Item;
@@ -55,10 +57,42 @@ export type Armor = {
     ring?: ItemModule.Item;
   };
 
+type savedArmorSlot = {
+  id: string;
+  upgrade?: number;
+};
+
+type savedArmor = {
+  [K in keyof Armor]?: savedArmorSlot;
+};
+
+type savedEnchantments = {
+  [K in keyof Armor]?: (string | null)[];
+};
+
+export type savedBuild = {
+  version: number;
+  level: number;
+  hp: number;
+  maxHp: number;
+  guildPromotion: number;
+  bladeId?: string;
+  handleId?: string;
+  weaponArtId?: string;
+  guildId?: string;
+  raceId?: string;
+  buffIds?: string[];
+  deBuffIds?: string[];
+  mainArmor: savedArmor;
+  infuseArmor: savedArmor;
+  enchantments: savedEnchantments;
+};
+
 export class Build {
   blade?: ItemModule.Item;
   handle?: ItemModule.Item;
   guild?: Guild;
+  race?: Race;
   weaponArt?: ItemModule.Item;
   buff?: buffs;
   deBuffs?: buffs;
@@ -77,6 +111,8 @@ export class Build {
   damageModifications: damageModifications;
 
   level: number;
+  hp: number;
+  maxHp: number;
   guildPromotion: number;
   potencies: potencies;
   stats: stats;
@@ -97,6 +133,8 @@ export class Build {
     this.infuseArmor = {};
     this.enchantments = {};
     this.level = 1;
+    this.hp = 100;
+    this.maxHp = 100;
     this.potencies = {};
     this.stats = {};
     this.effectiveBoosts = {};
@@ -116,6 +154,8 @@ export class Build {
     };
     this.m1 = [];
     this.m2 = [];
+
+    this.resetBuild();
   }
 
   calculateUpgrade(stats: stats, upgrade: number): stats {
@@ -133,6 +173,12 @@ export class Build {
     }
 
     return stats;
+  }
+
+  getHp(): number {
+    let Boost = (1+(this.level/80));
+    const hpBoost = Math.ceil(Boost * 120);
+    return hpBoost;
   }
 
   addItemStatsToBuild(
@@ -161,7 +207,9 @@ export class Build {
                 index
               ] as ItemModule.Item;
               if (!enchantment.onArmorStatModified) continue;
-              let args: [number?, string?, stats?] = [1, undefined, stats];
+              let args: [number?, ItemModule.eventsArgs? ] = [1, {
+                stat: stats
+              }];
               enchantment.onArmorStatModified.apply(this, args);
             }
           }
@@ -193,9 +241,16 @@ export class Build {
           if (value === undefined) continue;
           let previousValue = this.perks[key];
           this.perks[key] = previousValue ? previousValue + value : value;
+          //certain perks carry hidden stats
+          const perk = PerkModule.PerkStore.get(key);
+          if (perk && perk.stats !== undefined) {
+            let perkstats = new ItemModule.Item({id: perk.id, stats: perk.stats});
+            this.addItemStatsToBuild(perkstats);
+          }
         }
       }
 
+      // only potency from item.potencies are assumed to be addtive potencies, mean they get added to a soruce potency
       if (item.potencies) {
         for (const [key, value] of Object.entries(item.potencies) as [
           ItemModule.potency,
@@ -300,15 +355,16 @@ export class Build {
     this.resetBuild();
   }
 
-  addItemToBuild( item: ItemModule.Item | Guild, section?: keyof Build, key?: gear, enchantIndex?: number): boolean | void {
-    if (section !== "enchantments" && key !== "guild") {
-      if (item instanceof ItemModule.Item) {key = item.category === "Armor" ? (item.type?.toLowerCase()! as gear) : (item.category?.toLowerCase() as gear);
+  addItemToBuild( item: ItemModule.Item | Guild | Race, section?: keyof Build, key?: gear, enchantIndex?: number): boolean | void {
+    if (section !== "enchantments" && key !== "guild" && key !== "race") {
+      if (item instanceof ItemModule.Item) {
+        key = item.category === "Armor" ? (item.type?.toLowerCase()! as gear) : (item.category?.toLowerCase() as gear);
       }
     }
 
     if (!key) return;
 
-    if (key == "blade" || key == "handle" || key == "weaponArt" || key == "guild") {
+    if (key == "blade" || key == "handle" || key == "weaponArt" || key == "guild" || key == "race") {
       this[key] = item;
     } else if (section) {
       if (section === "infuseArmor" || section === "mainArmor") {
@@ -326,7 +382,7 @@ export class Build {
       key = key.toLowerCase() as gear;
     }
 
-    if (key == "blade" || key == "handle" || key == "weaponArt" || key == "guild") {
+    if (key == "blade" || key == "handle" || key == "weaponArt" || key == "guild" || key == "race") {
       delete this[key];
     } else if (section) {
       if (section == "infuseArmor" || section == "mainArmor") {
@@ -363,6 +419,11 @@ export class Build {
       let promotion = this.guild.promotions[this.guildPromotion];
       let guild = new ItemModule.Item({id: this.guild.id, stats: promotion.stats, perks: promotion.perks});
       this.addItemStatsToBuild(guild);
+    }
+
+    if (this.race) {
+      let race = new ItemModule.Item({id: this.race.id, stats: this.race.stats, perks: this.race.perks});
+      this.addItemStatsToBuild(race);
     }
 
     for (const [key, value] of Object.entries(this.enchantments) as [
@@ -409,7 +470,123 @@ export class Build {
     //////////////////////// Perk activation ////////////////////////
 
     //////////////////////// Run the displayStats() to add show the build stats ////////////////////////
+    const oldMaxHp = this.maxHp;
+    this.maxHp = this.getHp();
+    if (this.hp > this.maxHp) this.hp = this.maxHp;
+    if (this.hp === oldMaxHp) {
+      this.hp = this.maxHp;
+    }
+    
+
     this.constructionType = undefined;
+  }
+
+  private static itemToSavedSlot(item?: ItemModule.Item): savedArmorSlot | undefined {
+    if (!item?.id) return undefined;
+    return {
+      id: item.id,
+      upgrade: item.upgrade || 0,
+    };
+  }
+
+  private static savedSlotToItem(slot?: savedArmorSlot): ItemModule.Item | undefined {
+    if (!slot?.id) return undefined;
+    const item = ItemModule.ItemStore.getByID(slot.id);
+    item.upgrade = slot.upgrade || 0;
+    return item;
+  }
+
+  buildToJson(): string {
+    const saveData: savedBuild = {
+      version: 1,
+      level: this.level,
+      hp: this.hp,
+      maxHp: this.maxHp,
+      guildPromotion: this.guildPromotion,
+      bladeId: this.blade?.id,
+      handleId: this.handle?.id,
+      weaponArtId: this.weaponArt?.id,
+      guildId: this.guild?.id,
+      raceId: this.race?.id,
+      buffIds: this.buff?.map((buff) => buff.id).filter(Boolean),
+      deBuffIds: this.deBuffs?.map((buff) => buff.id).filter(Boolean),
+      mainArmor: {
+        helmet: Build.itemToSavedSlot(this.mainArmor.helmet),
+        chestplate: Build.itemToSavedSlot(this.mainArmor.chestplate),
+        legging: Build.itemToSavedSlot(this.mainArmor.legging),
+        rune: Build.itemToSavedSlot(this.mainArmor.rune),
+        ring: Build.itemToSavedSlot(this.mainArmor.ring),
+      },
+      infuseArmor: {
+        helmet: Build.itemToSavedSlot(this.infuseArmor.helmet),
+        chestplate: Build.itemToSavedSlot(this.infuseArmor.chestplate),
+        legging: Build.itemToSavedSlot(this.infuseArmor.legging),
+        rune: Build.itemToSavedSlot(this.infuseArmor.rune),
+        ring: Build.itemToSavedSlot(this.infuseArmor.ring),
+      },
+      enchantments: {
+        helmet: this.enchantments.helmet?.map((item) => item?.id || null),
+        chestplate: this.enchantments.chestplate?.map((item) => item?.id || null),
+        legging: this.enchantments.legging?.map((item) => item?.id || null),
+        rune: this.enchantments.rune?.map((item) => item?.id || null),
+        ring: this.enchantments.ring?.map((item) => item?.id || null),
+      },
+    };
+
+    return JSON.stringify(saveData, null, 2);
+  }
+
+  static dictToBuild(data: savedBuild): Build {
+    const build = new Build();
+
+    build.level = data.level || 1;
+    build.hp = data.hp || 100;
+    build.maxHp = data.maxHp || build.getHp();
+    build.guildPromotion = data.guildPromotion || 0;
+
+    if (data.bladeId) build.blade = ItemModule.ItemStore.getByID(data.bladeId);
+    if (data.handleId) build.handle = ItemModule.ItemStore.getByID(data.handleId);
+    if (data.weaponArtId) build.weaponArt = ItemModule.ItemStore.getByID(data.weaponArtId);
+    if (data.guildId) build.guild = GuildStore.getByID(data.guildId);
+    if (data.raceId) build.race = RaceStore.getByID(data.raceId);
+
+    build.mainArmor = {
+      helmet: Build.savedSlotToItem(data.mainArmor?.helmet),
+      chestplate: Build.savedSlotToItem(data.mainArmor?.chestplate),
+      legging: Build.savedSlotToItem(data.mainArmor?.legging),
+      rune: Build.savedSlotToItem(data.mainArmor?.rune),
+      ring: Build.savedSlotToItem(data.mainArmor?.ring),
+    };
+
+    build.infuseArmor = {
+      helmet: Build.savedSlotToItem(data.infuseArmor?.helmet),
+      chestplate: Build.savedSlotToItem(data.infuseArmor?.chestplate),
+      legging: Build.savedSlotToItem(data.infuseArmor?.legging),
+      rune: Build.savedSlotToItem(data.infuseArmor?.rune),
+      ring: Build.savedSlotToItem(data.infuseArmor?.ring),
+    };
+
+    const armorKeys: (keyof Armor)[] = ["helmet", "chestplate", "legging", "rune", "ring"];
+    armorKeys.forEach((key) => {
+      const savedEnchantments = data.enchantments?.[key];
+      if (!savedEnchantments?.length) return;
+
+      build.enchantments[key] = savedEnchantments.map((id) => {
+        if (!id) return undefined;
+        return ItemModule.ItemStore.getByID(id);
+      }) as [ItemModule.Item?, ItemModule.Item?, ItemModule.Item?];
+    });
+
+    build.buff = data.buffIds
+      ?.map((id) => BuffModule.BuffStore.getByID(id))
+      .filter((buff) => !!buff.id);
+
+    build.deBuffs = data.deBuffIds
+      ?.map((id) => BuffModule.BuffStore.getByID(id))
+      .filter((buff) => !!buff.id);
+
+    build.resetBuild();
+    return build;
   }
 };
 

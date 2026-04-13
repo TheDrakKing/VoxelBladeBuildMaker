@@ -4,14 +4,14 @@ export const Enchantments = {
         name: "Legendary",
         category: "Enchantment",
         description: "Times all Positive Stats by x1.5",
-        onStatCalculation(perkAmount, outputType, stats) {
-            if (!stats)
+        onStatCalculation(perkAmount, args) {
+            if (!args || !args.stat)
                 return;
-            for (const [key, value] of Object.entries(stats)) {
+            for (const [key, value] of Object.entries(args.stat)) {
                 // key is a string, value is a number or undefined
                 if (!value || value <= 0)
                     continue;
-                stats[key] = Math.trunc(value * 1.5 * 10) / 10;
+                args.stat[key] = Math.trunc(value * 1.5 * 10) / 10;
             }
         },
     },
@@ -20,18 +20,18 @@ export const Enchantments = {
         name: "Refined",
         category: "Enchantment",
         description: "Times all Positive Stats by x1.2 and half Negative stats",
-        onArmorStatModified(perkAmount, outputType, stats) {
-            if (!stats)
+        onArmorStatModified(perkAmount, args) {
+            if (!args || !args.stat)
                 return;
-            for (const [key, value] of Object.entries(stats)) {
+            for (const [key, value] of Object.entries(args.stat)) {
                 // key is a string, value is a number or undefined
                 if (value === undefined)
                     continue;
                 if (value > 0) {
-                    stats[key] = Math.trunc(value * 1.2 * 10) / 10;
+                    args.stat[key] = Math.trunc(value * 1.2 * 10) / 10;
                 }
                 else if (value < 0) {
-                    stats[key] = Math.trunc(value * 0.5 * 10) / 10;
+                    args.stat[key] = Math.trunc(value * 0.5 * 10) / 10;
                 }
             }
         },
@@ -182,8 +182,8 @@ export const Enchantments = {
         },
     },
     hardened: {
-        id: "magical",
-        name: "Magical",
+        id: "hardened",
+        name: "Hardened",
         category: "Enchantment",
         description: "Give Extra Protection",
         stats: {

@@ -16,12 +16,22 @@
           Voxel Build Maker
         </h3>
 
-        <div class="toggle-container post_entry" id="theme_Selector">
-          <span class="toggle-label">Theme</span>
-          <label class="switch">
-              <input type="checkbox" id="theme_Selector_input">
-              <span class="slider"></span>
-          </label>
+        <div class="title-bar-actions">
+          <button id="import_build_button" class="title-bar-button">
+            Import Build
+          </button>
+          <button id="export_build_button" class="title-bar-button">
+            Export Build
+          </button>
+          <input type="file" id="import_build_input" accept=".json,.txt,application/json,text/plain" hidden>
+
+          <div class="toggle-container post_entry" id="theme_Selector">
+            <span class="toggle-label">Theme</span>
+            <label class="switch">
+                <input type="checkbox" id="theme_Selector_input">
+                <span class="slider"></span>
+            </label>
+          </div>
         </div>
       </div>
 
@@ -49,6 +59,7 @@
             X
           </button>
         </div>
+        <input type="text" id="items_search_input" placeholder="Search items, buffs, guilds...">
        
         <div class="items_container" id="itemsContainer" >
             <div class="itemBox_Select" id="selectItem_template">
@@ -599,15 +610,47 @@
       <div class="content-bar statHolder-bar">
 
         <div class="statHolder-Div">
-          <span>Damage Modifications & Bonuses</span>
+          <span>Damage Bonus Modifiers</span>
           <div class="stat_Container flow_scrollbar" id="damageModifications">
-            
+             
           </div>
         </div>
 
-        <div class="statHolder-Div" style="display: none;">
-          <span>Total Damage Multipliers</span>
-          <div class="stat_Container flow_scrollbar" id="damageMultiplier ">
+        <div class="statHolder-Div">
+          <span>Damage Reduction Modifiers</span>
+          <div class="stat_Container flow_scrollbar" id="damageReducedModifications">
+      
+          </div>
+        </div>
+      </div>
+
+      <div class="content-bar statHolder-bar">
+        <div class="statHolder-Div">
+          <span>Specific Damage Bonus Modifiers</span>
+          <div class="stat_Container flow_scrollbar" id="specificDamageBonusModifications">
+      
+          </div>
+        </div>
+
+        <div class="statHolder-Div">
+          <span>Specific Damage Reduction Modifiers</span>
+          <div class="stat_Container flow_scrollbar" id="specificDamageReducedModifications">
+      
+          </div>
+        </div>
+      </div>
+
+      <div class="content-bar statHolder-bar">
+        <div class="statHolder-Div">
+          <span>Crit Modifiers</span>
+          <div class="stat_Container flow_scrollbar" id="critModifications">
+      
+          </div>
+        </div>
+
+        <div class="statHolder-Div">
+          <span>Special Modifiers</span>
+          <div class="stat_Container flow_scrollbar" id="specialModifications">
       
           </div>
         </div>
@@ -641,7 +684,7 @@
         </div>
 
         <div class="damageHolder-Div">
-          <span>Perk damage</span>
+          <span>Other Damages</span>
           <div class="stat_Container flow_scrollbar" id="perk_damage">
            
           </div>

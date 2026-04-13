@@ -1,5 +1,6 @@
 import * as Item from "./Item.js";
 import { Perks } from "../data/Perks.js";
+import { Build } from "./Build.js";
 
 export type perkDataTable = { [id: string]: Perk };
 const perksTable: perkDataTable = Perks;
@@ -9,6 +10,18 @@ export class Perk extends Item.events {
   name: string;
   category?: string;
   description?: string;
+  baseDamage?: number;
+  stats?: { [k in Item.stat]?: number };
+  /**
+   * Perk scaling are only for this perk only if it does damage, not to be added to the total build scaling
+   */
+  damageScalings?: { [k in Item.scale]?: number };
+    /**
+   * Perk damageType are only for this perk only if it does damage, not to be added to the total build scaling
+   */
+  damageTypes?: { [k in Item.damageType]?: number };
+  getPerkDamageInfo?:(this: Build, perkAmount?: number) => baseDamageData | null;
+
 
   constructor(data?: any) {
     super()
@@ -17,6 +30,7 @@ export class Perk extends Item.events {
     this.name = data?.name || "";
     this.category = data?.category || "";
     this.description = data?.description || "";
+    this.baseDamage = data?.baseDamage || "";
   }
 }
 

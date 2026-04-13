@@ -1,6 +1,78 @@
 import { damageTypes } from "../models/Build";
 
 export const Perks: import("../models/Perk").perkDataTable = {
+  /** Race Perks Here */
+  human: {
+    id: "human",
+    name: "Human",
+    category: "Race",
+    description: "Gain 20% damage reduction and damage boost when below 50% HP..",
+    onDmgBonusMultiplier(perkAmount) {
+      if (!perkAmount) return null;
+      //check if hp is below 50% in the function where this is called and only then call this function
+      if (this.hp > 50) return null;
+      let baseMultiplier = 20;
+      let multiplier = (baseMultiplier) / 100;
+      return Math.trunc(multiplier * 100) / 100;
+    },
+  },
+  half_ork: {
+    id: "half_ork",
+    name: "Half-Ork",
+    category: "",
+    description: "Gain 10 armor penetration on all attacks.",
+  },
+  elf: {
+    id: "elf",
+    name: "Elf",
+    category: "",
+    description: "Gain 25% lower Weapon Art cooldown.",
+  },
+  dark_elf: {
+    id: "dark_elf",
+    name: "Dark Elf",
+    category: "",
+    description: "An 8% chance to apply a random debuff to the opponent when hitting them.",
+  },
+  dragon: {
+    id: "dragon",
+    name: "Dragon",
+    category: "",
+    description: "Gain 50% Warding and 10 Protection alongside 100% Heat and Cold Resistance.",
+  },
+  ork: {
+    id: "ork",
+    name: "Ork",
+    category: "",
+    description: "Weapon arts gain 10 armor penetration. +0.2 Tenacity and for each active buff you gain an additional +0.1 tenacity.",
+  },
+  half_elf: {
+    id: "half_elf",
+    name: "Half Elf",
+    category: "",
+    description: "Gain 25% lower Weapon Art cooldown.",
+  },
+  arborian: {
+    id: "arborian",
+    name: "Arborian",
+    category: "",
+    description: "The Arborians are druidic in nature. They are trees made of tough bark and use their power to protect all life.",
+  },
+  kitsune: {
+    id: "kitsune",
+    name: "Kitsune",
+    category: "",
+    description: "The Kitsune are a nomadic race travelling alone or in packs rarely staying in one place to long. They posess incredible speed and reflex and are not often caught by surprise",
+  },
+  bunikin: {
+    id: "bunikin",
+    name: "Bunikin",
+    category: "",
+    description: "The mysterious bunikin are being of mystical whimsy and are rarely seen anywhere in the world.",
+  },
+  /** Guild only Perks here */
+
+  /** Other Perks */
   ferocious: {
     id: "ferocious",
     name: "Ferocious",
@@ -52,9 +124,11 @@ export const Perks: import("../models/Perk").perkDataTable = {
     description:
       "If you hit a bleeding opponent bleeding by you remove the bleed, deal bonus damage, and heal. Grants bleed potency.",
     onDmgBonusMultiplier(perkAmount) {
-      if (!perkAmount || !this.target || !this.target.deBuffs) return null;
+      if (!perkAmount || !this.target || !this.target.deBuffs) {
+        return null;
+      };
       let bleed = this.target.deBuffs.find(
-        (deBuffs) => deBuffs?.id === "bleed"
+        (deBuff) => deBuff?.id === "bleed"
       );
       if (!bleed) return null;
       let baseMultiplier = 20;
@@ -81,7 +155,7 @@ export const Perks: import("../models/Perk").perkDataTable = {
     id: "pulverizing_rush",
     name: "Pulverizing Rush",
     category: "",
-    description: "Tenacity increases damage dealt.",
+    description: "Using a finisher that hits a target while allies are nearby create a burst that grants reinforce to nearby allies. Additionally having reinforce grants knockback resistance.",
   },
 
   fury: {
@@ -185,6 +259,36 @@ export const Perks: import("../models/Perk").perkDataTable = {
     name: "Vicious Edge",
     category: "",
     description: "Tenacity increases damage dealt.",
+  },
+
+  voltaic_body: {
+    id: "voltaic_body",
+    name: "Voltaic Body",
+    category: "",
+    description: "Using your weapon art gives you a static charge that causes your targets to be struck  by lightning when you hit them with your rune, but your rune has an increased cooldown..",
+    damageTypes: {
+      Air: 0.5,
+      Magic: 0.5
+    },
+    damageScalings: {
+      Air: 1,
+      Magic: 1
+    },
+    getPerkDamageInfo(perkAmount) {
+      if (!perkAmount) return null;
+      // let voltaic_body = this.buff.find(
+      //   (buff) => buff?.id === "voltaic_body"
+      // );
+      //if (!voltaic_body) return null;
+      const baseDamage = (8 + 4*perkAmount) * (0.85^1)
+      return {
+        damage: baseDamage,
+        hitAmount: 1,
+        source: "voltaic_body",
+        sourceDamageType: "Perk",
+        sourceType: "Perk"
+      }
+    }
   },
 
   duelist_stance: {

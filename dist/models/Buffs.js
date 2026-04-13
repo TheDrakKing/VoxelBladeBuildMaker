@@ -11,6 +11,7 @@ export class Buff extends ItemModule.events {
         this.name = data?.name || "";
         this.category = data?.category || "";
         this.baseDuration = data?.baseDuration || "";
+        this.potency = data?.potency || "";
         this.img = data?.img || "";
     }
 }

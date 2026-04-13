@@ -4,6 +4,7 @@ import * as Build from "../models/Build.js";
 import * as helper from "./helper.js";
 import * as Perk from "../models/Perk.js";
 import * as GuildModule from "../models/Guild.js";
+import * as RaceModule from "../models/Race.js";
 //Buttons
 const infuseGearButtons = document.querySelectorAll('.infuseGear');
 const mainGearButtons = document.querySelectorAll('.mainGear');
@@ -13,6 +14,10 @@ const infuseClearButtons = document.querySelectorAll('.infuse_clear_button');
 const weaponClearButtons = document.querySelectorAll('.weapon_clear_button');
 const guildSelector = document.getElementById("guild_selector");
 const promotionSelector = document.getElementById("guild_promotion");
+const raceSelector = document.getElementById("race_selector");
+const importBuildButton = document.getElementById("import_build_button");
+const exportBuildButton = document.getElementById("export_build_button");
+const importBuildInput = document.getElementById("import_build_input");
 const showInfusions = document.getElementById("showInfusions");
 const showMainGear = document.getElementById("showMainGear");
 const theme_Selector_input = document.getElementById("theme_Selector_input");
@@ -26,8 +31,14 @@ const mainGearContentDiv = document.getElementById("main_gear");
 const weaponContentDiv = document.getElementById("weaponDiv");
 const items_selector = document.getElementById("itemsSelectorDiv");
 const SelectorClose = document.getElementById("close_items_selector");
+const itemsSearchInput = document.getElementById("items_search_input");
 const items_container = document.getElementById("itemsContainer");
 const dmgModContainer = document.getElementById("damageModifications");
+const dmgReducedModContainer = document.getElementById("damageReducedModifications");
+const specificDmgBonusContainer = document.getElementById("specificDamageBonusModifications");
+const specificDmgReducedContainer = document.getElementById("specificDamageReducedModifications");
+const critModContainer = document.getElementById("critModifications");
+const specialModContainer = document.getElementById("specialModifications");
 const buffs_container = document.getElementById("buffs_container");
 const debuffs_container = document.getElementById("debuffs_container");
 const targetBuffs_container = document.getElementById("target_buffs_container");
@@ -59,6 +70,7 @@ const perksContainerDiv = document.getElementById("perks");
 const potenciesContainerDiv = document.getElementById("potencies");
 const damageScalingsContainerDiv = document.getElementById("damageScalings");
 const damageTypesContainerDiv = document.getElementById("damageTypes");
+const perkDamageContainerDiv = document.getElementById("perk_damage");
 //Table
 const m1DamageTable = document.getElementById("m1_damage_table");
 const m2DamageTable = document.getElementById("m2_damage_table");
@@ -93,6 +105,7 @@ let imgHolders = {
 let m1Rows = {};
 let m2Rows = {};
 const selectItemDivs = [];
+let activeSelectorContext = null;
 /////////////////////////////////////// Create HTML Elements ///////////////////////////////////////
 function createStatHolder(name, value, ContainerDiv) {
     if (statHolder_template == null)
@@ -107,6 +120,79 @@ function createStatHolder(name, value, ContainerDiv) {
     // Create a clickable link for each game
     ContainerDiv?.appendChild(clonedDiv);
     return clonedDiv;
+}
+function displayDamageModificationGroup(modifications, container, suffix) {
+    container.innerHTML = "";
+    for (const [key, value] of Object.entries(modifications)) {
+        const label = suffix ? `${key} ${suffix}` : key;
+        createStatHolder(label, (value * 100) + "%", container);
+    }
+}
+function createNonWeaponDamageSection(title, containerDiv) {
+    const sectionDiv = document.createElement("div");
+    sectionDiv.className = "non_weapon_damage_section";
+    const titleSpan = document.createElement("span");
+    titleSpan.className = "non_weapon_damage_section_title";
+    titleSpan.textContent = title;
+    sectionDiv.appendChild(titleSpan);
+    containerDiv.appendChild(sectionDiv);
+    return sectionDiv;
+}
+function createNonWeaponDamageCard(entry, containerDiv) {
+    const cardDiv = document.createElement("div");
+    cardDiv.className = "non_weapon_damage_card";
+    const cardTitle = document.createElement("span");
+    cardTitle.className = "non_weapon_damage_card_title";
+    cardTitle.textContent = entry.source;
+    cardDiv.appendChild(cardTitle);
+    const damageTable = document.createElement("div");
+    damageTable.className = "non_weapon_damage_table";
+    const headerRow = document.createElement("div");
+    headerRow.className = "non_weapon_damage_row non_weapon_damage_row_header";
+    const typeHeader = document.createElement("span");
+    typeHeader.textContent = "Damage Type";
+    const valueHeader = document.createElement("span");
+    valueHeader.textContent = "Damage";
+    headerRow.appendChild(typeHeader);
+    headerRow.appendChild(valueHeader);
+    damageTable.appendChild(headerRow);
+    for (const [damageType, value] of Object.entries(entry.outputs)) {
+        if (value === undefined)
+            continue;
+        const damageRow = document.createElement("div");
+        damageRow.className = "non_weapon_damage_row";
+        const typeSpan = document.createElement("span");
+        typeSpan.textContent = damageType;
+        const valueSpan = document.createElement("span");
+        valueSpan.textContent = value.toString();
+        damageRow.appendChild(typeSpan);
+        damageRow.appendChild(valueSpan);
+        damageTable.appendChild(damageRow);
+    }
+    const totalRow = document.createElement("div");
+    totalRow.className = "non_weapon_damage_row non_weapon_damage_total_row";
+    const totalLabel = document.createElement("span");
+    totalLabel.textContent = "Total";
+    const totalValue = document.createElement("span");
+    totalValue.textContent = entry.total.toString();
+    totalRow.appendChild(totalLabel);
+    totalRow.appendChild(totalValue);
+    damageTable.appendChild(totalRow);
+    cardDiv.appendChild(damageTable);
+    containerDiv.appendChild(cardDiv);
+}
+function renderNonWeaponDamages(entries) {
+    perkDamageContainerDiv.innerHTML = "";
+    const perkEntries = entries.filter((entry) => entry.category === "Perk");
+    const debuffEntries = entries.filter((entry) => entry.category === "Debuff");
+    if (perkEntries.length) {
+        const perkSection = createNonWeaponDamageSection("Perk Damages", perkDamageContainerDiv);
+        perkEntries.forEach((entry) => createNonWeaponDamageCard(entry, perkSection));
+    }
+    if (debuffEntries.length) {
+        const debuffSection = createNonWeaponDamageSection("Debuff Damages", perkDamageContainerDiv);
+        debuffEntries.forEach((entry) => createNonWeaponDamageCard(entry, debuffSection));
+    }
 }
 function createItemBox(item) {
     if (selectItem_template == null)
@@ -131,6 +217,51 @@ function createItemBox(item) {
     // Create a clickable link for each game
     items_container?.appendChild(clonedDiv);
     return clonedDiv;
+}
+function clearSelectorItems() {
+    selectItemDivs.forEach(([div]) => div.remove());
+    selectItemDivs.length = 0;
+}
+function hideSelector() {
+    clearSelectorItems();
+    activeSelectorContext = null;
+    itemsSearchInput.value = "";
+    items_selector.style.display = "none";
+}
+function normalizeFilterValue(value) {
+    return value.toLowerCase().trim().replace(/[\s-]+/g, "_");
+}
+function exportCurrentBuild() {
+    const buildJson = build.buildToJson();
+    const buildBlob = new Blob([buildJson], { type: "application/json" });
+    const buildUrl = URL.createObjectURL(buildBlob);
+    const downloadLink = document.createElement("a");
+    const date = new Date().toISOString().slice(0, 10);
+    downloadLink.href = buildUrl;
+    downloadLink.download = `voxel-build-${date}.json`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+    URL.revokeObjectURL(buildUrl);
+}
+async function importBuildFromFile(file) {
+    if (!file)
+        return;
+    try {
+        const fileText = await file.text();
+        const parsedBuild = JSON.parse(fileText);
+        build = Build.Build.dictToBuild(parsedBuild);
+        build.target = target;
+        hideSelector();
+        resetPage();
+    }
+    catch (error) {
+        console.error("Could not import build", error);
+        window.alert("Could not import that build file.");
+    }
+    finally {
+        importBuildInput.value = "";
+    }
 }
 function createBuffBox(buff, ContainerDiv, source) {
     if (buff_template == null)
@@ -269,6 +400,35 @@ function mouseHover(item, itemType) {
     }
     itemHoverInfoDiv.style.display = "flex";
 }
+function perkHover(perk, value) {
+    const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv");
+    if (!itemHoverInfoDiv)
+        return;
+    let itemName = itemHoverInfoDiv.children[0];
+    itemName.innerHTML = perk.name || "";
+    let hoverDescription = itemHoverInfoDiv.children[1];
+    hoverDescription.innerHTML = perk.description || "";
+    let hoverDmgScaleDiv = itemHoverInfoDiv.children[2];
+    hoverDmgScaleDiv.style.display = "none";
+    hoverDmgScaleDiv.innerHTML = "";
+    let hoverDmgTypeDiv = itemHoverInfoDiv.children[3];
+    hoverDmgTypeDiv.style.display = "none";
+    hoverDmgTypeDiv.innerHTML = "";
+    let hoverStatsDiv = itemHoverInfoDiv.children[4];
+    hoverStatsDiv.style.display = "none";
+    hoverStatsDiv.innerHTML = "";
+    if (value !== undefined) {
+        hoverStatsDiv.style.display = "block";
+        createStatHolder("Perk Level", value, hoverStatsDiv);
+    }
+    let hoverPerksDiv = itemHoverInfoDiv.children[5];
+    hoverPerksDiv.style.display = "none";
+    hoverPerksDiv.innerHTML = "";
+    let hoverPotenciesDiv = itemHoverInfoDiv.children[6];
+    hoverPotenciesDiv.style.display = "none";
+    hoverPotenciesDiv.innerHTML = "";
+    itemHoverInfoDiv.style.display = "flex";
+}
 function mouseLeave() {
     const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv");
     if (!itemHoverInfoDiv)
@@ -306,8 +466,15 @@ function displayStats() {
     for (const [key, value] of Object.entries(build.perks)) {
         if (value === undefined)
             continue;
-        let name = Perk.PerkStore.getByID(key)?.name || key;
-        createStatHolder(name, value, perksContainerDiv);
+        let perk = Perk.PerkStore.getByID(key);
+        let name = perk?.name || key;
+        let perkHolder = createStatHolder(name, value, perksContainerDiv);
+        perkHolder?.addEventListener("mouseenter", () => {
+            perkHover(perk, value);
+        });
+        perkHolder?.addEventListener("mouseleave", () => {
+            mouseLeave();
+        });
     }
     potenciesContainerDiv.innerHTML = "";
     for (const [key, value] of Object.entries(build.potencies)) {
@@ -327,11 +494,12 @@ function displayStats() {
             continue;
         createStatHolder(key, value, damageTypesContainerDiv);
     }
-    dmgModContainer.innerHTML = "";
-    for (const [key, value] of Object.entries(build.damageModifications.damage_bonus_mods)) {
-        createStatHolder(key + " Boost", (value * 100) + "%", dmgModContainer);
-    }
-    ;
+    displayDamageModificationGroup(build.damageModifications.damage_bonus_mods, dmgModContainer, "Boost");
+    displayDamageModificationGroup(build.damageModifications.damage_reduced_mods, dmgReducedModContainer, "Reduction");
+    displayDamageModificationGroup(build.damageModifications.specific_bonus_mods, specificDmgBonusContainer);
+    displayDamageModificationGroup(build.damageModifications.specific_reduced_mods, specificDmgReducedContainer);
+    displayDamageModificationGroup(build.damageModifications.crit_mods, critModContainer);
+    displayDamageModificationGroup(build.damageModifications.special_mods, specialModContainer);
     ////////////////////////////////////////////////Add the users Buffs and Debuffs to the page////////////////////////////////////////////////
     let div = document.getElementById("selectbuff");
     //Wipe Buff
@@ -444,6 +612,11 @@ function resetPage(item) {
     wipeStatHolders();
     //reset the Build
     build.resetBuild();
+    //add the current hp and max hp
+    healthInput.value = `${build.hp.toString()}/${build.maxHp.toString()}`;
+    levelInput.value = build.level.toString();
+    promotionSelector.value = (build.guildPromotion + 1).toString();
+    raceSelector.value = build.race?.id || "";
     //////////////////////// add the images to the Html pages for the item ////////////////////////
     for (const [key, element] of Object.entries(imgHolders)) {
         if (!element)
@@ -452,7 +625,7 @@ function resetPage(item) {
         let spanElement = parentDiv?.children[1];
         let img = PlusSymbol;
         let name = "";
-        if (key === "blade" || key == "handle" || key == "weaponArt" || key == "guild") {
+        if (key === "blade" || key == "handle" || key == "weaponArt" || key == "guild" || key === "race") {
             if (build[key]) {
                 img = build[key].img || "";
                 name = build[key].name || "";
@@ -479,7 +652,7 @@ function resetPage(item) {
     for (const [key, element] of Object.entries(infusionImgHolders)) {
         if (!element)
             continue;
-        if (!element || key === "blade" || key == "handle" || key == "weaponArt" || key == "guild")
+        if (!element || key === "blade" || key == "handle" || key == "weaponArt" || key == "guild" || key === "race")
             continue;
         element.src == build.infuseArmor[key]?.img || "";
         element.alt = build.infuseArmor[key]?.name || "";
@@ -507,36 +680,103 @@ function resetPage(item) {
     //Clears the damage from the tables
     wipeDamages(build.m1, m1Rows, m1DamageTable);
     wipeDamages(build.m2, m2Rows, m2DamageTable);
-    //Run the damage calculation
-    helper.runDamageCalculation(build, target);
+    //Run the weapon damage calculation
+    helper.runWeaponDamageCalculation(build, target);
+    const nonWeaponDamages = [];
+    //run perk damages
+    for (const [perk, amount] of Object.entries(build.perks)) {
+        if (!Perk.PerkStore.getByID(perk))
+            continue;
+        let perkData = Perk.PerkStore.getByID(perk);
+        let callBack = perkData.getPerkDamageInfo;
+        if (!callBack)
+            continue;
+        const baseDamageInfo = callBack.apply(build, [amount]);
+        if (!baseDamageInfo)
+            continue;
+        const attackerBuild = {
+            damageScalings: perkData.damageScalings,
+            damageTypes: perkData.damageTypes,
+        };
+        const results = helper.runNonWeaponDamageCalculation(baseDamageInfo, build, target, attackerBuild);
+        nonWeaponDamages.push({
+            source: perkData.name || baseDamageInfo.source || perk,
+            outputs: results.outputs,
+            total: results.total,
+            category: "Perk",
+        });
+    }
+    //Status damages
+    for (const [status, debuff] of Object.entries(target.deBuffs || [])) {
+        if (!debuff)
+            continue;
+        let StatusData = debuff;
+        let callBack = StatusData.getDamageInfo;
+        if (!callBack)
+            continue;
+        const baseDamageInfo = callBack.apply(build, [0.3]);
+        if (!baseDamageInfo)
+            continue;
+        const attackerBuild = {
+            damageScalings: StatusData.damageScalings,
+            damageTypes: StatusData.damageTypes,
+        };
+        const results = helper.runNonWeaponDamageCalculation(baseDamageInfo, build, target, attackerBuild);
+        nonWeaponDamages.push({
+            source: StatusData.name || baseDamageInfo.source || status,
+            outputs: results.outputs,
+            total: results.total,
+            category: "Debuff",
+        });
+    }
     if (build.constructionType) {
         weaponTypeText.innerHTML = "Weapon Type: " + build.constructionType;
     }
     else {
         weaponTypeText.innerHTML = "Weapon Type: None";
     }
+    mainGearButtons.forEach((itembutton) => {
+        const key = itembutton.name.toLowerCase();
+        const itemBox = itembutton.parentElement?.parentElement;
+        const enchantmentsContainer = itemBox.children[1];
+        for (let index = 0; index < enchantmentsContainer.children.length; index++) {
+            const enchantSelector = enchantmentsContainer.children[index];
+            const enchantment = build.enchantments[key]?.[index];
+            enchantSelector.children[0].innerHTML = enchantment?.name || "Choose an enchantment";
+        }
+        const upgradeSelector = itemBox.children[0].children[3];
+        if (upgradeSelector) {
+            upgradeSelector.value = (build.mainArmor[key]?.upgrade || 0).toString();
+        }
+    });
     //////////////////////// Run the displayStats() to add show the build stats ////////////////////////
     displayStats();
+    renderNonWeaponDamages(nonWeaponDamages);
     //Displays the Damages to the table
     addHeaderToTable(build.m1, m1Rows, m1DamageTable);
     addHeaderToTable(build.m2, m2Rows, m2DamageTable);
 }
-function loadSelectorPage(build, source, category, section, index, htmlElement) {
+function loadSelectorPage(build, source, category, section, index, htmlElement, filter) {
     //Set a Dummy Item to act has a remove
     let blankItem = new ItemModule.Item();
     blankItem.name = "none";
     blankItem.id = "none";
     blankItem.img = CloseSymbol;
+    activeSelectorContext = {
+        build,
+        source,
+        category,
+        section,
+        index,
+        htmlElement,
+    };
+    itemsSearchInput.value = filter || "";
+    clearSelectorItems();
     let removeItemBox = createItemBox(blankItem);
     selectItemDivs.push([removeItemBox, blankItem]);
     let key = category.toLowerCase();
     removeItemBox?.children[0].children[0].addEventListener("click", () => {
-        //Clear out the selectItemDivs and there listeners
-        selectItemDivs.forEach(([div]) => div.remove());
-        // Clear the selectItemDivs array
-        selectItemDivs.length = 0;
-        //reset the items selector element to none
-        items_selector.style.display = "none";
+        hideSelector();
         removeFromBuild(key, section, index, htmlElement);
     });
     //Get the actual items
@@ -555,7 +795,18 @@ function loadSelectorPage(build, source, category, section, index, htmlElement) 
     else if (source == "Guilds") {
         items = GuildModule.GuildStore.all();
     }
+    const normalizedFilter = normalizeFilterValue(filter || "");
     items?.forEach((item) => {
+        if (normalizedFilter) {
+            const normalizedName = normalizeFilterValue(item.name || "");
+            const normalizedId = normalizeFilterValue(item.id || "");
+            const matchesFilter = normalizedName.includes(normalizedFilter) ||
+                normalizedId.includes(normalizedFilter) ||
+                normalizedFilter.includes(normalizedName) ||
+                normalizedFilter.includes(normalizedId);
+            if (!matchesFilter)
+                return;
+        }
         let itemBox = createItemBox(item);
         if (!itemBox)
             return;
@@ -565,11 +816,7 @@ function loadSelectorPage(build, source, category, section, index, htmlElement) 
         if (itemBox != removeItemBox) {
             var itemBoxButton = itemBox.children[0].children[0];
             itemBoxButton.addEventListener("click", () => {
-                //Clear out the selectItemDivs and there listeners
-                selectItemDivs.forEach(([div]) => div.remove());
-                // Clear the selectItemDivs array
-                selectItemDivs.length = 0;
-                items_selector.style.display = "none";
+                hideSelector();
                 if (item instanceof ItemModule.Item || item instanceof GuildModule.Guild) {
                     addItemToPage(item, section, key, index, htmlElement);
                 }
@@ -584,10 +831,21 @@ function loadSelectorPage(build, source, category, section, index, htmlElement) 
 }
 ///////////////////////////////////////Button & input Listeners///////////////////////////////////////
 SelectorClose.addEventListener("click", () => {
-    selectItemDivs.forEach(([div]) => div.remove());
-    // Clear the selectItemDivs array
-    selectItemDivs.length = 0;
-    items_selector.style.display = "none";
+    hideSelector();
+});
+exportBuildButton.addEventListener("click", () => {
+    exportCurrentBuild();
+});
+importBuildButton.addEventListener("click", () => {
+    importBuildInput.click();
+});
+importBuildInput.addEventListener("change", async () => {
+    await importBuildFromFile(importBuildInput.files?.[0]);
+});
+itemsSearchInput.addEventListener("input", () => {
+    if (!activeSelectorContext)
+        return;
+    loadSelectorPage(activeSelectorContext.build, activeSelectorContext.source, activeSelectorContext.category, activeSelectorContext.section, activeSelectorContext.index, activeSelectorContext.htmlElement, itemsSearchInput.value);
 });
 showInfusions.addEventListener("click", () => {
     mainGearContentDiv.style.display = "none";
@@ -610,6 +868,21 @@ levelInput.addEventListener("change", () => {
     build.level = level;
     resetPage();
 });
+healthInput.addEventListener("change", () => {
+    let health = Number(healthInput.value);
+    health = Math.floor(health);
+    if (health < 1) {
+        health = 1;
+    }
+    if (health > build.maxHp) {
+        health = build.maxHp;
+    }
+    healthInput.value = `${health.toString()}/${build.maxHp.toString()}`;
+    build.hp = health;
+    resetPage();
+});
+//add the current hp and max hp
+healthInput.value = `${build.hp.toString()}/${build.maxHp.toString()}`;
 theme_Selector_input.addEventListener("change", () => {
     const currentTheme = document.documentElement.getAttribute("data-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
@@ -624,6 +897,21 @@ theme_Selector_input.addEventListener("change", () => {
     document.documentElement.setAttribute("data-theme", newTheme);
     setItemButtonImage();
     resetPage();
+});
+raceSelector.addEventListener("change", (event) => {
+    const selectedValue = event.target.value;
+    console.log('User picked:', selectedValue);
+    //add it to the build
+    if (!RaceModule.RaceStore.get(selectedValue))
+        return;
+    addItemToPage(RaceModule.RaceStore.get(selectedValue), "race", "race");
+});
+//aad the races to the selector
+RaceModule.RaceStore.all()?.forEach((race) => {
+    const option = document.createElement("option");
+    option.value = race.id;
+    option.textContent = race.name;
+    raceSelector.appendChild(option);
 });
 promotionSelector.addEventListener("change", () => {
     let promotion = Number(promotionSelector.value);
