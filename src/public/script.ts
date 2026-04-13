@@ -96,8 +96,21 @@ const damageHeaderTemplate = document.getElementById("damage_header") as HTMLDiv
 const damageRowTemplate = document.getElementById("damage_row_template") as HTMLDivElement;
 
 //images
-let PlusSymbol = "../image/plus_symbol_white.png";
-let CloseSymbol = "../image/close_X_white.png";
+const appRootUrl = new URL("../", window.location.href);
+
+function resolveAssetPath(path: string): string {
+  if (!path) return "";
+  if (/^(?:[a-z]+:)?\/\//i.test(path) || path.startsWith("data:")) return path;
+
+  const normalizedPath = path
+    .replace(/^\/+/, "")
+    .replace(/^(\.\.\/)+/, "");
+
+  return new URL(normalizedPath, appRootUrl).href;
+}
+
+let PlusSymbol = resolveAssetPath("image/plus_symbol_white.png");
+let CloseSymbol = resolveAssetPath("image/close_X_white.png");
 
 
 let target = new Build.Build();
@@ -287,7 +300,7 @@ function createItemBox(item: ItemModule.Item | BuffModule.Buff): HTMLElement | n
   clonedDiv.style.display = "flex";
 
   var itemBoxImg = clonedDiv.children[0].children[0].children[0] as HTMLImageElement;
-  itemBoxImg.src = item.img ? item.img : "";
+  itemBoxImg.src = item.img ? resolveAssetPath(item.img) : "";
   itemBoxImg.alt = item.name ? item.name : "";
 
   var itemBoxspan = clonedDiv.children[0].children[0].children[1] as HTMLSpanElement;
@@ -416,7 +429,7 @@ function createBuffBox(buff: BuffModule.Buff, ContainerDiv:HTMLElement, source?:
   clonedDiv.style.display = "flex";
 
   var itemBoxImg = clonedDiv.children[0].children[0].children[0] as HTMLImageElement;
-  itemBoxImg.src = buff.img ? buff.img : "";
+  itemBoxImg.src = buff.img ? resolveAssetPath(buff.img) : "";
   itemBoxImg.alt = buff.name ? buff.name : "";
 
   var itemBoxspan = clonedDiv.children[0].children[0].children[1] as HTMLSpanElement;
@@ -923,7 +936,7 @@ function resetPage(item?: ItemModule.Item | string):boolean | void {
       }
     }
 
-    element.src = img;
+    element.src = resolveAssetPath(img);
     element.alt = name;
 
     spanElement.innerHTML = name;
@@ -956,7 +969,7 @@ function resetPage(item?: ItemModule.Item | string):boolean | void {
       name = build.infuseArmor[key].name || "";
     }
 
-    element.src = img;
+    element.src = resolveAssetPath(img);
     element.alt = name;
 
     spanElement.innerHTML = name;
@@ -1242,11 +1255,11 @@ theme_Selector_input.addEventListener("change", () => {
   const currentTheme = document.documentElement.getAttribute("data-theme");
   const newTheme = currentTheme === "dark" ? "light" : "dark";
   if(newTheme === "dark") {
-    PlusSymbol = "../image/plus_symbol_white.png";
-    CloseSymbol = "../image/close_X_white.png";
+    PlusSymbol = resolveAssetPath("image/plus_symbol_white.png");
+    CloseSymbol = resolveAssetPath("image/close_X_white.png");
   }else{
-    PlusSymbol = "../image/plus_symbol_black.png";
-    CloseSymbol = "../image/close_X_black.png";
+    PlusSymbol = resolveAssetPath("image/plus_symbol_black.png");
+    CloseSymbol = resolveAssetPath("image/close_X_black.png");
   }
   document.documentElement.setAttribute("data-theme", newTheme);
   setItemButtonImage();
