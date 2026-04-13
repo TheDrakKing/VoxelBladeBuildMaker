@@ -15,6 +15,7 @@ const weaponClearButtons = document.querySelectorAll('.weapon_clear_button');
 const guildSelector = document.getElementById("guild_selector");
 const promotionSelector = document.getElementById("guild_promotion");
 const raceSelector = document.getElementById("race_selector");
+const clearBuildButton = document.getElementById("clear_build_button");
 const importBuildButton = document.getElementById("import_build_button");
 const exportBuildButton = document.getElementById("export_build_button");
 const importBuildInput = document.getElementById("import_build_input");
@@ -832,6 +833,12 @@ function loadSelectorPage(build, source, category, section, index, htmlElement, 
 ///////////////////////////////////////Button & input Listeners///////////////////////////////////////
 SelectorClose.addEventListener("click", () => {
     hideSelector();
+});
+clearBuildButton.addEventListener("click", () => {
+    build = new Build.Build();
+    build.target = target;
+    hideSelector();
+    resetPage();
 });
 exportBuildButton.addEventListener("click", () => {
     exportCurrentBuild();
