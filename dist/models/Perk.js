@@ -10,6 +10,8 @@ export class Perk extends Item.events {
         this.category = data?.category || "";
         this.description = data?.description || "";
         this.baseDamage = data?.baseDamage || "";
+        this.sourcepotencies = data?.sourcepotencies;
+        this.potencies = data?.potencies || {};
     }
 }
 export class PerkStore {

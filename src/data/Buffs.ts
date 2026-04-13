@@ -4,6 +4,7 @@ export const Buffs: import("../models/Buffs").BuffDataTable = {
     name: "Bounce",
     category: "Buff",
     baseDuration: 5,
+    potencyId: "bouncepotency",
     img: "",
   },
 
@@ -12,6 +13,7 @@ export const Buffs: import("../models/Buffs").BuffDataTable = {
     name: "Guaranteed Crit",
     category: "Buff",
     baseDuration: 5,
+    potencyId: "guaranteedcritpotency",
     img: "",
   },
 
@@ -20,6 +22,7 @@ export const Buffs: import("../models/Buffs").BuffDataTable = {
     name: "Rage",
     category: "Buff",
     baseDuration: 5,
+    potencyId: "ragepotency",
     img: "",
   },
 
@@ -28,6 +31,7 @@ export const Buffs: import("../models/Buffs").BuffDataTable = {
     name: "Regen",
     category: "Buff",
     baseDuration: 5,
+    potencyId: "regenpotency",
     img: "",
   },
 
@@ -36,6 +40,7 @@ export const Buffs: import("../models/Buffs").BuffDataTable = {
     name: "Reinforce",
     category: "Buff",
     baseDuration: 5,
+    potencyId: "reinforcepotency",
     img: "",
   },
 

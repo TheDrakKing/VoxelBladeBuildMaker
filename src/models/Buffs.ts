@@ -3,8 +3,7 @@ import { Buffs } from "../data/Buffs.js";
 import { Debuffs } from "../data/Debuffs.js";
 import { Build } from "./Build.js";
 
-export type BuffDataTable = { [id: string]: Buff };
-
+export type BuffDataTable = { [id: string]: Partial<Buff> };
 
 const buffTable: BuffDataTable = Buffs;
 const deBuffTable: BuffDataTable = Debuffs;
@@ -14,6 +13,13 @@ export class Buff extends ItemModule.events {
   name?: string;
   category: string;
   baseDuration: number;
+  /**
+   * The potency that affect this buff
+   */
+  potencyId?: ItemModule.potency;
+  /**
+   * Only if this buff add it own additve potency, but most times this is undefined
+   */
   potency?: number;
   /**
    * buff scaling are only for this buff only if it does damage, not to be added to the total build scaling
@@ -23,6 +29,12 @@ export class Buff extends ItemModule.events {
    * buff damageType are only for this buff only if it does damage, not to be added to the total build scaling
    */
   damageTypes?: { [k in ItemModule.damageType]?: number };
+  /**
+   * sourceData is only for when a buff is being added to a build, all buffs must have a source, 
+   * where they get there starting potency from
+   * if no source can is determined, then sourceType is Default and sourceInatePotency is 0.1
+   */
+  sourceData?: {source : string, sourceType: "Rune" | "Perk" | "WeaponArt" | "Default", sourceInatePotency: number}
   getDamageInfo?:(this: Build, perkAmount?: number) => baseDamageData | null;
   img?: string;
 
@@ -32,9 +44,22 @@ export class Buff extends ItemModule.events {
     this.id = data?.id || undefined;
     this.name = data?.name || "";
     this.category = data?.category || "";
+    this.potencyId = data?.potencyId || "";
     this.baseDuration = data?.baseDuration || "";
     this.potency = data?.potency || "";
     this.img = data?.img || "";
+  }
+
+  setSourceData(source : string = "", sourceType: "Rune" | "Perk" | "WeaponArt" | "Default" = "Default", sourceInatePotency: number = 0.1) {
+    this.sourceData = {
+      source,
+      sourceType,
+      sourceInatePotency,
+    }
+  }
+
+  getSourceData() {
+    return this.sourceData
   }
 }
 

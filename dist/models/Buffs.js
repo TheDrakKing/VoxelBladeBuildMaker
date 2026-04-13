@@ -10,9 +10,20 @@ export class Buff extends ItemModule.events {
         this.id = data?.id || undefined;
         this.name = data?.name || "";
         this.category = data?.category || "";
+        this.potencyId = data?.potencyId || "";
         this.baseDuration = data?.baseDuration || "";
         this.potency = data?.potency || "";
         this.img = data?.img || "";
+    }
+    setSourceData(source = "", sourceType = "Default", sourceInatePotency = 0.1) {
+        this.sourceData = {
+            source,
+            sourceType,
+            sourceInatePotency,
+        };
+    }
+    getSourceData() {
+        return this.sourceData;
     }
 }
 export class BuffStore {

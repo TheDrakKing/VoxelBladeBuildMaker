@@ -69,6 +69,8 @@ export type potency =
   | "poisonpotency"
   | "ragepotency"
   | "reinforcepotency"
+  | "guaranteedcritpotency"
+  | "regenpotency"
   | "weakeningpotency";
 
 export const potencyAliases: { [k in potency]: string } = {
@@ -78,6 +80,8 @@ export const potencyAliases: { [k in potency]: string } = {
   ragepotency: "Rage Potency",
   poisonpotency: "Poison Potency",
   reinforcepotency: "Reinforce Potency",
+  guaranteedcritpotency: "Guaranteed Crit Potency",
+  regenpotency: "Regen Potency",
   weakeningpotency: "Weakening Potency",
 };
 
@@ -156,7 +160,7 @@ export class Item extends events {
     this.type = data && data?.type || undefined;
     this.description = data?.description || "";
     this.potencies = data?.potencies || {};
-    this.sourcepotencies = data?.sourcepotencies || {};
+    this.sourcepotencies = data?.sourcepotencies;
     this.stats =  data?.stats || {};
     this.perks =  data?.perks || {};
     this.damageScalings = data?.damageScalings || {};

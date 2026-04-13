@@ -20,6 +20,14 @@ export class Perk extends Item.events {
    * Perk damageType are only for this perk only if it does damage, not to be added to the total build scaling
    */
   damageTypes?: { [k in Item.damageType]?: number };
+  /**
+   * For addtive potecny that get applied to the over build, and can be added to soruce potency
+   */
+  potencies?: { [k in Item.potency]?: number };
+  /**
+   * source potencies don't get added to the build, they are for exmaple rage run which has base 0.3 potency when actvited
+   */
+  sourcepotencies?: { [k in Item.potency]?: number };
   getPerkDamageInfo?:(this: Build, perkAmount?: number) => baseDamageData | null;
 
 
@@ -31,6 +39,8 @@ export class Perk extends Item.events {
     this.category = data?.category || "";
     this.description = data?.description || "";
     this.baseDamage = data?.baseDamage || "";
+    this.sourcepotencies = data?.sourcepotencies;
+    this.potencies = data?.potencies || {};
   }
 }
 

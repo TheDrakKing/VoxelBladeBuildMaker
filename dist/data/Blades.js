@@ -1,4 +1,4 @@
-let images = "/image/blades/";
+let images = "../image/blades/";
 export const Blades = {
     basic_blade: {
         id: "basic_blade",

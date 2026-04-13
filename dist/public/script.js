@@ -822,7 +822,11 @@ function loadSelectorPage(build, source, category, section, index, htmlElement, 
                     addItemToPage(item, section, key, index, htmlElement);
                 }
                 else if (item instanceof BuffModule.Buff) {
-                    build.addBuffToBuild(item);
+                    const source = build.getSourcesForBuff(item.potencyId);
+                    //Buff will now bring up a new UI, for adding a buff to a build
+                    // all buffs must have a soruce, so based on user build we can see if the have any sources for his buff
+                    // if they don't we can auto add it still but the buff will have potency of 0.1 and source Type will be default
+                    //build.addBuffToBuild(item);
                     resetPage();
                 }
             });

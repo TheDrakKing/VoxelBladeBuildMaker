@@ -4,6 +4,7 @@ export const Buffs = {
         name: "Bounce",
         category: "Buff",
         baseDuration: 5,
+        potencyId: "bouncepotency",
         img: "",
     },
     guaranteed_crit: {
@@ -11,6 +12,7 @@ export const Buffs = {
         name: "Guaranteed Crit",
         category: "Buff",
         baseDuration: 5,
+        potencyId: "guaranteedcritpotency",
         img: "",
     },
     rage: {
@@ -18,6 +20,7 @@ export const Buffs = {
         name: "Rage",
         category: "Buff",
         baseDuration: 5,
+        potencyId: "ragepotency",
         img: "",
     },
     regen: {
@@ -25,6 +28,7 @@ export const Buffs = {
         name: "Regen",
         category: "Buff",
         baseDuration: 5,
+        potencyId: "regenpotency",
         img: "",
     },
     reinforce: {
@@ -32,6 +36,7 @@ export const Buffs = {
         name: "Reinforce",
         category: "Buff",
         baseDuration: 5,
+        potencyId: "reinforcepotency",
         img: "",
     },
     tailwind: {

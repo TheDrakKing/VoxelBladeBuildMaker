@@ -291,6 +291,40 @@ export class Build {
     }
   }
 
+  getSourcesForBuff(inatePotency: ItemModule.potency) {
+    const sources: {[k: string]: {sourceName: string, type: "Rune" | "Perk" | "WeaponArt", inatePotency: number}} = {}
+    //look Though perks
+    for (const [perkId, amount] of Object.entries(this.perks)) {
+      const perk = PerkModule.PerkStore.get(perkId);
+      if (!perk || !perk.sourcepotencies || !perk.sourcepotencies[inatePotency]) continue;
+      sources[perkId] = {
+        sourceName: perk.name,
+        type: "Perk",
+        inatePotency: perk.sourcepotencies[inatePotency],
+      }
+    }
+
+    //look at rune
+    if (this.mainArmor.rune && this.mainArmor.rune.sourcepotencies && this.mainArmor.rune.sourcepotencies[inatePotency]) {
+      sources[this.mainArmor.rune.id] = {
+        sourceName: this.mainArmor.rune.name,
+        type: "Rune",
+        inatePotency: this.mainArmor.rune.sourcepotencies[inatePotency],
+      }
+    }
+
+    //look at WeaponArt
+    if (this.weaponArt && this.weaponArt.sourcepotencies && this.weaponArt.sourcepotencies[inatePotency]) {
+      sources[this.weaponArt.id] = {
+        sourceName: this.weaponArt.name,
+        type: "WeaponArt",
+        inatePotency: this.weaponArt.sourcepotencies[inatePotency],
+      }
+    }
+
+    return sources
+  }
+
   findBuffInBuild(
     buffToFind: string,
     category: string
@@ -311,6 +345,10 @@ export class Build {
 
   addBuffToBuild(buff: BuffModule.Buff) {
     if (this.findBuffInBuild(buff.id, buff.category)) return; // that buff is already in the build
+
+    //defult call setSourceData just incase the we forgot layer, so it fill in it
+
+    buff.setSourceData()
 
     if (buff.category == "Buff") {
       if (!this.buff) this.buff = [];
