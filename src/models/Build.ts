@@ -3,6 +3,7 @@ import * as PerkModule from "../models/Perk.js";
 import * as BuffModule from "../models/Buffs.js";
 import { Guild, GuildStore } from "./Guild.js";
 import { Race, RaceStore } from "./Race.js";
+import { WeaponArt } from "./WeaponArt.js";
 
 export type potencies = { [k in ItemModule.potency]?: number };
 export type stats = {[k in ItemModule.stat]?: number};
@@ -40,7 +41,7 @@ let damageMultiplier = {
 export type gear =
   | "blade"
   | "handle"
-  | "weaponArt"
+  | "weaponart"
   | "helmet"
   | "chestplate"
   | "legging"
@@ -93,7 +94,7 @@ export class Build {
   handle?: ItemModule.Item;
   guild?: Guild;
   race?: Race;
-  weaponArt?: ItemModule.Item;
+  weaponart?: WeaponArt;
   buff?: buffs;
   deBuffs?: buffs;
   constructionType?: string;
@@ -314,11 +315,11 @@ export class Build {
     }
 
     //look at WeaponArt
-    if (this.weaponArt && this.weaponArt.sourcepotencies && this.weaponArt.sourcepotencies[inatePotency]) {
-      sources[this.weaponArt.id] = {
-        sourceName: this.weaponArt.name,
+    if (this.weaponart && this.weaponart.sourcepotencies && this.weaponart.sourcepotencies[inatePotency]) {
+      sources[this.weaponart.id] = {
+        sourceName: this.weaponart.name,
         type: "WeaponArt",
-        inatePotency: this.weaponArt.sourcepotencies[inatePotency],
+        inatePotency: this.weaponart.sourcepotencies[inatePotency],
       }
     }
 
@@ -392,8 +393,8 @@ export class Build {
     this.resetBuild();
   }
 
-  addItemToBuild( item: ItemModule.Item | Guild | Race, section?: keyof Build, key?: gear, enchantIndex?: number): boolean | void {
-    if (section !== "enchantments" && key !== "guild" && key !== "race") {
+  addItemToBuild( item: ItemModule.Item | Guild | Race | WeaponArt, section?: keyof Build, key?: gear, enchantIndex?: number): boolean | void {
+    if (section !== "enchantments" && key !== "guild" && key !== "race" && key !== "weaponart" ) {
       if (item instanceof ItemModule.Item) {
         key = item.category === "Armor" ? (item.type?.toLowerCase()! as gear) : (item.category?.toLowerCase() as gear);
       }
@@ -401,7 +402,7 @@ export class Build {
 
     if (!key) return;
 
-    if (key == "blade" || key == "handle" || key == "weaponArt" || key == "guild" || key == "race") {
+    if (key == "blade" || key == "handle" || key == "weaponart" || key == "guild" || key == "race") {
       this[key] = item;
     } else if (section) {
       if (section === "infuseArmor" || section === "mainArmor") {
@@ -419,7 +420,7 @@ export class Build {
       key = key.toLowerCase() as gear;
     }
 
-    if (key == "blade" || key == "handle" || key == "weaponArt" || key == "guild" || key == "race") {
+    if (key == "blade" || key == "handle" || key == "weaponart" || key == "guild" || key == "race") {
       delete this[key];
     } else if (section) {
       if (section == "infuseArmor" || section == "mainArmor") {
@@ -451,7 +452,7 @@ export class Build {
     ////////////////////////////////////////////////Add the Item stats, perks etc to the stat containers///////////////////////////////////////////////////
     if (this.blade) this.addItemStatsToBuild(this.blade);
     if (this.handle) this.addItemStatsToBuild(this.handle);
-    if (this.weaponArt) this.addItemStatsToBuild(this.weaponArt);
+    //if (this.weaponArt) this.addItemStatsToBuild(this.weaponArt);
     if (this.guild && this.guild.promotions) {
       let promotion = this.guild.promotions[this.guildPromotion];
       let guild = new ItemModule.Item({id: this.guild.id, stats: Object.assign({}, promotion.stats), perks:  Object.assign({}, promotion.perks)});
@@ -587,7 +588,7 @@ export class Build {
       guildPromotion: this.guildPromotion,
       bladeId: this.blade?.id,
       handleId: this.handle?.id,
-      weaponArtId: this.weaponArt?.id,
+      weaponArtId: this.weaponart?.id,
       guildId: this.guild?.id,
       raceId: this.race?.id,
       buffIds: this.buff?.map((buff) => buff.id).filter(Boolean),
@@ -628,7 +629,7 @@ export class Build {
 
     if (data.bladeId) build.blade = ItemModule.ItemStore.getByID(data.bladeId);
     if (data.handleId) build.handle = ItemModule.ItemStore.getByID(data.handleId);
-    if (data.weaponArtId) build.weaponArt = ItemModule.ItemStore.getByID(data.weaponArtId);
+    if (data.weaponArtId) build.weaponart = ItemModule.ItemStore.getByID(data.weaponArtId);
     if (data.guildId) build.guild = GuildStore.getByID(data.guildId);
     if (data.raceId) build.race = RaceStore.getByID(data.raceId);
 

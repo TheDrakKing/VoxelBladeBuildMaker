@@ -1,7 +1,7 @@
 export {};
 
 declare global {
-    type sourceType = "Weapon" | "Perk" | "normal" | "Status";
+    type sourceType = "Weapon" | "Perk" | "Rune" | "WeaponArt" | "normal" | "Status";
     
     export interface baseDamageData {
         /**

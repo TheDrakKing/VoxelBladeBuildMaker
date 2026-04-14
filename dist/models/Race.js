@@ -23,7 +23,7 @@ export class RaceStore {
         return this.getByID(id);
     }
     static getByID(id) {
-        let race = this.perkCache.get(id);
+        let race = this.raceCache.get(id);
         if (race)
             return Object.assign(new Race(), race);
         let Data = racesTable[id];
@@ -32,7 +32,7 @@ export class RaceStore {
         }
         race = new Race({ ...Data });
         race = Object.freeze(race);
-        this.perkCache.set(id, race);
+        this.raceCache.set(id, race);
         return Object.assign(new Race(), race);
     }
     static all() {
@@ -50,6 +50,6 @@ export class RaceStore {
         return this.allCache;
     }
 }
-RaceStore.perkCache = new Map();
+RaceStore.raceCache = new Map();
 RaceStore.allCache = null;
 RaceStore.raceNames = [];

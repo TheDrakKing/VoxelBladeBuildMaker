@@ -5,8 +5,7 @@ import * as helper from "./helper.js";
 import * as Perk from "../models/Perk.js";
 import * as GuildModule from "../models/Guild.js";
 import * as RaceModule from "../models/Race.js";
-import { RaceStore } from "../models/Race.js";
-
+import * as WeaponArtModule from "../models/WeaponArt.js";
 //Buttons
 const infuseGearButtons =  document.querySelectorAll<HTMLButtonElement>('.infuseGear');
 const mainGearButtons =  document.querySelectorAll<HTMLButtonElement>('.mainGear');
@@ -137,7 +136,7 @@ let imgHolders = {
   legging: leggingsDiv.children[2].children[0].children[0] as HTMLImageElement,
   rune: runeDiv.children[2].children[0].children[0] as HTMLImageElement,
   ring: ringDiv.children[2].children[0].children[0] as HTMLImageElement,
-  weaponArt: weaponArtDiv.children[1].children[0].children[0] as HTMLImageElement,
+  weaponart: weaponArtDiv.children[1].children[0].children[0] as HTMLImageElement,
 };
 
 type damageholderRows = { [k in ItemModule.damageType]?: HTMLElement };
@@ -924,7 +923,7 @@ function resetPage(item?: ItemModule.Item | string):boolean | void {
     let img = PlusSymbol;
     let name = "";
 
-    if (key === "blade" || key == "handle" || key == "weaponArt" || key == "guild" || key === "race"){
+    if (key === "blade" || key == "handle" || key == "weaponart" || key == "guild" || key === "race"){
       if(build[key]) {        
         img = build[key].img || "";
         name = build[key].name || "";
@@ -954,7 +953,7 @@ function resetPage(item?: ItemModule.Item | string):boolean | void {
   for(const [key, element] of Object.entries(infusionImgHolders) as [Build.gear, HTMLImageElement?][]) {
     if (!element) continue;
 
-    if (!element || key === "blade" || key == "handle" || key == "weaponArt" || key == "guild" || key === "race") continue;
+    if (!element || key === "blade" || key == "handle" || key == "weaponart" || key == "guild" || key === "race") continue;
     element.src == build.infuseArmor[key]?.img || "";
     element.alt = build.infuseArmor[key]?.name || "";
 
@@ -1113,6 +1112,8 @@ function loadSelectorPage(build:Build.Build, source:string, category: string, se
     items = BuffModule.BuffStore.getByCategory(category);
   } else if (source == "Guilds") {
     items = GuildModule.GuildStore.all();
+  } else if (source == "WeaponArts") {
+    items = WeaponArtModule.WeaponArtStore.getWeaponArtsForBuild(build);
   }
 
   const normalizedFilter = normalizeFilterValue(filter || "");
@@ -1139,7 +1140,7 @@ function loadSelectorPage(build:Build.Build, source:string, category: string, se
     if (itemBox != removeItemBox) {
       var itemBoxButton = itemBox.children[0].children[0] as HTMLButtonElement;
       itemBoxButton.addEventListener("click", () => {
-        if (item instanceof ItemModule.Item || item instanceof GuildModule.Guild) {
+        if (item instanceof ItemModule.Item || item instanceof GuildModule.Guild || item instanceof WeaponArtModule.WeaponArt) {
           hideSelector();
           addItemToPage(item, section, key, index, htmlElement);
         } else if (item instanceof BuffModule.Buff) {
@@ -1387,16 +1388,24 @@ infuseGearButtons.forEach((itembutton: HTMLButtonElement) => {
 weaponMakeUpButtons.forEach((itembutton: HTMLButtonElement) => {
   let buttonImage = itembutton.children[0] as HTMLImageElement;
   buttonImage.src = PlusSymbol;
+
+  const type = itembutton.name === "WeaponArt" ? "WeaponArts" : "Items"
+
   itembutton.addEventListener("click", () => {
-    loadSelectorPage(build, "Items", itembutton.name);
+    loadSelectorPage(build, type, itembutton.name);
   });
 
   itembutton.addEventListener("mouseenter", () => {
     let itemName = itembutton.name.toLowerCase()
-    if (itemName != "blade" && itemName != "handle") {return};
-    let item = build[itemName];
-    if (!item) return;
-    mouseHover(item);
+    if (itemName == "blade" || itemName == "handle") {
+      let item = build[itemName];
+      if (!item) return;
+      mouseHover(item);
+    } else if (itemName == "weaponart") {
+      let item = build[itemName];
+      if (!item) return;
+      //add the custom hover log for weaponart here
+    }
   });
 
   itembutton.addEventListener("mouseleave", () => {

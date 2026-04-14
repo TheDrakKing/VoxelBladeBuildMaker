@@ -28,7 +28,7 @@ export class Race {
 }
 
 export class RaceStore {
-  static readonly perkCache = new Map<string, Race>();
+  static readonly raceCache = new Map<string, Race>();
   static allCache: readonly Race[] | null = null;
   static raceNames: readonly string[] = [];
 
@@ -43,7 +43,7 @@ export class RaceStore {
   }
 
   static getByID(id: string): Race {
-    let race = this.perkCache.get(id);
+    let race = this.raceCache.get(id);
     if (race) return Object.assign(new Race(), race) as Race;
 
     let Data = racesTable[id];
@@ -55,7 +55,7 @@ export class RaceStore {
     race = new Race({ ...Data });
 
     race = Object.freeze(race);
-    this.perkCache.set(id, race);
+    this.raceCache.set(id, race);
 
     return Object.assign(new Race(), race) as Race;
   }

@@ -5,6 +5,7 @@ import * as helper from "./helper.js";
 import * as Perk from "../models/Perk.js";
 import * as GuildModule from "../models/Guild.js";
 import * as RaceModule from "../models/Race.js";
+import * as WeaponArtModule from "../models/WeaponArt.js";
 //Buttons
 const infuseGearButtons = document.querySelectorAll('.infuseGear');
 const mainGearButtons = document.querySelectorAll('.mainGear');
@@ -113,7 +114,7 @@ let imgHolders = {
     legging: leggingsDiv.children[2].children[0].children[0],
     rune: runeDiv.children[2].children[0].children[0],
     ring: ringDiv.children[2].children[0].children[0],
-    weaponArt: weaponArtDiv.children[1].children[0].children[0],
+    weaponart: weaponArtDiv.children[1].children[0].children[0],
 };
 let m1Rows = {};
 let m2Rows = {};
@@ -746,7 +747,7 @@ function resetPage(item) {
         let spanElement = parentDiv?.children[1];
         let img = PlusSymbol;
         let name = "";
-        if (key === "blade" || key == "handle" || key == "weaponArt" || key == "guild" || key === "race") {
+        if (key === "blade" || key == "handle" || key == "weaponart" || key == "guild" || key === "race") {
             if (build[key]) {
                 img = build[key].img || "";
                 name = build[key].name || "";
@@ -773,7 +774,7 @@ function resetPage(item) {
     for (const [key, element] of Object.entries(infusionImgHolders)) {
         if (!element)
             continue;
-        if (!element || key === "blade" || key == "handle" || key == "weaponArt" || key == "guild" || key === "race")
+        if (!element || key === "blade" || key == "handle" || key == "weaponart" || key == "guild" || key === "race")
             continue;
         element.src == build.infuseArmor[key]?.img || "";
         element.alt = build.infuseArmor[key]?.name || "";
@@ -918,6 +919,9 @@ function loadSelectorPage(build, source, category, section, index, htmlElement, 
     else if (source == "Guilds") {
         items = GuildModule.GuildStore.all();
     }
+    else if (source == "WeaponArts") {
+        items = WeaponArtModule.WeaponArtStore.getWeaponArtsForBuild(build);
+    }
     const normalizedFilter = normalizeFilterValue(filter || "");
     items?.forEach((item) => {
         if (normalizedFilter) {
@@ -939,7 +943,7 @@ function loadSelectorPage(build, source, category, section, index, htmlElement, 
         if (itemBox != removeItemBox) {
             var itemBoxButton = itemBox.children[0].children[0];
             itemBoxButton.addEventListener("click", () => {
-                if (item instanceof ItemModule.Item || item instanceof GuildModule.Guild) {
+                if (item instanceof ItemModule.Item || item instanceof GuildModule.Guild || item instanceof WeaponArtModule.WeaponArt) {
                     hideSelector();
                     addItemToPage(item, section, key, index, htmlElement);
                 }
@@ -1140,19 +1144,24 @@ infuseGearButtons.forEach((itembutton) => {
 weaponMakeUpButtons.forEach((itembutton) => {
     let buttonImage = itembutton.children[0];
     buttonImage.src = PlusSymbol;
+    const type = itembutton.name === "WeaponArt" ? "WeaponArts" : "Items";
     itembutton.addEventListener("click", () => {
-        loadSelectorPage(build, "Items", itembutton.name);
+        loadSelectorPage(build, type, itembutton.name);
     });
     itembutton.addEventListener("mouseenter", () => {
         let itemName = itembutton.name.toLowerCase();
-        if (itemName != "blade" && itemName != "handle") {
-            return;
+        if (itemName == "blade" || itemName == "handle") {
+            let item = build[itemName];
+            if (!item)
+                return;
+            mouseHover(item);
         }
-        ;
-        let item = build[itemName];
-        if (!item)
-            return;
-        mouseHover(item);
+        else if (itemName == "weaponart") {
+            let item = build[itemName];
+            if (!item)
+                return;
+            //add the custom hover log for weaponart here
+        }
     });
     itembutton.addEventListener("mouseleave", () => {
         mouseLeave();

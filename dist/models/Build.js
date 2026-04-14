@@ -165,11 +165,11 @@ export class Build {
             };
         }
         //look at WeaponArt
-        if (this.weaponArt && this.weaponArt.sourcepotencies && this.weaponArt.sourcepotencies[inatePotency]) {
-            sources[this.weaponArt.id] = {
-                sourceName: this.weaponArt.name,
+        if (this.weaponart && this.weaponart.sourcepotencies && this.weaponart.sourcepotencies[inatePotency]) {
+            sources[this.weaponart.id] = {
+                sourceName: this.weaponart.name,
                 type: "WeaponArt",
-                inatePotency: this.weaponArt.sourcepotencies[inatePotency],
+                inatePotency: this.weaponart.sourcepotencies[inatePotency],
             };
         }
         return sources;
@@ -235,14 +235,14 @@ export class Build {
         this.resetBuild();
     }
     addItemToBuild(item, section, key, enchantIndex) {
-        if (section !== "enchantments" && key !== "guild" && key !== "race") {
+        if (section !== "enchantments" && key !== "guild" && key !== "race" && key !== "weaponart") {
             if (item instanceof ItemModule.Item) {
                 key = item.category === "Armor" ? item.type?.toLowerCase() : item.category?.toLowerCase();
             }
         }
         if (!key)
             return;
-        if (key == "blade" || key == "handle" || key == "weaponArt" || key == "guild" || key == "race") {
+        if (key == "blade" || key == "handle" || key == "weaponart" || key == "guild" || key == "race") {
             this[key] = item;
         }
         else if (section) {
@@ -261,7 +261,7 @@ export class Build {
         if (section !== "enchantments") {
             key = key.toLowerCase();
         }
-        if (key == "blade" || key == "handle" || key == "weaponArt" || key == "guild" || key == "race") {
+        if (key == "blade" || key == "handle" || key == "weaponart" || key == "guild" || key == "race") {
             delete this[key];
         }
         else if (section) {
@@ -297,8 +297,7 @@ export class Build {
             this.addItemStatsToBuild(this.blade);
         if (this.handle)
             this.addItemStatsToBuild(this.handle);
-        if (this.weaponArt)
-            this.addItemStatsToBuild(this.weaponArt);
+        //if (this.weaponArt) this.addItemStatsToBuild(this.weaponArt);
         if (this.guild && this.guild.promotions) {
             let promotion = this.guild.promotions[this.guildPromotion];
             let guild = new ItemModule.Item({ id: this.guild.id, stats: Object.assign({}, promotion.stats), perks: Object.assign({}, promotion.perks) });
@@ -428,7 +427,7 @@ export class Build {
             guildPromotion: this.guildPromotion,
             bladeId: this.blade?.id,
             handleId: this.handle?.id,
-            weaponArtId: this.weaponArt?.id,
+            weaponArtId: this.weaponart?.id,
             guildId: this.guild?.id,
             raceId: this.race?.id,
             buffIds: this.buff?.map((buff) => buff.id).filter(Boolean),
@@ -468,7 +467,7 @@ export class Build {
         if (data.handleId)
             build.handle = ItemModule.ItemStore.getByID(data.handleId);
         if (data.weaponArtId)
-            build.weaponArt = ItemModule.ItemStore.getByID(data.weaponArtId);
+            build.weaponart = ItemModule.ItemStore.getByID(data.weaponArtId);
         if (data.guildId)
             build.guild = GuildStore.getByID(data.guildId);
         if (data.raceId)
