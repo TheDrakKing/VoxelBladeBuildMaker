@@ -11,6 +11,7 @@ export class WeaponArt {
         this.baseDamage = data?.baseDamage || undefined;
         this.totalHits = data?.totalHits || undefined;
         this.potencies = data?.potencies || undefined;
+        this.sourcepotencies = data?.sourcepotencies || undefined;
         this.scalingRequirements = data?.scalingRequirements || undefined;
         this.damageScalings = data?.damageScalings || undefined;
         this.damageTypes = data?.damageTypes || undefined;
@@ -18,6 +19,7 @@ export class WeaponArt {
         this.guildRequirements = data?.guildRequirements || undefined;
         this.scalingRequirements = data?.scalingRequirements || undefined;
         this.statsRequirements = data?.statsRequirements || undefined;
+        this.weaponRequirements = data?.weaponRequirements || undefined;
         this.img = data?.img || "";
     }
 }
@@ -46,7 +48,7 @@ export class WeaponArtStore {
     static getWeaponArtsForBuild(build) {
         //get all weaponArts
         const weaponArts = WeaponArtStore.all();
-        const result = weaponArts.map((weaponArt) => {
+        let result = weaponArts.map((weaponArt) => {
             //check weapontype Requirement
             let weaponType = true;
             if (weaponArt.weaponTypeRequirements) {
@@ -65,7 +67,12 @@ export class WeaponArtStore {
             let scaling = true;
             if (weaponArt.scalingRequirements) {
                 for (const [scale, value] of Object.entries(weaponArt.scalingRequirements)) {
-                    if (!build.damageScalings[scale] || build.damageScalings[scale] !== value) {
+                    let scaleTotal = 0;
+                    if (build.blade && build.blade.damageScalings?.[scale])
+                        scaleTotal += build.blade.damageScalings[scale];
+                    if (build.handle && build.handle.damageScalings?.[scale])
+                        scaleTotal += build.handle.damageScalings[scale];
+                    if (scaleTotal < value) {
                         scaling = false;
                         break;
                     }
@@ -75,15 +82,31 @@ export class WeaponArtStore {
             let stats = true;
             if (weaponArt.statsRequirements) {
                 for (const [stat, value] of Object.entries(weaponArt.statsRequirements)) {
-                    if (!build.stats[stat] || build.stats[stat] !== value) {
+                    let statTotal = 0;
+                    if (build.blade && build.blade.stats?.[stat])
+                        statTotal += build.blade.stats[stat];
+                    if (build.handle && build.handle.stats?.[stat])
+                        statTotal += build.handle.stats[stat];
+                    if (statTotal < value) {
                         stats = false;
                         break;
                     }
                 }
             }
-            if (weaponType && guild && scaling && stats)
+            //check scaling Requirement
+            let weapon = true;
+            if (weaponArt.weaponRequirements) {
+                if (weaponArt.weaponRequirements.blade && (!build.blade || build.blade.id != weaponArt.weaponRequirements.blade)) {
+                    weapon = false;
+                }
+                if (weaponArt.weaponRequirements.handle && (!build.handle || build.handle.id != weaponArt.weaponRequirements.handle)) {
+                    weapon = false;
+                }
+            }
+            if (weaponType && guild && scaling && stats && weapon)
                 return weaponArt;
         });
+        result = result.filter((weaponArt) => weaponArt != undefined);
         return result;
     }
     static all() {

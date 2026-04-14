@@ -18,6 +18,8 @@ export const potencyAliases = {
     reinforcepotency: "Reinforce Potency",
     guaranteedcritpotency: "Guaranteed Crit Potency",
     regenpotency: "Regen Potency",
+    shatterpotency: "Shatter Potency",
+    lightningcloakpotency: "Lightning Cloak Potency",
     weakeningpotency: "Weakening Potency",
 };
 export class Item extends events {

@@ -96,7 +96,7 @@
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
-    width: min(1080px, calc(100vw - 32px));
+    width: min(980px, calc(100vw - 380px));
     max-height: calc(100vh - 32px);
     padding: 18px;
     border-radius: 28px;
@@ -312,6 +312,31 @@
 }
 
 /*********************************** Stats Display ***********************************/
+.section-label {
+    width: 100%;
+    margin-top: 28px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-label span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border-soft);
+    background: var(--panel-muted);
+    color: var(--muted-text);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
 .statHolder-bar {
     padding: 8px 0 4px;
     display: flex;
@@ -528,6 +553,10 @@
     box-shadow: var(--shadow-soft);
 }
 
+.damageHolder-full {
+    width: 100%;
+}
+
 .damageHolder_label {
     font-size: 1rem;
     font-weight: 700;
@@ -578,6 +607,10 @@
 
 /*********************************** Responsive ***********************************/
 @media (max-width: 1100px) {
+    .items_selector {
+        width: calc(100vw - 20px);
+    }
+
     .statHolder-Div,
     .buffHolder-Div,
     .damageHolder-Div {

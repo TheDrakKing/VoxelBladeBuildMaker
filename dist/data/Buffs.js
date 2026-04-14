@@ -58,6 +58,7 @@ export const Buffs = {
         name: "Lightning Cloak",
         category: "Buff",
         baseDuration: 5,
+        potencyId: "lightningcloakpotency",
         img: "",
     },
 };

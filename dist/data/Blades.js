@@ -243,7 +243,7 @@ export const Blades = {
         id: "iron_hammer",
         name: "Iron Hammer",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 0.9,
             Tenacity: 0.2,
@@ -435,7 +435,7 @@ export const Blades = {
         id: "skull_hammer",
         name: "Skull Hammer",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1,
             PhysicalDefense: 8,
@@ -621,7 +621,7 @@ export const Blades = {
         id: "enchanted_lodestone_hammer",
         name: "Enchanted Lodestone Hammer",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 0.9,
             EarthBoost: 10,
@@ -714,7 +714,7 @@ export const Blades = {
         id: "gilded_hammer",
         name: "Gilded Hammer",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 0.8,
             Tenacity: 0.2,
@@ -736,7 +736,7 @@ export const Blades = {
         id: "dark_steel_mace",
         name: "Dark Steel Mace",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1,
             PhysicalDefense: 5,
@@ -960,7 +960,7 @@ export const Blades = {
         id: "great_mage_core",
         name: "Great Mage Core",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1.1,
             MagicBoost: 15,
@@ -1048,7 +1048,7 @@ export const Blades = {
         id: "radiant_hammer",
         name: "Radiant Hammer",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 0.9,
             HolyBoost: 10,
@@ -1116,7 +1116,7 @@ export const Blades = {
         id: "skull_mace",
         name: "Skull Mace",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1,
             HexBoost: 10,
@@ -1275,7 +1275,7 @@ export const Blades = {
         id: "lightning_hammer",
         name: "Lightning Hammer",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1.1,
             MagicBoost: 6,
@@ -1368,7 +1368,7 @@ export const Blades = {
         id: "cragstone_hammer",
         name: "Cragstone Hammer",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1,
             FireBoost: 4,
@@ -1515,7 +1515,7 @@ export const Blades = {
         id: "gravitational_core",
         name: "Gravitational Core",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1,
             MagicBoost: 15,
@@ -1988,7 +1988,7 @@ export const Blades = {
         id: "stratos_core",
         name: "Stratos Core",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1,
         },
@@ -2007,7 +2007,7 @@ export const Blades = {
         id: "lightning_stratos_core",
         name: "Lightning Stratos Core",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1,
             MagicBoost: 10,
@@ -2080,7 +2080,7 @@ export const Blades = {
         id: "buni_prince_hammer",
         name: "Buni Prince Hammer",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1,
             PhysicalDefense: 5,
@@ -2101,7 +2101,7 @@ export const Blades = {
         id: "buni_prince_cannon",
         name: "Buni Prince Cannon",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1,
             PhysicalDefense: 5,
@@ -2122,7 +2122,7 @@ export const Blades = {
         id: "ancient_mallet",
         name: "Ancient Mallet",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1,
             EarthBoost: 8,
@@ -2256,7 +2256,7 @@ export const Blades = {
         id: "mungal_mallet",
         name: "Mungal Mallet",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1,
             HexBoost: 4,
@@ -2382,7 +2382,7 @@ export const Blades = {
         id: "frozen_pickaxe_head",
         name: "Frozen Pickaxe Head",
         category: "Blade",
-        type: "Hammer Head",
+        type: "Hammer Blade",
         stats: {
             AttackSpeed: 1.2,
             HeatResistance: 50,

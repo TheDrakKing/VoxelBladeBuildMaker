@@ -65,6 +65,7 @@ export const Buffs: import("../models/Buffs").BuffDataTable = {
     name: "Lightning Cloak",
     category: "Buff",
     baseDuration: 5,
+    potencyId: "lightningcloakpotency",
     img: "",
   },
 };

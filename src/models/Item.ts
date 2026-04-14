@@ -72,6 +72,8 @@ export type potency =
   | "reinforcepotency"
   | "guaranteedcritpotency"
   | "regenpotency"
+  | "shatterpotency"
+  | "lightningcloakpotency"
   | "weakeningpotency";
 
 export const potencyAliases: { [k in potency]: string } = {
@@ -83,6 +85,8 @@ export const potencyAliases: { [k in potency]: string } = {
   reinforcepotency: "Reinforce Potency",
   guaranteedcritpotency: "Guaranteed Crit Potency",
   regenpotency: "Regen Potency",
+  shatterpotency: "Shatter Potency",
+  lightningcloakpotency: "Lightning Cloak Potency",
   weakeningpotency: "Weakening Potency",
 };
 

@@ -87,6 +87,7 @@ const potenciesContainerDiv = document.getElementById("potencies") as HTMLDivEle
 const damageScalingsContainerDiv = document.getElementById("damageScalings") as HTMLDivElement;
 const damageTypesContainerDiv = document.getElementById("damageTypes") as HTMLDivElement;
 const perkDamageContainerDiv = document.getElementById("perk_damage") as HTMLDivElement;
+const weaponArtDamageContainerDiv = document.getElementById("weaponart_damage") as HTMLDivElement;
 
 //Table
 const m1DamageTable = document.getElementById("m1_damage_table") as HTMLDivElement;
@@ -287,7 +288,30 @@ function renderNonWeaponDamages(entries: nonWeaponDamageDisplay[]) {
   }
 }
 
-function createItemBox(item: ItemModule.Item | BuffModule.Buff): HTMLElement | null {
+function renderWeaponArtPanel(weaponArt?: WeaponArtModule.WeaponArt, damageResult?: { outputs: { [k in ItemModule.damageType]?: number }, total: number }) {
+  weaponArtDamageContainerDiv.innerHTML = "";
+
+  if (!weaponArt) {
+    createStatHolder("Status", "No weapon art selected", weaponArtDamageContainerDiv);
+    return;
+  }
+
+  if (damageResult) {
+    const cardEntry: nonWeaponDamageDisplay = {
+      source: weaponArt.name || "Weapon Art",
+      outputs: damageResult.outputs,
+      total: damageResult.total,
+      category: "Perk",
+    };
+    createNonWeaponDamageCard(cardEntry, weaponArtDamageContainerDiv);
+    return;
+  }
+
+  createStatHolder("Weapon Art", weaponArt.name, weaponArtDamageContainerDiv);
+  createStatHolder("Description", weaponArt.description || "This weapon art does not deal direct damage.", weaponArtDamageContainerDiv);
+}
+
+function createItemBox(item: ItemModule.Item | BuffModule.Buff | GuildModule.Guild | WeaponArtModule.WeaponArt): HTMLElement | null {
   if (selectItem_template == null) return null;
 
   const clonedDiv = selectItem_template.cloneNode(true) as HTMLElement;
@@ -310,6 +334,78 @@ function createItemBox(item: ItemModule.Item | BuffModule.Buff): HTMLElement | n
   // Create a clickable link for each game
   items_container?.appendChild(clonedDiv);
   return clonedDiv;
+}
+
+function guildHover(guild: GuildModule.Guild) {
+  const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv") as HTMLDivElement;
+
+  if (!itemHoverInfoDiv) return;
+
+  let itemName = itemHoverInfoDiv.children[0];
+  itemName.innerHTML = guild.name || "";
+
+  let hoverDescription = itemHoverInfoDiv.children[1];
+  hoverDescription.innerHTML = guild.description || "";
+
+  let hoverDmgScaleDiv = itemHoverInfoDiv.children[2] as HTMLDivElement;
+  hoverDmgScaleDiv.style.display = "none";
+  hoverDmgScaleDiv.innerHTML = "";
+
+  let hoverDmgTypeDiv = itemHoverInfoDiv.children[3] as HTMLDivElement;
+  hoverDmgTypeDiv.style.display = "none";
+  hoverDmgTypeDiv.innerHTML = "";
+
+  let hoverStatsDiv = itemHoverInfoDiv.children[4] as HTMLDivElement;
+  hoverStatsDiv.style.display = "none";
+  hoverStatsDiv.innerHTML = "";
+
+  let hoverPerksDiv = itemHoverInfoDiv.children[5] as HTMLDivElement;
+  hoverPerksDiv.style.display = "none";
+  hoverPerksDiv.innerHTML = "";
+
+  if (guild.promotions?.length) {
+    hoverStatsDiv.style.display = "block";
+    hoverPerksDiv.style.display = "block";
+
+    guild.promotions.forEach((promotion, index) => {
+      if (promotion.stats && Object.keys(promotion.stats).length) {
+        createStatHolder(`Promotion ${index + 1} Stats`, Object.keys(promotion.stats).join(", "), hoverStatsDiv);
+      }
+      if (promotion.perks && Object.keys(promotion.perks).length) {
+        createStatHolder(`Promotion ${index + 1} Perks`, Object.keys(promotion.perks).join(", "), hoverPerksDiv);
+      }
+    });
+  }
+
+  let hoverPotenciesDiv = itemHoverInfoDiv.children[6] as HTMLDivElement;
+  hoverPotenciesDiv.style.display = "none";
+  hoverPotenciesDiv.innerHTML = "";
+
+  document.body.classList.add("selector-tooltip-visible");
+  itemHoverInfoDiv.style.display = "flex";
+}
+
+function setSelectorItemHover(
+  button: HTMLButtonElement,
+  item: ItemModule.Item | BuffModule.Buff | GuildModule.Guild | WeaponArtModule.WeaponArt
+) {
+  button.addEventListener("mouseenter", () => {
+    if ("id" in item && item.id === "none") return;
+
+    if (item instanceof BuffModule.Buff) {
+      buffHover(item);
+    } else if (item instanceof WeaponArtModule.WeaponArt) {
+      weaponArtHover(item);
+    } else if (item instanceof GuildModule.Guild) {
+      guildHover(item);
+    } else {
+      mouseHover(item);
+    }
+  });
+
+  button.addEventListener("mouseleave", () => {
+    mouseLeave();
+  });
 }
 
 function createSourceOptionBox(sourceId: string, sourceData: buffSourceOption): HTMLElement | null {
@@ -345,6 +441,8 @@ function hideSelector() {
   itemsSearchInput.value = "";
   itemsSearchInput.style.display = "";
   itemsSelectorTitle.textContent = "Select an Item";
+  document.body.classList.remove("selector-open");
+  document.body.classList.remove("selector-tooltip-visible");
   items_selector.style.display = "none";
 }
 
@@ -414,6 +512,7 @@ function showBuffSourceSelector(buff: BuffModule.Buff, sourceOptions: { [k: stri
   });
 
   items_selector.style.display = "flex";
+  document.body.classList.add("selector-open");
 }
 
 function createBuffBox(buff: BuffModule.Buff, ContainerDiv:HTMLElement, source?: Build.Build): HTMLElement | null {
@@ -575,6 +674,7 @@ function mouseHover(item:ItemModule.Item, itemType?:string){
     }
   }
  
+  document.body.classList.add("selector-tooltip-visible");
   itemHoverInfoDiv.style.display = "flex";
 }
 
@@ -613,7 +713,8 @@ function perkHover(perk: Perk.Perk, value?: number) {
   let hoverPotenciesDiv = itemHoverInfoDiv.children[6] as HTMLDivElement;
   hoverPotenciesDiv.style.display = "none";
   hoverPotenciesDiv.innerHTML = "";
-
+ 
+  document.body.classList.add("selector-tooltip-visible");
   itemHoverInfoDiv.style.display = "flex";
 }
 
@@ -676,6 +777,79 @@ function buffHover(buff: BuffModule.Buff) {
     createStatHolder("Source Potency", buff.sourceData.sourceInatePotency, hoverPotenciesDiv);
   }
 
+  document.body.classList.add("selector-tooltip-visible");
+  itemHoverInfoDiv.style.display = "flex";
+}
+
+function weaponArtHover(weaponArt: WeaponArtModule.WeaponArt) {
+  const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv") as HTMLDivElement;
+
+  if (!itemHoverInfoDiv) return;
+
+  let itemName = itemHoverInfoDiv.children[0];
+  itemName.innerHTML = weaponArt.name || "";
+
+  let hoverDescription = itemHoverInfoDiv.children[1];
+  hoverDescription.innerHTML = weaponArt.description || "";
+
+  let hoverDmgScaleDiv = itemHoverInfoDiv.children[2] as HTMLDivElement;
+  hoverDmgScaleDiv.style.display = "none";
+  hoverDmgScaleDiv.innerHTML = "";
+  if (weaponArt.damageScalings) {
+    for (const [key, value] of Object.entries(weaponArt.damageScalings) as [ItemModule.scale, number?][]) {
+      if (value === undefined) continue;
+      hoverDmgScaleDiv.style.display = "block";
+      createStatHolder(key, value, hoverDmgScaleDiv);
+    }
+  }
+
+  let hoverDmgTypeDiv = itemHoverInfoDiv.children[3] as HTMLDivElement;
+  hoverDmgTypeDiv.style.display = "none";
+  hoverDmgTypeDiv.innerHTML = "";
+  if (weaponArt.damageTypes) {
+    for (const [key, value] of Object.entries(weaponArt.damageTypes) as [ItemModule.damageType, number?][]) {
+      if (value === undefined) continue;
+      hoverDmgTypeDiv.style.display = "block";
+      createStatHolder(key, value, hoverDmgTypeDiv);
+    }
+  }
+
+  let hoverStatsDiv = itemHoverInfoDiv.children[4] as HTMLDivElement;
+  hoverStatsDiv.style.display = "none";
+  hoverStatsDiv.innerHTML = "";
+  hoverStatsDiv.style.display = "block";
+  createStatHolder("Cooldown", weaponArt.coolDown || 1, hoverStatsDiv);
+  if (weaponArt.baseDamage !== undefined) {
+    createStatHolder("Base Damage", weaponArt.baseDamage, hoverStatsDiv);
+  }
+  if (weaponArt.totalHits !== undefined) {
+    createStatHolder("Total Hits", weaponArt.totalHits, hoverStatsDiv);
+  }
+
+  let hoverPerksDiv = itemHoverInfoDiv.children[5] as HTMLDivElement;
+  hoverPerksDiv.style.display = "none";
+  hoverPerksDiv.innerHTML = "";
+  if (weaponArt.weaponTypeRequirements?.length) {
+    hoverPerksDiv.style.display = "block";
+    createStatHolder("Weapon Types", weaponArt.weaponTypeRequirements.join(", "), hoverPerksDiv);
+  }
+  if (weaponArt.guildRequirements?.length) {
+    hoverPerksDiv.style.display = "block";
+    createStatHolder("Guilds", weaponArt.guildRequirements.join(", "), hoverPerksDiv);
+  }
+
+  let hoverPotenciesDiv = itemHoverInfoDiv.children[6] as HTMLDivElement;
+  hoverPotenciesDiv.style.display = "none";
+  hoverPotenciesDiv.innerHTML = "";
+  if (weaponArt.sourcepotencies) {
+    for (const [key, value] of Object.entries(weaponArt.sourcepotencies) as [ItemModule.potency, number?][]) {
+      if (value === undefined) continue;
+      hoverPotenciesDiv.style.display = "block";
+      createStatHolder(ItemModule.potencyAliases[key] || key, value, hoverPotenciesDiv);
+    }
+  }
+
+  document.body.classList.add("selector-tooltip-visible");
   itemHoverInfoDiv.style.display = "flex";
 }
 
@@ -711,7 +885,8 @@ function mouseLeave(){
   let hoverPotenciesDiv = itemHoverInfoDiv.children[6] as HTMLDivElement;
   hoverPotenciesDiv.style.display = "none";
   hoverPotenciesDiv.innerHTML = "";
- 
+  
+  document.body.classList.remove("selector-tooltip-visible");
   itemHoverInfoDiv.style.display = "none";
 }
 
@@ -991,6 +1166,25 @@ function resetPage(item?: ItemModule.Item | string):boolean | void {
   //Run the weapon damage calculation
   helper.runWeaponDamageCalculation(build, target);
 
+  let weaponArtDamageResult: { outputs: { [k in ItemModule.damageType]?: number }, total: number } | undefined;
+
+  //Run WeaponArt Damage calculation
+  if (build.weaponart?.baseDamage !== undefined) {
+    const baseDamageInfo: baseDamageData = {
+      damage: build.weaponart.baseDamage,
+      hitAmount: build.weaponart.totalHits || 1,
+      source: build.weaponart.id,
+      sourceDamageType: "WeaponArt",
+      sourceType: "WeaponArt",
+    };
+    const attackerBuild: Partial<helper.SerializedBuild> = {
+      damageScalings: build.weaponart.damageScalings,
+      damageTypes: build.weaponart.damageTypes,
+    };
+    weaponArtDamageResult = helper.runNonWeaponDamageCalculation(baseDamageInfo, build, target, attackerBuild);
+  }
+  renderWeaponArtPanel(build.weaponart, weaponArtDamageResult);
+
   const nonWeaponDamages: nonWeaponDamageDisplay[] = [];
 
   //run perk damages
@@ -1098,6 +1292,7 @@ function loadSelectorPage(build:Build.Build, source:string, category: string, se
     hideSelector();
     removeFromBuild(key, section, index, htmlElement);
   });
+  setSelectorItemHover(removeItemBox?.children[0].children[0] as HTMLButtonElement, blankItem);
 
   //Get the actual items
   let items;
@@ -1133,6 +1328,7 @@ function loadSelectorPage(build:Build.Build, source:string, category: string, se
 
     let itemBox = createItemBox(item);
     if (!itemBox) return;
+    setSelectorItemHover(itemBox.children[0].children[0] as HTMLButtonElement, item);
     selectItemDivs.push([itemBox, item]);
   });
 
@@ -1162,6 +1358,7 @@ function loadSelectorPage(build:Build.Build, source:string, category: string, se
   });
 
   items_selector.style.display = "flex";
+  document.body.classList.add("selector-open");
 }
 
 ///////////////////////////////////////Button & input Listeners///////////////////////////////////////
@@ -1404,7 +1601,7 @@ weaponMakeUpButtons.forEach((itembutton: HTMLButtonElement) => {
     } else if (itemName == "weaponart") {
       let item = build[itemName];
       if (!item) return;
-      //add the custom hover log for weaponart here
+      weaponArtHover(item);
     }
   });
 
