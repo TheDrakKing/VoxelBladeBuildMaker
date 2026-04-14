@@ -37,6 +37,7 @@ export class Item extends events {
         this.perks = data?.perks || {};
         this.damageScalings = data?.damageScalings || {};
         this.damageTypes = data?.damageTypes || {};
+        this.baseDamage = data?.baseDamage || {};
     }
 }
 export function toID(name) {

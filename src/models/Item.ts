@@ -147,8 +147,23 @@ export class Item extends events {
   sourcepotencies?: { [k in potency]?: number };
   stats?: { [k in stat]?: number };
   perks?: { [id: string]: number };
+  /**
+   * if an item has a damageScalings it more than likely not to be added to the over all build,
+   * item with damageScalings or damageScalings or most likely runes, who a damageScalings and damageTypes
+   * so more than offent this is undefinded unless is a rune that has this
+   */
   damageScalings?: { [k in scale]?: number };
+  /**
+   * if an item has a damageTypes it more than likely not to be added to the over all build,
+   * item with damageScalings or damageScalings or most likely runes, who a damageScalings and damageTypes
+   * so more than offent this is undefinded unless is a rune that has this
+   */
   damageTypes?: { [k in damageType]?: number };
+  /**
+   * Base damage is for items like runes who can do attacking damage
+   * exmaple Fire ball rune
+   */
+  baseDamage?: number;
 
   constructor(data?: any) {
     super()
@@ -166,6 +181,7 @@ export class Item extends events {
     this.perks =  data?.perks || {};
     this.damageScalings = data?.damageScalings || {};
     this.damageTypes = data?.damageTypes || {};
+    this.baseDamage = data?.baseDamage || {}
     
   }
 }

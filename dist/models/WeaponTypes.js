@@ -9,7 +9,7 @@ export const ConstructionTypeTable = {
         m2: [[4.5, 1]],
     },
     onehand_sword: {
-        constructionType: "OneHand sword",
+        constructionType: "OneHanded sword",
         m1: [
             [5, 1],
             [5, 1],
@@ -18,7 +18,7 @@ export const ConstructionTypeTable = {
         m2: [[8, 1]],
     },
     twohand_sword: {
-        constructionType: "TwoHand sword",
+        constructionType: "TwoHanded sword",
         m1: [
             [5.5, 1],
             [5.5, 1],

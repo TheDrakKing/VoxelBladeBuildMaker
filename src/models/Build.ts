@@ -489,13 +489,10 @@ export class Build {
       if (value === undefined) continue;
       let item = new ItemModule.Item({
         id: value.id, stats: {}, perks: {}, potencies: {},
-        damageScalings: {}, damageTypes: {},
       });
       Object.assign(item.stats!, value.stats)
-      Object.assign(item.perks!, value.stats)
+      Object.assign(item.perks!, value.perks)
       Object.assign(item.potencies!, value.potencies)
-      Object.assign(item.damageScalings!, value.damageScalings)
-      Object.assign(item.damageTypes!, value.damageTypes)
       //////////////////////// Enchants activation ////////////////////////
       const armorEnchantments = this.enchantments[key];
       if (armorEnchantments) {
