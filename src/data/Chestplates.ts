@@ -2594,7 +2594,7 @@ export const Chestplate: import("../models/Item").ItemDataTable = {
     name: "Stratos Chestplate",
     category: "Armor",
     type: "Chestplate",
-    description: "Leggings that represents the true majesty of Lord Stratos. Very wispy!",
+    description: "A chestplate that represents the true majesty of Lord Stratos. Very soft!",
     stats: {
       Tenacity: 0.2,
       PhysicalDefense: 5,

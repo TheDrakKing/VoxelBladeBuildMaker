@@ -157,7 +157,7 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Dunefang Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "The unwavering resolve of the",
+    description: "The unwavering resolve of the Dunefang resides within this helmet!",
     stats: {
       SpeedBoost: 11,
       Tenacity: -0.1,
@@ -1041,24 +1041,6 @@ export const Helmets: import("../models/Item").ItemDataTable = {
       PhysicalBoost: -15,
       Warding: 20,
       SummonBoost: 13,
-    },
-    img: "",
-  },
-  dunefang_resides_within_this_helmet: {
-    id: "dunefang_resides_within_this_helmet",
-    name: "Dunefang resides within this helmet!\"",
-    category: "Armor",
-    type: "Helmet",
-    stats: {
-      Tenacity: -0.1,
-      HeatResistance: 200,
-      EarthBoost: 15,
-      FireDefense: 20,
-      AirBoost: 15,
-      SpeedBoost: 11,
-    },
-    perks: {
-      pulverizing_rush: 1,
     },
     img: "",
   },
@@ -2629,6 +2611,18 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     category: "Armor",
     type: "Helmet",
     description: "A helmet that represents the true majesty of Lord",
+    stats: {
+      Tenacity: 0.2,
+      PhysicalDefense: 5,
+      EarthBoost: -20,
+      Protection: 5,
+      Warding: 10,
+      SpeedBoost: 4,
+      AirBoost: 14,
+    },
+    perks: {
+      air_pressure: 1,
+    },
     img: "",
   },
   sunken_mage_hood: {
