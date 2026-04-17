@@ -167,6 +167,7 @@
 #weapon_type_div,
 #hp_bar,
 #level_bar,
+#atkSpe_bar,
 #race_bar {
     width: 100%;
     min-height: 72px;
@@ -184,6 +185,7 @@
 #weapon_type_text,
 #healthLabel,
 #levelLabel,
+#atkSpeLabel,
 #RaceLabel {
     font-weight: 700;
     letter-spacing: 0.02em;
@@ -191,6 +193,7 @@
 
 #hpValue,
 #levelValue,
+#atkSpeValue,
 #race_selector {
     min-width: 140px;
     height: 42px;
@@ -627,6 +630,7 @@
     #weapon_type_div,
     #hp_bar,
     #level_bar,
+    #atkSpe_bar,
     #race_bar {
         flex-direction: column;
         align-items: stretch;

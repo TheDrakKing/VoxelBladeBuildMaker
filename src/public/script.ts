@@ -31,6 +31,7 @@ const theme_Selector_input = document.getElementById("theme_Selector_input") as 
 const weaponTypeText = document.getElementById("weapon_type_text") as HTMLSpanElement;
 const healthInput = document.getElementById("hpValue") as HTMLInputElement;
 const levelInput = document.getElementById("levelValue") as HTMLInputElement;
+const atkSpeInput = document.getElementById("atkSpeValue") as HTMLInputElement;
 
 //Containers
 const infusionsContentDiv = document.getElementById("infusions_gear") as HTMLDivElement;
@@ -336,55 +337,6 @@ function createItemBox(item: ItemModule.Item | BuffModule.Buff | GuildModule.Gui
   return clonedDiv;
 }
 
-function guildHover(guild: GuildModule.Guild) {
-  const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv") as HTMLDivElement;
-
-  if (!itemHoverInfoDiv) return;
-
-  let itemName = itemHoverInfoDiv.children[0];
-  itemName.innerHTML = guild.name || "";
-
-  let hoverDescription = itemHoverInfoDiv.children[1];
-  hoverDescription.innerHTML = guild.description || "";
-
-  let hoverDmgScaleDiv = itemHoverInfoDiv.children[2] as HTMLDivElement;
-  hoverDmgScaleDiv.style.display = "none";
-  hoverDmgScaleDiv.innerHTML = "";
-
-  let hoverDmgTypeDiv = itemHoverInfoDiv.children[3] as HTMLDivElement;
-  hoverDmgTypeDiv.style.display = "none";
-  hoverDmgTypeDiv.innerHTML = "";
-
-  let hoverStatsDiv = itemHoverInfoDiv.children[4] as HTMLDivElement;
-  hoverStatsDiv.style.display = "none";
-  hoverStatsDiv.innerHTML = "";
-
-  let hoverPerksDiv = itemHoverInfoDiv.children[5] as HTMLDivElement;
-  hoverPerksDiv.style.display = "none";
-  hoverPerksDiv.innerHTML = "";
-
-  if (guild.promotions?.length) {
-    hoverStatsDiv.style.display = "block";
-    hoverPerksDiv.style.display = "block";
-
-    guild.promotions.forEach((promotion, index) => {
-      if (promotion.stats && Object.keys(promotion.stats).length) {
-        createStatHolder(`Promotion ${index + 1} Stats`, Object.keys(promotion.stats).join(", "), hoverStatsDiv);
-      }
-      if (promotion.perks && Object.keys(promotion.perks).length) {
-        createStatHolder(`Promotion ${index + 1} Perks`, Object.keys(promotion.perks).join(", "), hoverPerksDiv);
-      }
-    });
-  }
-
-  let hoverPotenciesDiv = itemHoverInfoDiv.children[6] as HTMLDivElement;
-  hoverPotenciesDiv.style.display = "none";
-  hoverPotenciesDiv.innerHTML = "";
-
-  document.body.classList.add("selector-tooltip-visible");
-  itemHoverInfoDiv.style.display = "flex";
-}
-
 function setSelectorItemHover(
   button: HTMLButtonElement,
   item: ItemModule.Item | BuffModule.Buff | GuildModule.Guild | WeaponArtModule.WeaponArt
@@ -615,6 +567,10 @@ function mouseHover(item:ItemModule.Item, itemType?:string){
 
   hoverDescription.innerHTML = item.description || "";
 
+  if (item.attackSpeed) {
+    createStatHolder("AttackSpeed", item.attackSpeed.toString(), hoverDescription as HTMLElement);
+  }
+
   let hoverDmgScaleDiv = itemHoverInfoDiv.children[2] as HTMLDivElement;
   hoverDmgScaleDiv.style.display = "none";
   hoverDmgScaleDiv.innerHTML = "";
@@ -776,6 +732,63 @@ function buffHover(buff: BuffModule.Buff) {
     createStatHolder("Source Type", buff.sourceData.sourceType, hoverPotenciesDiv);
     createStatHolder("Source Potency", buff.sourceData.sourceInatePotency, hoverPotenciesDiv);
   }
+
+  document.body.classList.add("selector-tooltip-visible");
+  itemHoverInfoDiv.style.display = "flex";
+}
+
+function guildHover(guild: GuildModule.Guild) {
+  const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv") as HTMLDivElement;
+
+  if (!itemHoverInfoDiv) return;
+
+  let itemName = itemHoverInfoDiv.children[0];
+  itemName.innerHTML = guild.name || "";
+
+  let hoverDescription = itemHoverInfoDiv.children[1];
+  hoverDescription.innerHTML = guild.description || "";
+
+  let hoverDmgScaleDiv = itemHoverInfoDiv.children[2] as HTMLDivElement;
+  hoverDmgScaleDiv.style.display = "none";
+  hoverDmgScaleDiv.innerHTML = "";
+
+  let hoverDmgTypeDiv = itemHoverInfoDiv.children[3] as HTMLDivElement;
+  hoverDmgTypeDiv.style.display = "none";
+  hoverDmgTypeDiv.innerHTML = "";
+
+  let hoverStatsDiv = itemHoverInfoDiv.children[4] as HTMLDivElement;
+  hoverStatsDiv.style.display = "none";
+  hoverStatsDiv.innerHTML = "";
+
+  let hoverPerksDiv = itemHoverInfoDiv.children[5] as HTMLDivElement;
+  hoverPerksDiv.style.display = "none";
+  hoverPerksDiv.innerHTML = "";
+
+  if (guild.promotions?.length) {
+    hoverStatsDiv.style.display = "block";
+    hoverPerksDiv.style.display = "block";
+
+    guild.promotions.forEach((promotion, index) => {
+      if (promotion.stats && Object.keys(promotion.stats).length) {
+        createStatHolder(`Promotion Stats`, index + 1, hoverStatsDiv);
+
+        for (const [stat, value] of Object.entries(promotion.stats)) {
+          createStatHolder(stat, value, hoverStatsDiv);
+        }
+      }
+      if (promotion.perks && Object.keys(promotion.perks).length) {
+        createStatHolder(`Promotion Perks`, index + 1, hoverPerksDiv);
+        
+        for (const [perk, value] of Object.entries(promotion.perks)) {
+          createStatHolder(perk, value, hoverPerksDiv);
+        }
+      }
+    });
+  }
+
+  let hoverPotenciesDiv = itemHoverInfoDiv.children[6] as HTMLDivElement;
+  hoverPotenciesDiv.style.display = "none";
+  hoverPotenciesDiv.innerHTML = "";
 
   document.body.classList.add("selector-tooltip-visible");
   itemHoverInfoDiv.style.display = "flex";
@@ -1160,8 +1173,8 @@ function resetPage(item?: ItemModule.Item | string):boolean | void {
   //////////////////////// Damage Calcautuons ////////////////////////
 
   //Clears the damage from the tables
-  wipeDamages(build.m1, m1Rows, m1DamageTable);
-  wipeDamages(build.m2, m2Rows, m2DamageTable);
+  wipeDamages(build.weapon.m1, m1Rows, m1DamageTable);
+  wipeDamages(build.weapon.m2, m2Rows, m2DamageTable);
 
   //Run the weapon damage calculation
   helper.runWeaponDamageCalculation(build, target);
@@ -1229,10 +1242,16 @@ function resetPage(item?: ItemModule.Item | string):boolean | void {
     });
   }
 
-  if (build.constructionType) {
-    weaponTypeText.innerHTML = "Weapon Type: " + build.constructionType;
+  if (build.weapon.constructionType) {
+    weaponTypeText.innerHTML = "Weapon Type: " + build.weapon.constructionType;
   } else {
     weaponTypeText.innerHTML = "Weapon Type: None";
+  }
+
+  if (build.weapon.attackSpeed) {
+    atkSpeInput.value = build.weapon.attackSpeed.toString();
+  } else {
+    atkSpeInput.value = "0";
   }
 
   mainGearButtons.forEach((itembutton: HTMLButtonElement) => {
@@ -1257,8 +1276,8 @@ function resetPage(item?: ItemModule.Item | string):boolean | void {
   renderNonWeaponDamages(nonWeaponDamages);
 
   //Displays the Damages to the table
-  addHeaderToTable(build.m1, m1Rows, m1DamageTable);
-  addHeaderToTable(build.m2, m2Rows, m2DamageTable);
+  addHeaderToTable(build.weapon.m1, m1Rows, m1DamageTable);
+  addHeaderToTable(build.weapon.m2, m2Rows, m2DamageTable);
 }
 
 function loadSelectorPage(build:Build.Build, source:string, category: string, section?: keyof Build.Build, index?:number, htmlElement?:HTMLElement, filter?: string):string | void {
@@ -1317,11 +1336,73 @@ function loadSelectorPage(build:Build.Build, source:string, category: string, se
     if (normalizedFilter) {
       const normalizedName = normalizeFilterValue(item.name || "");
       const normalizedId = normalizeFilterValue(item.id || "");
-      const matchesFilter =
+      // //stats
+      // const Itemstats = Object.entries(((item as any)["stats"] as {[key in ItemModule.stat]: number}) || {}) as [ItemModule.stat, number][]
+      // const normalizedStats = Itemstats.map(element => {
+      //   return normalizeFilterValue(element[0]);
+      // });
+
+      // //scale
+      // const ItemScales = Object.entries(((item as any)["damageScalings"] as {[key in ItemModule.scale]: number}) || {}) as [ItemModule.scale, number][]
+      // const normalizedScales = ItemScales.map(element => {
+      //   return normalizeFilterValue(element[0]);
+      // });
+
+      //  //scale
+      // const ItemDmgTypes = Object.entries(((item as any)["damageTypes"] as {[key in ItemModule.scale]: number}) || {}) as [ItemModule.scale, number][]
+      // const normalizedTypes = ItemDmgTypes.map(element => {
+      //   return normalizeFilterValue(element[0]);
+      // });
+      
+      let matchesFilter =
         normalizedName.includes(normalizedFilter) ||
         normalizedId.includes(normalizedFilter) ||
         normalizedFilter.includes(normalizedName) ||
         normalizedFilter.includes(normalizedId);
+
+      //stats
+      if (matchesFilter === false) {
+        const Itemstats = Object.entries(((item as any)["stats"] as {[key in ItemModule.stat]: number}) || {}) as [ItemModule.stat, number][]
+        Itemstats.map(element => {
+          const normalizeStat = normalizeFilterValue(element[0])
+          matchesFilter = 
+          normalizeStat.includes(normalizedFilter) ||
+          normalizedFilter.includes(normalizeStat)
+        });
+      }
+
+      //scale
+      if (matchesFilter === false) {
+        const ItemScales = Object.entries(((item as any)["damageScalings"] as {[key in ItemModule.scale]: number}) || {}) as [ItemModule.scale, number][]
+        ItemScales.map(element => {
+          const normalizeScale = normalizeFilterValue(element[0])
+          matchesFilter = 
+          normalizeScale.includes(normalizedFilter) ||
+          normalizedFilter.includes(normalizeScale)
+        });
+      }
+
+      //damageTypes
+      if (matchesFilter === false) {
+        const ItemDmgTypes = Object.entries(((item as any)["damageTypes"] as {[key in ItemModule.scale]: number}) || {}) as [ItemModule.scale, number][]
+        ItemDmgTypes.map(element => {
+          const normalizeScale = normalizeFilterValue(element[0])
+          matchesFilter = 
+          normalizeScale.includes(normalizedFilter) ||
+          normalizedFilter.includes(normalizeScale)
+        });
+      }
+
+      //damageTypes
+      if (matchesFilter === false) {
+        const ItemPerks = Object.entries(((item as any)["perks"] as {[key: string]: number}) || {});
+        ItemPerks.map(element => {
+          const normalizePerk = normalizeFilterValue(element[0])
+          matchesFilter = 
+          normalizePerk.includes(normalizedFilter) ||
+          normalizedFilter.includes(normalizePerk)
+        });
+      }
 
       if (!matchesFilter) return;
     }
@@ -1612,6 +1693,16 @@ weaponMakeUpButtons.forEach((itembutton: HTMLButtonElement) => {
 
 guildSelector.addEventListener("click", () => {
   loadSelectorPage(build, "Guilds", "Guild");
+});
+
+guildSelector.addEventListener("mouseenter", () => {
+  let item = build.guild;
+  if (!item) return;
+  guildHover(item);
+});
+
+guildSelector.addEventListener("mouseleave", () => {
+  mouseLeave();
 });
 
 //////////////////////////Set the add buff/Debuff buttons//////////////////////////

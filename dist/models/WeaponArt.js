@@ -52,7 +52,7 @@ export class WeaponArtStore {
             //check weapontype Requirement
             let weaponType = true;
             if (weaponArt.weaponTypeRequirements) {
-                if (!build.constructionType || !weaponArt.weaponTypeRequirements.includes(build.constructionType)) {
+                if (!build.weapon.constructionType || !weaponArt.weaponTypeRequirements.includes(build.weapon.constructionType)) {
                     weaponType = false;
                 }
             }

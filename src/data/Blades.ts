@@ -6,9 +6,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Basic Blade",
     category: "Blade",
     type: "Medium Blade",
-    stats: {
-      AttackSpeed: 1,
-    },
+    description: "First Blade",
+    attackSpeed: 1,
     damageScalings: {
       Physical: 0.15,
       Dexterity: 0.15,

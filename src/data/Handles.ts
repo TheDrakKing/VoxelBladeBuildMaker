@@ -6,9 +6,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Basic Handle",
     category: "Handle",
     type: "Medium Handle",
-    stats: {
-      AttackSpeed: 1,
-    },
+    attackSpeed: 1,
     damageScalings: {
       Physical: 0.15,
       Dexterity: 0.15,

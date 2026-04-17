@@ -299,6 +299,15 @@ export const Enchantments: ItemModule.ItemDataTable = {
   },
 
   ////////////////ACD Enchantment ///////////////////////////
+  quick: {
+    id: "quick",
+    name: "Quick",
+    category: "Enchantment",
+    description: "You Feel Quick",
+    stats: {
+      AttackSpeed: 10,
+    },
+  },
 
   ferocious: {
     id: "ferocious",

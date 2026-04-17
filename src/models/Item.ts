@@ -139,7 +139,7 @@ export class Item extends events {
   category?: string;
   description?: string;
   type?: string;
-  upgrade?:number;
+  upgrade?: number;
   img?: string;
   /**
    * For addtive potecny that get applied to the over build, and can be added to soruce potency
@@ -168,25 +168,28 @@ export class Item extends events {
    * exmaple Fire ball rune
    */
   baseDamage?: number;
+  /**
+   * This is for weapon parts only, this is not the stat attack speed, but the scaling
+   */
+  attackSpeed?: number;
 
   constructor(data?: any) {
-    super()
-    Object.assign(this, data)
+    super();
+    Object.assign(this, data);
     this.id = data?.id || undefined;
     this.name = data?.name || "";
     this.category = data?.category || "";
     this.upgrade = data?.upgrade || 0;
     this.img = data ? data.img : undefined;
-    this.type = data && data?.type || undefined;
+    this.type = (data && data?.type) || undefined;
     this.description = data?.description || "";
     this.potencies = data?.potencies || {};
     this.sourcepotencies = data?.sourcepotencies;
-    this.stats =  data?.stats || {};
-    this.perks =  data?.perks || {};
-    this.damageScalings = data?.damageScalings || {};
-    this.damageTypes = data?.damageTypes || {};
-    this.baseDamage = data?.baseDamage || {}
-    
+    this.stats = data?.stats;
+    this.perks = data?.perks;
+    this.damageScalings = data?.damageScalings;
+    this.damageTypes = data?.damageTypes;
+    this.baseDamage = data?.baseDamage || {};
   }
 }
 

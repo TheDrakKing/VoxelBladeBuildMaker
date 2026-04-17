@@ -285,6 +285,15 @@ export const Enchantments = {
         description: "invert and doubles Negative stats, and remove Positive stats",
     },
     ////////////////ACD Enchantment ///////////////////////////
+    quick: {
+        id: "quick",
+        name: "Quick",
+        category: "Enchantment",
+        description: "You Feel Quick",
+        stats: {
+            AttackSpeed: 10,
+        },
+    },
     ferocious: {
         id: "ferocious",
         name: "Ferocious",

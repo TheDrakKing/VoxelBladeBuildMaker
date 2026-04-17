@@ -208,7 +208,7 @@ function getWeaponDamage(build:Build.Build) : WeaponTypes.ConstructionData {
 
   let weaponType = WeaponTypes.WeaponTypeTable[handleTypeId][bladeTypeId];
   let weaponConstructionData = WeaponTypes.ConstructionTypeTable[weaponType];
-  build.constructionType = weaponConstructionData.constructionType;
+  //build.constructionType = weaponConstructionData.constructionType;
   return weaponConstructionData;
 }
 
@@ -389,12 +389,12 @@ function getWeaponDamages(attacker: Build.Build, target:Build.Build) {
       sourceDamageType: "M1",
     }
     let outputDamages = runDamage(baseDamageData, attacker, target);
-    if (!attacker.m1[m1Index]) {
-      attacker.m1[m1Index] = {};
+    if (!attacker.weapon.m1[m1Index]) {
+      attacker.weapon.m1[m1Index] = {};
     }
     for (const [outputType, damage] of Object.entries(outputDamages[0]) as [ItemModule.damageType, number?][]) {
       if (damage === undefined) continue;
-      attacker.m1[m1Index][outputType] = Math.trunc(damage * 10) / 10;
+      attacker.weapon.m1[m1Index][outputType] = Math.trunc(damage * 10) / 10;
     }
     m1Index++;
   });
@@ -409,12 +409,12 @@ function getWeaponDamages(attacker: Build.Build, target:Build.Build) {
       sourceDamageType: "M2",
     }
     let outputDamages = runDamage(baseDamageData, attacker, target);
-    if (!attacker.m2[m2Index]) {
-      attacker.m2[m2Index] = {};
+    if (!attacker.weapon.m2[m2Index]) {
+      attacker.weapon.m2[m2Index] = {};
     }
     for (const [outputType, damage] of Object.entries(outputDamages[0]) as [ItemModule.damageType, number?][]) {
       if (damage === undefined) continue;
-      attacker.m2[m2Index][outputType] = Math.trunc(damage * 10) / 10;
+      attacker.weapon.m2[m2Index][outputType] = Math.trunc(damage * 10) / 10;
     }
     m2Index++;
   });

@@ -2287,6 +2287,26 @@ export const Leggings = {
         },
         img: "",
     },
+    stratos_leggings: {
+        id: "stratos_leggings",
+        name: "Stratos Leggings",
+        category: "Armor",
+        type: "Legging",
+        description: "Leggings that represents the true majesty of Lord Stratos. Very wispy!",
+        stats: {
+            Tenacity: 0.2,
+            PhysicalDefense: 5,
+            EarthBoost: -20,
+            Protection: 5,
+            Warding: 10,
+            SpeedBoost: 4,
+            AirBoost: 14,
+        },
+        perks: {
+            air_pressure: 1,
+        },
+        img: "",
+    },
     sunken_mage_pants: {
         id: "sunken_mage_pants",
         name: "Sunken Mage Pants",

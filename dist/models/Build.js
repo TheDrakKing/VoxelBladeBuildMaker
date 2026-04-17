@@ -1,6 +1,7 @@
 import * as ItemModule from "../models/Item.js";
 import * as PerkModule from "../models/Perk.js";
 import * as BuffModule from "../models/Buffs.js";
+import * as WeaponTypes from "../models/WeaponTypes.js";
 import { GuildStore } from "./Guild.js";
 import { RaceStore } from "./Race.js";
 let damageMultiplier = {
@@ -15,6 +16,7 @@ let damageMultiplier = {
 };
 export class Build {
     constructor() {
+        this.weapon = undefined;
         this.mainArmor = {};
         this.infuseArmor = {};
         this.enchantments = {};
@@ -38,9 +40,30 @@ export class Build {
             armor_mods: {},
             special_mods: {},
         };
-        this.m1 = [];
-        this.m2 = [];
+        this.createWeapon();
         this.resetBuild();
+    }
+    createWeapon() {
+        this.weapon = {
+            constructionType: undefined,
+            attackSpeed: 0,
+            m1: [],
+            m2: [],
+        };
+        if (!this.handle || !this.blade)
+            return;
+        let handleTypeId = ItemModule.toID(this.handle?.type);
+        let bladeTypeId = ItemModule.toID(this.blade?.type);
+        let weaponType = WeaponTypes.WeaponTypeTable[handleTypeId][bladeTypeId];
+        let weaponConstructionData = WeaponTypes.ConstructionTypeTable[weaponType];
+        this.weapon.constructionType = weaponConstructionData.constructionType;
+        //cal atk speed
+        const bladeAtkSpe = this.blade?.attackSpeed || 0;
+        const handleAtkSpe = this.handle?.attackSpeed || 0;
+        const avgAtkSpe = (bladeAtkSpe + handleAtkSpe) / 2;
+        const boost = this.stats.AttackSpeed ? 1 + (this.stats.AttackSpeed / 100) : 1;
+        console.log(avgAtkSpe);
+        this.weapon.attackSpeed = avgAtkSpe * boost;
     }
     calculateUpgrade(stats, upgrade) {
         if (!stats)
@@ -55,7 +78,7 @@ export class Build {
         return stats;
     }
     getHp() {
-        let Boost = (1 + (this.level / 80));
+        let Boost = 1 + this.level / 80;
         const hpBoost = Math.ceil(Boost * 120);
         return hpBoost;
     }
@@ -75,9 +98,12 @@ export class Build {
                             const enchantment = this.enchantments[key][index];
                             if (!enchantment.onArmorStatModified)
                                 continue;
-                            let args = [1, {
-                                    stat: stats
-                                }];
+                            let args = [
+                                1,
+                                {
+                                    stat: stats,
+                                },
+                            ];
                             //enchantment.onArmorStatModified.apply(this, args);
                         }
                     }
@@ -106,7 +132,10 @@ export class Build {
                     //certain perks carry hidden stats
                     const perk = PerkModule.PerkStore.get(key);
                     if (perk && perk.stats !== undefined) {
-                        let perkstats = new ItemModule.Item({ id: perk.id, stats: perk.stats });
+                        let perkstats = new ItemModule.Item({
+                            id: perk.id,
+                            stats: perk.stats,
+                        });
                         this.addItemStatsToBuild(perkstats);
                     }
                 }
@@ -157,7 +186,9 @@ export class Build {
             };
         }
         //look at rune
-        if (this.mainArmor.rune && this.mainArmor.rune.sourcepotencies && this.mainArmor.rune.sourcepotencies[inatePotency]) {
+        if (this.mainArmor.rune &&
+            this.mainArmor.rune.sourcepotencies &&
+            this.mainArmor.rune.sourcepotencies[inatePotency]) {
             sources[this.mainArmor.rune.id] = {
                 sourceName: this.mainArmor.rune.name,
                 type: "Rune",
@@ -165,7 +196,9 @@ export class Build {
             };
         }
         //look at WeaponArt
-        if (this.weaponart && this.weaponart.sourcepotencies && this.weaponart.sourcepotencies[inatePotency]) {
+        if (this.weaponart &&
+            this.weaponart.sourcepotencies &&
+            this.weaponart.sourcepotencies[inatePotency]) {
             sources[this.weaponart.id] = {
                 sourceName: this.weaponart.name,
                 type: "WeaponArt",
@@ -235,14 +268,24 @@ export class Build {
         this.resetBuild();
     }
     addItemToBuild(item, section, key, enchantIndex) {
-        if (section !== "enchantments" && key !== "guild" && key !== "race" && key !== "weaponart") {
+        if (section !== "enchantments" &&
+            key !== "guild" &&
+            key !== "race" &&
+            key !== "weaponart") {
             if (item instanceof ItemModule.Item) {
-                key = item.category === "Armor" ? item.type?.toLowerCase() : item.category?.toLowerCase();
+                key =
+                    item.category === "Armor"
+                        ? item.type?.toLowerCase()
+                        : item.category?.toLowerCase();
             }
         }
         if (!key)
             return;
-        if (key == "blade" || key == "handle" || key == "weaponart" || key == "guild" || key == "race") {
+        if (key == "blade" ||
+            key == "handle" ||
+            key == "weaponart" ||
+            key == "guild" ||
+            key == "race") {
             this[key] = item;
         }
         else if (section) {
@@ -261,7 +304,11 @@ export class Build {
         if (section !== "enchantments") {
             key = key.toLowerCase();
         }
-        if (key == "blade" || key == "handle" || key == "weaponart" || key == "guild" || key == "race") {
+        if (key == "blade" ||
+            key == "handle" ||
+            key == "weaponart" ||
+            key == "guild" ||
+            key == "race") {
             delete this[key];
         }
         else if (section) {
@@ -300,11 +347,19 @@ export class Build {
         //if (this.weaponArt) this.addItemStatsToBuild(this.weaponArt);
         if (this.guild && this.guild.promotions) {
             let promotion = this.guild.promotions[this.guildPromotion];
-            let guild = new ItemModule.Item({ id: this.guild.id, stats: Object.assign({}, promotion.stats), perks: Object.assign({}, promotion.perks) });
+            let guild = new ItemModule.Item({
+                id: this.guild.id,
+                stats: Object.assign({}, promotion.stats),
+                perks: Object.assign({}, promotion.perks),
+            });
             this.addItemStatsToBuild(guild);
         }
         if (this.race) {
-            let race = new ItemModule.Item({ id: this.race.id, stats: Object.assign({}, this.race.stats), perks: Object.assign({}, this.race.perks) });
+            let race = new ItemModule.Item({
+                id: this.race.id,
+                stats: Object.assign({}, this.race.stats),
+                perks: Object.assign({}, this.race.perks),
+            });
             this.addItemStatsToBuild(race);
         }
         // for (const [key, value] of Object.entries(this.enchantments) as [
@@ -326,7 +381,10 @@ export class Build {
             if (value === undefined)
                 continue;
             let item = new ItemModule.Item({
-                id: value.id, stats: {}, perks: {}, potencies: {},
+                id: value.id,
+                stats: {},
+                perks: {},
+                potencies: {},
             });
             Object.assign(item.stats, value.stats);
             Object.assign(item.perks, value.perks);
@@ -341,8 +399,7 @@ export class Build {
                     if (enchantment.onStatCalculation) {
                         enchantment.onStatCalculation.apply(this, [undefined, { item }]);
                     }
-                    ;
-                    // add the stats from the enchantment to the item 
+                    // add the stats from the enchantment to the item
                     for (const [stat, amount] of Object.entries(enchantment.stats || {})) {
                         if (!item.stats)
                             item.stats = {};
@@ -353,7 +410,7 @@ export class Build {
                             item.stats[stat] = amount;
                         }
                     }
-                    // add the perk from the enchantment to the item 
+                    // add the perk from the enchantment to the item
                     for (const [perk, amount] of Object.entries(enchantment.perks || {})) {
                         if (!item.perks)
                             item.perks = {};
@@ -401,7 +458,7 @@ export class Build {
         if (this.hp === oldMaxHp) {
             this.hp = this.maxHp;
         }
-        this.constructionType = undefined;
+        this.createWeapon();
     }
     static itemToSavedSlot(item) {
         if (!item?.id)
@@ -486,7 +543,13 @@ export class Build {
             rune: Build.savedSlotToItem(data.infuseArmor?.rune),
             ring: Build.savedSlotToItem(data.infuseArmor?.ring),
         };
-        const armorKeys = ["helmet", "chestplate", "legging", "rune", "ring"];
+        const armorKeys = [
+            "helmet",
+            "chestplate",
+            "legging",
+            "rune",
+            "ring",
+        ];
         armorKeys.forEach((key) => {
             const savedEnchantments = data.enchantments?.[key];
             if (!savedEnchantments?.length)

@@ -31,14 +31,14 @@ export class Item extends events {
         this.category = data?.category || "";
         this.upgrade = data?.upgrade || 0;
         this.img = data ? data.img : undefined;
-        this.type = data && data?.type || undefined;
+        this.type = (data && data?.type) || undefined;
         this.description = data?.description || "";
         this.potencies = data?.potencies || {};
         this.sourcepotencies = data?.sourcepotencies;
-        this.stats = data?.stats || {};
-        this.perks = data?.perks || {};
-        this.damageScalings = data?.damageScalings || {};
-        this.damageTypes = data?.damageTypes || {};
+        this.stats = data?.stats;
+        this.perks = data?.perks;
+        this.damageScalings = data?.damageScalings;
+        this.damageTypes = data?.damageTypes;
         this.baseDamage = data?.baseDamage || {};
     }
 }
