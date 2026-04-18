@@ -22,8 +22,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Greatsword Blade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       PhysicalBoost: 5,
     },
     damageScalings: {
@@ -39,8 +39,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Sharp Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalBoost: 5,
     },
     damageScalings: {
@@ -57,8 +57,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Dagger Blade",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 5,
     },
     damageScalings: {
@@ -75,8 +75,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Mage Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 5,
     },
     damageScalings: {
@@ -92,8 +92,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Holy Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HolyBoost: 10,
     },
     damageScalings: {
@@ -114,8 +114,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Hex Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HexBoost: 10,
     },
     damageScalings: {
@@ -136,9 +136,7 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Air Blade",
     category: "Blade",
     type: "Medium Blade",
-    stats: {
-      AttackSpeed: 1.1,
-    },
+    attackSpeed: 1.1,
     damageScalings: {
       Dexterity: 0.3,
       Air: 0.3,
@@ -157,8 +155,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Fire Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       FireBoost: 10,
     },
     damageScalings: {
@@ -179,8 +177,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Water Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       WaterBoost: 10,
     },
     damageScalings: {
@@ -201,8 +199,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Earth Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 0.85,
     stats: {
-      AttackSpeed: 0.85,
       EarthBoost: 10,
     },
     damageScalings: {
@@ -223,8 +221,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Executioners Blade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 0.85,
     stats: {
-      AttackSpeed: 0.85,
       PhysicalBoost: 8,
       PhysicalDefense: 5,
     },
@@ -244,8 +242,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Iron Hammer",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       Tenacity: 0.2,
       PhysicalDefense: 8,
     },
@@ -265,8 +263,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Katana Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.2,
     stats: {
-      AttackSpeed: 1.2,
       PhysicalBoost: 5,
       DexterityBoost: 5,
     },
@@ -288,8 +286,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Jagged Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalBoost: 10,
     },
     damageScalings: {
@@ -309,8 +307,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Sharp Dagger Blade",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 10,
     },
     damageScalings: {
@@ -329,8 +327,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Agile Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.2,
     stats: {
-      AttackSpeed: 1.2,
       DexterityBoost: 5,
       PhysicalBoost: 5,
     },
@@ -351,8 +349,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Great Mage Blade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       MagicBoost: 7,
       PhysicalDefense: 5,
     },
@@ -372,8 +370,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Enchanted Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 10,
     },
     damageScalings: {
@@ -392,8 +390,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Radiant Edge",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       HolyBoost: 10,
       DexterityBoost: 5,
     },
@@ -415,8 +413,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Pure Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HolyBoost: 15,
     },
     damageScalings: {
@@ -436,8 +434,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Skull Hammer",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalDefense: 8,
       HexBoost: 10,
     },
@@ -459,8 +457,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Hexing Cleaver Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 5,
       HexBoost: 10,
     },
@@ -482,8 +480,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Gust Blade",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 7,
     },
     damageScalings: {
@@ -504,8 +502,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Storm Razor",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       MagicBoost: 4,
       DexterityBoost: 4,
     },
@@ -528,8 +526,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Flame Dagger",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       FireBoost: 10,
       DexterityBoost: 10,
     },
@@ -552,8 +550,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Flame Greatblade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       FireBoost: 10,
       MagicBoost: 5,
     },
@@ -575,8 +573,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Ocean Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       MagicBoost: 5,
       WaterBoost: 10,
     },
@@ -598,8 +596,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Ice Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HeatResistance: 50,
       WaterBoost: 7,
       PhysicalBoost: 7,
@@ -622,8 +620,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Enchanted Lodestone Hammer",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       EarthBoost: 10,
       MagicBoost: 8,
     },
@@ -645,8 +643,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Earth Greatblade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 0.8,
     stats: {
-      AttackSpeed: 0.8,
       PhysicalDefense: 5,
       EarthBoost: 5,
       PhysicalBoost: 5,
@@ -669,8 +667,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Scourgers Blade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 0.8,
     stats: {
-      AttackSpeed: 0.8,
       PhysicalDefense: 5,
       PhysicalBoost: 15,
       Warding: 20,
@@ -692,8 +690,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Zweihander Blade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 0.8,
     stats: {
-      AttackSpeed: 0.8,
       Protection: 5,
       PhysicalDefense: 3,
       PhysicalBoost: 10,
@@ -715,8 +713,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Gilded Hammer",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 0.8,
     stats: {
-      AttackSpeed: 0.8,
       Tenacity: 0.2,
       PhysicalDefense: 10,
       PhysicalBoost: 4,
@@ -737,8 +735,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Dark Steel Mace",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalDefense: 5,
       DexterityBoost: 5,
       PhysicalBoost: 5,
@@ -761,8 +759,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Serrated Blade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       PhysicalBoost: 10,
       DexterityBoost: 2,
       Protection: 5,
@@ -784,8 +782,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Bloodied Needle",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       PhysicalBoost: 5,
       DexterityBoost: 5,
       MagicBoost: 5,
@@ -810,8 +808,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Bejeweled Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.2,
     stats: {
-      AttackSpeed: 1.2,
       DexterityBoost: 15,
       PhysicalBoost: 5,
     },
@@ -833,8 +831,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Shadow Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       PhysicalBoost: 13,
       DexterityBoost: 10,
     },
@@ -855,8 +853,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Kings Dagger Blade",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 15,
     },
     damageScalings: {
@@ -875,8 +873,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Beastial Dagger Blade",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 10,
       JumpBoost: 2,
     },
@@ -897,8 +895,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Duelists Needle",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       DexterityBoost: 15,
     },
     damageScalings: {
@@ -917,8 +915,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Crude Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       PhysicalBoost: 10,
       DexterityBoost: 10,
     },
@@ -939,8 +937,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Grandmagic Greatblade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       MagicBoost: 10,
       PhysicalDefense: 5,
       Warding: 20,
@@ -961,8 +959,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Great Mage Core",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       MagicBoost: 15,
     },
     damageScalings: {
@@ -982,8 +980,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Spellbinder Rapier",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 15,
       DexterityBoost: 5,
     },
@@ -1004,8 +1002,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Curved Magic Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 20,
     },
     damageScalings: {
@@ -1025,8 +1023,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Divine Edge",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       HolyBoost: 15,
       DexterityBoost: 10,
     },
@@ -1049,8 +1047,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Radiant Hammer",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       HolyBoost: 10,
       Warding: 20,
     },
@@ -1072,8 +1070,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Hallowed Blade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HolyBoost: 15,
       Warding: 20,
     },
@@ -1094,8 +1092,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Angels Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HolyBoost: 15,
       MagicBoost: 10,
     },
@@ -1117,8 +1115,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Skull Mace",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HexBoost: 10,
       PhysicalDefense: 10,
     },
@@ -1140,8 +1138,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Possessed Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HexBoost: 12,
     },
     damageScalings: {
@@ -1161,8 +1159,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Cursed Greatsword Blade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       HexBoost: 15,
     },
     damageScalings: {
@@ -1183,8 +1181,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Cursed Dagger Blade",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HexBoost: 10,
       DexterityBoost: 10,
     },
@@ -1206,8 +1204,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Gale Blade",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 7,
     },
     damageScalings: {
@@ -1229,8 +1227,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Windiron Needle",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.2,
     stats: {
-      AttackSpeed: 1.2,
       DexterityBoost: 7,
     },
     damageScalings: {
@@ -1252,8 +1250,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Storm Splitter",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       MagicBoost: 8,
       DexterityBoost: 12,
     },
@@ -1276,8 +1274,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Lightning Hammer",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       MagicBoost: 6,
       PhysicalDefense: 5,
     },
@@ -1299,8 +1297,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Steel Flame Dagger",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 10,
       FireBoost: 10,
     },
@@ -1322,8 +1320,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Dragon Flame Dagger",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       DexterityBoost: 8,
       FireBoost: 12,
     },
@@ -1346,8 +1344,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Blue Flame Greatblade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       FireBoost: 15,
       FireDefense: 15,
     },
@@ -1369,8 +1367,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Cragstone Hammer",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       FireBoost: 4,
       EarthBoost: 4,
       PhysicalBoost: 4,
@@ -1395,8 +1393,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Wave Blade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 1.2,
     stats: {
-      AttackSpeed: 1.2,
       MagicDefense: 5,
       PhysicalDefense: -5,
       WaterBoost: 10,
@@ -1418,8 +1416,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Golden Trident",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HolyBoost: 10,
       WaterBoost: 12,
     },
@@ -1441,8 +1439,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Icicle",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       WaterBoost: 10,
       HeatResistance: 50,
       DexterityBoost: 10,
@@ -1467,8 +1465,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Sculpted Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HeatResistance: 50,
       WaterBoost: 9,
       PhysicalBoost: 9,
@@ -1492,8 +1490,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Gravitational Greatblade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 5,
       PhysicalDefense: 5,
       EarthBoost: 10,
@@ -1516,8 +1514,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Gravitational Core",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 15,
       EarthBoost: 10,
     },
@@ -1540,8 +1538,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Earth Spirit Greatblade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       Tenacity: 0.1,
       PhysicalDefense: 5,
       EarthBoost: 10,
@@ -1566,8 +1564,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Sand Glaive",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       EarthBoost: 8,
     },
     damageScalings: {
@@ -1588,9 +1586,7 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Prism Blade",
     category: "Blade",
     type: "Medium Blade",
-    stats: {
-      AttackSpeed: 1.1,
-    },
+    attackSpeed: 1.1,
     damageScalings: {
       Physical: 0.15,
       Magic: 0.15,
@@ -1605,8 +1601,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Starlight Greatblade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HolyBoost: 5,
       HexBoost: 5,
       MagicBoost: 5,
@@ -1634,8 +1630,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Swaxe",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       PhysicalBoost: 10,
     },
     damageScalings: {
@@ -1654,8 +1650,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Bloodiron Sawblade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalBoost: 5,
     },
     damageScalings: {
@@ -1675,8 +1671,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Dragonslayer Blade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 0.5,
     stats: {
-      AttackSpeed: 0.5,
       PhysicalBoost: 5,
       DexterityBoost: 5,
     },
@@ -1697,8 +1693,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Murky Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HexBoost: 4,
       EarthBoost: 4,
       WaterBoost: 4,
@@ -1723,8 +1719,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Spectral Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HexBoost: 5,
       EarthBoost: 5,
       WaterBoost: 10,
@@ -1749,8 +1745,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Poisonous Blade",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       DexterityBoost: 4,
       EarthBoost: 4,
       HexBoost: 4,
@@ -1775,8 +1771,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Venomous Blade",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 10,
       EarthBoost: 5,
       HexBoost: 5,
@@ -1801,8 +1797,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Honeycomb Greatblade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 4,
       MagicDefense: 2,
       Tenacity: 0.1,
@@ -1826,8 +1822,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Honeysteel Greatblade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       MagicBoost: 6,
       MagicDefense: 10,
       Tenacity: 0.1,
@@ -1851,8 +1847,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Honey Bumblz Mace",
     category: "Blade",
     type: "Hammer",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 4,
       PhysicalBoost: 4,
     },
@@ -1874,8 +1870,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Queen Bumblz Core",
     category: "Blade",
     type: "Hammer",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 5,
       HolyBoost: 5,
       PhysicalBoost: 5,
@@ -1901,8 +1897,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Magic Great Hammer",
     category: "Blade",
     type: "Hammer",
+    attackSpeed: 0.8,
     stats: {
-      AttackSpeed: 0.8,
       MagicBoost: 7,
       PhysicalDefense: 5,
       Warding: 30,
@@ -1923,8 +1919,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Dynamite Stick",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 5,
       PhysicalBoost: 5,
     },
@@ -1945,8 +1941,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Dynamite Bundle",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       DexterityBoost: 10,
       PhysicalBoost: 12,
     },
@@ -1967,8 +1963,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Timed Dynamite Bundle",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       DexterityBoost: 10,
       PhysicalBoost: 14,
     },
@@ -1989,9 +1985,7 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Stratos Core",
     category: "Blade",
     type: "Hammer Blade",
-    stats: {
-      AttackSpeed: 1,
-    },
+    attackSpeed: 1,
     damageScalings: {
       Air: 0.55,
     },
@@ -2008,8 +2002,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Lightning Stratos Core",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 10,
     },
     damageScalings: {
@@ -2031,8 +2025,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Caci Blade",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       DexterityBoost: 5,
       PhysicalBoost: 5,
     },
@@ -2054,8 +2048,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Caci Kings Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 5,
       PhysicalBoost: 5,
       EarthBoost: 5,
@@ -2081,8 +2075,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Buni Prince Hammer",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalDefense: 5,
       PhysicalBoost: 10,
     },
@@ -2102,8 +2096,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Buni Prince Cannon",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalDefense: 5,
       PhysicalBoost: 15,
     },
@@ -2123,8 +2117,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Ancient Mallet",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       EarthBoost: 8,
       PhysicalDefense: 5,
     },
@@ -2144,8 +2138,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Bastion Greatswaxe Blade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       EarthBoost: 8,
     },
     damageScalings: {
@@ -2164,8 +2158,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Relic Short Blade",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       EarthBoost: 4,
       HolyBoost: 4,
     },
@@ -2187,8 +2181,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Bastion Relic Blade",
     category: "Blade",
     type: "Medium Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       EarthBoost: 8,
       HolyBoost: 8,
     },
@@ -2210,8 +2204,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Vaen Kama",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       PhysicalBoost: 5,
     },
     damageScalings: {
@@ -2233,8 +2227,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Lord Vaen Blade",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       PhysicalBoost: 10,
     },
     damageScalings: {
@@ -2257,8 +2251,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Mungal Mallet",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HexBoost: 4,
       EarthBoost: 4,
       PhysicalBoost: 4,
@@ -2283,8 +2277,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Mungus Core",
     category: "Blade",
     type: "Hammer",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       EarthBoost: 5,
       MagicBoost: 5,
       HexBoost: 5,
@@ -2309,8 +2303,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Spider Fang Blade",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       HexDefense: 10,
       DexterityBoost: 10,
     },
@@ -2332,8 +2326,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Omega Lance Blade",
     category: "Blade",
     type: "Heavy Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       DexterityBoost: 5,
       PhysicalBoost: 5,
       FireBoost: 5,
@@ -2358,8 +2352,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Bronze Frozen Pick",
     category: "Blade",
     type: "Small Blade",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HeatResistance: 50,
       WaterBoost: 5,
       PhysicalBoost: 5,
@@ -2383,8 +2377,8 @@ export const Blades: import("../models/Item").ItemDataTable = {
     name: "Frozen Pickaxe Head",
     category: "Blade",
     type: "Hammer Blade",
+    attackSpeed: 1.2,
     stats: {
-      AttackSpeed: 1.2,
       HeatResistance: 50,
       PhysicalBoost: 5,
       WaterBoost: 5,
@@ -2404,3 +2398,4 @@ export const Blades: import("../models/Item").ItemDataTable = {
     img: "",
   },
 };
+

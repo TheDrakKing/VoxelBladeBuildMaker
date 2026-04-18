@@ -6,6 +6,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Enchanted Sword Rune",
     category: "Rune",
     description: "Conjure a magical weapon, holding down the rune key will change the weapon type and effects but also increase the cooldown.",
+    cooldown: 10,
     stats: {
       MagicBoost: 10,
     },
@@ -16,6 +17,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Ancient Cleric Rune",
     category: "Rune",
     description: "Consume buffs that you have applied to nearby allies and convert them into a shield.",
+    cooldown: 20,
     stats: {
       HolyBoost: 7,
       EarthBoost: 7,
@@ -31,6 +33,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Beenade Rune",
     category: "Rune",
     description: "this is actually the description",
+    cooldown: 5,
     stats: {
       MagicBoost: 5,
       HolyBoost: 5,
@@ -50,6 +53,8 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Boostshroom Rune",
     category: "Rune",
     description: "Cast to summon a bouncy mushroom!",
+    cooldown: 20,
+    duration: 20,
     stats: {
       Warding: 20,
       JumpBoost: 5,
@@ -61,6 +66,8 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Bounce Rune",
     category: "Rune",
     description: "Cast to become bouncy!",
+    cooldown: 25,
+    duration: 10,
     sourcepotencies: {
       bouncepotency: 0.3,
     },
@@ -74,6 +81,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Brainblast Rune",
     category: "Rune",
     description: "Release a psionic magmatic blast!",
+    cooldown: 15,
     stats: {
       FireBoost: 4,
       MagicBoost: 4,
@@ -96,10 +104,11 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Caci Rune",
     category: "Rune",
     description: "Summons Caci that headbutt the floor!",
+    cooldown: 10,
     stats: {
       SummonBoost: 20,
     },
-    baseDamage: 53,
+    baseDamage: 5*3,
     img: "",
   },
   cacitrops_rune: {
@@ -107,6 +116,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Cacitrops Rune",
     category: "Rune",
     description: "Dash backwards and drop spikes on the floor!",
+    cooldown: 15,
     stats: {
       DexterityBoost: 8,
       PhysicalBoost: 8,
@@ -122,6 +132,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Combat Roll Rune",
     category: "Rune",
     description: "Roll to dodge incoming attacks!",
+    cooldown: 10,
     stats: {
       DexterityBoost: 10,
       SpeedBoost: 6,
@@ -133,6 +144,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Croakernaut Rune",
     category: "Rune",
     description: "Cast to summon a Croakernaut.",
+    cooldown: 100,
     stats: {
       PhysicalDefense: 5,
       SummonBoost: 5,
@@ -144,6 +156,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Demonic Step Rune",
     category: "Rune",
     description: "An upgraded rune created using the mechanisms of the rolling rune as a base.",
+    cooldown: 0,
     stats: {
       Tenacity: 0.2,
     },
@@ -154,6 +167,8 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "False Sun Rune",
     category: "Rune",
     description: "Cast to create a small sun that grants a buff that activates daylight required perks and deals fire and holy damage.",
+    cooldown: 50,
+    duration: 20,
     stats: {
       FireBoost: 5,
       HolyBoost: 5,
@@ -170,6 +185,8 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Fireball Rune",
     category: "Rune",
     description: "Cast a fireball that burns enemies over time.",
+    cooldown: 15,
+    duration: 4,
     stats: {
       FireBoost: 10,
     },
@@ -181,6 +198,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Foot Dive Rune",
     category: "Rune",
     description: "A perfected form of the buni kick. Propell forewards using your sword and kick the opponent. The cooldown is reduced if it hits an opponent",
+    cooldown: 25,
     stats: {
       DexterityBoost: 5,
       PhysicalBoost: 5,
@@ -197,6 +215,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Gastric Tempest Rune",
     category: "Rune",
     description: "An upgraded form of the Gastric Winds Rune, forged by ancient craftsmen.",
+    cooldown: 10,
     stats: {
       HexBoost: 13,
       AirBoost: 1,
@@ -208,6 +227,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Gastric Winds Rune",
     category: "Rune",
     description: "Channel your gastric power by using this rune!",
+    cooldown: 10,
     stats: {
       HexBoost: 13,
       AirBoost: 1,
@@ -219,6 +239,8 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Glacial Shell Rune",
     category: "Rune",
     description: "Surround yourself in ice restoring shield and increasing max shield temporarily!",
+    cooldown: 40,
+    duration: 20,
     stats: {
       ColdResistance: 200,
       Protection: 10,
@@ -230,6 +252,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Healing Rune",
     category: "Rune",
     description: "Cast a weak healing spell.",
+    cooldown: 40,
     stats: {
       HolyBoost: 10,
     },
@@ -240,6 +263,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Hex Web Rune",
     category: "Rune",
     description: "Toss a hex web up in the air that lands on the closest enemy to you.",
+    cooldown: 20,
     stats: {
       HexBoost: 10,
     },
@@ -256,6 +280,8 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Jetstream Rune",
     category: "Rune",
     description: "Activate to move as fast as you can for a moment, though youll become exhausted afterwards.",
+    cooldown: 15,
+    duration: 5,
     stats: {
       AirBoost: 10,
     },
@@ -266,6 +292,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Launch Rune",
     category: "Rune",
     description: "Cast to launch yourself into the air.",
+    cooldown: 15,
     stats: {
       AirBoost: 10,
     },
@@ -276,10 +303,11 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Magic Missile Rune",
     category: "Rune",
     description: "Cast to fire a couple magic missles.",
+    cooldown: 10,
     stats: {
       MagicBoost: 10,
     },
-    baseDamage: 63,
+    baseDamage: 6*3,
     img: "",
   },
   pack_leader_rune: {
@@ -287,6 +315,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Pack Leader Rune",
     category: "Rune",
     description: "Cast to summon 2 Winter Woofs.",
+    cooldown: 120,
     stats: {
       PhysicalBoost: 5,
       SummonBoost: 5,
@@ -298,6 +327,8 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Plan Bee Rune",
     category: "Rune",
     description: "Its good to always have a plan bee! Grant yourself shield based on missing HP and grant regen below 20%",
+    cooldown: 30,
+    duration: 10,
     sourcepotencies: {
       regenpotency: 0.5,
     },
@@ -312,6 +343,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Proto Grappler Rune",
     category: "Rune",
     description: "Using will launch the grapple hook in the direction your facing. Hold down to aim the grapple hook.",
+    cooldown: 15,
     stats: {
       PhysicalDefense: 8,
       MagicDefense: 8,
@@ -333,6 +365,8 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Rage Rune",
     category: "Rune",
     description: "Become enraged and deal more damage!",
+    cooldown: 60,
+    duration: 10,
     sourcepotencies: {
       ragepotency: 0.3,
     },
@@ -346,6 +380,8 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Reinforce Rune",
     category: "Rune",
     description: "Cast to reduce incoming damage!",
+    cooldown: 40,
+    duration: 20,
     sourcepotencies: {
       reinforcepotency: 0.5,
     },
@@ -359,6 +395,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Rocky Tail Rune",
     category: "Rune",
     description: "Use this rune to grow a tail from your back which restores shield on hit. Holding will continue to slap with the tail but instead of restoring shield it consumes it to make your tail bigger.",
+    cooldown: 20,
     stats: {
       HeatResistance: 100,
       EarthBoost: 5,
@@ -375,6 +412,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Rubble Rune",
     category: "Rune",
     description: "Toss a handful of rocks at the opponent.",
+    cooldown: 15,
     stats: {
       EarthBoost: 10,
     },
@@ -393,6 +431,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Rune of Cleansing",
     category: "Rune",
     description: "Cast to cleanse debuffs.",
+    cooldown: 20,
     stats: {
       WaterBoost: 10,
     },
@@ -403,6 +442,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Sanguine Bolt Rune",
     category: "Rune",
     description: "Expend health to cast a blood bolt! The rune button can be held down to continue channeling for a bit.",
+    cooldown: 15,
     stats: {
       MagicBoost: 4,
       PhysicalBoost: 4,
@@ -415,6 +455,8 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Snarl Rune",
     category: "Rune",
     description: "Snarl at your opponents applying a debuff that allows you to heal by hitting them!",
+    cooldown: 30,
+    duration: 10,
     stats: {
       PhysicalBoost: 10,
     },
@@ -425,6 +467,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Snoeball Rune",
     category: "Rune",
     description: "Gather a large snoeball then throw it to cause a massive explosion that applies frost.",
+    cooldown: 25,
     stats: {
       MagicBoost: 5,
       WaterBoost: 5,
@@ -441,6 +484,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Sporeling Toss Rune",
     category: "Rune",
     description: "Cast to throw 2 sporelings and additionally any sporelings you've summoned!",
+    cooldown: 45,
     stats: {
       HexBoost: 5,
       PhysicalBoost: 5,
@@ -454,6 +498,8 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Static Field Rune",
     category: "Rune",
     description: "Create a static field to parry away your enemies attacks automatically!",
+    cooldown: 35,
+    duration: 5,
     stats: {
       MagicBoost: 8,
       AirBoost: 8,
@@ -465,6 +511,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Swarm Rune",
     category: "Rune",
     description: "Cast to summon a swarm of Bumblz.",
+    cooldown: 30,
     stats: {
       SummonBoost: 10,
     },
@@ -475,6 +522,11 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Taunting Rune",
     category: "Rune",
     description: "Taunt nearby enemies!",
+    cooldown: 20,
+    duration: 10,
+    sourcepotencies: {
+      tauntpotency: 0.3,
+    },
     stats: {
       PhysicalDefense: 10,
     },
@@ -488,6 +540,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Thunderous Charge Rune",
     category: "Rune",
     description: "Turn into a lightning form and dash through your enemies! Hold and let go of the rune key right as you hit an enemy to strengthen it.",
+    cooldown: 25,
     stats: {
       MagicBoost: 8,
       AirBoost: 8,
@@ -504,6 +557,8 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Toad Slam Rune",
     category: "Rune",
     description: "Slam into the floor and become enraged!",
+    cooldown: 40,
+    duration: 10,
     sourcepotencies: {
       ragepotency: 0.2,
     },
@@ -518,6 +573,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Toadzerker Rune (UNOBTAINABLE)",
     category: "Rune",
     description: "Cast to summon a Toadzerker!",
+    cooldown: 120,
     stats: {
       PhysicalDefense: 5,
       SummonBoost: 5,
@@ -529,6 +585,8 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Weakening Roar Rune",
     category: "Rune",
     description: "Unleash a mighty roar to weaken those around you!",
+    cooldown: 20,
+    duration: 15,
     sourcepotencies: {
       weakeningpotency: 0.5,
     },
@@ -543,6 +601,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Slizard Mount Rune",
     category: "Rune",
     description: "Cast to mount a slizard. Your LMBs and weapon art is modified while riding.",
+    cooldown: 10,
     stats: {
       SummonBoost: 10,
     },
@@ -553,6 +612,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Winter Woof Mount Rune",
     category: "Rune",
     description: "Cast to mount a winter woof. Your LMBs and weapon art is modified while riding.",
+    cooldown: 10,
     stats: {
       SummonBoost: 10,
     },
@@ -563,6 +623,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Glacial Snapper Mount Rune",
     category: "Rune",
     description: "Cast to mount a glacial snapper. Gain additional defense and your LMBs and weapon art are modified while riding.",
+    cooldown: 10,
     stats: {
       SummonBoost: 10,
     },
@@ -573,6 +634,7 @@ export const Runes: import("../models/Item").ItemDataTable = {
     name: "Voxlmas Glacial Snapper Mount Rune",
     category: "Rune",
     description: "Cast to mount a glacial snapper. Gain additional defense and your LMBs and weapon art are modified while riding.",
+    cooldown: 10,
     stats: {
       SummonBoost: 10,
     },

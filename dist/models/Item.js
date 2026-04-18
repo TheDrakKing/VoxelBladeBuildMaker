@@ -20,6 +20,7 @@ export const potencyAliases = {
     regenpotency: "Regen Potency",
     shatterpotency: "Shatter Potency",
     lightningcloakpotency: "Lightning Cloak Potency",
+    tauntpotency: "Taunt Potency",
     weakeningpotency: "Weakening Potency",
 };
 export class Item extends events {
@@ -30,6 +31,8 @@ export class Item extends events {
         this.name = data?.name || "";
         this.category = data?.category || "";
         this.upgrade = data?.upgrade || 0;
+        this.duration = data?.duration;
+        this.cooldown = data?.cooldown;
         this.img = data ? data.img : undefined;
         this.type = (data && data?.type) || undefined;
         this.description = data?.description || "";
@@ -39,7 +42,8 @@ export class Item extends events {
         this.perks = data?.perks;
         this.damageScalings = data?.damageScalings;
         this.damageTypes = data?.damageTypes;
-        this.baseDamage = data?.baseDamage || {};
+        this.baseDamage = data?.baseDamage ?? undefined;
+        this.attackSpeed = data?.attackSpeed;
     }
 }
 export function toID(name) {

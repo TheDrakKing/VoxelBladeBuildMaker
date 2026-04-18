@@ -88,6 +88,7 @@ const potenciesContainerDiv = document.getElementById("potencies") as HTMLDivEle
 const damageScalingsContainerDiv = document.getElementById("damageScalings") as HTMLDivElement;
 const damageTypesContainerDiv = document.getElementById("damageTypes") as HTMLDivElement;
 const perkDamageContainerDiv = document.getElementById("perk_damage") as HTMLDivElement;
+const runeDamageContainerDiv = document.getElementById("rune_damage") as HTMLDivElement;
 const weaponArtDamageContainerDiv = document.getElementById("weaponart_damage") as HTMLDivElement;
 
 //Table
@@ -142,11 +143,27 @@ let imgHolders = {
 };
 
 type damageholderRows = { [k in ItemModule.damageType]?: HTMLElement };
+type nonWeaponDamageCategory = "Rune" | "WeaponArt" | "Perk" | "Debuff";
+type nonWeaponDamageResult = {
+  outputs: { [k in ItemModule.damageType]?: number };
+  total: number;
+};
 type nonWeaponDamageDisplay = {
   source: string;
   outputs: { [k in ItemModule.damageType]?: number };
   total: number;
-  category: "Perk" | "Debuff";
+  category: nonWeaponDamageCategory;
+};
+type nonWeaponPanelItem = {
+  name?: string;
+  description?: string;
+};
+type nonWeaponPanelOptions = {
+  category: nonWeaponDamageCategory;
+  containerDiv: HTMLDivElement;
+  emptyMessage: string;
+  noDamageMessage: string;
+  title: string;
 };
 type buffSourceOption = {
   sourceName: string;
@@ -289,27 +306,51 @@ function renderNonWeaponDamages(entries: nonWeaponDamageDisplay[]) {
   }
 }
 
-function renderWeaponArtPanel(weaponArt?: WeaponArtModule.WeaponArt, damageResult?: { outputs: { [k in ItemModule.damageType]?: number }, total: number }) {
-  weaponArtDamageContainerDiv.innerHTML = "";
+function renderDirectDamagePanel(
+  item: nonWeaponPanelItem | undefined,
+  damageResult: nonWeaponDamageResult | undefined,
+  options: nonWeaponPanelOptions
+) {
+  options.containerDiv.innerHTML = "";
 
-  if (!weaponArt) {
-    createStatHolder("Status", "No weapon art selected", weaponArtDamageContainerDiv);
+  if (!item) {
+    createStatHolder("Status", options.emptyMessage, options.containerDiv);
     return;
   }
 
   if (damageResult) {
     const cardEntry: nonWeaponDamageDisplay = {
-      source: weaponArt.name || "Weapon Art",
+      source: item.name || options.title,
       outputs: damageResult.outputs,
       total: damageResult.total,
-      category: "Perk",
+      category: options.category,
     };
-    createNonWeaponDamageCard(cardEntry, weaponArtDamageContainerDiv);
+    createNonWeaponDamageCard(cardEntry, options.containerDiv);
     return;
   }
 
-  createStatHolder("Weapon Art", weaponArt.name, weaponArtDamageContainerDiv);
-  createStatHolder("Description", weaponArt.description || "This weapon art does not deal direct damage.", weaponArtDamageContainerDiv);
+  createStatHolder(options.title, item.name || options.title, options.containerDiv);
+  createStatHolder("Description", item.description || options.noDamageMessage, options.containerDiv);
+}
+
+function renderRunePanel(rune?: ItemModule.Item, damageResult?: nonWeaponDamageResult) {
+  renderDirectDamagePanel(rune, damageResult, {
+    category: "Rune",
+    containerDiv: runeDamageContainerDiv,
+    emptyMessage: "No rune selected",
+    noDamageMessage: "This rune does not have direct damage data.",
+    title: "Rune",
+  });
+}
+
+function renderWeaponArtPanel(weaponArt?: WeaponArtModule.WeaponArt, damageResult?: nonWeaponDamageResult) {
+  renderDirectDamagePanel(weaponArt, damageResult, {
+    category: "WeaponArt",
+    containerDiv: weaponArtDamageContainerDiv,
+    emptyMessage: "No weapon art selected",
+    noDamageMessage: "This weapon art does not deal direct damage.",
+    title: "Weapon Art",
+  });
 }
 
 function createItemBox(item: ItemModule.Item | BuffModule.Buff | GuildModule.Guild | WeaponArtModule.WeaponArt): HTMLElement | null {
@@ -1179,10 +1220,28 @@ function resetPage(item?: ItemModule.Item | string):boolean | void {
   //Run the weapon damage calculation
   helper.runWeaponDamageCalculation(build, target);
 
-  let weaponArtDamageResult: { outputs: { [k in ItemModule.damageType]?: number }, total: number } | undefined;
+  let runeDamageResult: nonWeaponDamageResult | undefined;
+  let weaponArtDamageResult: nonWeaponDamageResult | undefined;
+
+  // Run rune damage calculation when the selected rune has direct damage data.
+  if (typeof build.mainArmor.rune?.baseDamage === "number") {
+    const baseDamageInfo: baseDamageData = {
+      damage: build.mainArmor.rune.baseDamage,
+      hitAmount: 1,
+      source: build.mainArmor.rune.id,
+      sourceDamageType: "Rune",
+      sourceType: "Rune",
+    };
+    const attackerBuild: Partial<helper.SerializedBuild> = {
+      damageScalings: build.mainArmor.rune.damageScalings,
+      damageTypes: build.mainArmor.rune.damageTypes,
+    };
+    runeDamageResult = helper.runNonWeaponDamageCalculation(baseDamageInfo, build, target, attackerBuild);
+  }
+  renderRunePanel(build.mainArmor.rune, runeDamageResult);
 
   //Run WeaponArt Damage calculation
-  if (build.weaponart?.baseDamage !== undefined) {
+  if (typeof build.weaponart?.baseDamage === "number") {
     const baseDamageInfo: baseDamageData = {
       damage: build.weaponart.baseDamage,
       hitAmount: build.weaponart.totalHits || 1,

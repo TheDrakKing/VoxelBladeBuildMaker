@@ -17,8 +17,8 @@ export const Handles = {
         name: "Long Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 0.8,
         stats: {
-            AttackSpeed: 0.8,
             PhysicalDefense: 5,
         },
         damageScalings: {
@@ -31,8 +31,8 @@ export const Handles = {
         name: "Reinforced Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             PhysicalBoost: 5,
         },
         damageScalings: {
@@ -46,8 +46,8 @@ export const Handles = {
         name: "Agile Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             DexterityBoost: 5,
         },
         damageScalings: {
@@ -61,8 +61,8 @@ export const Handles = {
         name: "Magewood Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             MagicBoost: 5,
         },
         damageScalings: {
@@ -75,8 +75,8 @@ export const Handles = {
         name: "Holywood Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             MagicBoost: 5,
             HolyBoost: 5,
         },
@@ -91,8 +91,8 @@ export const Handles = {
         name: "Cursewood Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             MagicBoost: 5,
             HexBoost: 5,
         },
@@ -107,8 +107,8 @@ export const Handles = {
         name: "Windiron Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             DexterityBoost: 5,
             AirBoost: 5,
         },
@@ -123,8 +123,8 @@ export const Handles = {
         name: "Blazewood Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             MagicBoost: 5,
             FireBoost: 5,
         },
@@ -139,8 +139,8 @@ export const Handles = {
         name: "Aquasteel Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             WaterBoost: 5,
             MagicBoost: 5,
         },
@@ -155,8 +155,8 @@ export const Handles = {
         name: "Brass Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 0.85,
         stats: {
-            AttackSpeed: 0.85,
             EarthBoost: 5,
             PhysicalBoost: 5,
         },
@@ -171,8 +171,8 @@ export const Handles = {
         name: "Executioners Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 0.8,
         stats: {
-            AttackSpeed: 0.8,
             PhysicalBoost: 8,
             PhysicalDefense: 5,
         },
@@ -192,8 +192,8 @@ export const Handles = {
         name: "Reinforced Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             PhysicalDefense: 4,
             PhysicalBoost: 4,
         },
@@ -210,8 +210,8 @@ export const Handles = {
         name: "Katana Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 1.2,
         stats: {
-            AttackSpeed: 1.2,
             DexterityBoost: 5,
             PhysicalBoost: 5,
         },
@@ -230,8 +230,8 @@ export const Handles = {
         name: "Jagged Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             PhysicalBoost: 10,
         },
         damageScalings: {
@@ -251,8 +251,8 @@ export const Handles = {
         name: "Noble Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             DexterityBoost: 10,
         },
         damageScalings: {
@@ -268,8 +268,8 @@ export const Handles = {
         name: "Graceful Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.2,
         stats: {
-            AttackSpeed: 1.2,
             DexterityBoost: 5,
             PhysicalBoost: 5,
         },
@@ -287,8 +287,8 @@ export const Handles = {
         name: "Magewood Long Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 0.9,
         stats: {
-            AttackSpeed: 0.9,
             MagicBoost: 7,
             PhysicalDefense: 5,
         },
@@ -305,8 +305,8 @@ export const Handles = {
         name: "Enchantwood Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             MagicBoost: 10,
         },
         damageScalings: {
@@ -325,8 +325,8 @@ export const Handles = {
         name: "Gilded Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HolyBoost: 6,
             DexterityBoost: 6,
         },
@@ -344,8 +344,8 @@ export const Handles = {
         name: "Purewood Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HolyBoost: 10,
         },
         damageScalings: {
@@ -362,8 +362,8 @@ export const Handles = {
         name: "Summoning Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             PhysicalDefense: 4,
             HexBoost: 8,
         },
@@ -381,8 +381,8 @@ export const Handles = {
         name: "Hexsteel Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             MagicBoost: 5,
             HexBoost: 10,
         },
@@ -403,8 +403,8 @@ export const Handles = {
         name: "Refined Windiron Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             DexterityBoost: 7,
         },
         damageScalings: {
@@ -421,8 +421,8 @@ export const Handles = {
         name: "Stormwood Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             MagicBoost: 4,
             DexterityBoost: 4,
         },
@@ -442,8 +442,8 @@ export const Handles = {
         name: "Kindlewood Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             DexterityBoost: 5,
             FireBoost: 5,
         },
@@ -461,8 +461,8 @@ export const Handles = {
         name: "Cragflame Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 0.9,
         stats: {
-            AttackSpeed: 0.9,
             MagicBoost: 5,
             FireBoost: 5,
             PhysicalDefense: 5,
@@ -481,8 +481,8 @@ export const Handles = {
         name: "Sunkenwood Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             MagicBoost: 5,
             WaterBoost: 10,
         },
@@ -500,8 +500,8 @@ export const Handles = {
         name: "Frozen Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HeatResistance: 50,
             WaterBoost: 7,
             PhysicalBoost: 7,
@@ -520,8 +520,8 @@ export const Handles = {
         name: "Enchanted Stone Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 0.9,
         stats: {
-            AttackSpeed: 0.9,
             EarthBoost: 5,
             MagicBoost: 5,
         },
@@ -539,8 +539,8 @@ export const Handles = {
         name: "Bedrock Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 0.8,
         stats: {
-            AttackSpeed: 0.8,
             PhysicalDefense: 5,
             EarthBoost: 5,
             PhysicalBoost: 5,
@@ -559,8 +559,8 @@ export const Handles = {
         name: "Scourgers Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 0.8,
         stats: {
-            AttackSpeed: 0.8,
             PhysicalBoost: 15,
             PhysicalDefense: 5,
             Warding: 20,
@@ -578,8 +578,8 @@ export const Handles = {
         name: "Zweihander Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             PhysicalBoost: 10,
             PhysicalDefense: 3,
             Protection: 5,
@@ -598,8 +598,8 @@ export const Handles = {
         name: "Reinforced Gilded Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 0.8,
         stats: {
-            AttackSpeed: 0.8,
             Tenacity: 0.2,
             PhysicalDefense: 10,
             PhysicalBoost: 4,
@@ -618,8 +618,8 @@ export const Handles = {
         name: "Spike Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             PhysicalDefense: 5,
             DexterityBoost: 5,
             PhysicalBoost: 5,
@@ -639,8 +639,8 @@ export const Handles = {
         name: "Serrated Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 0.9,
         stats: {
-            AttackSpeed: 0.9,
             PhysicalBoost: 10,
             DexterityBoost: 2,
             Protection: 5,
@@ -662,8 +662,8 @@ export const Handles = {
         name: "Bloodied Guard",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             PhysicalBoost: 5,
             DexterityBoost: 5,
             MagicBoost: 5,
@@ -685,8 +685,8 @@ export const Handles = {
         name: "Bejeweled Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 1.2,
         stats: {
-            AttackSpeed: 1.2,
             DexterityBoost: 15,
             PhysicalBoost: 5,
         },
@@ -705,8 +705,8 @@ export const Handles = {
         name: "Shadow Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             PhysicalBoost: 13,
             DexterityBoost: 10,
         },
@@ -728,8 +728,8 @@ export const Handles = {
         name: "Kings Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             DexterityBoost: 15,
         },
         damageScalings: {
@@ -745,8 +745,8 @@ export const Handles = {
         name: "Beastial Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             DexterityBoost: 10,
             JumpBoost: 2,
         },
@@ -767,8 +767,8 @@ export const Handles = {
         name: "Duelists Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             DexterityBoost: 15,
         },
         damageScalings: {
@@ -785,8 +785,8 @@ export const Handles = {
         name: "Sturdy Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             PhysicalBoost: 10,
             DexterityBoost: 10,
         },
@@ -805,8 +805,8 @@ export const Handles = {
         name: "Grandmagic Long Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 0.9,
         stats: {
-            AttackSpeed: 0.9,
             MagicBoost: 10,
             PhysicalDefense: 5,
             Warding: 20,
@@ -824,8 +824,8 @@ export const Handles = {
         name: "Reinforced Magewood Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             MagicBoost: 15,
         },
         damageScalings: {
@@ -845,8 +845,8 @@ export const Handles = {
         name: "Spellbinder Guard",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             MagicBoost: 15,
             DexterityBoost: 5,
         },
@@ -868,8 +868,8 @@ export const Handles = {
         name: "Crude Magic Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             MagicBoost: 20,
         },
         damageScalings: {
@@ -886,8 +886,8 @@ export const Handles = {
         name: "Blessed Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HolyBoost: 15,
             DexterityBoost: 10,
         },
@@ -906,8 +906,8 @@ export const Handles = {
         name: "Sacred Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HolyBoost: 10,
             Warding: 20,
         },
@@ -926,8 +926,8 @@ export const Handles = {
         name: "Hallowedwood Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HolyBoost: 10,
             Warding: 20,
         },
@@ -945,8 +945,8 @@ export const Handles = {
         name: "Angelwood Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HolyBoost: 15,
             MagicBoost: 10,
         },
@@ -964,8 +964,8 @@ export const Handles = {
         name: "Skull Summoners Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HexBoost: 10,
             PhysicalDefense: 4,
         },
@@ -984,8 +984,8 @@ export const Handles = {
         name: "Necrotic Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HexBoost: 10,
         },
         damageScalings: {
@@ -1002,8 +1002,8 @@ export const Handles = {
         name: "Cursed Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 0.9,
         stats: {
-            AttackSpeed: 0.9,
             HexBoost: 15,
             MagicDefense: 5,
         },
@@ -1024,8 +1024,8 @@ export const Handles = {
         name: "Cursesteel Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             HexBoost: 10,
             DexterityBoost: 10,
         },
@@ -1044,8 +1044,8 @@ export const Handles = {
         name: "Gustiron Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             DexterityBoost: 7,
         },
         damageScalings: {
@@ -1063,8 +1063,8 @@ export const Handles = {
         name: "Gilded Windiron Guard",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             DexterityBoost: 15,
         },
         damageScalings: {
@@ -1083,8 +1083,8 @@ export const Handles = {
         name: "Lightningstruck Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             MagicBoost: 8,
             DexterityBoost: 12,
         },
@@ -1103,8 +1103,8 @@ export const Handles = {
         name: "Thunderwood Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             MagicBoost: 6,
             PhysicalDefense: 5,
         },
@@ -1122,8 +1122,8 @@ export const Handles = {
         name: "Steel Flame Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             DexterityBoost: 10,
             FireBoost: 10,
         },
@@ -1141,8 +1141,8 @@ export const Handles = {
         name: "Dragonwood Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             DexterityBoost: 8,
             FireBoost: 12,
         },
@@ -1161,8 +1161,8 @@ export const Handles = {
         name: "Exhaust Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             PhysicalDefense: 5,
             FireBoost: 10,
         },
@@ -1180,8 +1180,8 @@ export const Handles = {
         name: "Cragstone Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             EarthBoost: 5,
             FireBoost: 5,
             PhysicalDefense: 5,
@@ -1203,8 +1203,8 @@ export const Handles = {
         name: "Wave Great Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 1.2,
         stats: {
-            AttackSpeed: 1.2,
             MagicDefense: 5,
             PhysicalDefense: -5,
             WaterBoost: 10,
@@ -1223,8 +1223,8 @@ export const Handles = {
         name: "Ornate Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1.2,
         stats: {
-            AttackSpeed: 1.2,
             PhysicalDefense: 5,
             HolyBoost: 2.5,
             WaterBoost: 7.5,
@@ -1244,8 +1244,8 @@ export const Handles = {
         name: "Frozen Guard",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             WaterBoost: 10,
             HeatResistance: 50,
             DexterityBoost: 10,
@@ -1267,8 +1267,8 @@ export const Handles = {
         name: "Sculpted Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HeatResistance: 50,
             WaterBoost: 8.5,
             PhysicalBoost: 8.5,
@@ -1288,8 +1288,8 @@ export const Handles = {
         name: "Gravitational Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             MagicBoost: 5,
             PhysicalDefense: 5,
             EarthBoost: 10,
@@ -1308,8 +1308,8 @@ export const Handles = {
         name: "Gravitational Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             MagicBoost: 15,
             EarthBoost: 10,
         },
@@ -1327,8 +1327,8 @@ export const Handles = {
         name: "Earth Spirit Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 0.8,
         stats: {
-            AttackSpeed: 0.8,
             Tenacity: 0.1,
             PhysicalDefense: 5,
             EarthBoost: 10,
@@ -1348,8 +1348,8 @@ export const Handles = {
         name: "Sandstone Handle",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             EarthBoost: 8,
         },
         damageScalings: {
@@ -1366,9 +1366,7 @@ export const Handles = {
         name: "Prism Handle",
         category: "Handle",
         type: "Medium Handle",
-        stats: {
-            AttackSpeed: 1.1,
-        },
+        attackSpeed: 1.1,
         damageScalings: {
             Physical: 0.15,
             Magic: 0.15,
@@ -1380,8 +1378,8 @@ export const Handles = {
         name: "Starlight Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HolyBoost: 5,
             HexBoost: 5,
             MagicBoost: 5,
@@ -1406,8 +1404,8 @@ export const Handles = {
         name: "Bloodengine Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             PhysicalBoost: 5,
         },
         damageScalings: {
@@ -1424,8 +1422,8 @@ export const Handles = {
         name: "Enchained Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 0.9,
         stats: {
-            AttackSpeed: 0.9,
             PhysicalBoost: 5,
             DexterityBoost: 5,
         },
@@ -1443,8 +1441,8 @@ export const Handles = {
         name: "Murkwater Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 0.9,
         stats: {
-            AttackSpeed: 0.9,
             HexBoost: 4,
             EarthBoost: 4,
             WaterBoost: 4,
@@ -1465,8 +1463,8 @@ export const Handles = {
         name: "Spectral Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 0.9,
         stats: {
-            AttackSpeed: 0.9,
             HexBoost: 5,
             EarthBoost: 5,
             WaterBoost: 10,
@@ -1487,8 +1485,8 @@ export const Handles = {
         name: "Rotwood Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             DexterityBoost: 4,
             EarthBoost: 4,
             HexBoost: 4,
@@ -1510,8 +1508,8 @@ export const Handles = {
         name: "Snake Venom Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             DexterityBoost: 10,
             EarthBoost: 5,
             HexBoost: 5,
@@ -1533,8 +1531,8 @@ export const Handles = {
         name: "Honeycomb Handle",
         category: "Handle",
         type: "Large Handle",
+        attackSpeed: 0.9,
         stats: {
-            AttackSpeed: 0.9,
             MagicBoost: 4,
             MagicDefense: 2,
             Tenacity: 0.1,
@@ -1554,8 +1552,8 @@ export const Handles = {
         name: "Honeysteel Handle",
         category: "Handle",
         type: "Large Handle",
+        attackSpeed: 0.9,
         stats: {
-            AttackSpeed: 0.9,
             MagicBoost: 6,
             MagicDefense: 10,
             Tenacity: 0.1,
@@ -1575,8 +1573,8 @@ export const Handles = {
         name: "Honey Bumblz Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             MagicBoost: 4,
             PhysicalBoost: 4,
         },
@@ -1595,8 +1593,8 @@ export const Handles = {
         name: "Queen Bumblz Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             MagicBoost: 5,
             HolyBoost: 5,
             PhysicalBoost: 5,
@@ -1617,8 +1615,8 @@ export const Handles = {
         name: "Magic Great Hammer Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 0.8,
         stats: {
-            AttackSpeed: 0.8,
             MagicBoost: 7,
             PhysicalDefense: 5,
             Warding: 20,
@@ -1640,9 +1638,7 @@ export const Handles = {
         name: "Stratos Pole",
         category: "Handle",
         type: "Pole",
-        stats: {
-            AttackSpeed: 1,
-        },
+        attackSpeed: 1,
         damageScalings: {
             Air: 0.55,
         },
@@ -1657,8 +1653,8 @@ export const Handles = {
         name: "Lightning Stratos Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             MagicBoost: 13,
         },
         damageScalings: {
@@ -1676,8 +1672,8 @@ export const Handles = {
         name: "Caci Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             DexterityBoost: 5,
             PhysicalBoost: 5,
         },
@@ -1696,8 +1692,8 @@ export const Handles = {
         name: "Caci Kings Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             DexterityBoost: 5,
             PhysicalBoost: 5,
             EarthBoost: 5,
@@ -1720,8 +1716,8 @@ export const Handles = {
         name: "Buni Prince Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             PhysicalDefense: 5,
             PhysicalBoost: 10,
         },
@@ -1739,8 +1735,8 @@ export const Handles = {
         name: "Buni Prince Cannon Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             PhysicalDefense: 10,
             PhysicalBoost: 15,
         },
@@ -1758,8 +1754,8 @@ export const Handles = {
         name: "Ancient Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             EarthBoost: 8,
             PhysicalDefense: 5,
         },
@@ -1776,8 +1772,8 @@ export const Handles = {
         name: "Bastion Greatswaxe Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             EarthBoost: 8,
         },
         damageScalings: {
@@ -1793,8 +1789,8 @@ export const Handles = {
         name: "Relic Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             EarthBoost: 6,
             HolyBoost: 6,
         },
@@ -1812,8 +1808,8 @@ export const Handles = {
         name: "Bastion Relic Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             EarthBoost: 8,
             HolyBoost: 8,
         },
@@ -1831,8 +1827,8 @@ export const Handles = {
         name: "Vaen Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             PhysicalBoost: 5,
         },
         damageScalings: {
@@ -1849,8 +1845,8 @@ export const Handles = {
         name: "Lord Vaen Scythe Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             PhysicalBoost: 10,
         },
         damageScalings: {
@@ -1868,8 +1864,8 @@ export const Handles = {
         name: "Mungal Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HexBoost: 4,
             PhysicalBoost: 4,
             EarthBoost: 4,
@@ -1891,8 +1887,8 @@ export const Handles = {
         name: "Mungal Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HexBoost: 5,
             MagicBoost: 5,
             EarthBoost: 5,
@@ -1913,8 +1909,8 @@ export const Handles = {
         name: "Spider Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1.1,
         stats: {
-            AttackSpeed: 1.1,
             HexDefense: 10,
             DexterityBoost: 10,
         },
@@ -1932,8 +1928,8 @@ export const Handles = {
         name: "Omega Lance Handle",
         category: "Handle",
         type: "Long Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             DexterityBoost: 5,
             PhysicalBoost: 5,
             FireBoost: 5,
@@ -1954,8 +1950,8 @@ export const Handles = {
         name: "Freezing Bronze Handle",
         category: "Handle",
         type: "Medium Handle",
+        attackSpeed: 1,
         stats: {
-            AttackSpeed: 1,
             HeatResistance: 50,
             WaterBoost: 5,
             PhysicalBoost: 5,
@@ -1974,8 +1970,8 @@ export const Handles = {
         name: "Icewood Pole",
         category: "Handle",
         type: "Pole",
+        attackSpeed: 1.2,
         stats: {
-            AttackSpeed: 1.2,
             HeatResistance: 50,
             PhysicalBoost: 5,
             WaterBoost: 5,

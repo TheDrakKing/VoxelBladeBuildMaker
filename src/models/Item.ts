@@ -74,6 +74,7 @@ export type potency =
   | "regenpotency"
   | "shatterpotency"
   | "lightningcloakpotency"
+  | "tauntpotency"
   | "weakeningpotency";
 
 export const potencyAliases: { [k in potency]: string } = {
@@ -87,6 +88,7 @@ export const potencyAliases: { [k in potency]: string } = {
   regenpotency: "Regen Potency",
   shatterpotency: "Shatter Potency",
   lightningcloakpotency: "Lightning Cloak Potency",
+  tauntpotency: "Taunt Potency",
   weakeningpotency: "Weakening Potency",
 };
 
@@ -140,6 +142,14 @@ export class Item extends events {
   description?: string;
   type?: string;
   upgrade?: number;
+  /**
+   * Mostly for Runes
+   */
+  cooldown?: number;
+  /**
+   * Mostly for Runes
+   */
+  duration?: number;
   img?: string;
   /**
    * For addtive potecny that get applied to the over build, and can be added to soruce potency
@@ -180,6 +190,8 @@ export class Item extends events {
     this.name = data?.name || "";
     this.category = data?.category || "";
     this.upgrade = data?.upgrade || 0;
+    this.duration = data?.duration;
+    this.cooldown = data?.cooldown;
     this.img = data ? data.img : undefined;
     this.type = (data && data?.type) || undefined;
     this.description = data?.description || "";
@@ -189,7 +201,8 @@ export class Item extends events {
     this.perks = data?.perks;
     this.damageScalings = data?.damageScalings;
     this.damageTypes = data?.damageTypes;
-    this.baseDamage = data?.baseDamage || {};
+    this.baseDamage = data?.baseDamage ?? undefined;
+    this.attackSpeed = data?.attackSpeed;
   }
 }
 

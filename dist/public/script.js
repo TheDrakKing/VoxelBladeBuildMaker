@@ -75,6 +75,7 @@ const potenciesContainerDiv = document.getElementById("potencies");
 const damageScalingsContainerDiv = document.getElementById("damageScalings");
 const damageTypesContainerDiv = document.getElementById("damageTypes");
 const perkDamageContainerDiv = document.getElementById("perk_damage");
+const runeDamageContainerDiv = document.getElementById("rune_damage");
 const weaponArtDamageContainerDiv = document.getElementById("weaponart_damage");
 //Table
 const m1DamageTable = document.getElementById("m1_damage_table");
@@ -210,24 +211,42 @@ function renderNonWeaponDamages(entries) {
         debuffEntries.forEach((entry) => createNonWeaponDamageCard(entry, debuffSection));
     }
 }
-function renderWeaponArtPanel(weaponArt, damageResult) {
-    weaponArtDamageContainerDiv.innerHTML = "";
-    if (!weaponArt) {
-        createStatHolder("Status", "No weapon art selected", weaponArtDamageContainerDiv);
+function renderDirectDamagePanel(item, damageResult, options) {
+    options.containerDiv.innerHTML = "";
+    if (!item) {
+        createStatHolder("Status", options.emptyMessage, options.containerDiv);
         return;
     }
     if (damageResult) {
         const cardEntry = {
-            source: weaponArt.name || "Weapon Art",
+            source: item.name || options.title,
             outputs: damageResult.outputs,
             total: damageResult.total,
-            category: "Perk",
+            category: options.category,
         };
-        createNonWeaponDamageCard(cardEntry, weaponArtDamageContainerDiv);
+        createNonWeaponDamageCard(cardEntry, options.containerDiv);
         return;
     }
-    createStatHolder("Weapon Art", weaponArt.name, weaponArtDamageContainerDiv);
-    createStatHolder("Description", weaponArt.description || "This weapon art does not deal direct damage.", weaponArtDamageContainerDiv);
+    createStatHolder(options.title, item.name || options.title, options.containerDiv);
+    createStatHolder("Description", item.description || options.noDamageMessage, options.containerDiv);
+}
+function renderRunePanel(rune, damageResult) {
+    renderDirectDamagePanel(rune, damageResult, {
+        category: "Rune",
+        containerDiv: runeDamageContainerDiv,
+        emptyMessage: "No rune selected",
+        noDamageMessage: "This rune does not have direct damage data.",
+        title: "Rune",
+    });
+}
+function renderWeaponArtPanel(weaponArt, damageResult) {
+    renderDirectDamagePanel(weaponArt, damageResult, {
+        category: "WeaponArt",
+        containerDiv: weaponArtDamageContainerDiv,
+        emptyMessage: "No weapon art selected",
+        noDamageMessage: "This weapon art does not deal direct damage.",
+        title: "Weapon Art",
+    });
 }
 function createItemBox(item) {
     if (selectItem_template == null)
@@ -966,9 +985,26 @@ function resetPage(item) {
     wipeDamages(build.weapon.m2, m2Rows, m2DamageTable);
     //Run the weapon damage calculation
     helper.runWeaponDamageCalculation(build, target);
+    let runeDamageResult;
     let weaponArtDamageResult;
+    // Run rune damage calculation when the selected rune has direct damage data.
+    if (typeof build.mainArmor.rune?.baseDamage === "number") {
+        const baseDamageInfo = {
+            damage: build.mainArmor.rune.baseDamage,
+            hitAmount: 1,
+            source: build.mainArmor.rune.id,
+            sourceDamageType: "Rune",
+            sourceType: "Rune",
+        };
+        const attackerBuild = {
+            damageScalings: build.mainArmor.rune.damageScalings,
+            damageTypes: build.mainArmor.rune.damageTypes,
+        };
+        runeDamageResult = helper.runNonWeaponDamageCalculation(baseDamageInfo, build, target, attackerBuild);
+    }
+    renderRunePanel(build.mainArmor.rune, runeDamageResult);
     //Run WeaponArt Damage calculation
-    if (build.weaponart?.baseDamage !== undefined) {
+    if (typeof build.weaponart?.baseDamage === "number") {
         const baseDamageInfo = {
             damage: build.weaponart.baseDamage,
             hitAmount: build.weaponart.totalHits || 1,

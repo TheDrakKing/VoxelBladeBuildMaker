@@ -18,8 +18,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Long Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 0.8,
     stats: {
-      AttackSpeed: 0.8,
       PhysicalDefense: 5,
     },
     damageScalings: {
@@ -32,8 +32,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Reinforced Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalBoost: 5,
     },
     damageScalings: {
@@ -47,8 +47,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Agile Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 5,
     },
     damageScalings: {
@@ -62,8 +62,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Magewood Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 5,
     },
     damageScalings: {
@@ -76,8 +76,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Holywood Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 5,
       HolyBoost: 5,
     },
@@ -92,8 +92,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Cursewood Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 5,
       HexBoost: 5,
     },
@@ -108,8 +108,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Windiron Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 5,
       AirBoost: 5,
     },
@@ -124,8 +124,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Blazewood Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 5,
       FireBoost: 5,
     },
@@ -140,8 +140,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Aquasteel Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       WaterBoost: 5,
       MagicBoost: 5,
     },
@@ -156,8 +156,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Brass Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 0.85,
     stats: {
-      AttackSpeed: 0.85,
       EarthBoost: 5,
       PhysicalBoost: 5,
     },
@@ -172,8 +172,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Executioners Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 0.8,
     stats: {
-      AttackSpeed: 0.8,
       PhysicalBoost: 8,
       PhysicalDefense: 5,
     },
@@ -193,8 +193,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Reinforced Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalDefense: 4,
       PhysicalBoost: 4,
     },
@@ -211,8 +211,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Katana Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 1.2,
     stats: {
-      AttackSpeed: 1.2,
       DexterityBoost: 5,
       PhysicalBoost: 5,
     },
@@ -231,8 +231,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Jagged Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalBoost: 10,
     },
     damageScalings: {
@@ -252,8 +252,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Noble Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 10,
     },
     damageScalings: {
@@ -269,8 +269,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Graceful Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.2,
     stats: {
-      AttackSpeed: 1.2,
       DexterityBoost: 5,
       PhysicalBoost: 5,
     },
@@ -288,8 +288,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Magewood Long Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       MagicBoost: 7,
       PhysicalDefense: 5,
     },
@@ -306,8 +306,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Enchantwood Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 10,
     },
     damageScalings: {
@@ -326,8 +326,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Gilded Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HolyBoost: 6,
       DexterityBoost: 6,
     },
@@ -345,8 +345,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Purewood Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HolyBoost: 10,
     },
     damageScalings: {
@@ -363,8 +363,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Summoning Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalDefense: 4,
       HexBoost: 8,
     },
@@ -382,8 +382,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Hexsteel Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 5,
       HexBoost: 10,
     },
@@ -404,8 +404,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Refined Windiron Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 7,
     },
     damageScalings: {
@@ -422,8 +422,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Stormwood Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       MagicBoost: 4,
       DexterityBoost: 4,
     },
@@ -443,8 +443,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Kindlewood Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       DexterityBoost: 5,
       FireBoost: 5,
     },
@@ -462,8 +462,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Cragflame Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       MagicBoost: 5,
       FireBoost: 5,
       PhysicalDefense: 5,
@@ -482,8 +482,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Sunkenwood Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       MagicBoost: 5,
       WaterBoost: 10,
     },
@@ -501,8 +501,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Frozen Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HeatResistance: 50,
       WaterBoost: 7,
       PhysicalBoost: 7,
@@ -521,8 +521,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Enchanted Stone Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       EarthBoost: 5,
       MagicBoost: 5,
     },
@@ -540,8 +540,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Bedrock Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 0.8,
     stats: {
-      AttackSpeed: 0.8,
       PhysicalDefense: 5,
       EarthBoost: 5,
       PhysicalBoost: 5,
@@ -560,8 +560,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Scourgers Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 0.8,
     stats: {
-      AttackSpeed: 0.8,
       PhysicalBoost: 15,
       PhysicalDefense: 5,
       Warding: 20,
@@ -579,8 +579,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Zweihander Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalBoost: 10,
       PhysicalDefense: 3,
       Protection: 5,
@@ -599,8 +599,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Reinforced Gilded Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 0.8,
     stats: {
-      AttackSpeed: 0.8,
       Tenacity: 0.2,
       PhysicalDefense: 10,
       PhysicalBoost: 4,
@@ -619,8 +619,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Spike Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       PhysicalDefense: 5,
       DexterityBoost: 5,
       PhysicalBoost: 5,
@@ -640,8 +640,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Serrated Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       PhysicalBoost: 10,
       DexterityBoost: 2,
       Protection: 5,
@@ -663,8 +663,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Bloodied Guard",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       PhysicalBoost: 5,
       DexterityBoost: 5,
       MagicBoost: 5,
@@ -686,8 +686,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Bejeweled Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 1.2,
     stats: {
-      AttackSpeed: 1.2,
       DexterityBoost: 15,
       PhysicalBoost: 5,
     },
@@ -706,8 +706,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Shadow Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       PhysicalBoost: 13,
       DexterityBoost: 10,
     },
@@ -729,8 +729,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Kings Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 15,
     },
     damageScalings: {
@@ -746,8 +746,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Beastial Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       DexterityBoost: 10,
       JumpBoost: 2,
     },
@@ -768,8 +768,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Duelists Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       DexterityBoost: 15,
     },
     damageScalings: {
@@ -786,8 +786,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Sturdy Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       PhysicalBoost: 10,
       DexterityBoost: 10,
     },
@@ -806,8 +806,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Grandmagic Long Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       MagicBoost: 10,
       PhysicalDefense: 5,
       Warding: 20,
@@ -825,8 +825,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Reinforced Magewood Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       MagicBoost: 15,
     },
     damageScalings: {
@@ -846,8 +846,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Spellbinder Guard",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 15,
       DexterityBoost: 5,
     },
@@ -869,8 +869,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Crude Magic Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 20,
     },
     damageScalings: {
@@ -887,8 +887,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Blessed Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HolyBoost: 15,
       DexterityBoost: 10,
     },
@@ -907,8 +907,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Sacred Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HolyBoost: 10,
       Warding: 20,
     },
@@ -927,8 +927,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Hallowedwood Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HolyBoost: 10,
       Warding: 20,
     },
@@ -946,8 +946,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Angelwood Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HolyBoost: 15,
       MagicBoost: 10,
     },
@@ -965,8 +965,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Skull Summoners Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HexBoost: 10,
       PhysicalDefense: 4,
     },
@@ -985,8 +985,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Necrotic Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HexBoost: 10,
     },
     damageScalings: {
@@ -1003,8 +1003,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Cursed Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       HexBoost: 15,
       MagicDefense: 5,
     },
@@ -1025,8 +1025,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Cursesteel Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       HexBoost: 10,
       DexterityBoost: 10,
     },
@@ -1045,8 +1045,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Gustiron Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 7,
     },
     damageScalings: {
@@ -1064,8 +1064,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Gilded Windiron Guard",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 15,
     },
     damageScalings: {
@@ -1084,8 +1084,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Lightningstruck Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       MagicBoost: 8,
       DexterityBoost: 12,
     },
@@ -1104,8 +1104,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Thunderwood Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       MagicBoost: 6,
       PhysicalDefense: 5,
     },
@@ -1123,8 +1123,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Steel Flame Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 10,
       FireBoost: 10,
     },
@@ -1142,8 +1142,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Dragonwood Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       DexterityBoost: 8,
       FireBoost: 12,
     },
@@ -1162,8 +1162,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Exhaust Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalDefense: 5,
       FireBoost: 10,
     },
@@ -1181,8 +1181,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Cragstone Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       EarthBoost: 5,
       FireBoost: 5,
       PhysicalDefense: 5,
@@ -1204,8 +1204,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Wave Great Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 1.2,
     stats: {
-      AttackSpeed: 1.2,
       MagicDefense: 5,
       PhysicalDefense: -5,
       WaterBoost: 10,
@@ -1224,8 +1224,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Ornate Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1.2,
     stats: {
-      AttackSpeed: 1.2,
       PhysicalDefense: 5,
       HolyBoost: 2.5,
       WaterBoost: 7.5,
@@ -1245,8 +1245,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Frozen Guard",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       WaterBoost: 10,
       HeatResistance: 50,
       DexterityBoost: 10,
@@ -1268,8 +1268,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Sculpted Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HeatResistance: 50,
       WaterBoost: 8.5,
       PhysicalBoost: 8.5,
@@ -1289,8 +1289,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Gravitational Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 5,
       PhysicalDefense: 5,
       EarthBoost: 10,
@@ -1309,8 +1309,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Gravitational Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 15,
       EarthBoost: 10,
     },
@@ -1328,8 +1328,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Earth Spirit Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 0.8,
     stats: {
-      AttackSpeed: 0.8,
       Tenacity: 0.1,
       PhysicalDefense: 5,
       EarthBoost: 10,
@@ -1349,8 +1349,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Sandstone Handle",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       EarthBoost: 8,
     },
     damageScalings: {
@@ -1367,9 +1367,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Prism Handle",
     category: "Handle",
     type: "Medium Handle",
-    stats: {
-      AttackSpeed: 1.1,
-    },
+    attackSpeed: 1.1,
     damageScalings: {
       Physical: 0.15,
       Magic: 0.15,
@@ -1381,8 +1379,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Starlight Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HolyBoost: 5,
       HexBoost: 5,
       MagicBoost: 5,
@@ -1407,8 +1405,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Bloodengine Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalBoost: 5,
     },
     damageScalings: {
@@ -1425,8 +1423,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Enchained Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       PhysicalBoost: 5,
       DexterityBoost: 5,
     },
@@ -1444,8 +1442,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Murkwater Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       HexBoost: 4,
       EarthBoost: 4,
       WaterBoost: 4,
@@ -1466,8 +1464,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Spectral Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       HexBoost: 5,
       EarthBoost: 5,
       WaterBoost: 10,
@@ -1488,8 +1486,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Rotwood Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       DexterityBoost: 4,
       EarthBoost: 4,
       HexBoost: 4,
@@ -1511,8 +1509,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Snake Venom Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 10,
       EarthBoost: 5,
       HexBoost: 5,
@@ -1534,8 +1532,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Honeycomb Handle",
     category: "Handle",
     type: "Large Handle",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       MagicBoost: 4,
       MagicDefense: 2,
       Tenacity: 0.1,
@@ -1555,8 +1553,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Honeysteel Handle",
     category: "Handle",
     type: "Large Handle",
+    attackSpeed: 0.9,
     stats: {
-      AttackSpeed: 0.9,
       MagicBoost: 6,
       MagicDefense: 10,
       Tenacity: 0.1,
@@ -1576,8 +1574,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Honey Bumblz Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 4,
       PhysicalBoost: 4,
     },
@@ -1596,8 +1594,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Queen Bumblz Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 5,
       HolyBoost: 5,
       PhysicalBoost: 5,
@@ -1618,8 +1616,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Magic Great Hammer Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 0.8,
     stats: {
-      AttackSpeed: 0.8,
       MagicBoost: 7,
       PhysicalDefense: 5,
       Warding: 20,
@@ -1641,9 +1639,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Stratos Pole",
     category: "Handle",
     type: "Pole",
-    stats: {
-      AttackSpeed: 1,
-    },
+    attackSpeed: 1,
     damageScalings: {
       Air: 0.55,
     },
@@ -1658,8 +1654,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Lightning Stratos Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       MagicBoost: 13,
     },
     damageScalings: {
@@ -1677,8 +1673,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Caci Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 5,
       PhysicalBoost: 5,
     },
@@ -1697,8 +1693,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Caci Kings Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       DexterityBoost: 5,
       PhysicalBoost: 5,
       EarthBoost: 5,
@@ -1721,8 +1717,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Buni Prince Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalDefense: 5,
       PhysicalBoost: 10,
     },
@@ -1740,8 +1736,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Buni Prince Cannon Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       PhysicalDefense: 10,
       PhysicalBoost: 15,
     },
@@ -1759,8 +1755,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Ancient Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       EarthBoost: 8,
       PhysicalDefense: 5,
     },
@@ -1777,8 +1773,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Bastion Greatswaxe Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       EarthBoost: 8,
     },
     damageScalings: {
@@ -1794,8 +1790,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Relic Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       EarthBoost: 6,
       HolyBoost: 6,
     },
@@ -1813,8 +1809,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Bastion Relic Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       EarthBoost: 8,
       HolyBoost: 8,
     },
@@ -1832,8 +1828,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Vaen Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       PhysicalBoost: 5,
     },
     damageScalings: {
@@ -1850,8 +1846,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Lord Vaen Scythe Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       PhysicalBoost: 10,
     },
     damageScalings: {
@@ -1869,8 +1865,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Mungal Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HexBoost: 4,
       PhysicalBoost: 4,
       EarthBoost: 4,
@@ -1892,8 +1888,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Mungal Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HexBoost: 5,
       MagicBoost: 5,
       EarthBoost: 5,
@@ -1914,8 +1910,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Spider Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1.1,
     stats: {
-      AttackSpeed: 1.1,
       HexDefense: 10,
       DexterityBoost: 10,
     },
@@ -1933,8 +1929,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Omega Lance Handle",
     category: "Handle",
     type: "Long Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       DexterityBoost: 5,
       PhysicalBoost: 5,
       FireBoost: 5,
@@ -1955,8 +1951,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Freezing Bronze Handle",
     category: "Handle",
     type: "Medium Handle",
+    attackSpeed: 1,
     stats: {
-      AttackSpeed: 1,
       HeatResistance: 50,
       WaterBoost: 5,
       PhysicalBoost: 5,
@@ -1975,8 +1971,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Icewood Pole",
     category: "Handle",
     type: "Pole",
+    attackSpeed: 1.2,
     stats: {
-      AttackSpeed: 1.2,
       HeatResistance: 50,
       PhysicalBoost: 5,
       WaterBoost: 5,
@@ -1991,3 +1987,4 @@ export const Handles: import("../models/Item").ItemDataTable = {
     img: "",
   },
 };
+
