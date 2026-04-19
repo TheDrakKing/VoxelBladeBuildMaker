@@ -281,6 +281,52 @@ export const Enchantments: ItemModule.ItemDataTable = {
     },
   },
 
+  fragile: {
+    id: "fragile",
+    name: "Fragile",
+    category: "Enchantment",
+    description: "reduces Physical Defense",
+    stats: {
+      PhysicalDefense: -20,
+    },
+  },
+
+  worthless: {
+    id: "worthless",
+    name: "Worthless",
+    category: "Enchantment",
+    description: "Lowers Postive stats by 0.5 increase Negative Stats by 2x",
+    stats: {
+      Warding: -20,
+    },
+    onStatCalculation(perkAmount, args) {
+      const item = args?.item
+      if (!item || !item.stats) return;
+      for (const [key, value] of Object.entries(item.stats as stats) as [
+        ItemModule.stat,
+        number?
+      ][]) {
+        // key is a string, value is a number or undefined
+        if (value === undefined) continue;
+        if (value > 0) {
+          item.stats[key] = Math.trunc((value * 0.5) * 10) / 10;
+        } else if (value < 0) {
+          item.stats[key] = Math.trunc((value * 2) * 10) / 10;
+        }
+      }
+    },
+  },
+
+  thirsty: {
+    id: "thirsty",
+    name: "Thirsty",
+    category: "Enchantment",
+    description: "reduces Physical Defense",
+    stats: {
+      PhysicalDefense: -5,
+    },
+  },
+
   corroded: {
     id: "corroded",
     name: "Corroded",
@@ -296,6 +342,22 @@ export const Enchantments: ItemModule.ItemDataTable = {
     name: "Corrupt",
     category: "Enchantment",
     description: "invert and doubles Negative stats, and remove Positive stats",
+    onStatCalculation(perkAmount, args) {
+      const item = args?.item
+      if (!item || !item.stats) return;
+      for (const [key, value] of Object.entries(item.stats as stats) as [
+        ItemModule.stat,
+        number?
+      ][]) {
+        // key is a string, value is a number or undefined
+        if (value === undefined) continue;
+        if (value > 0) {
+          item.stats[key] = 0;
+        } else if (value < 0) {
+          item.stats[key] = Math.trunc((value * -2) * 10) / 10;
+        }
+      }
+    },
   },
 
   ////////////////ACD Enchantment ///////////////////////////

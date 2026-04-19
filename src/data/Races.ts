@@ -76,15 +76,15 @@ export const Races: import("../models/Race").raceDataTable = {
         },
         img: ""
     },
-    half_elf: {
-        id: "half_elf",
-        name: "Half Elf",
+    high_elf: {
+        id: "high_elf",
+        name: "High Elf",
         category: "",
         description: "The High Elves are consisted of the upper echelon of the elven tribes, They are known to be rude and respect only those who are the same status. Known widely for their vast knowledge.",
         racepassive: "25% lower Weapon Art cooldown.",
         stats: {},
         perks: {
-            half_elf: 1
+            high_elf: 1
         },
         img: ""
     },
