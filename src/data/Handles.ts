@@ -4,6 +4,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   basic_handle: {
     id: "basic_handle",
     name: "Basic Handle",
+    tier: 1,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -16,6 +17,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   long_handle: {
     id: "long_handle",
     name: "Long Handle",
+    tier: 2,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 0.8,
@@ -30,6 +32,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   reinforced_handle: {
     id: "reinforced_handle",
     name: "Reinforced Handle",
+    tier: 2,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -45,6 +48,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   agile_handle: {
     id: "agile_handle",
     name: "Agile Handle",
+    tier: 2,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -60,6 +64,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   magewood_handle: {
     id: "magewood_handle",
     name: "Magewood Handle",
+    tier: 2,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -74,6 +79,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   holywood_handle: {
     id: "holywood_handle",
     name: "Holywood Handle",
+    tier: 2,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -90,6 +96,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   cursewood_handle: {
     id: "cursewood_handle",
     name: "Cursewood Handle",
+    tier: 2,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -106,6 +113,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   windiron_handle: {
     id: "windiron_handle",
     name: "Windiron Handle",
+    tier: 2,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -122,6 +130,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   blazewood_handle: {
     id: "blazewood_handle",
     name: "Blazewood Handle",
+    tier: 2,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -138,6 +147,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   aquasteel_handle: {
     id: "aquasteel_handle",
     name: "Aquasteel Handle",
+    tier: 2,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -154,6 +164,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   brass_handle: {
     id: "brass_handle",
     name: "Brass Handle",
+    tier: 2,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 0.85,
@@ -170,6 +181,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   executioners_handle: {
     id: "executioners_handle",
     name: "Executioners Handle",
+    tier: 3,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 0.8,
@@ -191,6 +203,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   reinforced_pole: {
     id: "reinforced_pole",
     name: "Reinforced Pole",
+    tier: 3,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -209,6 +222,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   katana_handle: {
     id: "katana_handle",
     name: "Katana Handle",
+    tier: 3,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 1.2,
@@ -229,6 +243,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   jagged_handle: {
     id: "jagged_handle",
     name: "Jagged Handle",
+    tier: 3,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -243,13 +258,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     },
     perks: {
       serrated_edge: 1,
-      bleed_potency: 4,
+    },
+    potencies: {
+      bleedpotency: 4,
     },
     img: "",
   },
   noble_handle: {
     id: "noble_handle",
     name: "Noble Handle",
+    tier: 3,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -267,6 +285,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   graceful_handle: {
     id: "graceful_handle",
     name: "Graceful Handle",
+    tier: 3,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.2,
@@ -286,6 +305,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   magewood_long_handle: {
     id: "magewood_long_handle",
     name: "Magewood Long Handle",
+    tier: 3,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 0.9,
@@ -304,6 +324,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   enchantwood_handle: {
     id: "enchantwood_handle",
     name: "Enchantwood Handle",
+    tier: 3,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -324,6 +345,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   gilded_pole: {
     id: "gilded_pole",
     name: "Gilded Pole",
+    tier: 3,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -343,6 +365,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   purewood_handle: {
     id: "purewood_handle",
     name: "Purewood Handle",
+    tier: 3,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -361,6 +384,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   summoning_pole: {
     id: "summoning_pole",
     name: "Summoning Pole",
+    tier: 3,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -371,6 +395,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Hex: 0.35,
       Physical: 0.35,
+      Summon: 0.1,
     },
     perks: {
       revel_in_death: 1,
@@ -380,6 +405,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   hexsteel_handle: {
     id: "hexsteel_handle",
     name: "Hexsteel Handle",
+    tier: 3,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -402,6 +428,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   refined_windiron_handle: {
     id: "refined_windiron_handle",
     name: "Refined Windiron Handle",
+    tier: 3,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -420,6 +447,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   stormwood_handle: {
     id: "stormwood_handle",
     name: "Stormwood Handle",
+    tier: 3,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 1.1,
@@ -441,6 +469,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   kindlewood_handle: {
     id: "kindlewood_handle",
     name: "Kindlewood Handle",
+    tier: 3,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -460,6 +489,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   cragflame_handle: {
     id: "cragflame_handle",
     name: "Cragflame Handle",
+    tier: 3,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 0.9,
@@ -480,6 +510,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   sunkenwood_handle: {
     id: "sunkenwood_handle",
     name: "Sunkenwood Handle",
+    tier: 3,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -499,6 +530,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   frozen_handle: {
     id: "frozen_handle",
     name: "Frozen Handle",
+    tier: 3,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -519,6 +551,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   enchanted_stone_handle: {
     id: "enchanted_stone_handle",
     name: "Enchanted Stone Handle",
+    tier: 3,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 0.9,
@@ -538,6 +571,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   bedrock_handle: {
     id: "bedrock_handle",
     name: "Bedrock Handle",
+    tier: 3,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 0.8,
@@ -558,6 +592,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   scourgers_Handle: {
     id: "scourgers_Handle",
     name: "Scourgers Handle",
+    tier: 4,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 0.8,
@@ -577,6 +612,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   zweihander_handle: {
     id: "zweihander_handle",
     name: "Zweihander Handle",
+    tier: 4,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 1,
@@ -597,6 +633,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   reinforced_gilded_pole: {
     id: "reinforced_gilded_pole",
     name: "Reinforced Gilded Pole",
+    tier: 4,
     category: "Handle",
     type: "Pole",
     attackSpeed: 0.8,
@@ -617,6 +654,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   spike_pole: {
     id: "spike_pole",
     name: "Spike Pole",
+    tier: 4,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1.1,
@@ -631,13 +669,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     },
     perks: {
       hemorrhage: 1,
-      bleed_potency: 3,
+    },
+    potencies: {
+      bleedpotency: 3,
     },
     img: "../image/handles/spike_pole.png",
   },
   serrated_handle: {
     id: "serrated_handle",
     name: "Serrated Handle",
+    tier: 4,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 0.9,
@@ -654,13 +695,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     },
     perks: {
       vicious_edge: 1,
-      bleed_potency: 3,
+    },
+    potencies: {
+      bleedpotency: 3,
     },
     img: "../image/handles/serrated_handle.png",
   },
   bloodied_guard: {
     id: "bloodied_guard",
     name: "Bloodied Guard",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -677,13 +721,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     perks: {
       duelist_stance: 1,
       bloodlust: 1,
-      bleed_potency: 3,
+    },
+    potencies: {
+      bleedpotency: 3,
     },
     img: "../image/handles/bloodied_guard.png",
   },
   bejeweled_handle: {
     id: "bejeweled_handle",
     name: "Bejeweled Handle",
+    tier: 4,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 1.2,
@@ -704,6 +751,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   shadow_handle: {
     id: "shadow_handle",
     name: "Shadow Handle",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -727,6 +775,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   kings_handle: {
     id: "kings_handle",
     name: "Kings Handle",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -744,6 +793,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   beastial_handle: {
     id: "beastial_handle",
     name: "Beastial Handle",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -766,6 +816,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   duelists_handle: {
     id: "duelists_handle",
     name: "Duelists Handle",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -784,6 +835,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   sturdy_handle: {
     id: "sturdy_handle",
     name: "Sturdy Handle",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -804,6 +856,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   grandmagic_long_handle: {
     id: "grandmagic_long_handle",
     name: "Grandmagic Long Handle",
+    tier: 4,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 0.9,
@@ -823,6 +876,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   reinforced_magewood_pole: {
     id: "reinforced_magewood_pole",
     name: "Reinforced Magewood Pole",
+    tier: 4,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1.1,
@@ -844,6 +898,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   spellbinderguard: {
     id: "spellbinderguard",
     name: "Spellbinder Guard",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -867,6 +922,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   crude_magic_handle: {
     id: "crude_magic_handle",
     name: "Crude Magic Handle",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -885,6 +941,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   blessed_pole: {
     id: "blessed_pole",
     name: "Blessed Pole",
+    tier: 4,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -905,6 +962,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   sacred_pole: {
     id: "sacred_pole",
     name: "Sacred Pole",
+    tier: 4,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -915,6 +973,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Holy: 0.5,
       Physical: 0.5,
+      Summon: 0.2,
     },
     perks: {
       reinforced_block: 1,
@@ -925,6 +984,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   hallowedwood_handle: {
     id: "hallowedwood_handle",
     name: "Hallowedwood Handle",
+    tier: 4,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 1,
@@ -944,6 +1004,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   angelwood_handle: {
     id: "angelwood_handle",
     name: "Angelwood Handle",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -963,6 +1024,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   skull_summoners_pole: {
     id: "skull_summoners_pole",
     name: "Skull Summoners Pole",
+    tier: 4,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -973,6 +1035,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Hex: 0.5,
       Physical: 0.5,
+      Summon: 0.2,
     },
     perks: {
       trusty_servant: 1,
@@ -983,6 +1046,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   necrotic_handle: {
     id: "necrotic_handle",
     name: "Necrotic Handle",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -992,6 +1056,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Hex: 0.5,
       Magic: 0.5,
+      Summon: 0.2,
     },
     perks: {
       possession: 1,
@@ -1001,6 +1066,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   cursed_handle: {
     id: "cursed_handle",
     name: "Cursed Handle",
+    tier: 4,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 0.9,
@@ -1023,6 +1089,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   cursesteel_handle: {
     id: "cursesteel_handle",
     name: "Cursesteel Handle",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -1043,6 +1110,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   gustiron_handle: {
     id: "gustiron_handle",
     name: "Gustiron Handle",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -1062,6 +1130,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   gilded_windiron_guard: {
     id: "gilded_windiron_guard",
     name: "Gilded Windiron Guard",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -1082,6 +1151,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   lightningstruck_pole: {
     id: "lightningstruck_pole",
     name: "Lightningstruck Pole",
+    tier: 4,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1.1,
@@ -1102,6 +1172,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   thunderwood_handle: {
     id: "thunderwood_handle",
     name: "Thunderwood Handle",
+    tier: 4,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 1.1,
@@ -1121,6 +1192,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   steel_flame_handle: {
     id: "steel_flame_handle",
     name: "Steel Flame Handle",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -1140,6 +1212,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   dragonwood_pole: {
     id: "dragonwood_pole",
     name: "Dragonwood Pole",
+    tier: 4,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -1153,13 +1226,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     },
     perks: {
       dragon_breath: 1,
-      burn_potency: 2,
+    },
+    potencies: {
+      burnpotency: 2,
     },
     img: "",
   },
   exhaust_handle: {
     id: "exhaust_handle",
     name: "Exhaust Handle",
+    tier: 4,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 1,
@@ -1172,13 +1248,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     },
     perks: {
       exhaust: 1,
-      burn_potency: 3,
+    },
+    potencies: {
+      burnpotency: 3,
     },
     img: "",
   },
   cragstone_pole: {
     id: "cragstone_pole",
     name: "Cragstone Pole",
+    tier: 4,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -1202,6 +1281,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   wave_great_handle: {
     id: "wave_great_handle",
     name: "Wave Great Handle",
+    tier: 4,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 1.2,
@@ -1222,6 +1302,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   ornate_pole: {
     id: "ornate_pole",
     name: "Ornate Pole",
+    tier: 4,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1.2,
@@ -1243,6 +1324,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   frozen_guard: {
     id: "frozen_guard",
     name: "Frozen Guard",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -1259,13 +1341,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
       frostbite: 1,
       duelist_stance: 1,
       gelid_lance: 1,
-      bleed_potency: 3,
+    },
+    potencies: {
+      bleedpotency: 3,
     },
     img: "",
   },
   sculpted_handle: {
     id: "sculpted_handle",
     name: "Sculpted Handle",
+    tier: 4,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -1287,6 +1372,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   gravitational_handle: {
     id: "gravitational_handle",
     name: "Gravitational Handle",
+    tier: 4,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 1,
@@ -1307,6 +1393,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   gravitational_pole: {
     id: "gravitational_pole",
     name: "Gravitational Pole",
+    tier: 4,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -1326,6 +1413,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   earth_spirit_handle: {
     id: "earth_spirit_handle",
     name: "Earth Spirit Handle",
+    tier: 4,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 0.8,
@@ -1347,6 +1435,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   sandstone_handle: {
     id: "sandstone_handle",
     name: "Sandstone Handle",
+    tier: 4,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1.1,
@@ -1365,6 +1454,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   prism_handle: {
     id: "prism_handle",
     name: "Prism Handle",
+    tier: 5,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -1377,6 +1467,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   starlight_handle: {
     id: "starlight_handle",
     name: "Starlight Handle",
+    tier: 5,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 1,
@@ -1403,6 +1494,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   bloodengine_handle: {
     id: "bloodengine_handle",
     name: "Bloodengine Handle",
+    tier: 5,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 1,
@@ -1414,13 +1506,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     },
     perks: {
       saw_stance: 1,
-      bleed_potency: 3,
+    },
+    potencies: {
+      bleedpotency: 3,
     },
     img: "",
   },
   enchained_handle: {
     id: "enchained_handle",
     name: "Enchained Handle",
+    tier: 5,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 0.9,
@@ -1440,6 +1535,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   murkwater_handle: {
     id: "murkwater_handle",
     name: "Murkwater Handle",
+    tier: 5,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 0.9,
@@ -1455,13 +1551,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     },
     perks: {
       pure_rot: 1,
-      poison_potency: 2,
+    },
+    potencies: {
+      poisonpotency: 2,
     },
     img: "",
   },
   spectral_handle: {
     id: "spectral_handle",
     name: "Spectral Handle",
+    tier: 5,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 0.9,
@@ -1477,13 +1576,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     },
     perks: {
       ghastly_rot: 1,
-      poison_potency: 2,
+    },
+    potencies: {
+      poisonpotency: 2,
     },
     img: "../image/handles/spectralhandle.png",
   },
   rotwood_pole: {
     id: "rotwood_pole",
     name: "Rotwood Pole",
+    tier: 5,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -1500,13 +1602,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     perks: {
       reinforced_block: 1,
       poisonous: 1,
-      poison_potency: 4,
+    },
+    potencies: {
+      poisonpotency: 4,
     },
     img: "",
   },
   snake_venom_pole: {
     id: "snake_venom_pole",
     name: "Snake Venom Pole",
+    tier: 5,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1.1,
@@ -1523,13 +1628,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     perks: {
       reinforced_block: 1,
       venom_spitter: 1,
-      poison_potency: 4,
+    },
+    potencies: {
+      poisonpotency: 4,
     },
     img: "",
   },
   honeycomb_handle: {
     id: "honeycomb_handle",
     name: "Honeycomb Handle",
+    tier: 5,
     category: "Handle",
     type: "Large Handle",
     attackSpeed: 0.9,
@@ -1551,6 +1659,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   honeysteel_handle: {
     id: "honeysteel_handle",
     name: "Honeysteel Handle",
+    tier: 5,
     category: "Handle",
     type: "Large Handle",
     attackSpeed: 0.9,
@@ -1572,6 +1681,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   honey_bumblz_pole: {
     id: "honey_bumblz_pole",
     name: "Honey Bumblz Pole",
+    tier: 5,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -1582,6 +1692,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Magic: 0.35,
       Physical: 0.35,
+      Summon: 0.1,
     },
     perks: {
       reinforced_block: 1,
@@ -1592,6 +1703,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   queen_bumblz_pole: {
     id: "queen_bumblz_pole",
     name: "Queen Bumblz Pole",
+    tier: 5,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -1604,6 +1716,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Physical: 0.4,
       Magic: 0.4,
       Holy: 0.4,
+      Summon: 0.2,
     },
     perks: {
       reinforced_block: 1,
@@ -1614,6 +1727,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   magic_great_hammer_pole: {
     id: "magic_great_hammer_pole",
     name: "Magic Great Hammer Pole",
+    tier: 5,
     category: "Handle",
     type: "Pole",
     attackSpeed: 0.8,
@@ -1637,6 +1751,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   stratos_pole: {
     id: "stratos_pole",
     name: "Stratos Pole",
+    tier: 5,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -1652,6 +1767,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   lightning_stratos_pole: {
     id: "lightning_stratos_pole",
     name: "Lightning Stratos Pole",
+    tier: 5,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -1671,6 +1787,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   caci_handle: {
     id: "caci_handle",
     name: "Caci Handle",
+    tier: 5,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -1691,6 +1808,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   caci_kings_handle: {
     id: "caci_kings_handle",
     name: "Caci Kings Handle",
+    tier: 5,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -1708,13 +1826,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     perks: {
       dual_wielding: 1,
       sandy_wounds: 1,
-      bleed_potency: 2,
+    },
+    potencies: {
+      bleedpotency: 2,
     },
     img: "",
   },
   buni_prince_pole: {
     id: "buni_prince_pole",
     name: "Buni Prince Pole",
+    tier: 5,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -1734,6 +1855,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   buni_prince_cannon_pole: {
     id: "buni_prince_cannon_pole",
     name: "Buni Prince Cannon Pole",
+    tier: 5,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -1753,6 +1875,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   ancient_handle: {
     id: "ancient_handle",
     name: "Ancient Handle",
+    tier: 5,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -1771,6 +1894,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   bastion_greatswaxe_handle: {
     id: "bastion_greatswaxe_handle",
     name: "Bastion Greatswaxe Handle",
+    tier: 5,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -1788,6 +1912,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   relic_handle: {
     id: "relic_handle",
     name: "Relic Handle",
+    tier: 5,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -1807,6 +1932,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   bastion_relic_handle: {
     id: "bastion_relic_handle",
     name: "Bastion Relic Handle",
+    tier: 5,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 1,
@@ -1826,6 +1952,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   vaen_handle: {
     id: "vaen_handle",
     name: "Vaen Handle",
+    tier: 5,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -1844,6 +1971,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   lord_vaen_scythe_pole: {
     id: "lord_vaen_scythe_pole",
     name: "Lord Vaen Scythe Pole",
+    tier: 5,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1.1,
@@ -1856,13 +1984,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     },
     perks: {
       ichor_spark: 1,
-      bleed_potency: 3,
+    },
+    potencies: {
+      bleedpotency: 3,
     },
     img: "",
   },
   mungal_handle: {
     id: "mungal_handle",
     name: "Mungal Handle",
+    tier: 5,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -1879,13 +2010,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     perks: {
       gaseous_smash: 1,
       dual_wielding: 1,
-      poison_potency: 3,
+    },
+    potencies: {
+      poisonpotency: 3,
     },
     img: "",
   },
   mungal_pole: {
     id: "mungal_pole",
     name: "Mungal Pole",
+    tier: 5,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1,
@@ -1908,6 +2042,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   spider_handle: {
     id: "spider_handle",
     name: "Spider Handle",
+    tier: 5,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1.1,
@@ -1920,13 +2055,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
     },
     perks: {
       poison_acceleration: 1,
-      poison_potency: 2,
+    },
+    potencies: {
+      poisonpotency: 2,
     },
     img: "",
   },
   omega_lance_handle: {
     id: "omega_lance_handle",
     name: "Omega Lance Handle",
+    tier: 5,
     category: "Handle",
     type: "Long Handle",
     attackSpeed: 1,
@@ -1949,6 +2087,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   freezing_bronze_handle: {
     id: "freezing_bronze_handle",
     name: "Freezing Bronze Handle",
+    tier: 5,
     category: "Handle",
     type: "Medium Handle",
     attackSpeed: 1,
@@ -1969,6 +2108,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
   icewood_pole: {
     id: "icewood_pole",
     name: "Icewood Pole",
+    tier: 5,
     category: "Handle",
     type: "Pole",
     attackSpeed: 1.2,

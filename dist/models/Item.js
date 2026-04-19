@@ -3,6 +3,8 @@ import { Chestplate } from "../data/Chestplates.js";
 import { Leggings } from "../data/Leggings.js";
 import { Blades } from "../data/Blades.js";
 import { Handles } from "../data/Handles.js";
+import { Gloves } from "../data/Gloves.js";
+import { Essences } from "../data/Essences.js";
 import { Rings } from "../data/Rings.js";
 import { Runes } from "../data/Runes.js";
 import { Enchantments } from "../data/Enchantments.js";
@@ -12,7 +14,7 @@ export class events {
 export const potencyAliases = {
     bouncepotency: "Bounce Potency",
     bleedpotency: "Bleed Potency",
-    burnboost: " Burn Potency",
+    burnpotency: " Burn Potency",
     ragepotency: "Rage Potency",
     poisonpotency: "Poison Potency",
     reinforcepotency: "Reinforce Potency",
@@ -23,23 +25,61 @@ export const potencyAliases = {
     tauntpotency: "Taunt Potency",
     weakeningpotency: "Weakening Potency",
 };
+function normalizePotencyKey(value) {
+    const normalizedValue = value.toLowerCase().replace(/[\s_]+/g, "");
+    if (!normalizedValue.endsWith("potency"))
+        return null;
+    return Object.prototype.hasOwnProperty.call(potencyAliases, normalizedValue)
+        ? normalizedValue
+        : null;
+}
+function collectNormalizedPotencies(potencies, perks) {
+    const normalizedPotencies = {};
+    const normalizedPerks = { ...(perks || {}) };
+    for (const [key, value] of Object.entries(potencies || {})) {
+        if (typeof value !== "number")
+            continue;
+        const potencyKey = normalizePotencyKey(key);
+        if (!potencyKey)
+            continue;
+        normalizedPotencies[potencyKey] =
+            (normalizedPotencies[potencyKey] || 0) + value;
+    }
+    for (const [key, value] of Object.entries(normalizedPerks)) {
+        if (typeof value !== "number")
+            continue;
+        const potencyKey = normalizePotencyKey(key);
+        if (!potencyKey)
+            continue;
+        normalizedPotencies[potencyKey] =
+            (normalizedPotencies[potencyKey] || 0) + value;
+        delete normalizedPerks[key];
+    }
+    return { normalizedPotencies, normalizedPerks };
+}
 export class Item extends events {
     constructor(data) {
         super();
         Object.assign(this, data);
+        const { normalizedPotencies, normalizedPerks } = collectNormalizedPotencies(data?.potencies, data?.perks);
+        const hasPotenciesInput = data?.potencies !== undefined;
+        const hasPerksInput = data?.perks !== undefined;
         this.id = data?.id || undefined;
         this.name = data?.name || "";
         this.category = data?.category || "";
         this.upgrade = data?.upgrade || 0;
         this.duration = data?.duration;
         this.cooldown = data?.cooldown;
+        this.tier = data?.tier;
         this.img = data ? data.img : undefined;
         this.type = (data && data?.type) || undefined;
         this.description = data?.description || "";
-        this.potencies = data?.potencies || {};
+        this.potencies = hasPotenciesInput || Object.keys(normalizedPotencies).length
+            ? normalizedPotencies
+            : {};
         this.sourcepotencies = data?.sourcepotencies;
         this.stats = data?.stats;
-        this.perks = data?.perks;
+        this.perks = hasPerksInput ? normalizedPerks : undefined;
         this.damageScalings = data?.damageScalings;
         this.damageTypes = data?.damageTypes;
         this.baseDamage = data?.baseDamage ?? undefined;
@@ -104,6 +144,8 @@ ItemStore.categoryMap = new Map([
     ['legging', Leggings],
     ['blade', Blades],
     ['handle', Handles],
+    ['glove', Gloves],
+    ['essence', Essences],
     ['ring', Rings],
     ['rune', Runes],
     ['enchantment', Enchantments]

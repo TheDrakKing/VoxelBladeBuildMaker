@@ -39,6 +39,9 @@ export class Perk extends Item.events {
     this.category = data?.category || "";
     this.description = data?.description || "";
     this.baseDamage = data?.baseDamage || "";
+    this.stats = data?.stats;
+    this.damageScalings = data?.damageScalings;
+    this.damageTypes = data?.damageTypes;
     this.sourcepotencies = data?.sourcepotencies;
     this.potencies = data?.potencies || {};
   }

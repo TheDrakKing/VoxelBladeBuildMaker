@@ -14,6 +14,9 @@ export const Buffs: import("../models/Buffs").BuffDataTable = {
     category: "Buff",
     baseDuration: 5,
     potencyId: "guaranteedcritpotency",
+    onCritRateCalculation() {
+      return 1;
+    },
     img: "",
   },
 

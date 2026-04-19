@@ -16,6 +16,7 @@ const weaponClearButtons = document.querySelectorAll('.weapon_clear_button');
 const guildSelector = document.getElementById("guild_selector");
 const promotionSelector = document.getElementById("guild_promotion");
 const raceSelector = document.getElementById("race_selector");
+const shrineBalanceToggle = document.getElementById("shrine_balance_toggle");
 const clearBuildButton = document.getElementById("clear_build_button");
 const importBuildButton = document.getElementById("import_build_button");
 const exportBuildButton = document.getElementById("export_build_button");
@@ -26,6 +27,7 @@ const theme_Selector_input = document.getElementById("theme_Selector_input");
 //Level, Hp and Weapon Txt
 const weaponTypeText = document.getElementById("weapon_type_text");
 const healthInput = document.getElementById("hpValue");
+const targetHealthInput = document.getElementById("targetHpValue");
 const levelInput = document.getElementById("levelValue");
 const atkSpeInput = document.getElementById("atkSpeValue");
 //Containers
@@ -36,6 +38,7 @@ const items_selector = document.getElementById("itemsSelectorDiv");
 const SelectorClose = document.getElementById("close_items_selector");
 const itemsSelectorTitle = items_selector.querySelector(".items_selector_top h3");
 const itemsSearchInput = document.getElementById("items_search_input");
+const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv");
 const items_container = document.getElementById("itemsContainer");
 const dmgModContainer = document.getElementById("damageModifications");
 const dmgReducedModContainer = document.getElementById("damageReducedModifications");
@@ -62,6 +65,8 @@ const guildDiv = document.getElementById("guildDiv");
 const bladeDiv = document.getElementById("bladeDiv");
 const handleDiv = document.getElementById("handleDiv");
 const weaponArtDiv = document.getElementById("weaponArtDiv");
+const bladeLabelSpan = bladeDiv.children[0].children[1].children[0];
+const handleLabelSpan = handleDiv.children[0].children[1].children[0];
 //Infuse Armor
 const infuseHeadDiv = document.getElementById("infuse_headDiv");
 const infuseChestplateDiv = document.getElementById("infuse_chestplateDiv");
@@ -74,12 +79,17 @@ const perksContainerDiv = document.getElementById("perks");
 const potenciesContainerDiv = document.getElementById("potencies");
 const damageScalingsContainerDiv = document.getElementById("damageScalings");
 const damageTypesContainerDiv = document.getElementById("damageTypes");
+const perkDamageScalingsContainerDiv = document.getElementById("perkDamageScalings");
+const perkDamageTypesContainerDiv = document.getElementById("perkDamageTypes");
 const perkDamageContainerDiv = document.getElementById("perk_damage");
+const statusDamageContainerDiv = document.getElementById("status_damage");
 const runeDamageContainerDiv = document.getElementById("rune_damage");
 const weaponArtDamageContainerDiv = document.getElementById("weaponart_damage");
 //Table
 const m1DamageTable = document.getElementById("m1_damage_table");
 const m2DamageTable = document.getElementById("m2_damage_table");
+const m1CritDamageTable = document.getElementById("m1_crit_damage_table");
+const m2CritDamageTable = document.getElementById("m2_crit_damage_table");
 const damageHeaderTemplate = document.getElementById("damage_header");
 const damageRowTemplate = document.getElementById("damage_row_template");
 //images
@@ -101,6 +111,7 @@ let target = new Build.Build();
 // Create the build object
 let build = new Build.Build();
 build.target = target;
+target.target = build;
 let infusionImgHolders = {
     helmet: infuseHeadDiv.children[1].children[0].children[0],
     chestplate: infuseChestplateDiv.children[1].children[0].children[0],
@@ -121,9 +132,59 @@ let imgHolders = {
 };
 let m1Rows = {};
 let m2Rows = {};
+let m1CritRows = {};
+let m2CritRows = {};
 const selectItemDivs = [];
 let activeSelectorContext = null;
+function isMonkBuild(currentBuild) {
+    return currentBuild.guild?.id === "monk";
+}
+function getWeaponSlotLabel(currentBuild, slot) {
+    if (!isMonkBuild(currentBuild))
+        return slot;
+    return slot === "Handle" ? "Glove" : "Essence";
+}
+function getSelectorItemCategory(currentBuild, category) {
+    if (category === "Handle" || category === "Blade") {
+        return getWeaponSlotLabel(currentBuild, category);
+    }
+    return category;
+}
+function getSelectorTitle(currentBuild, source, category) {
+    if (source === "Guilds")
+        return "Select a Guild";
+    if (source === "WeaponArts")
+        return "Select a Weapon Art";
+    if (source === "Buffs")
+        return `Select a ${category}`;
+    if (category === "Handle" || category === "Blade") {
+        return `Select a ${getWeaponSlotLabel(currentBuild, category)}`;
+    }
+    return `Select a ${category}`;
+}
+function getOpposingBuild(currentBuild) {
+    return currentBuild.target || (currentBuild === build ? target : build);
+}
+function getBuffSourceBuild(currentBuild, buff) {
+    if (buff.category === "Debuff") {
+        return getOpposingBuild(currentBuild);
+    }
+    return currentBuild;
+}
+function getBuffEffectivePotency(currentBuild, buff) {
+    return buff.getEffectivePotency(getBuffSourceBuild(currentBuild, buff));
+}
+function updateWeaponSlotLabels() {
+    handleLabelSpan.textContent = getWeaponSlotLabel(build, "Handle");
+    bladeLabelSpan.textContent = getWeaponSlotLabel(build, "Blade");
+}
 /////////////////////////////////////// Create HTML Elements ///////////////////////////////////////
+function formatDisplayNumber(value, decimals = 4) {
+    const roundedValue = Math.round((value + Number.EPSILON) * 10 ** decimals) / 10 ** decimals;
+    return Number.isInteger(roundedValue)
+        ? roundedValue.toString()
+        : roundedValue.toString();
+}
 function createStatHolder(name, value, ContainerDiv) {
     if (statHolder_template == null)
         return null;
@@ -133,7 +194,7 @@ function createStatHolder(name, value, ContainerDiv) {
     inputs.forEach((input) => (input.value = ""));
     clonedDiv.style.display = "";
     clonedDiv.children[0].textContent = name + ":";
-    clonedDiv.children[1].textContent = typeof value === "number" ? value.toString() : value;
+    clonedDiv.children[1].textContent = typeof value === "number" ? formatDisplayNumber(value) : value;
     // Create a clickable link for each game
     ContainerDiv?.appendChild(clonedDiv);
     return clonedDiv;
@@ -144,6 +205,9 @@ function displayDamageModificationGroup(modifications, container, suffix) {
         const label = suffix ? `${key} ${suffix}` : key;
         createStatHolder(label, (value * 100) + "%", container);
     }
+}
+function formatDamageNumber(value) {
+    return Math.round(value * 100) / 100;
 }
 function createNonWeaponDamageSection(title, containerDiv) {
     const sectionDiv = document.createElement("div");
@@ -168,10 +232,16 @@ function createNonWeaponDamageCard(entry, containerDiv) {
     headerRow.className = "non_weapon_damage_row non_weapon_damage_row_header";
     const typeHeader = document.createElement("span");
     typeHeader.textContent = "Damage Type";
-    const valueHeader = document.createElement("span");
-    valueHeader.textContent = "Damage";
+    const normalHeader = document.createElement("span");
+    normalHeader.textContent = "No Crit";
+    const critHeader = document.createElement("span");
+    critHeader.textContent = "Crit";
+    const averageHeader = document.createElement("span");
+    averageHeader.textContent = "Avg";
     headerRow.appendChild(typeHeader);
-    headerRow.appendChild(valueHeader);
+    headerRow.appendChild(normalHeader);
+    headerRow.appendChild(critHeader);
+    headerRow.appendChild(averageHeader);
     damageTable.appendChild(headerRow);
     for (const [damageType, value] of Object.entries(entry.outputs)) {
         if (value === undefined)
@@ -180,35 +250,52 @@ function createNonWeaponDamageCard(entry, containerDiv) {
         damageRow.className = "non_weapon_damage_row";
         const typeSpan = document.createElement("span");
         typeSpan.textContent = damageType;
-        const valueSpan = document.createElement("span");
-        valueSpan.textContent = value.toString();
+        const normalValue = document.createElement("span");
+        normalValue.textContent = formatDamageNumber(value.normal).toString();
+        const critValue = document.createElement("span");
+        critValue.textContent = formatDamageNumber(value.crit).toString();
+        const averageValue = document.createElement("span");
+        averageValue.textContent = formatDamageNumber(value.average).toString();
         damageRow.appendChild(typeSpan);
-        damageRow.appendChild(valueSpan);
+        damageRow.appendChild(normalValue);
+        damageRow.appendChild(critValue);
+        damageRow.appendChild(averageValue);
         damageTable.appendChild(damageRow);
     }
     const totalRow = document.createElement("div");
     totalRow.className = "non_weapon_damage_row non_weapon_damage_total_row";
     const totalLabel = document.createElement("span");
     totalLabel.textContent = "Total";
-    const totalValue = document.createElement("span");
-    totalValue.textContent = entry.total.toString();
+    const totalNormal = document.createElement("span");
+    totalNormal.textContent = formatDamageNumber(entry.total.normal).toString();
+    const totalCrit = document.createElement("span");
+    totalCrit.textContent = formatDamageNumber(entry.total.crit).toString();
+    const totalAverage = document.createElement("span");
+    totalAverage.textContent = formatDamageNumber(entry.total.average).toString();
     totalRow.appendChild(totalLabel);
-    totalRow.appendChild(totalValue);
+    totalRow.appendChild(totalNormal);
+    totalRow.appendChild(totalCrit);
+    totalRow.appendChild(totalAverage);
     damageTable.appendChild(totalRow);
     cardDiv.appendChild(damageTable);
     containerDiv.appendChild(cardDiv);
 }
 function renderNonWeaponDamages(entries) {
     perkDamageContainerDiv.innerHTML = "";
+    statusDamageContainerDiv.innerHTML = "";
     const perkEntries = entries.filter((entry) => entry.category === "Perk");
-    const debuffEntries = entries.filter((entry) => entry.category === "Debuff");
+    const statusEntries = entries.filter((entry) => entry.category === "Debuff" || entry.category === "Buff");
     if (perkEntries.length) {
-        const perkSection = createNonWeaponDamageSection("Perk Damages", perkDamageContainerDiv);
-        perkEntries.forEach((entry) => createNonWeaponDamageCard(entry, perkSection));
+        perkEntries.forEach((entry) => createNonWeaponDamageCard(entry, perkDamageContainerDiv));
     }
-    if (debuffEntries.length) {
-        const debuffSection = createNonWeaponDamageSection("Debuff Damages", perkDamageContainerDiv);
-        debuffEntries.forEach((entry) => createNonWeaponDamageCard(entry, debuffSection));
+    else {
+        createStatHolder("Status", "No perk damage detected", perkDamageContainerDiv);
+    }
+    if (statusEntries.length) {
+        statusEntries.forEach((entry) => createNonWeaponDamageCard(entry, statusDamageContainerDiv));
+    }
+    else {
+        createStatHolder("Status", "No debuff or buff damage detected", statusDamageContainerDiv);
     }
 }
 function renderDirectDamagePanel(item, damageResult, options) {
@@ -349,6 +436,7 @@ async function importBuildFromFile(file) {
         const parsedBuild = JSON.parse(fileText);
         build = Build.Build.dictToBuild(parsedBuild);
         build.target = target;
+        target.target = build;
         hideSelector();
         resetPage();
     }
@@ -429,7 +517,7 @@ function createBuffBox(buff, ContainerDiv, source) {
     ContainerDiv?.appendChild(clonedDiv);
     return clonedDiv;
 }
-function addHeaderToTable(atkSource, holderRows, ContainerDiv) {
+function addHeaderToTable(atkSource, holderRows, ContainerDiv, mode) {
     if (damageHeaderTemplate == null)
         return null;
     for (let index = 0; index < atkSource.length; index++) {
@@ -441,11 +529,11 @@ function addHeaderToTable(atkSource, holderRows, ContainerDiv) {
         for (const [key, value] of Object.entries(atkSource[index])) {
             if (value === undefined)
                 continue;
-            addDamageToTable(key, value, holderRows, ContainerDiv);
+            addDamageToTable(key, value, holderRows, ContainerDiv, mode);
         }
     }
 }
-function addDamageToTable(name, value, holderRows, ContainerDiv) {
+function addDamageToTable(name, value, holderRows, ContainerDiv, mode) {
     if (damageRowTemplate == null)
         return null;
     let clonedDiv;
@@ -462,298 +550,208 @@ function addDamageToTable(name, value, holderRows, ContainerDiv) {
     }
     const headerRowCell = clonedDiv?.children[0];
     const damageValueCell = headerRowCell.cloneNode(true);
-    damageValueCell.innerHTML = value.toString();
+    damageValueCell.textContent = formatDamageNumber(value[mode]).toString();
     clonedDiv?.appendChild(damageValueCell);
 }
-function mouseHover(item, itemType) {
-    const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv");
+function createHoverInfoText(className, text) {
+    const element = document.createElement("div");
+    element.className = className;
+    element.textContent = text;
+    return element;
+}
+function createHoverInfoSection(title) {
+    const sectionDiv = document.createElement("div");
+    sectionDiv.className = "item_hoverinfo_section";
+    const titleSpan = document.createElement("span");
+    titleSpan.className = "item_hoverinfo_section_title";
+    titleSpan.textContent = title;
+    const bodyDiv = document.createElement("div");
+    bodyDiv.className = "item_hoverinfo_section_body";
+    sectionDiv.appendChild(titleSpan);
+    sectionDiv.appendChild(bodyDiv);
+    itemHoverInfoDiv.appendChild(sectionDiv);
+    return bodyDiv;
+}
+function getHoverRows(values, options) {
+    const rows = [];
+    if (!values)
+        return rows;
+    for (const [key, value] of Object.entries(values)) {
+        if (value === undefined || value === null || value === "")
+            continue;
+        rows.push({
+            label: options?.labelFormatter ? options.labelFormatter(key, value) : key,
+            value: options?.valueFormatter ? options.valueFormatter(value, key) : value,
+        });
+    }
+    return rows;
+}
+function renderHoverInfo(options) {
     if (!itemHoverInfoDiv)
         return;
-    let itemName = itemHoverInfoDiv.children[0];
-    itemName.innerHTML = item.name;
-    let hoverDescription = itemHoverInfoDiv.children[1];
-    hoverDescription.innerHTML = item.description || "";
-    if (item.attackSpeed) {
-        createStatHolder("AttackSpeed", item.attackSpeed.toString(), hoverDescription);
+    itemHoverInfoDiv.replaceChildren();
+    itemHoverInfoDiv.appendChild(createHoverInfoText("item_hoverinfo_name", options.name || ""));
+    if (options.description) {
+        itemHoverInfoDiv.appendChild(createHoverInfoText("item_hoverinfo_description", options.description));
     }
-    let hoverDmgScaleDiv = itemHoverInfoDiv.children[2];
-    hoverDmgScaleDiv.style.display = "none";
-    hoverDmgScaleDiv.innerHTML = "";
-    if (item.damageScalings) {
-        for (const [key, value] of Object.entries(item.damageScalings)) {
-            if (value === undefined)
-                continue;
-            hoverDmgScaleDiv.style.display = "block";
-            createStatHolder(key, value, hoverDmgScaleDiv);
-        }
-    }
-    let hoverDmgTypeDiv = itemHoverInfoDiv.children[3];
-    hoverDmgTypeDiv.style.display = "none";
-    hoverDmgTypeDiv.innerHTML = "";
-    if (item.damageTypes) {
-        for (const [key, value] of Object.entries(item.damageTypes)) {
-            if (value === undefined)
-                continue;
-            hoverDmgTypeDiv.style.display = "block";
-            createStatHolder(key, value, hoverDmgTypeDiv);
-        }
-    }
-    let hoverStatsDiv = itemHoverInfoDiv.children[4];
-    hoverStatsDiv.style.display = "none";
-    hoverStatsDiv.innerHTML = "";
-    if (item.stats) {
-        for (const [key, value] of Object.entries(item.stats)) {
-            if (value === undefined)
-                continue;
-            hoverStatsDiv.style.display = "block";
-            createStatHolder(key, value + "%", hoverStatsDiv);
-        }
-    }
-    let hoverPerksDiv = itemHoverInfoDiv.children[5];
-    hoverPerksDiv.style.display = "none";
-    hoverPerksDiv.innerHTML = "";
-    if (item.perks) {
-        for (const [key, value] of Object.entries(item.perks)) {
-            if (value === undefined)
-                continue;
-            hoverPerksDiv.style.display = "block";
-            let name = Perk.PerkStore.getByID(key)?.name || key;
-            createStatHolder(name, value, hoverPerksDiv);
-        }
-    }
-    let hoverPotenciesDiv = itemHoverInfoDiv.children[6];
-    hoverPotenciesDiv.style.display = "none";
-    hoverPotenciesDiv.innerHTML = "";
-    if (item.potencies) {
-        for (const [key, value] of Object.entries(item.potencies)) {
-            if (value === undefined)
-                continue;
-            hoverPotenciesDiv.style.display = "block";
-            createStatHolder(ItemModule.potencyAliases[key], value, hoverPotenciesDiv);
-        }
-    }
+    options.sections?.forEach((section) => {
+        if (!section.rows.length)
+            return;
+        const bodyDiv = createHoverInfoSection(section.title);
+        section.rows.forEach((row) => createStatHolder(row.label, row.value, bodyDiv));
+    });
     document.body.classList.add("selector-tooltip-visible");
     itemHoverInfoDiv.style.display = "flex";
+}
+function mouseHover(item) {
+    const statRows = getHoverRows(item.stats, {
+        valueFormatter: (value) => typeof value === "number" ? `${value}%` : value,
+    });
+    if (item.attackSpeed !== undefined) {
+        statRows.unshift({ label: "AttackSpeed", value: item.attackSpeed });
+    }
+    renderHoverInfo({
+        name: item.name || "",
+        description: item.description || "",
+        sections: [
+            { title: "Damage Scale", rows: getHoverRows(item.damageScalings) },
+            { title: "Damage Type", rows: getHoverRows(item.damageTypes) },
+            { title: "Stats", rows: statRows },
+            {
+                title: "Perks",
+                rows: getHoverRows(item.perks, {
+                    labelFormatter: (key) => Perk.PerkStore.getByID(key)?.name || key,
+                }),
+            },
+            {
+                title: "Potencies",
+                rows: getHoverRows(item.potencies, {
+                    labelFormatter: (key) => ItemModule.potencyAliases[key] || key,
+                    valueFormatter: (value) => typeof value === "number" ? value / 10 : value,
+                }),
+            },
+        ],
+    });
 }
 function perkHover(perk, value) {
-    const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv");
-    if (!itemHoverInfoDiv)
-        return;
-    let itemName = itemHoverInfoDiv.children[0];
-    itemName.innerHTML = perk.name || "";
-    let hoverDescription = itemHoverInfoDiv.children[1];
-    hoverDescription.innerHTML = perk.description || "";
-    let hoverDmgScaleDiv = itemHoverInfoDiv.children[2];
-    hoverDmgScaleDiv.style.display = "none";
-    hoverDmgScaleDiv.innerHTML = "";
-    let hoverDmgTypeDiv = itemHoverInfoDiv.children[3];
-    hoverDmgTypeDiv.style.display = "none";
-    hoverDmgTypeDiv.innerHTML = "";
-    let hoverStatsDiv = itemHoverInfoDiv.children[4];
-    hoverStatsDiv.style.display = "none";
-    hoverStatsDiv.innerHTML = "";
+    const statRows = [];
     if (value !== undefined) {
-        hoverStatsDiv.style.display = "block";
-        createStatHolder("Perk Level", value, hoverStatsDiv);
+        statRows.push({ label: "Perk Level", value });
     }
-    let hoverPerksDiv = itemHoverInfoDiv.children[5];
-    hoverPerksDiv.style.display = "none";
-    hoverPerksDiv.innerHTML = "";
-    let hoverPotenciesDiv = itemHoverInfoDiv.children[6];
-    hoverPotenciesDiv.style.display = "none";
-    hoverPotenciesDiv.innerHTML = "";
-    document.body.classList.add("selector-tooltip-visible");
-    itemHoverInfoDiv.style.display = "flex";
+    renderHoverInfo({
+        name: perk.name || "",
+        description: perk.description || "",
+        sections: [
+            { title: "Stats", rows: statRows },
+        ],
+    });
 }
 function buffHover(buff) {
-    const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv");
-    if (!itemHoverInfoDiv)
-        return;
-    let itemName = itemHoverInfoDiv.children[0];
-    itemName.innerHTML = buff.name || "";
-    let hoverDescription = itemHoverInfoDiv.children[1];
-    hoverDescription.innerHTML = buff.category || "";
-    let hoverDmgScaleDiv = itemHoverInfoDiv.children[2];
-    hoverDmgScaleDiv.style.display = "none";
-    hoverDmgScaleDiv.innerHTML = "";
-    if (buff.damageScalings) {
-        for (const [key, value] of Object.entries(buff.damageScalings)) {
-            if (value === undefined)
-                continue;
-            hoverDmgScaleDiv.style.display = "block";
-            createStatHolder(key, value, hoverDmgScaleDiv);
-        }
+    const statRows = [];
+    const sourceRows = [];
+    if (typeof buff.baseDuration === "number") {
+        statRows.push({ label: "Base Duration", value: buff.baseDuration });
     }
-    let hoverDmgTypeDiv = itemHoverInfoDiv.children[3];
-    hoverDmgTypeDiv.style.display = "none";
-    hoverDmgTypeDiv.innerHTML = "";
-    if (buff.damageTypes) {
-        for (const [key, value] of Object.entries(buff.damageTypes)) {
-            if (value === undefined)
-                continue;
-            hoverDmgTypeDiv.style.display = "block";
-            createStatHolder(key, value, hoverDmgTypeDiv);
-        }
-    }
-    let hoverStatsDiv = itemHoverInfoDiv.children[4];
-    hoverStatsDiv.style.display = "none";
-    hoverStatsDiv.innerHTML = "";
-    hoverStatsDiv.style.display = "block";
-    createStatHolder("Base Duration", buff.baseDuration, hoverStatsDiv);
     if (buff.potencyId) {
-        createStatHolder("Potency Type", ItemModule.potencyAliases[buff.potencyId] || buff.potencyId, hoverStatsDiv);
+        statRows.push({
+            label: "Potency Type",
+            value: ItemModule.potencyAliases[buff.potencyId] || buff.potencyId,
+        });
     }
-    if (buff.potency !== undefined && buff.potency !== null) {
-        createStatHolder("Potency", buff.potency, hoverStatsDiv);
+    if (typeof buff.potency === "number") {
+        statRows.push({ label: "Potency", value: buff.potency });
     }
-    let hoverPerksDiv = itemHoverInfoDiv.children[5];
-    hoverPerksDiv.style.display = "none";
-    hoverPerksDiv.innerHTML = "";
-    let hoverPotenciesDiv = itemHoverInfoDiv.children[6];
-    hoverPotenciesDiv.style.display = "none";
-    hoverPotenciesDiv.innerHTML = "";
     if (buff.sourceData) {
-        hoverPotenciesDiv.style.display = "block";
-        createStatHolder("Source", buff.sourceData.source, hoverPotenciesDiv);
-        createStatHolder("Source Type", buff.sourceData.sourceType, hoverPotenciesDiv);
-        createStatHolder("Source Potency", buff.sourceData.sourceInatePotency, hoverPotenciesDiv);
+        sourceRows.push({ label: "Source", value: buff.sourceData.source });
+        sourceRows.push({ label: "Source Type", value: buff.sourceData.sourceType });
+        sourceRows.push({ label: "Source Potency", value: buff.sourceData.sourceInatePotency });
     }
-    document.body.classList.add("selector-tooltip-visible");
-    itemHoverInfoDiv.style.display = "flex";
+    renderHoverInfo({
+        name: buff.name || "",
+        description: buff.category || "",
+        sections: [
+            { title: "Damage Scale", rows: getHoverRows(buff.damageScalings) },
+            { title: "Damage Type", rows: getHoverRows(buff.damageTypes) },
+            { title: "Stats", rows: statRows },
+            { title: "Source", rows: sourceRows },
+        ],
+    });
 }
 function guildHover(guild) {
-    const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv");
-    if (!itemHoverInfoDiv)
-        return;
-    let itemName = itemHoverInfoDiv.children[0];
-    itemName.innerHTML = guild.name || "";
-    let hoverDescription = itemHoverInfoDiv.children[1];
-    hoverDescription.innerHTML = guild.description || "";
-    let hoverDmgScaleDiv = itemHoverInfoDiv.children[2];
-    hoverDmgScaleDiv.style.display = "none";
-    hoverDmgScaleDiv.innerHTML = "";
-    let hoverDmgTypeDiv = itemHoverInfoDiv.children[3];
-    hoverDmgTypeDiv.style.display = "none";
-    hoverDmgTypeDiv.innerHTML = "";
-    let hoverStatsDiv = itemHoverInfoDiv.children[4];
-    hoverStatsDiv.style.display = "none";
-    hoverStatsDiv.innerHTML = "";
-    let hoverPerksDiv = itemHoverInfoDiv.children[5];
-    hoverPerksDiv.style.display = "none";
-    hoverPerksDiv.innerHTML = "";
+    const promotionStatRows = [];
+    const promotionPerkRows = [];
     if (guild.promotions?.length) {
-        hoverStatsDiv.style.display = "block";
-        hoverPerksDiv.style.display = "block";
         guild.promotions.forEach((promotion, index) => {
             if (promotion.stats && Object.keys(promotion.stats).length) {
-                createStatHolder(`Promotion Stats`, index + 1, hoverStatsDiv);
+                promotionStatRows.push({ label: "Promotion Stats", value: index + 1 });
                 for (const [stat, value] of Object.entries(promotion.stats)) {
-                    createStatHolder(stat, value, hoverStatsDiv);
+                    promotionStatRows.push({ label: stat, value });
                 }
             }
             if (promotion.perks && Object.keys(promotion.perks).length) {
-                createStatHolder(`Promotion Perks`, index + 1, hoverPerksDiv);
+                promotionPerkRows.push({ label: "Promotion Perks", value: index + 1 });
                 for (const [perk, value] of Object.entries(promotion.perks)) {
-                    createStatHolder(perk, value, hoverPerksDiv);
+                    promotionPerkRows.push({
+                        label: Perk.PerkStore.getByID(perk)?.name || perk,
+                        value,
+                    });
                 }
             }
         });
     }
-    let hoverPotenciesDiv = itemHoverInfoDiv.children[6];
-    hoverPotenciesDiv.style.display = "none";
-    hoverPotenciesDiv.innerHTML = "";
-    document.body.classList.add("selector-tooltip-visible");
-    itemHoverInfoDiv.style.display = "flex";
+    renderHoverInfo({
+        name: guild.name || "",
+        description: guild.description || "",
+        sections: [
+            { title: "Promotion Stats", rows: promotionStatRows },
+            { title: "Promotion Perks", rows: promotionPerkRows },
+        ],
+    });
 }
 function weaponArtHover(weaponArt) {
-    const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv");
-    if (!itemHoverInfoDiv)
-        return;
-    let itemName = itemHoverInfoDiv.children[0];
-    itemName.innerHTML = weaponArt.name || "";
-    let hoverDescription = itemHoverInfoDiv.children[1];
-    hoverDescription.innerHTML = weaponArt.description || "";
-    let hoverDmgScaleDiv = itemHoverInfoDiv.children[2];
-    hoverDmgScaleDiv.style.display = "none";
-    hoverDmgScaleDiv.innerHTML = "";
-    if (weaponArt.damageScalings) {
-        for (const [key, value] of Object.entries(weaponArt.damageScalings)) {
-            if (value === undefined)
-                continue;
-            hoverDmgScaleDiv.style.display = "block";
-            createStatHolder(key, value, hoverDmgScaleDiv);
-        }
-    }
-    let hoverDmgTypeDiv = itemHoverInfoDiv.children[3];
-    hoverDmgTypeDiv.style.display = "none";
-    hoverDmgTypeDiv.innerHTML = "";
-    if (weaponArt.damageTypes) {
-        for (const [key, value] of Object.entries(weaponArt.damageTypes)) {
-            if (value === undefined)
-                continue;
-            hoverDmgTypeDiv.style.display = "block";
-            createStatHolder(key, value, hoverDmgTypeDiv);
-        }
-    }
-    let hoverStatsDiv = itemHoverInfoDiv.children[4];
-    hoverStatsDiv.style.display = "none";
-    hoverStatsDiv.innerHTML = "";
-    hoverStatsDiv.style.display = "block";
-    createStatHolder("Cooldown", weaponArt.coolDown || 1, hoverStatsDiv);
+    const statRows = [
+        { label: "Cooldown", value: weaponArt.coolDown || 1 },
+    ];
+    const requirementRows = [];
     if (weaponArt.baseDamage !== undefined) {
-        createStatHolder("Base Damage", weaponArt.baseDamage, hoverStatsDiv);
+        statRows.push({ label: "Base Damage", value: weaponArt.baseDamage });
     }
     if (weaponArt.totalHits !== undefined) {
-        createStatHolder("Total Hits", weaponArt.totalHits, hoverStatsDiv);
+        statRows.push({ label: "Total Hits", value: weaponArt.totalHits });
     }
-    let hoverPerksDiv = itemHoverInfoDiv.children[5];
-    hoverPerksDiv.style.display = "none";
-    hoverPerksDiv.innerHTML = "";
     if (weaponArt.weaponTypeRequirements?.length) {
-        hoverPerksDiv.style.display = "block";
-        createStatHolder("Weapon Types", weaponArt.weaponTypeRequirements.join(", "), hoverPerksDiv);
+        requirementRows.push({
+            label: "Weapon Types",
+            value: weaponArt.weaponTypeRequirements.join(", "),
+        });
     }
     if (weaponArt.guildRequirements?.length) {
-        hoverPerksDiv.style.display = "block";
-        createStatHolder("Guilds", weaponArt.guildRequirements.join(", "), hoverPerksDiv);
+        requirementRows.push({
+            label: "Guilds",
+            value: weaponArt.guildRequirements.join(", "),
+        });
     }
-    let hoverPotenciesDiv = itemHoverInfoDiv.children[6];
-    hoverPotenciesDiv.style.display = "none";
-    hoverPotenciesDiv.innerHTML = "";
-    if (weaponArt.sourcepotencies) {
-        for (const [key, value] of Object.entries(weaponArt.sourcepotencies)) {
-            if (value === undefined)
-                continue;
-            hoverPotenciesDiv.style.display = "block";
-            createStatHolder(ItemModule.potencyAliases[key] || key, value, hoverPotenciesDiv);
-        }
-    }
-    document.body.classList.add("selector-tooltip-visible");
-    itemHoverInfoDiv.style.display = "flex";
+    renderHoverInfo({
+        name: weaponArt.name || "",
+        description: weaponArt.description || "",
+        sections: [
+            { title: "Damage Scale", rows: getHoverRows(weaponArt.damageScalings) },
+            { title: "Damage Type", rows: getHoverRows(weaponArt.damageTypes) },
+            { title: "Stats", rows: statRows },
+            { title: "Requirements", rows: requirementRows },
+            {
+                title: "Potencies",
+                rows: getHoverRows(weaponArt.sourcepotencies, {
+                    labelFormatter: (key) => ItemModule.potencyAliases[key] || key,
+                }),
+            },
+        ],
+    });
 }
 function mouseLeave() {
-    const itemHoverInfoDiv = document.getElementById("itemHoverInfoDiv");
     if (!itemHoverInfoDiv)
         return;
-    let itemName = itemHoverInfoDiv.children[0];
-    itemName.innerHTML = "";
-    let hoverDescription = itemHoverInfoDiv.children[1];
-    hoverDescription.innerHTML = "";
-    let hoverDmgScaleDiv = itemHoverInfoDiv.children[2];
-    hoverDmgScaleDiv.style.display = "none";
-    hoverDmgScaleDiv.innerHTML = "";
-    let hoverDmgTypeDiv = itemHoverInfoDiv.children[3];
-    hoverDmgTypeDiv.style.display = "none";
-    hoverDmgTypeDiv.innerHTML = "";
-    let hoverStatsDiv = itemHoverInfoDiv.children[4];
-    hoverStatsDiv.style.display = "none";
-    hoverStatsDiv.innerHTML = "";
-    let hoverPerksDiv = itemHoverInfoDiv.children[5];
-    hoverPerksDiv.style.display = "none";
-    hoverPerksDiv.innerHTML = "";
-    let hoverPotenciesDiv = itemHoverInfoDiv.children[6];
-    hoverPotenciesDiv.style.display = "none";
-    hoverPotenciesDiv.innerHTML = "";
+    itemHoverInfoDiv.replaceChildren();
     document.body.classList.remove("selector-tooltip-visible");
     itemHoverInfoDiv.style.display = "none";
 }
@@ -783,7 +781,7 @@ function displayStats() {
     for (const [key, value] of Object.entries(build.potencies)) {
         if (value === undefined)
             continue;
-        createStatHolder(ItemModule.potencyAliases[key], value, potenciesContainerDiv);
+        createStatHolder(ItemModule.potencyAliases[key], value / 10, potenciesContainerDiv);
     }
     damageScalingsContainerDiv.innerHTML = "";
     for (const [key, value] of Object.entries(build.damageScalings)) {
@@ -796,6 +794,15 @@ function displayStats() {
         if (value === undefined)
             continue;
         createStatHolder(key, value, damageTypesContainerDiv);
+    }
+    const perkOutputPreview = helper.getActivePerkOutputPreview(build, target);
+    perkDamageScalingsContainerDiv.innerHTML = "";
+    for (const [key, value] of Object.entries(perkOutputPreview.damageScalings)) {
+        createStatHolder(key, value, perkDamageScalingsContainerDiv);
+    }
+    perkDamageTypesContainerDiv.innerHTML = "";
+    for (const [key, value] of Object.entries(perkOutputPreview.damageTypes)) {
+        createStatHolder(key, value, perkDamageTypesContainerDiv);
     }
     displayDamageModificationGroup(build.damageModifications.damage_bonus_mods, dmgModContainer, "Boost");
     displayDamageModificationGroup(build.damageModifications.damage_reduced_mods, dmgReducedModContainer, "Reduction");
@@ -913,13 +920,19 @@ function addItemToPage(item, section, key, enchantIndex, htmlElement) {
 function resetPage(item) {
     ////////////////////////////////////////////////wipe the Html Elements to make way for the updates ///////////////////////////////////////////////////
     wipeStatHolders();
+    build.target = target;
+    target.target = build;
     //reset the Build
     build.resetBuild();
+    target.resetBuild();
     //add the current hp and max hp
     healthInput.value = `${build.hp.toString()}/${build.maxHp.toString()}`;
+    targetHealthInput.value = `${target.hp.toString()}/${target.maxHp.toString()}`;
     levelInput.value = build.level.toString();
     promotionSelector.value = (build.guildPromotion + 1).toString();
     raceSelector.value = build.race?.id || "";
+    shrineBalanceToggle.checked = build.shrineOfBalance;
+    updateWeaponSlotLabels();
     //////////////////////// add the images to the Html pages for the item ////////////////////////
     for (const [key, element] of Object.entries(imgHolders)) {
         if (!element)
@@ -983,40 +996,32 @@ function resetPage(item) {
     //Clears the damage from the tables
     wipeDamages(build.weapon.m1, m1Rows, m1DamageTable);
     wipeDamages(build.weapon.m2, m2Rows, m2DamageTable);
+    wipeDamages(build.weapon.m1, m1CritRows, m1CritDamageTable);
+    wipeDamages(build.weapon.m2, m2CritRows, m2CritDamageTable);
     //Run the weapon damage calculation
     helper.runWeaponDamageCalculation(build, target);
     let runeDamageResult;
     let weaponArtDamageResult;
     // Run rune damage calculation when the selected rune has direct damage data.
-    if (typeof build.mainArmor.rune?.baseDamage === "number") {
-        const baseDamageInfo = {
-            damage: build.mainArmor.rune.baseDamage,
-            hitAmount: 1,
-            source: build.mainArmor.rune.id,
-            sourceDamageType: "Rune",
-            sourceType: "Rune",
-        };
+    const rune = build.mainArmor.rune;
+    const runeBaseDamageInfo = helper.getRuneBaseDamagePacket(rune);
+    if (rune && runeBaseDamageInfo) {
         const attackerBuild = {
-            damageScalings: build.mainArmor.rune.damageScalings,
-            damageTypes: build.mainArmor.rune.damageTypes,
+            damageScalings: rune.damageScalings,
+            damageTypes: rune.damageTypes,
         };
-        runeDamageResult = helper.runNonWeaponDamageCalculation(baseDamageInfo, build, target, attackerBuild);
+        runeDamageResult = helper.runNonWeaponDamageCalculation(runeBaseDamageInfo, build, target, attackerBuild);
     }
     renderRunePanel(build.mainArmor.rune, runeDamageResult);
     //Run WeaponArt Damage calculation
-    if (typeof build.weaponart?.baseDamage === "number") {
-        const baseDamageInfo = {
-            damage: build.weaponart.baseDamage,
-            hitAmount: build.weaponart.totalHits || 1,
-            source: build.weaponart.id,
-            sourceDamageType: "WeaponArt",
-            sourceType: "WeaponArt",
-        };
+    const weaponArt = build.weaponart;
+    const weaponArtBaseDamageInfo = helper.getWeaponArtBaseDamagePacket(weaponArt);
+    if (weaponArt && weaponArtBaseDamageInfo) {
         const attackerBuild = {
-            damageScalings: build.weaponart.damageScalings,
-            damageTypes: build.weaponart.damageTypes,
+            damageScalings: weaponArt.damageScalings,
+            damageTypes: weaponArt.damageTypes,
         };
-        weaponArtDamageResult = helper.runNonWeaponDamageCalculation(baseDamageInfo, build, target, attackerBuild);
+        weaponArtDamageResult = helper.runNonWeaponDamageCalculation(weaponArtBaseDamageInfo, build, target, attackerBuild);
     }
     renderWeaponArtPanel(build.weaponart, weaponArtDamageResult);
     const nonWeaponDamages = [];
@@ -1028,7 +1033,7 @@ function resetPage(item) {
         let callBack = perkData.getPerkDamageInfo;
         if (!callBack)
             continue;
-        const baseDamageInfo = callBack.apply(build, [amount]);
+        const baseDamageInfo = helper.normalizeBaseDamagePacket(callBack.apply(build, [amount]));
         if (!baseDamageInfo)
             continue;
         const attackerBuild = {
@@ -1051,7 +1056,7 @@ function resetPage(item) {
         let callBack = StatusData.getDamageInfo;
         if (!callBack)
             continue;
-        const baseDamageInfo = callBack.apply(build, [0.3]);
+        const baseDamageInfo = helper.normalizeBaseDamagePacket(callBack.apply(target, [getBuffEffectivePotency(target, StatusData)]));
         if (!baseDamageInfo)
             continue;
         const attackerBuild = {
@@ -1096,10 +1101,12 @@ function resetPage(item) {
     displayStats();
     renderNonWeaponDamages(nonWeaponDamages);
     //Displays the Damages to the table
-    addHeaderToTable(build.weapon.m1, m1Rows, m1DamageTable);
-    addHeaderToTable(build.weapon.m2, m2Rows, m2DamageTable);
+    addHeaderToTable(build.weapon.m1, m1Rows, m1DamageTable, "normal");
+    addHeaderToTable(build.weapon.m2, m2Rows, m2DamageTable, "normal");
+    addHeaderToTable(build.weapon.m1, m1CritRows, m1CritDamageTable, "crit");
+    addHeaderToTable(build.weapon.m2, m2CritRows, m2CritDamageTable, "crit");
 }
-function loadSelectorPage(build, source, category, section, index, htmlElement, filter) {
+function loadSelectorPage(build, source, category, section, index, htmlElement, filter, selectorTitle) {
     //Set a Dummy Item to act has a remove
     let blankItem = new ItemModule.Item();
     blankItem.name = "none";
@@ -1112,10 +1119,11 @@ function loadSelectorPage(build, source, category, section, index, htmlElement, 
         section,
         index,
         htmlElement,
+        selectorTitle,
     };
     itemsSearchInput.value = filter || "";
     itemsSearchInput.style.display = "";
-    itemsSelectorTitle.textContent = "Select an Item";
+    itemsSelectorTitle.textContent = selectorTitle || getSelectorTitle(build, source, category);
     clearSelectorItems();
     let removeItemBox = createItemBox(blankItem);
     selectItemDivs.push([removeItemBox, blankItem]);
@@ -1132,7 +1140,8 @@ function loadSelectorPage(build, source, category, section, index, htmlElement, 
             items = ItemModule.ItemStore.getByCategory("Enchantment");
         }
         else {
-            items = ItemModule.ItemStore.getByCategory(category);
+            const selectorCategory = getSelectorItemCategory(build, category);
+            items = ItemModule.ItemStore.getByCategory(selectorCategory);
         }
     }
     else if (source == "Buffs") {
@@ -1226,7 +1235,8 @@ function loadSelectorPage(build, source, category, section, index, htmlElement, 
                     addItemToPage(item, section, key, index, htmlElement);
                 }
                 else if (item instanceof BuffModule.Buff) {
-                    const source = item.potencyId ? build.getSourcesForBuff(item.potencyId) : {};
+                    const sourceBuild = getBuffSourceBuild(build, item);
+                    const source = item.potencyId ? sourceBuild.getSourcesForBuff(item.potencyId) : {};
                     //Buff will now bring up a new UI, for adding a buff to a build
                     // all buffs must have a soruce, so based on user build we can see if the have any sources for his buff
                     // if they don't we can auto add it still but the buff will have potency of 0.1 and source Type will be default
@@ -1245,6 +1255,11 @@ function loadSelectorPage(build, source, category, section, index, htmlElement, 
     });
     items_selector.style.display = "flex";
     document.body.classList.add("selector-open");
+    requestAnimationFrame(() => {
+        itemsSearchInput.focus();
+        const cursorPosition = itemsSearchInput.value.length;
+        itemsSearchInput.setSelectionRange(cursorPosition, cursorPosition);
+    });
 }
 ///////////////////////////////////////Button & input Listeners///////////////////////////////////////
 SelectorClose.addEventListener("click", () => {
@@ -1253,6 +1268,7 @@ SelectorClose.addEventListener("click", () => {
 clearBuildButton.addEventListener("click", () => {
     build = new Build.Build();
     build.target = target;
+    target.target = build;
     hideSelector();
     resetPage();
 });
@@ -1268,7 +1284,7 @@ importBuildInput.addEventListener("change", async () => {
 itemsSearchInput.addEventListener("input", () => {
     if (!activeSelectorContext)
         return;
-    loadSelectorPage(activeSelectorContext.build, activeSelectorContext.source, activeSelectorContext.category, activeSelectorContext.section, activeSelectorContext.index, activeSelectorContext.htmlElement, itemsSearchInput.value);
+    loadSelectorPage(activeSelectorContext.build, activeSelectorContext.source, activeSelectorContext.category, activeSelectorContext.section, activeSelectorContext.index, activeSelectorContext.htmlElement, itemsSearchInput.value, activeSelectorContext.selectorTitle);
 });
 showInfusions.addEventListener("click", () => {
     mainGearContentDiv.style.display = "none";
@@ -1304,8 +1320,22 @@ healthInput.addEventListener("change", () => {
     build.hp = health;
     resetPage();
 });
+targetHealthInput.addEventListener("change", () => {
+    let health = Number(targetHealthInput.value);
+    health = Math.floor(health);
+    if (health < 1) {
+        health = 1;
+    }
+    if (health > target.maxHp) {
+        health = target.maxHp;
+    }
+    targetHealthInput.value = `${health.toString()}/${target.maxHp.toString()}`;
+    target.hp = health;
+    resetPage();
+});
 //add the current hp and max hp
 healthInput.value = `${build.hp.toString()}/${build.maxHp.toString()}`;
+targetHealthInput.value = `${target.hp.toString()}/${target.maxHp.toString()}`;
 theme_Selector_input.addEventListener("change", () => {
     const currentTheme = document.documentElement.getAttribute("data-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
@@ -1328,6 +1358,10 @@ raceSelector.addEventListener("change", (event) => {
     if (!RaceModule.RaceStore.get(selectedValue))
         return;
     addItemToPage(RaceModule.RaceStore.get(selectedValue), "race", "race");
+});
+shrineBalanceToggle.addEventListener("change", () => {
+    build.shrineOfBalance = shrineBalanceToggle.checked;
+    resetPage();
 });
 //aad the races to the selector
 RaceModule.RaceStore.all()?.forEach((race) => {
@@ -1425,7 +1459,7 @@ weaponMakeUpButtons.forEach((itembutton) => {
     buttonImage.src = PlusSymbol;
     const type = itembutton.name === "WeaponArt" ? "WeaponArts" : "Items";
     itembutton.addEventListener("click", () => {
-        loadSelectorPage(build, type, itembutton.name);
+        loadSelectorPage(build, type, itembutton.name, undefined, undefined, undefined, undefined, getSelectorTitle(build, type, itembutton.name));
     });
     itembutton.addEventListener("mouseenter", () => {
         let itemName = itembutton.name.toLowerCase();

@@ -1,47 +1,40 @@
-let images = "../image/blades/";
+let images = "../image/essences/";
 
-export const Blades: import("../models/Item").ItemDataTable = {
-  basic_blade: {
-    id: "basic_blade",
-    name: "Basic Blade",
+export const Essences: import("../models/Item").ItemDataTable = {
+  basic_essence: {
+    id: "basic_essence",
+    name: "Basic Essence",
     tier: 1,
-    category: "Blade",
-    type: "Medium Blade",
-    description: "First Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     damageScalings: {
       Physical: 0.15,
       Dexterity: 0.15,
     },
-    damageTypes: {
-      Physical: 1,
-    },
-    img: "../image/blades/basicblade.png",
+    img: "",
   },
-  greatsword_blade: {
-    id: "greatsword_blade",
-    name: "Greatsword Blade",
+  greatsword_essence: {
+    id: "greatsword_essence",
+    name: "Greatsword Essence",
     tier: 2,
-    category: "Blade",
-    type: "Heavy Blade",
-    attackSpeed: 0.9,
+    category: "Essence",
+    type: "Essence",
+    attackSpeed: 1,
     stats: {
       PhysicalBoost: 5,
     },
     damageScalings: {
       Physical: 0.4,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     img: "",
   },
-  sharp_blade: {
-    id: "sharp_blade",
-    name: "Sharp Blade",
+  sharp_essence: {
+    id: "sharp_essence",
+    name: "Sharp Essence",
     tier: 2,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       PhysicalBoost: 5,
@@ -50,17 +43,14 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Physical: 0.3,
       Dexterity: 0.3,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     img: "",
   },
-  dagger_blade: {
-    id: "dagger_blade",
-    name: "Dagger Blade",
+  agile_essence: {
+    id: "agile_essence",
+    name: "Agile Essence",
     tier: 2,
-    category: "Blade",
-    type: "Small Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       DexterityBoost: 5,
@@ -69,17 +59,14 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Physical: 0.3,
       Dexterity: 0.3,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     img: "",
   },
-  mage_blade: {
-    id: "mage_blade",
-    name: "Mage Blade",
+  mage_essence: {
+    id: "mage_essence",
+    name: "Mage Essence",
     tier: 2,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       MagicBoost: 5,
@@ -87,153 +74,134 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Magic: 0.4,
     },
-    damageTypes: {
-      Magic: 1,
-    },
     img: "",
   },
-  holy_blade: {
-    id: "holy_blade",
-    name: "Holy Blade",
+  holy_essence: {
+    id: "holy_essence",
+    name: "Holy Essence",
     tier: 2,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
-      HolyBoost: 10,
+      HolyBoost: 5,
+      MagicBoost: 5,
     },
     damageScalings: {
       Magic: 0.3,
       Holy: 0.3,
-    },
-    damageTypes: {
-      Magic: 0.3,
-      Holy: 0.7,
     },
     perks: {
       blessing: 1,
     },
     img: "",
   },
-  hex_blade: {
-    id: "hex_blade",
-    name: "Hex Blade",
+  cursed_essence: {
+    id: "cursed_essence",
+    name: "Cursed Essence",
     tier: 2,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
-      HexBoost: 10,
+      MagicBoost: 5,
+      HexBoost: 5,
     },
     damageScalings: {
       Magic: 0.3,
       Hex: 0.3,
-    },
-    damageTypes: {
-      Magic: 0.3,
-      Hex: 0.7,
     },
     perks: {
       weakening: 1,
     },
     img: "",
   },
-  air_blade: {
-    id: "air_blade",
-    name: "Air Blade",
+  wind_essence: {
+    id: "wind_essence",
+    name: "Wind Essence",
     tier: 2,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
+    stats: {
+      DexterityBoost: 5,
+    },
     damageScalings: {
       Dexterity: 0.3,
       Air: 0.3,
-    },
-    damageTypes: {
-      Air: 0.7,
-      Magic: 0.3,
     },
     perks: {
       tailwind: 1,
     },
     img: "",
   },
-  fire_blade: {
-    id: "fire_blade",
-    name: "Fire Blade",
+  blaze_essence: {
+    id: "blaze_essence",
+    name: "Blaze Essence",
     tier: 2,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
-      FireBoost: 10,
+      MagicBoost: 5,
+      FireBoost: 5,
     },
     damageScalings: {
       Magic: 0.3,
       Fire: 0.3,
-    },
-    damageTypes: {
-      Magic: 0.3,
-      Fire: 0.7,
     },
     perks: {
       ignition: 1,
     },
     img: "",
   },
-  water_blade: {
-    id: "water_blade",
-    name: "Water Blade",
+  water_essence: {
+    id: "water_essence",
+    name: "Water Essence",
     tier: 2,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
-      WaterBoost: 10,
+      WaterBoost: 5,
+      MagicBoost: 5,
     },
     damageScalings: {
-      Magic: 0.3,
       Water: 0.3,
-    },
-    damageTypes: {
       Magic: 0.3,
-      Water: 0.7,
     },
     perks: {
       extinguish: 1,
     },
     img: "",
   },
-  earth_blade: {
-    id: "earth_blade",
-    name: "Earth Blade",
+  earth_essence: {
+    id: "earth_essence",
+    name: "Earth Essence",
     tier: 2,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.85,
     stats: {
-      EarthBoost: 10,
+      EarthBoost: 5,
+      PhysicalBoost: 5,
     },
     damageScalings: {
       Earth: 0.35,
       Physical: 0.35,
-    },
-    damageTypes: {
-      Earth: 0.7,
-      Physical: 0.3,
     },
     perks: {
       quake: 1,
     },
     img: "",
   },
-  executioners_blade: {
-    id: "executioners_blade",
-    name: "Executioners Blade",
+  executioners_essence: {
+    id: "executioners_essence",
+    name: "Executioners Essence",
     tier: 3,
-    category: "Blade",
-    type: "Heavy Blade",
-    attackSpeed: 0.85,
+    category: "Essence",
+    type: "Essence",
+    attackSpeed: 0.8,
     stats: {
       PhysicalBoost: 8,
       PhysicalDefense: 5,
@@ -242,20 +210,20 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Physical: 0.5,
     },
     damageTypes: {
-      Physical: 1.1,
+      Physical: 0.1,
     },
     perks: {
       executioner: 1,
     },
     img: "",
   },
-  iron_hammer: {
-    id: "iron_hammer",
-    name: "Iron Hammer",
+  hammer_essence: {
+    id: "hammer_essence",
+    name: "Hammer Essence",
     tier: 3,
-    category: "Blade",
-    type: "Hammer Blade",
-    attackSpeed: 0.9,
+    category: "Essence",
+    type: "Essence",
+    attackSpeed: 1,
     stats: {
       Tenacity: 0.2,
       PhysicalDefense: 8,
@@ -263,31 +231,25 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Physical: 0.5,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       shattering_justice: 1,
     },
     img: "",
   },
-  katana_blade: {
-    id: "katana_blade",
-    name: "Katana Blade",
+  katana_essence: {
+    id: "katana_essence",
+    name: "Katana Essence",
     tier: 3,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.2,
     stats: {
-      PhysicalBoost: 5,
       DexterityBoost: 5,
+      PhysicalBoost: 5,
     },
     damageScalings: {
       Physical: 0.4,
       Dexterity: 0.4,
-    },
-    damageTypes: {
-      Physical: 1,
     },
     perks: {
       parry: 1,
@@ -295,12 +257,12 @@ export const Blades: import("../models/Item").ItemDataTable = {
     },
     img: "",
   },
-  jagged_blade: {
-    id: "jagged_blade",
-    name: "Jagged Blade",
+  jagged_essence: {
+    id: "jagged_essence",
+    name: "Jagged Essence",
     tier: 3,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       PhysicalBoost: 10,
@@ -309,22 +271,20 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Physical: 0.5,
     },
     damageTypes: {
-      Physical: 1,
+      Physical: 0.1,
     },
     perks: {
       serrated_edge: 1,
-    },
-    potencies: {
-      bleedpotency: 4,
+      bleed_potency: 4,
     },
     img: "",
   },
-  sharp_dagger_blade: {
-    id: "sharp_dagger_blade",
-    name: "Sharp Dagger Blade",
+  noble_essence: {
+    id: "noble_essence",
+    name: "Noble Essence",
     tier: 3,
-    category: "Blade",
-    type: "Small Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       DexterityBoost: 10,
@@ -332,43 +292,37 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Dexterity: 0.5,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       vital_strikes: 1,
     },
     img: "",
   },
-  agile_blade: {
-    id: "agile_blade",
-    name: "Agile Blade",
+  graceful_essence: {
+    id: "graceful_essence",
+    name: "Graceful Essence",
     tier: 3,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.2,
     stats: {
       DexterityBoost: 5,
       PhysicalBoost: 5,
     },
     damageScalings: {
-      Dexterity: 0.4,
       Physical: 0.4,
-    },
-    damageTypes: {
-      Physical: 1,
+      Dexterity: 0.4,
     },
     perks: {
       sharp_crits: 1,
     },
     img: "",
   },
-  great_mage_blade: {
-    id: "great_mage_blade",
-    name: "Great Mage Blade",
+  greatmage_essence: {
+    id: "greatmage_essence",
+    name: "Greatmage Essence",
     tier: 3,
-    category: "Blade",
-    type: "Heavy Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.9,
     stats: {
       MagicBoost: 7,
@@ -377,20 +331,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Magic: 0.5,
     },
-    damageTypes: {
-      Magic: 1,
-    },
     perks: {
       magic_guard: 1,
     },
     img: "",
   },
-  enchanted_blade: {
-    id: "enchanted_blade",
-    name: "Enchanted Blade",
+  enchanted_essence: {
+    id: "enchanted_essence",
+    name: "Enchanted Essence",
     tier: 3,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       MagicBoost: 10,
@@ -399,114 +350,102 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Magic: 0.5,
     },
     damageTypes: {
-      Magic: 1,
+      Magic: 0.2,
     },
     perks: {
       royal_finisher: 1,
     },
     img: "",
   },
-  radiant_edge: {
-    id: "radiant_edge",
-    name: "Radiant Edge",
+  radiant_essence: {
+    id: "radiant_essence",
+    name: "Radiant Essence",
     tier: 3,
-    category: "Blade",
-    type: "Small Blade",
-    attackSpeed: 1.1,
+    category: "Essence",
+    type: "Essence",
+    attackSpeed: 1,
     stats: {
-      HolyBoost: 10,
-      DexterityBoost: 5,
+      HolyBoost: 6,
+      DexterityBoost: 6,
     },
     damageScalings: {
       Holy: 0.4,
       Dexterity: 0.4,
-    },
-    damageTypes: {
-      Holy: 0.7,
-      Magic: 0.3,
     },
     perks: {
       radiance: 1,
     },
     img: "",
   },
-  pure_blade: {
-    id: "pure_blade",
-    name: "Pure Blade",
+  pure_essence: {
+    id: "pure_essence",
+    name: "Pure Essence",
     tier: 3,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
-      HolyBoost: 15,
+      HolyBoost: 10,
     },
     damageScalings: {
       Holy: 0.4,
       Magic: 0.4,
-    },
-    damageTypes: {
-      Holy: 1,
     },
     perks: {
       blessing: 2,
     },
     img: "",
   },
-  skull_hammer: {
-    id: "skull_hammer",
-    name: "Skull Hammer",
+  summoning_essence: {
+    id: "summoning_essence",
+    name: "Summoning Essence",
     tier: 3,
-    category: "Blade",
-    type: "Hammer Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
-      PhysicalDefense: 8,
-      HexBoost: 10,
+      PhysicalDefense: 4,
+      HexBoost: 8,
     },
     damageScalings: {
       Hex: 0.35,
       Physical: 0.35,
       Summon: 0.1,
     },
-    damageTypes: {
-      Hex: 0.5,
-      Physical: 0.5,
-    },
     perks: {
       revel_in_death: 1,
     },
     img: "",
   },
-  hexing_cleaver_blade: {
-    id: "hexing_cleaver_blade",
-    name: "Hexing Cleaver Blade",
+  hex_cleaver_essence: {
+    id: "hex_cleaver_essence",
+    name: "Hex Cleaver Essence",
     tier: 3,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       MagicBoost: 5,
       HexBoost: 10,
     },
     damageScalings: {
-      Hex: 0.4,
       Magic: 0.4,
+      Hex: 0.4,
     },
     damageTypes: {
-      Hex: 0.7,
-      Magic: 0.3,
+      Hex: 0.1,
     },
     perks: {
       weakening: 2,
     },
     img: "",
   },
-  gust_blade: {
-    id: "gust_blade",
-    name: "Gust Blade",
+  refined_wind_essence: {
+    id: "refined_wind_essence",
+    name: "Refined Wind Essence",
     tier: 3,
-    category: "Blade",
-    type: "Small Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       DexterityBoost: 7,
@@ -515,21 +454,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Air: 0.4,
       Dexterity: 0.4,
     },
-    damageTypes: {
-      Air: 0.7,
-      Magic: 0.3,
-    },
     perks: {
       tailwind: 2,
     },
     img: "",
   },
-  storm_razor: {
-    id: "storm_razor",
-    name: "Storm Razor",
+  stormwood_essence: {
+    id: "stormwood_essence",
+    name: "Stormwood Essence",
     tier: 3,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       MagicBoost: 4,
@@ -540,70 +475,58 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Magic: 0.35,
       Dexterity: 0.35,
     },
-    damageTypes: {
-      Air: 0.5,
-      Magic: 0.5,
-    },
     perks: {
       stormcaller: 1,
     },
     img: "",
   },
-  flame_dagger: {
-    id: "flame_dagger",
-    name: "Flame Dagger",
+  kindlewood_essence: {
+    id: "kindlewood_essence",
+    name: "Kindlewood Essence",
     tier: 3,
-    category: "Blade",
-    type: "Small Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
-      FireBoost: 10,
-      DexterityBoost: 10,
+      DexterityBoost: 5,
+      FireBoost: 5,
     },
     damageScalings: {
       Fire: 0.4,
       Dexterity: 0.4,
     },
-    damageTypes: {
-      Fire: 0.7,
-      Magic: 0.3,
-    },
     perks: {
-      ignition: 1,
       kindling: 1,
     },
     img: "",
   },
-  flame_greatblade: {
-    id: "flame_greatblade",
-    name: "Flame Greatblade",
+  greatflame_essence: {
+    id: "greatflame_essence",
+    name: "Greatflame Essence",
     tier: 3,
-    category: "Blade",
-    type: "Heavy Blade",
-    attackSpeed: 1,
+    category: "Essence",
+    type: "Essence",
+    attackSpeed: 0.9,
     stats: {
-      FireBoost: 10,
       MagicBoost: 5,
+      FireBoost: 5,
+      PhysicalDefense: 5,
     },
     damageScalings: {
       Fire: 0.4,
       Magic: 0.4,
-    },
-    damageTypes: {
-      Fire: 0.7,
-      Magic: 0.3,
     },
     perks: {
       ignition: 2,
     },
     img: "",
   },
-  ocean_blade: {
-    id: "ocean_blade",
-    name: "Ocean Blade",
+  sunken_essence: {
+    id: "sunken_essence",
+    name: "Sunken Essence",
     tier: 3,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       MagicBoost: 5,
@@ -613,21 +536,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Water: 0.4,
       Magic: 0.4,
     },
-    damageTypes: {
-      Water: 0.7,
-      Magic: 0.3,
-    },
     perks: {
       extinguish: 2,
     },
     img: "",
   },
-  ice_blade: {
-    id: "ice_blade",
-    name: "Ice Blade",
+  frozen_essence: {
+    id: "frozen_essence",
+    name: "Frozen Essence",
     tier: 3,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       HeatResistance: 50,
@@ -638,45 +557,37 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Water: 0.4,
       Physical: 0.4,
     },
-    damageTypes: {
-      Water: 0.5,
-      Physical: 0.5,
-    },
     perks: {
       frostbite: 1,
     },
     img: "",
   },
-  enchanted_lodestone_hammer: {
-    id: "enchanted_lodestone_hammer",
-    name: "Enchanted Lodestone Hammer",
+  gravity_mallet_essence: {
+    id: "gravity_mallet_essence",
+    name: "Gravity Mallet Essence",
     tier: 3,
-    category: "Blade",
-    type: "Hammer Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.9,
     stats: {
-      EarthBoost: 10,
-      MagicBoost: 8,
+      EarthBoost: 5,
+      MagicBoost: 5,
     },
     damageScalings: {
       Earth: 0.55,
       Magic: 0.55,
-    },
-    damageTypes: {
-      Earth: 0.5,
-      Magic: 0.5,
     },
     perks: {
       gravity_well: 1,
     },
     img: "",
   },
-  earth_greatblade: {
-    id: "earth_greatblade",
-    name: "Earth Greatblade",
+  bedrock_essence: {
+    id: "bedrock_essence",
+    name: "Bedrock Essence",
     tier: 3,
-    category: "Blade",
-    type: "Heavy Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.8,
     stats: {
       PhysicalDefense: 5,
@@ -687,21 +598,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Earth: 0.45,
       Physical: 0.45,
     },
-    damageTypes: {
-      Earth: 0.7,
-      Physical: 0.3,
-    },
     perks: {
       quake: 2,
     },
     img: "",
   },
-  scourgers_blade: {
-    id: "scourgers_blade",
-    name: "Scourgers Blade",
+  scourgers_essence: {
+    id: "scourgers_essence",
+    name: "Scourgers Essence",
     tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.8,
     stats: {
       PhysicalDefense: 5,
@@ -712,44 +619,40 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Physical: 0.7,
     },
     damageTypes: {
-      Physical: 0.9,
-      True: 0.3,
+      True: 0.1,
     },
     perks: {
       scourge: 1,
     },
-    img: "../image/blades/scourgers_blade.png",
+    img: "",
   },
-  zweihander_blade: {
-    id: "zweihander_blade",
-    name: "Zweihander Blade",
+  zweihander_essence: {
+    id: "zweihander_essence",
+    name: "Zweihander Essence",
     tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
-    attackSpeed: 0.8,
+    category: "Essence",
+    type: "Essence",
+    attackSpeed: 1,
     stats: {
-      Protection: 5,
-      PhysicalDefense: 3,
       PhysicalBoost: 10,
+      PhysicalDefense: 3,
+      Protection: 5,
     },
     damageScalings: {
       Physical: 0.55,
       Dexterity: 0.55,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       highlander: 1,
     },
-    img: "../image/blades/zweihander_blade.png",
+    img: "",
   },
-  gilded_hammer: {
-    id: "gilded_hammer",
-    name: "Gilded Hammer",
+  gilded_essence: {
+    id: "gilded_essence",
+    name: "Gilded Essence",
     tier: 4,
-    category: "Blade",
-    type: "Hammer Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.8,
     stats: {
       Tenacity: 0.2,
@@ -759,20 +662,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Physical: 0.8,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
-      aggressive_personality: 1,
+      reinforced_block: 3,
     },
     img: "",
   },
-  dark_steel_mace: {
-    id: "dark_steel_mace",
-    name: "Dark Steel Mace",
+  dark_steel_essence: {
+    id: "dark_steel_essence",
+    name: "Dark Steel Essence",
     tier: 4,
-    category: "Blade",
-    type: "Hammer Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       PhysicalDefense: 5,
@@ -783,23 +683,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Dexterity: 0.55,
       Physical: 0.55,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       hemorrhage: 1,
+      bleed_potency: 3,
     },
-    potencies: {
-      bleedpotency: 3,
-    },
-    img: "../image/blades/dark_steel_mace.png",
+    img: "",
   },
-  serrated_blade: {
-    id: "serrated_blade",
-    name: "Serrated Blade",
+  serrated_essence: {
+    id: "serrated_essence",
+    name: "Serrated Essence",
     tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.9,
     stats: {
       PhysicalBoost: 10,
@@ -809,23 +704,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Physical: 0.7,
     },
-    damageTypes: {
-      Physical: 1.1,
-    },
     perks: {
       vicious_edge: 1,
+      bleed_potency: 3,
     },
-    potencies: {
-      bleedpotency: 3,
-    },
-    img: "../image/blades/serrated_blade.png",
+    img: "",
   },
-  bloodied_needle: {
-    id: "bloodied_needle",
-    name: "Bloodied Needle",
+  bloodied_essence: {
+    id: "bloodied_essence",
+    name: "Bloodied Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       PhysicalBoost: 5,
@@ -837,24 +727,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Dexterity: 0.45,
       Magic: 0.45,
     },
-    damageTypes: {
-      Physical: 0.6,
-      Magic: 0.4,
-    },
     perks: {
-      bloodlust: 1,
+      blood_lust: 1,
+      bleed_potency: 3,
     },
-    potencies: {
-      bleedpotency: 3,
-    },
-    img: "../image/blades/bloodied_needle.png",
+    img: "",
   },
-  bejeweled_blade: {
-    id: "bejeweled_blade",
-    name: "Bejeweled Blade",
+  bejeweled_essence: {
+    id: "bejeweled_essence",
+    name: "Bejeweled Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.2,
     stats: {
       DexterityBoost: 15,
@@ -864,22 +748,19 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Dexterity: 0.55,
       Physical: 0.55,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       royal_parry: 1,
       parry: 1,
     },
     img: "",
   },
-  shadow_blade: {
-    id: "shadow_blade",
-    name: "Shadow Blade",
+  shadow_essence: {
+    id: "shadow_essence",
+    name: "Shadow Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
-    attackSpeed: 1.1,
+    category: "Essence",
+    type: "Essence",
+    attackSpeed: 1.2,
     stats: {
       PhysicalBoost: 13,
       DexterityBoost: 10,
@@ -888,20 +769,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Physical: 0.55,
       Dexterity: 0.55,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
-      concealed_edge: 1,
+      phantom_pain: 2,
     },
     img: "",
   },
-  kings_dagger_blade: {
-    id: "kings_dagger_blade",
-    name: "Kings Dagger Blade",
+  kings_essence: {
+    id: "kings_essence",
+    name: "Kings Essence",
     tier: 4,
-    category: "Blade",
-    type: "Small Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       DexterityBoost: 15,
@@ -909,20 +787,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Dexterity: 0.7,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       golden_crits: 1,
     },
     img: "",
   },
-  beastial_dagger_blade: {
-    id: "beastial_dagger_blade",
-    name: "Beastial Dagger Blade",
+  beastial_essence: {
+    id: "beastial_essence",
+    name: "Beastial Essence",
     tier: 4,
-    category: "Blade",
-    type: "Small Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       DexterityBoost: 10,
@@ -932,20 +807,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Dexterity: 0.55,
       Physical: 0.55,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       beastial_rage: 1,
     },
-    img: "../image/blades/beastial_dagger_blade.png",
+    img: "",
   },
-  duelists_needle: {
-    id: "duelists_needle",
-    name: "Duelists Needle",
+  duelist_essence: {
+    id: "duelist_essence",
+    name: "Duelist Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       DexterityBoost: 15,
@@ -953,43 +825,37 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Dexterity: 0.7,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       piercer: 1,
     },
     img: "",
   },
-  crude_blade: {
-    id: "crude_blade",
-    name: "Crude Blade",
+  crude_essence: {
+    id: "crude_essence",
+    name: "Crude Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       PhysicalBoost: 10,
       DexterityBoost: 10,
     },
     damageScalings: {
-      Physical: 0.55,
       Dexterity: 0.55,
-    },
-    damageTypes: {
-      Physical: 1,
+      Physical: 0.55,
     },
     perks: {
       savage_combo: 1,
     },
     img: "",
   },
-  grandmagic_greatblade: {
-    id: "grandmagic_greatblade",
-    name: "Grandmagic Greatblade",
+  grandmagic_great_essence: {
+    id: "grandmagic_great_essence",
+    name: "Grandmagic Great Essence",
     tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.9,
     stats: {
       MagicBoost: 10,
@@ -999,20 +865,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Magic: 0.7,
     },
-    damageTypes: {
-      Magic: 1,
-    },
     perks: {
       grandmagic_guard: 1,
     },
     img: "",
   },
-  great_mage_core: {
-    id: "great_mage_core",
-    name: "Great Mage Core",
+  mage_core_essence: {
+    id: "mage_core_essence",
+    name: "Mage Core Essence",
     tier: 4,
-    category: "Blade",
-    type: "Hammer Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       MagicBoost: 15,
@@ -1020,21 +883,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Magic: 0.7,
     },
-    damageTypes: {
-      Magic: 1,
-    },
     perks: {
       artillery_mage: 1,
-      glyph_conduit: 1,
+      glyth_conduit: 1,
     },
     img: "",
   },
-  spellbinder_rapier: {
-    id: "spellbinder_rapier",
-    name: "Spellbinder Rapier",
+  spellbinder_essence: {
+    id: "spellbinder_essence",
+    name: "Spellbinder Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       MagicBoost: 15,
@@ -1044,20 +904,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Magic: 0.55,
       Dexterity: 0.55,
     },
-    damageTypes: {
-      Magic: 1,
-    },
     perks: {
       spell_piercer: 1,
     },
     img: "",
   },
-  curved_magic_blade: {
-    id: "curved_magic_blade",
-    name: "Curved Magic Blade",
+  dual_magic_essence: {
+    id: "dual_magic_essence",
+    name: "Dual Magic Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       MagicBoost: 20,
@@ -1065,33 +922,26 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Magic: 0.7,
     },
-    damageTypes: {
-      Magic: 1,
-    },
     perks: {
       royal_finisher: 1,
       runic_blades: 1,
     },
     img: "",
   },
-  divine_edge: {
-    id: "divine_edge",
-    name: "Divine Edge",
+  divine_essence: {
+    id: "divine_essence",
+    name: "Divine Essence",
     tier: 4,
-    category: "Blade",
-    type: "Small Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       HolyBoost: 15,
       DexterityBoost: 10,
     },
     damageScalings: {
-      Holy: 0.55,
       Dexterity: 0.55,
-    },
-    damageTypes: {
-      Holy: 0.7,
-      Magic: 0.3,
+      Holy: 0.55,
     },
     perks: {
       radiance: 1,
@@ -1099,47 +949,40 @@ export const Blades: import("../models/Item").ItemDataTable = {
     },
     img: "",
   },
-  radiant_hammer: {
-    id: "radiant_hammer",
-    name: "Radiant Hammer",
+  radiant_hammer_essence: {
+    id: "radiant_hammer_essence",
+    name: "Radiant Hammer Essence",
     tier: 4,
-    category: "Blade",
-    type: "Hammer Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.9,
     stats: {
       HolyBoost: 10,
       Warding: 20,
     },
     damageScalings: {
-      Holy: 0.5,
       Physical: 0.5,
+      Holy: 0.5,
       Summon: 0.2,
-    },
-    damageTypes: {
-      Holy: 0.7,
-      Physical: 0.3,
     },
     perks: {
       divine_intervention: 1,
     },
     img: "",
   },
-  hallowed_blade: {
-    id: "hallowed_blade",
-    name: "Hallowed Blade",
+  hallowed_essence: {
+    id: "hallowed_essence",
+    name: "Hallowed Essence",
     tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       HolyBoost: 15,
       Warding: 20,
     },
     damageScalings: {
-      Holy: 0.7,
-    },
-    damageTypes: {
-      Holy: 1,
+      Holy: 0.5,
     },
     perks: {
       blessing: 1,
@@ -1147,12 +990,12 @@ export const Blades: import("../models/Item").ItemDataTable = {
     },
     img: "",
   },
-  angels_blade: {
-    id: "angels_blade",
-    name: "Angels Blade",
+  angels_essence: {
+    id: "angels_essence",
+    name: "Angels Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       HolyBoost: 15,
@@ -1162,21 +1005,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Holy: 0.55,
       Magic: 0.55,
     },
-    damageTypes: {
-      Holy: 0.5,
-      Magic: 0.5,
-    },
     perks: {
       sacred_grounds: 1,
     },
     img: "",
   },
-  skull_mace: {
-    id: "skull_mace",
-    name: "Skull Mace",
+  skull_essence: {
+    id: "skull_essence",
+    name: "Skull Essence",
     tier: 4,
-    category: "Blade",
-    type: "Hammer Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       HexBoost: 10,
@@ -1187,21 +1026,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Physical: 0.5,
       Summon: 0.2,
     },
-    damageTypes: {
-      Hex: 0.5,
-      Physical: 0.5,
-    },
     perks: {
       trusty_servant: 1,
     },
     img: "",
   },
-  possessed_blade: {
-    id: "possessed_blade",
-    name: "Possessed Blade",
+  possessed_essence: {
+    id: "possessed_essence",
+    name: "Possessed Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       HexBoost: 12,
@@ -1211,20 +1046,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Magic: 0.5,
       Summon: 0.2,
     },
-    damageTypes: {
-      Hex: 1,
-    },
     perks: {
       possession: 1,
     },
     img: "",
   },
-  cursed_greatsword_blade: {
-    id: "cursed_greatsword_blade",
-    name: "Cursed Greatsword Blade",
+  cursed_greatsword_essence: {
+    id: "cursed_greatsword_essence",
+    name: "Cursed Greatsword Essence",
     tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.9,
     stats: {
       HexBoost: 15,
@@ -1232,46 +1064,38 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Hex: 0.7,
     },
-    damageTypes: {
-      Hex: 0.8,
-      Magic: 0.2,
-    },
     perks: {
       weakening: 2,
       endless_despair: 1,
     },
     img: "",
   },
-  cursed_dagger_blade: {
-    id: "cursed_dagger_blade",
-    name: "Cursed Dagger Blade",
+  cursed_dagger_essence: {
+    id: "cursed_dagger_essence",
+    name: "Cursed Dagger Essence",
     tier: 4,
-    category: "Blade",
-    type: "Small Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
-      HexBoost: 10,
       DexterityBoost: 10,
+      HexBoost: 10,
     },
     damageScalings: {
       Hex: 0.55,
       Dexterity: 0.55,
-    },
-    damageTypes: {
-      Hex: 0.7,
-      Magic: 0.3,
     },
     perks: {
       curse_rip: 1,
     },
     img: "",
   },
-  gale_blade: {
-    id: "gale_blade",
-    name: "Gale Blade",
+  gale_essence: {
+    id: "gale_essence",
+    name: "Gale Essence",
     tier: 4,
-    category: "Blade",
-    type: "Small Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       DexterityBoost: 7,
@@ -1280,22 +1104,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Air: 0.55,
       Dexterity: 0.55,
     },
-    damageTypes: {
-      Air: 0.7,
-      Magic: 0.3,
-    },
     perks: {
       whirlwind: 1,
       tailwind: 1,
     },
     img: "",
   },
-  windiron_needle: {
-    id: "windiron_needle",
-    name: "Windiron Needle",
+  windiron_needle_essence: {
+    id: "windiron_needle_essence",
+    name: "Windiron Needle Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.2,
     stats: {
       DexterityBoost: 7,
@@ -1304,22 +1124,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Air: 0.55,
       Dexterity: 0.55,
     },
-    damageTypes: {
-      Air: 0.7,
-      Magic: 0.3,
-    },
     perks: {
       gale_bursts: 1,
       tailwind: 1,
     },
     img: "",
   },
-  storm_splitter: {
-    id: "storm_splitter",
-    name: "Storm Splitter",
+  storm_splitter_essence: {
+    id: "storm_splitter_essence",
+    name: "Storm Splitter Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       MagicBoost: 8,
@@ -1330,21 +1146,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Magic: 0.45,
       Dexterity: 0.45,
     },
-    damageTypes: {
-      Air: 0.5,
-      Magic: 0.5,
-    },
     perks: {
       storm_rend: 1,
     },
     img: "",
   },
-  lightning_hammer: {
-    id: "lightning_hammer",
-    name: "Lightning Hammer",
+  lightning_essence: {
+    id: "lightning_essence",
+    name: "Lightning Essence",
     tier: 4,
-    category: "Blade",
-    type: "Hammer Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       MagicBoost: 6,
@@ -1354,21 +1166,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Air: 0.55,
       Magic: 0.55,
     },
-    damageTypes: {
-      Air: 0.5,
-      Magic: 0.5,
-    },
     perks: {
       static_buildup: 1,
     },
     img: "",
   },
-  steel_flame_dagger: {
-    id: "steel_flame_dagger",
-    name: "Steel Flame Dagger",
+  steel_flame_dagger_essence: {
+    id: "steel_flame_dagger_essence",
+    name: "Steel Flame Dagger Essence",
     tier: 4,
-    category: "Blade",
-    type: "Small Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       DexterityBoost: 10,
@@ -1378,21 +1186,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Dexterity: 0.55,
       Fire: 0.55,
     },
-    damageTypes: {
-      Physical: 0.3,
-      Fire: 0.7,
-    },
     perks: {
       spark: 1,
     },
     img: "",
   },
-  dragon_flame_dagger: {
-    id: "dragon_flame_dagger",
-    name: "Dragon Flame Dagger",
+  dragon_flame_essence: {
+    id: "dragon_flame_essence",
+    name: "Dragon Flame Essence",
     tier: 4,
-    category: "Blade",
-    type: "Small Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       DexterityBoost: 8,
@@ -1402,24 +1206,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Dexterity: 0.55,
       Fire: 0.55,
     },
-    damageTypes: {
-      Magic: 0.3,
-      Fire: 0.7,
-    },
-    potencies: {
-      burnpotency: 2,
-    },
     perks: {
       dragon_breath: 1,
+      burn_potency: 2,
     },
     img: "",
   },
-  blue_flame_greatblade: {
-    id: "blue_flame_greatblade",
-    name: "Blue Flame Greatblade",
+  blue_flame_essence: {
+    id: "blue_flame_essence",
+    name: "Blue Flame Essence",
     tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       FireBoost: 15,
@@ -1428,24 +1226,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Fire: 0.7,
     },
-    damageTypes: {
-      Fire: 0.7,
-      Magic: 0.3,
-    },
     perks: {
       cauterize: 1,
-    },
-    potencies: {
-      burnpotency: 3,
+      burn_potency: 3,
     },
     img: "",
   },
-  cragstone_hammer: {
-    id: "cragstone_hammer",
-    name: "Cragstone Hammer",
+  cragstone_essence: {
+    id: "cragstone_essence",
+    name: "Cragstone Essence",
     tier: 4,
-    category: "Blade",
-    type: "Hammer Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       FireBoost: 4,
@@ -1458,21 +1250,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Fire: 0.55,
       Earth: 0.55,
     },
-    damageTypes: {
-      Fire: 0.5,
-      Earth: 0.5,
-    },
     perks: {
       tectonic_heat: 1,
     },
     img: "",
   },
-  wave_blade: {
-    id: "wave_blade",
-    name: "Wave Blade",
+  wave_essence: {
+    id: "wave_essence",
+    name: "Wave Essence",
     tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.2,
     stats: {
       MagicDefense: 5,
@@ -1482,21 +1270,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Water: 0.7,
     },
-    damageTypes: {
-      Water: 1,
-    },
     perks: {
       wave_rider: 1,
-      extinguish: 1,
     },
     img: "",
   },
-  golden_trident: {
-    id: "golden_trident",
-    name: "Golden Trident",
+  golden_trident_essence: {
+    id: "golden_trident_essence",
+    name: "Golden Trident Essence",
     tier: 4,
-    category: "Blade",
-    type: "Small Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       HolyBoost: 10,
@@ -1506,21 +1290,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Water: 0.55,
       Holy: 0.55,
     },
-    damageTypes: {
-      Water: 0.8,
-      Holy: 0.2,
-    },
     perks: {
       holy_tides: 1,
     },
     img: "",
   },
-  icicle: {
-    id: "icicle",
-    name: "Icicle",
+  icicle_essence: {
+    id: "icicle_essence",
+    name: "Icicle Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       WaterBoost: 10,
@@ -1531,25 +1311,19 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Water: 0.55,
       Dexterity: 0.55,
     },
-    damageTypes: {
-      Water: 0.5,
-      Physical: 0.5,
-    },
     perks: {
       frostbite: 1,
       gelid_lance: 1,
-    },
-    potencies: {
-      bleedpotency: 3,
+      bleed_potency: 3,
     },
     img: "",
   },
-  sculpted_blade: {
-    id: "sculpted_blade",
-    name: "Sculpted Blade",
+  sculpted_essence: {
+    id: "sculpted_essence",
+    name: "Sculpted Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       HeatResistance: 50,
@@ -1560,22 +1334,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Water: 0.55,
       Physical: 0.55,
     },
-    damageTypes: {
-      Water: 0.5,
-      Physical: 0.5,
-    },
     perks: {
       frozen_waste: 1,
       frostbite: 1,
     },
     img: "",
   },
-  gravitational_greatblade: {
-    id: "gravitational_greatblade",
-    name: "Gravitational Greatblade",
+  gravity_greatsword_essence: {
+    id: "gravity_greatsword_essence",
+    name: "Gravity Greatsword Essence",
     tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       MagicBoost: 5,
@@ -1586,21 +1356,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Magic: 0.55,
       Earth: 0.55,
     },
-    damageTypes: {
-      Earth: 0.5,
-      Magic: 0.5,
-    },
     perks: {
       gravitational_enforcer: 1,
     },
     img: "",
   },
-  gravitational_core: {
-    id: "gravitational_core",
-    name: "Gravitational Core",
+  gravity_staff_essence: {
+    id: "gravity_staff_essence",
+    name: "Gravity Staff Essence",
     tier: 4,
-    category: "Blade",
-    type: "Hammer Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       MagicBoost: 15,
@@ -1610,22 +1376,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Magic: 0.55,
       Earth: 0.55,
     },
-    damageTypes: {
-      Earth: 0.5,
-      Magic: 0.5,
-    },
     perks: {
       gravity_well: 1,
       cosmic_ray: 1,
     },
     img: "",
   },
-  earth_spirit_greatblade: {
-    id: "earth_spirit_greatblade",
-    name: "Earth Spirit Greatblade",
+  earth_spirit_essence: {
+    id: "earth_spirit_essence",
+    name: "Earth Spirit Essence",
     tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.9,
     stats: {
       Tenacity: 0.1,
@@ -1637,61 +1399,53 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Earth: 0.55,
       Physical: 0.55,
     },
-    damageTypes: {
-      Earth: 0.7,
-      Physical: 0.3,
-    },
     perks: {
       quake: 1,
       stoneskin: 1,
     },
     img: "",
   },
-  sand_glaive: {
-    id: "sand_glaive",
-    name: "Sand Glaive",
+  sand_essence: {
+    id: "sand_essence",
+    name: "Sand Essence",
     tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
-      EarthBoost: 8,
+      EarthBoost: 5,
     },
     damageScalings: {
       Air: 0.55,
       Earth: 0.55,
-    },
-    damageTypes: {
-      Earth: 0.6,
-      Air: 0.4,
     },
     perks: {
       quicksand: 1,
     },
     img: "",
   },
-  prism_blade: {
-    id: "prism_blade",
-    name: "Prism Blade",
-    tier: 1,
-    category: "Blade",
-    type: "Medium Blade",
+  prism_essence: {
+    id: "prism_essence",
+    name: "Prism Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     damageScalings: {
       Physical: 0.15,
       Magic: 0.15,
     },
     damageTypes: {
-      True: 1,
+      True: 0.1,
     },
     img: "",
   },
-  starlight_greatblade: {
-    id: "starlight_greatblade",
-    name: "Starlight Greatblade",
-    tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
+  starlight_essence: {
+    id: "starlight_essence",
+    name: "Starlight Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       HolyBoost: 5,
@@ -1709,19 +1463,19 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Air: 0.4,
     },
     damageTypes: {
-      True: 1.2,
+      True: 0.1,
     },
     perks: {
       star_struck: 1,
     },
     img: "",
   },
-  swaxe: {
-    id: "swaxe",
-    name: "Swaxe",
-    tier: 3,
-    category: "Blade",
-    type: "Medium Blade",
+  swaxe_essence: {
+    id: "swaxe_essence",
+    name: "Swaxe Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.9,
     stats: {
       PhysicalBoost: 10,
@@ -1729,20 +1483,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Physical: 0.5,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       cleave: 1,
     },
     img: "",
   },
-  bloodiron_sawblade: {
-    id: "bloodiron_sawblade",
-    name: "Bloodiron Sawblade",
-    tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+  sawblade_essence: {
+    id: "sawblade_essence",
+    name: "Sawblade Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       PhysicalBoost: 5,
@@ -1750,47 +1501,39 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Physical: 0.7,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
-      rotating_blades: 1,
-    },
-    potencies: {
-      bleedpotency: 3,
+      saw_heart: 1,
+      bleed_potency: 3,
     },
     img: "",
   },
-  dragonslayer_blade: {
-    id: "dragonslayer_blade",
-    name: "Dragonslayer Blade",
-    tier: 3,
-    category: "Blade",
-    type: "Heavy Blade",
-    attackSpeed: 0.5,
+  dragonslayer_essence: {
+    id: "dragonslayer_essence",
+    name: "Dragonslayer Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
+    attackSpeed: 0.9,
     stats: {
       PhysicalBoost: 5,
       DexterityBoost: 5,
     },
     damageScalings: {
-      Physical: 0.33,
       Dexterity: 0.33,
-    },
-    damageTypes: {
-      Physical: 1,
+      Physical: 0.33,
     },
     perks: {
-      inhuman_swings: 1,
+      weight_distribution: 1,
     },
     img: "",
   },
-  murky_blade: {
-    id: "murky_blade",
-    name: "Murky Blade",
-    tier: 3,
-    category: "Blade",
-    type: "Medium Blade",
-    attackSpeed: 1,
+  murkwater_essence: {
+    id: "murkwater_essence",
+    name: "Murkwater Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
+    attackSpeed: 0.9,
     stats: {
       HexBoost: 4,
       EarthBoost: 4,
@@ -1801,24 +1544,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Water: 0.35,
       Hex: 0.35,
     },
-    damageTypes: {
-      Water: 0.7,
-      Hex: 0.3,
-    },
     perks: {
       pure_rot: 1,
-    },
-    potencies: {
-      poisonpotency: 2,
+      poison_potency: 2,
     },
     img: "",
   },
-  spectral_blade: {
-    id: "spectral_blade",
-    name: "Spectral Blade",
-    tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+  spectral_essence: {
+    id: "spectral_essence",
+    name: "Spectral Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       HexBoost: 5,
@@ -1830,24 +1567,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Water: 0.45,
       Hex: 0.45,
     },
-    damageTypes: {
-      Hex: 0.5,
-      Water: 0.5,
-    },
     perks: {
       ghastly_rot: 1,
+      poison_potency: 2,
     },
-    potencies: {
-      poisonpotency: 2,
-    },
-    img: "../image/blades/spectralblade.png",
+    img: "",
   },
-  poisonous_blade: {
-    id: "poisonous_blade",
-    name: "Poisonous Blade",
-    tier: 3,
-    category: "Blade",
-    type: "Small Blade",
+  rot_essence: {
+    id: "rot_essence",
+    name: "Rot Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       DexterityBoost: 4,
@@ -1855,28 +1586,22 @@ export const Blades: import("../models/Item").ItemDataTable = {
       HexBoost: 4,
     },
     damageScalings: {
-      Hex: 0.35,
-      Dexterity: 0.35,
       Earth: 0.35,
-    },
-    damageTypes: {
-      Hex: 0.2,
-      Physical: 1,
+      Dexterity: 0.35,
+      Hex: 0.35,
     },
     perks: {
       poisonous: 1,
-    },
-    potencies: {
-      poisonpotency: 3,
+      poison_potency: 3,
     },
     img: "",
   },
-  venomous_blade: {
-    id: "venomous_blade",
-    name: "Venomous Blade",
-    tier: 4,
-    category: "Blade",
-    type: "Small Blade",
+  venomous_essence: {
+    id: "venomous_essence",
+    name: "Venomous Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       DexterityBoost: 10,
@@ -1888,25 +1613,19 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Dexterity: 0.45,
       Hex: 0.45,
     },
-    damageTypes: {
-      Hex: 0.5,
-      Physical: 0.5,
-    },
     perks: {
       venom_spitter: 1,
-    },
-    potencies: {
-      poisonpotency: 2,
+      poison_potency: 2,
     },
     img: "",
   },
-  honeycomb_greatblade: {
-    id: "honeycomb_greatblade",
-    name: "Honeycomb Greatblade",
-    tier: 3,
-    category: "Blade",
-    type: "Heavy Blade",
-    attackSpeed: 1,
+  honeycomb_essence: {
+    id: "honeycomb_essence",
+    name: "Honeycomb Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
+    attackSpeed: 0.9,
     stats: {
       MagicBoost: 4,
       MagicDefense: 2,
@@ -1917,21 +1636,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Magic: 0.4,
       Physical: 0.4,
     },
-    damageTypes: {
-      Magic: 0.5,
-      Physical: 0.5,
-    },
     perks: {
       sticky_swings: 1,
     },
     img: "",
   },
-  honeysteel_greatblade: {
-    id: "honeysteel_greatblade",
-    name: "Honeysteel Greatblade",
-    tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
+  honeysteel_essence: {
+    id: "honeysteel_essence",
+    name: "Honeysteel Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.9,
     stats: {
       MagicBoost: 6,
@@ -1943,21 +1658,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Magic: 0.55,
       Physical: 0.55,
     },
-    damageTypes: {
-      Magic: 0.5,
-      Physical: 0.5,
-    },
     perks: {
       explosive_honey: 1,
     },
     img: "",
   },
-  honey_bumblz_mace: {
-    id: "honey_bumblz_mace",
-    name: "Honey Bumblz Mace",
-    tier: 3,
-    category: "Blade",
-    type: "Hammer",
+  honey_bumblz_essence: {
+    id: "honey_bumblz_essence",
+    name: "Honey Bumblz Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       MagicBoost: 4,
@@ -1968,21 +1679,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Physical: 0.35,
       Summon: 0.1,
     },
-    damageTypes: {
-      Magic: 0.5,
-      Physical: 0.5,
-    },
     perks: {
       queens_guard: 1,
     },
     img: "",
   },
-  queen_bumblz_core: {
-    id: "queen_bumblz_core",
-    name: "Queen Bumblz Core",
-    tier: 4,
-    category: "Blade",
-    type: "Hammer",
+  queen_bumblz_essence: {
+    id: "queen_bumblz_essence",
+    name: "Queen Bumblz Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       MagicBoost: 5,
@@ -1995,23 +1702,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Holy: 0.4,
       Summon: 0.2,
     },
-    damageTypes: {
-      Physical: 0.3,
-      Magic: 0.35,
-      Holy: 0.35,
-    },
     perks: {
-      reinforced_block: 1,
       queens_power: 1,
     },
     img: "",
   },
-  magic_great_hammer: {
-    id: "magic_great_hammer",
-    name: "Magic Great Hammer",
-    tier: 4,
-    category: "Blade",
-    type: "Hammer",
+  magic_great_hammer_essence: {
+    id: "magic_great_hammer_essence",
+    name: "Magic Great Hammer Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.8,
     stats: {
       MagicBoost: 7,
@@ -2022,19 +1723,19 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Magic: 0.8,
     },
     damageTypes: {
-      Magic: 1.2,
+      Magic: 0.2,
     },
     perks: {
       energize: 1,
     },
     img: "",
   },
-  dynamite_stick: {
-    id: "dynamite_stick",
-    name: "Dynamite Stick",
-    tier: 2,
-    category: "Blade",
-    type: "Small Blade",
+  dynamite_stick_essence: {
+    id: "dynamite_stick_essence",
+    name: "Dynamite Stick Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       DexterityBoost: 5,
@@ -2044,20 +1745,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Dexterity: 0.3,
       Physical: 0.3,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       explosive_charge: 1,
     },
     img: "",
   },
-  dynamite_bundle: {
-    id: "dynamite_bundle",
-    name: "Dynamite Bundle",
-    tier: 3,
-    category: "Blade",
-    type: "Small Blade",
+  dynamite_bundle_essence: {
+    id: "dynamite_bundle_essence",
+    name: "Dynamite Bundle Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       DexterityBoost: 10,
@@ -2067,20 +1765,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Dexterity: 0.4,
       Physical: 0.4,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       explosive_charge: 2,
     },
     img: "",
   },
-  timed_dynamite_bundle: {
-    id: "timed_dynamite_bundle",
-    name: "Timed Dynamite Bundle",
-    tier: 4,
-    category: "Blade",
-    type: "Small Blade",
+  timed_dynamite_bundle_essence: {
+    id: "timed_dynamite_bundle_essence",
+    name: "Timed Dynamite Bundle Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 0.9,
     stats: {
       DexterityBoost: 10,
@@ -2090,38 +1785,32 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Dexterity: 0.55,
       Physical: 0.55,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       explosive_charge: 3,
     },
     img: "",
   },
-  stratos_core: {
-    id: "stratos_core",
-    name: "Stratos Core",
-    tier: 3,
-    category: "Blade",
-    type: "Hammer Blade",
-    attackSpeed: 1,
+  stratos_essence: {
+    id: "stratos_essence",
+    name: "Stratos Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
+    attackSpeed: 0.9,
     damageScalings: {
       Air: 0.55,
-    },
-    damageTypes: {
-      Air: 1,
     },
     perks: {
       stratos_winds: 1,
     },
     img: "",
   },
-  lightning_stratos_core: {
-    id: "lightning_stratos_core",
-    name: "Lightning Stratos Core",
-    tier: 4,
-    category: "Blade",
-    type: "Hammer Blade",
+  lightning_stratos_essence: {
+    id: "lightning_stratos_essence",
+    name: "Lightning Stratos Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       MagicBoost: 10,
@@ -2130,22 +1819,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Air: 0.55,
       Magic: 0.55,
     },
-    damageTypes: {
-      Air: 0.5,
-      Magic: 0.5,
-    },
     perks: {
       storm_caster: 1,
       power_surge: 1,
     },
     img: "",
   },
-  caci_blade: {
-    id: "caci_blade",
-    name: "Caci Blade",
-    tier: 3,
-    category: "Blade",
-    type: "Small Blade",
+  caci_essence: {
+    id: "caci_essence",
+    name: "Caci Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       DexterityBoost: 5,
@@ -2155,26 +1840,23 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Dexterity: 0.4,
       Physical: 0.4,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       barbed_flurry: 1,
-      thorns: 1,
+      thorns: 2,
     },
     img: "",
   },
-  caci_kings_blade: {
-    id: "caci_kings_blade",
-    name: "Caci Kings Blade",
-    tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+  caci_kings_essence: {
+    id: "caci_kings_essence",
+    name: "Caci Kings Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       DexterityBoost: 5,
       PhysicalBoost: 5,
-      EarthBoost: 5,
+      EarthBoost: 3,
     },
     damageScalings: {
       Dexterity: 0.45,
@@ -2182,24 +1864,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Earth: 0.45,
       Air: 0.45,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
-      barbed_flurry: 1,
       sandy_wounds: 1,
-    },
-    potencies: {
-      bleedpotency: 2,
+      bleed_potency: 2,
     },
     img: "",
   },
-  buni_prince_hammer: {
-    id: "buni_prince_hammer",
-    name: "Buni Prince Hammer",
-    tier: 3,
-    category: "Blade",
-    type: "Hammer Blade",
+  buni_prince_essence: {
+    id: "buni_prince_essence",
+    name: "Buni Prince Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       PhysicalDefense: 5,
@@ -2208,20 +1884,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Physical: 0.5,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       iron_bounce: 1,
     },
     img: "",
   },
-  buni_prince_cannon: {
-    id: "buni_prince_cannon",
-    name: "Buni Prince Cannon",
-    tier: 4,
-    category: "Blade",
-    type: "Hammer Blade",
+  buni_prince_cannon_essence: {
+    id: "buni_prince_cannon_essence",
+    name: "Buni Prince Cannon Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       PhysicalDefense: 5,
@@ -2230,20 +1903,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Physical: 0.7,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
       springblast: 1,
     },
     img: "",
   },
-  ancient_mallet: {
-    id: "ancient_mallet",
-    name: "Ancient Mallet",
-    tier: 3,
-    category: "Blade",
-    type: "Hammer Blade",
+  ancient_mallet_essence: {
+    id: "ancient_mallet_essence",
+    name: "Ancient Mallet Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       EarthBoost: 8,
@@ -2252,20 +1922,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Earth: 0.5,
     },
-    damageTypes: {
-      Earth: 1,
-    },
     perks: {
       rocky_body: 1,
     },
     img: "",
   },
-  bastion_greatswaxe_blade: {
-    id: "bastion_greatswaxe_blade",
-    name: "Bastion Greatswaxe Blade",
-    tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
+  bastion_greatswaxe_essence: {
+    id: "bastion_greatswaxe_essence",
+    name: "Bastion Greatswaxe Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       EarthBoost: 8,
@@ -2273,44 +1940,37 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Earth: 0.8,
     },
-    damageTypes: {
-      Earth: 1,
-    },
     perks: {
       golem_guillotine: 1,
     },
     img: "",
   },
-  relic_short_blade: {
-    id: "relic_short_blade",
-    name: "Relic Short Blade",
-    tier: 3,
-    category: "Blade",
-    type: "Small Blade",
+  relic_dagger_essence: {
+    id: "relic_dagger_essence",
+    name: "Relic Dagger Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
-      EarthBoost: 4,
-      HolyBoost: 4,
+      EarthBoost: 6,
+      HolyBoost: 6,
     },
     damageScalings: {
       Earth: 0.4,
       Holy: 0.4,
-    },
-    damageTypes: {
-      Earth: 0.7,
-      Holy: 0.3,
     },
     perks: {
       bastion_bless: 1,
     },
     img: "",
   },
-  bastion_relic_blade: {
-    id: "bastion_relic_blade",
-    name: "Bastion Relic Blade",
-    tier: 4,
-    category: "Blade",
-    type: "Medium Blade",
+  bastion_relic_essence: {
+    id: "bastion_relic_essence",
+    name: "Bastion Relic Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       EarthBoost: 8,
@@ -2320,21 +1980,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Earth: 0.55,
       Holy: 0.55,
     },
-    damageTypes: {
-      Earth: 0.5,
-      Holy: 0.5,
-    },
     perks: {
       essence_totem: 1,
     },
     img: "",
   },
-  vaen_kama: {
-    id: "vaen_kama",
-    name: "Vaen Kama",
-    tier: 3,
-    category: "Blade",
-    type: "Small Blade",
+  vaen_kama_essence: {
+    id: "vaen_kama_essence",
+    name: "Vaen Kama Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       PhysicalBoost: 5,
@@ -2343,22 +1999,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Air: 0.4,
       Physical: 0.4,
     },
-    damageTypes: {
-      Air: 0.5,
-      Physical: 0.5,
-    },
     perks: {
       crimson_tithe: 1,
-      kama_blades: 1,
     },
     img: "",
   },
-  lord_vaen_blade: {
-    id: "lord_vaen_blade",
-    name: "Lord Vaen Blade",
-    tier: 4,
-    category: "Blade",
-    type: "Small Blade",
+  lord_vaen_scythe_essence: {
+    id: "lord_vaen_scythe_essence",
+    name: "Lord Vaen Scythe Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       PhysicalBoost: 10,
@@ -2367,25 +2018,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Air: 0.55,
       Physical: 0.55,
     },
-    damageTypes: {
-      Air: 0.5,
-      Physical: 0.5,
-    },
     perks: {
       ichor_spark: 1,
-      kama_blades: 1,
-    },
-    potencies: {
-      bleedpotency: 3,
+      bleed_potency: 3,
     },
     img: "",
   },
-  mungal_mallet: {
-    id: "mungal_mallet",
-    name: "Mungal Mallet",
-    tier: 3,
-    category: "Blade",
-    type: "Hammer Blade",
+  mungal_essence: {
+    id: "mungal_essence",
+    name: "Mungal Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       HexBoost: 4,
@@ -2394,27 +2038,21 @@ export const Blades: import("../models/Item").ItemDataTable = {
     },
     damageScalings: {
       Hex: 0.35,
-      Earth: 0.35,
       Physical: 0.35,
-    },
-    damageTypes: {
-      Earth: 0.5,
-      Hex: 0.5,
+      Earth: 0.35,
     },
     perks: {
       gaseous_smash: 1,
-    },
-    potencies: {
-      poisonpotency: 3,
+      poison_potency: 3,
     },
     img: "",
   },
-  mungus_core: {
-    id: "mungus_core",
-    name: "Mungus Core",
-    tier: 4,
-    category: "Blade",
-    type: "Hammer",
+  proto_essence: {
+    id: "proto_essence",
+    name: "Proto Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       EarthBoost: 5,
@@ -2426,22 +2064,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Magic: 0.45,
       Hex: 0.45,
     },
-    damageTypes: {
-      Hex: 0.6,
-      Magic: 0.5,
-    },
     perks: {
       virulent_core: 1,
       proto_tech: 1,
     },
-    img: "../image/blades/munguscore.png",
+    img: "",
   },
-  spider_fang_blade: {
-    id: "spider_fang_blade",
-    name: "Spider Fang Blade",
-    tier: 3,
-    category: "Blade",
-    type: "Small Blade",
+  spider_essence: {
+    id: "spider_essence",
+    name: "Spider Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.1,
     stats: {
       HexDefense: 10,
@@ -2450,24 +2084,18 @@ export const Blades: import("../models/Item").ItemDataTable = {
     damageScalings: {
       Dexterity: 0.5,
     },
-    damageTypes: {
-      Hex: 0.2,
-      Physical: 0.8,
-    },
     perks: {
       poison_acceleration: 1,
-    },
-    potencies: {
-      poisonpotency: 2,
+      poison_potency: 2,
     },
     img: "",
   },
-  omega_lance_blade: {
-    id: "omega_lance_blade",
-    name: "Omega Lance Blade",
-    tier: 4,
-    category: "Blade",
-    type: "Heavy Blade",
+  omega_lance_essence: {
+    id: "omega_lance_essence",
+    name: "Omega Lance Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       DexterityBoost: 5,
@@ -2480,21 +2108,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Fire: 0.45,
       Air: 0.45,
     },
-    damageTypes: {
-      Physical: 1,
-    },
     perks: {
-      lance: 1,
       heat_drill: 1,
     },
-    img: "../image/blades/omegalanceblade.png",
+    img: "",
   },
-  bronze_frozen_pick: {
-    id: "bronze_frozen_pick",
-    name: "Bronze Frozen Pick",
-    tier: 3,
-    category: "Blade",
-    type: "Small Blade",
+  freezing_bronze_essence: {
+    id: "freezing_bronze_essence",
+    name: "Freezing Bronze Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1,
     stats: {
       HeatResistance: 50,
@@ -2505,22 +2129,17 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Water: 0.4,
       Physical: 0.4,
     },
-    damageTypes: {
-      Water: 0.5,
-      Physical: 0.5,
-    },
     perks: {
       glacial_buildup: 1,
-      kama_blades: 1,
     },
     img: "",
   },
-  frozen_pickaxe_head: {
-    id: "frozen_pickaxe_head",
-    name: "Frozen Pickaxe Head",
-    tier: 4,
-    category: "Blade",
-    type: "Hammer Blade",
+  pickaxe_essence: {
+    id: "pickaxe_essence",
+    name: "Pickaxe Essence",
+    tier: 5,
+    category: "Essence",
+    type: "Essence",
     attackSpeed: 1.2,
     stats: {
       HeatResistance: 50,
@@ -2531,15 +2150,9 @@ export const Blades: import("../models/Item").ItemDataTable = {
       Water: 0.55,
       Physical: 0.55,
     },
-    damageTypes: {
-      Water: 0.5,
-      Physical: 0.5,
-    },
     perks: {
-      mine: 1,
       ice_burst: 1,
     },
     img: "",
   },
 };
-

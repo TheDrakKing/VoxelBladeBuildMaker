@@ -14,6 +14,13 @@ let damageMultiplier = {
     armor_multiplier: {},
     special_multiplier: {},
 };
+function roundBuildValue(value, decimals = 4) {
+    const multiplier = 10 ** decimals;
+    return Math.round((value + Number.EPSILON) * multiplier) / multiplier;
+}
+function cloneDamageAmount(damageAmount) {
+    return damageAmount?.map(([damage, timesHit]) => [damage, timesHit]);
+}
 export class Build {
     constructor() {
         this.weapon = undefined;
@@ -31,6 +38,7 @@ export class Build {
         this.damageTypes = {};
         this.totEffBoost = 0;
         this.guildPromotion = 0;
+        this.shrineOfBalance = false;
         this.damageModifications = {
             damage_bonus_mods: {},
             damage_reduced_mods: {},
@@ -50,20 +58,81 @@ export class Build {
             m1: [],
             m2: [],
         };
-        if (!this.handle || !this.blade)
+        const weaponConstructionData = this.getWeaponConstructionData();
+        if (!weaponConstructionData || !this.handle || !this.blade)
             return;
-        let handleTypeId = ItemModule.toID(this.handle?.type);
-        let bladeTypeId = ItemModule.toID(this.blade?.type);
-        let weaponType = WeaponTypes.WeaponTypeTable[handleTypeId][bladeTypeId];
-        let weaponConstructionData = WeaponTypes.ConstructionTypeTable[weaponType];
         this.weapon.constructionType = weaponConstructionData.constructionType;
         //cal atk speed
         const bladeAtkSpe = this.blade?.attackSpeed || 0;
         const handleAtkSpe = this.handle?.attackSpeed || 0;
         const avgAtkSpe = (bladeAtkSpe + handleAtkSpe) / 2;
         const boost = this.stats.AttackSpeed ? 1 + (this.stats.AttackSpeed / 100) : 1;
-        console.log(avgAtkSpe);
         this.weapon.attackSpeed = avgAtkSpe * boost;
+    }
+    getWeaponConstructionData() {
+        if (!this.handle || !this.blade)
+            return null;
+        const isMonk = this.guild?.id === "monk";
+        let handleTypeId = isMonk
+            ? "glove"
+            : ItemModule.toID(this.handle.type);
+        const bladeTypeId = isMonk
+            ? "essence"
+            : ItemModule.toID(this.blade.type);
+        if (isMonk && ItemModule.toID(this.handle.type) == "shield")
+            handleTypeId = "shield";
+        const baseWeaponTypeId = WeaponTypes.WeaponTypeTable[handleTypeId]?.[bladeTypeId];
+        if (!baseWeaponTypeId)
+            return null;
+        let resolvedWeaponTypeId = baseWeaponTypeId;
+        if (!isMonk) {
+            if (this.perks["duelist_stance"] && baseWeaponTypeId === "onehand_sword") {
+                resolvedWeaponTypeId = "rapier";
+            }
+            else if (this.perks["saw_stance"] && bladeTypeId === "medium_blade") {
+                resolvedWeaponTypeId = "chainsaw";
+            }
+            else if (this.perks["dual_wielding"]) {
+                const dualWeaponTypeMap = {
+                    small_blade: "dual_daggers",
+                    medium_blade: "dual_swords",
+                    heavy_blade: "dual_unbalanced_swords",
+                    hammer_blade: "dual_mallets",
+                };
+                resolvedWeaponTypeId = dualWeaponTypeMap[bladeTypeId] || resolvedWeaponTypeId;
+            }
+        }
+        const resolvedConstructionData = WeaponTypes.ConstructionTypeTable[resolvedWeaponTypeId];
+        if (!resolvedConstructionData)
+            return null;
+        let weaponConstructionData = {
+            ...resolvedConstructionData,
+            m1: cloneDamageAmount(resolvedConstructionData.m1),
+            m2: cloneDamageAmount(resolvedConstructionData.m2),
+        };
+        if (this.perks["locked_and_loaded"]) {
+            if (baseWeaponTypeId === "fist") {
+                const dualGunsData = WeaponTypes.ConstructionTypeTable.dual_guns;
+                weaponConstructionData = {
+                    ...dualGunsData,
+                    m1: cloneDamageAmount(dualGunsData.m1),
+                    m2: cloneDamageAmount(dualGunsData.m2),
+                };
+            }
+            else if (baseWeaponTypeId === "dagger" ||
+                baseWeaponTypeId === "onehand_sword" ||
+                baseWeaponTypeId === "unbalanced_sword" ||
+                baseWeaponTypeId === "shield") {
+                const sideGunData = WeaponTypes.ConstructionTypeTable.side_gun;
+                weaponConstructionData = {
+                    ...weaponConstructionData,
+                    constructionType: `${weaponConstructionData.constructionType} + Side Gun`,
+                    m1: cloneDamageAmount(weaponConstructionData.m1),
+                    m2: cloneDamageAmount(sideGunData.m2),
+                };
+            }
+        }
+        return weaponConstructionData;
     }
     calculateUpgrade(stats, upgrade) {
         if (!stats)
@@ -81,6 +150,43 @@ export class Build {
         let Boost = 1 + this.level / 80;
         const hpBoost = Math.ceil(Boost * 120);
         return hpBoost;
+    }
+    getShrineOfBalanceMultiplier(item) {
+        if (!this.shrineOfBalance || !item?.tier)
+            return 1;
+        const multiplierByTier = {
+            1: 3,
+            2: 1.7,
+            3: 1.4,
+            4: 1.1,
+            5: 1,
+        };
+        return multiplierByTier[item.tier] || 1;
+    }
+    getShrineOfBalanceAdjustedWeaponPart(item) {
+        const multiplier = this.getShrineOfBalanceMultiplier(item);
+        if (!item || multiplier === 1)
+            return item;
+        const adjustedItem = new ItemModule.Item({
+            ...item,
+            stats: item.stats ? { ...item.stats } : undefined,
+            damageScalings: item.damageScalings ? { ...item.damageScalings } : undefined,
+        });
+        if (adjustedItem.stats) {
+            for (const [stat, value] of Object.entries(adjustedItem.stats)) {
+                if (value === undefined)
+                    continue;
+                adjustedItem.stats[stat] = roundBuildValue(value * multiplier, 2);
+            }
+        }
+        if (adjustedItem.damageScalings) {
+            for (const [scale, value] of Object.entries(adjustedItem.damageScalings)) {
+                if (value === undefined)
+                    continue;
+                adjustedItem.damageScalings[scale] = roundBuildValue(value * multiplier, 4);
+            }
+        }
+        return adjustedItem;
     }
     addItemStatsToBuild(item, isInfuse, key) {
         // Loop through the stats using Object.entries
@@ -118,8 +224,8 @@ export class Build {
                     if (isInfuse) {
                         amount = value / 2;
                     }
-                    this.stats[key] = previousValue ? previousValue + amount : amount;
-                    this.stats[key] = Math.trunc(this.stats[key] * 100) / 100;
+                    this.stats[key] = previousValue !== undefined ? previousValue + amount : amount;
+                    this.stats[key] = roundBuildValue(this.stats[key], 2);
                 }
             }
             if (item.perks) {
@@ -128,7 +234,7 @@ export class Build {
                     if (value === undefined)
                         continue;
                     let previousValue = this.perks[key];
-                    this.perks[key] = previousValue ? previousValue + value : value;
+                    this.perks[key] = previousValue !== undefined ? previousValue + value : value;
                     //certain perks carry hidden stats
                     const perk = PerkModule.PerkStore.get(key);
                     if (perk && perk.stats !== undefined) {
@@ -147,7 +253,8 @@ export class Build {
                     if (!value)
                         continue;
                     let previousValue = this.potencies[key];
-                    this.potencies[key] = previousValue ? previousValue + value : value;
+                    this.potencies[key] = previousValue !== undefined ? previousValue + value : value;
+                    this.potencies[key] = roundBuildValue(this.potencies[key], 4);
                 }
             }
             if (item.damageScalings) {
@@ -156,9 +263,10 @@ export class Build {
                     if (value === undefined)
                         continue;
                     let previousValue = this.damageScalings[key];
-                    this.damageScalings[key] = previousValue
+                    this.damageScalings[key] = previousValue !== undefined
                         ? previousValue + value
                         : value;
+                    this.damageScalings[key] = roundBuildValue(this.damageScalings[key], 4);
                 }
             }
             if (item.damageTypes) {
@@ -167,7 +275,8 @@ export class Build {
                     if (value === undefined)
                         continue;
                     let previousValue = this.damageTypes[key];
-                    this.damageTypes[key] = previousValue ? previousValue + value : value;
+                    this.damageTypes[key] = previousValue !== undefined ? previousValue + value : value;
+                    this.damageTypes[key] = roundBuildValue(this.damageTypes[key], 4);
                 }
             }
         }
@@ -267,6 +376,13 @@ export class Build {
         // console.log(this.buff?.length);
         this.resetBuild();
     }
+    normalizeWeaponPartKey(key) {
+        if (key === "glove")
+            return "handle";
+        if (key === "essence")
+            return "blade";
+        return key;
+    }
     addItemToBuild(item, section, key, enchantIndex) {
         if (section !== "enchantments" &&
             key !== "guild" &&
@@ -279,23 +395,24 @@ export class Build {
                         : item.category?.toLowerCase();
             }
         }
-        if (!key)
+        const normalizedKey = this.normalizeWeaponPartKey(key);
+        if (!normalizedKey)
             return;
-        if (key == "blade" ||
-            key == "handle" ||
-            key == "weaponart" ||
-            key == "guild" ||
-            key == "race") {
-            this[key] = item;
+        if (normalizedKey == "blade" ||
+            normalizedKey == "handle" ||
+            normalizedKey == "weaponart" ||
+            normalizedKey == "guild" ||
+            normalizedKey == "race") {
+            this[normalizedKey] = item;
         }
         else if (section) {
             if (section === "infuseArmor" || section === "mainArmor") {
-                this[section][key] = item;
+                this[section][normalizedKey] = item;
             }
             else if (section === "enchantments" && enchantIndex != undefined) {
-                if (!this.enchantments[key])
-                    this.enchantments[key] = [];
-                this.enchantments[key][enchantIndex] = item;
+                if (!this.enchantments[normalizedKey])
+                    this.enchantments[normalizedKey] = [];
+                this.enchantments[normalizedKey][enchantIndex] = item;
             }
         }
         //this.resetBuild();
@@ -304,21 +421,24 @@ export class Build {
         if (section !== "enchantments") {
             key = key.toLowerCase();
         }
-        if (key == "blade" ||
-            key == "handle" ||
-            key == "weaponart" ||
-            key == "guild" ||
-            key == "race") {
-            delete this[key];
+        const normalizedKey = this.normalizeWeaponPartKey(key);
+        if (!normalizedKey)
+            return;
+        if (normalizedKey == "blade" ||
+            normalizedKey == "handle" ||
+            normalizedKey == "weaponart" ||
+            normalizedKey == "guild" ||
+            normalizedKey == "race") {
+            delete this[normalizedKey];
         }
         else if (section) {
             if (section == "infuseArmor" || section == "mainArmor") {
-                delete this[section][key];
+                delete this[section][normalizedKey];
             }
             else if (section === "enchantments" && enchantIndex != undefined) {
-                if (!this.enchantments[key])
+                if (!this.enchantments[normalizedKey])
                     return;
-                delete this.enchantments[key][enchantIndex];
+                delete this.enchantments[normalizedKey][enchantIndex];
             }
         }
         else {
@@ -326,10 +446,28 @@ export class Build {
         }
         //this.resetBuild();
     }
+    runPerkEvent(eventName) {
+        const perkEntries = Object.entries(this.perks);
+        for (const [perkId, amount] of perkEntries) {
+            if (amount === undefined)
+                continue;
+            const perk = PerkModule.PerkStore.getByID(perkId);
+            const callback = perk?.[eventName];
+            if (!callback)
+                continue;
+            callback.apply(this, [amount]);
+        }
+    }
     resetBuild(item) {
         ////////////////////////////////////////////////wipe the Html Elements to make way for the updates ///////////////////////////////////////////////////
         //wipeStatHolders();
         this.totEffBoost = 0;
+        this.stats = {};
+        this.effectiveBoosts = {};
+        this.perks = {};
+        this.potencies = {};
+        this.damageScalings = {};
+        this.damageTypes = {};
         this.damageModifications = {
             damage_bonus_mods: {},
             damage_reduced_mods: {},
@@ -341,9 +479,9 @@ export class Build {
         };
         ////////////////////////////////////////////////Add the Item stats, perks etc to the stat containers///////////////////////////////////////////////////
         if (this.blade)
-            this.addItemStatsToBuild(this.blade);
+            this.addItemStatsToBuild(this.getShrineOfBalanceAdjustedWeaponPart(this.blade));
         if (this.handle)
-            this.addItemStatsToBuild(this.handle);
+            this.addItemStatsToBuild(this.getShrineOfBalanceAdjustedWeaponPart(this.handle));
         //if (this.weaponArt) this.addItemStatsToBuild(this.weaponArt);
         if (this.guild && this.guild.promotions) {
             let promotion = this.guild.promotions[this.guildPromotion];
@@ -386,6 +524,12 @@ export class Build {
                 perks: {},
                 potencies: {},
             });
+            if (!item.stats)
+                item.stats = {};
+            if (!item.perks)
+                item.perks = {};
+            if (!item.potencies)
+                item.potencies = {};
             Object.assign(item.stats, value.stats);
             Object.assign(item.perks, value.perks);
             Object.assign(item.potencies, value.potencies);
@@ -449,7 +593,9 @@ export class Build {
         //     enchantment.onStatCalculation.apply(this);
         //   }
         // }
-        //////////////////////// Perk activation ////////////////////////
+        //////////////////////// Perk Stats mods ////////////////////////
+        this.runPerkEvent("onPerkMod");
+        this.runPerkEvent("onStatCalculation");
         //////////////////////// Run the displayStats() to add show the build stats ////////////////////////
         const oldMaxHp = this.maxHp;
         this.maxHp = this.getHp();
@@ -482,6 +628,7 @@ export class Build {
             hp: this.hp,
             maxHp: this.maxHp,
             guildPromotion: this.guildPromotion,
+            shrineOfBalance: this.shrineOfBalance,
             bladeId: this.blade?.id,
             handleId: this.handle?.id,
             weaponArtId: this.weaponart?.id,
@@ -519,6 +666,7 @@ export class Build {
         build.hp = data.hp || 100;
         build.maxHp = data.maxHp || build.getHp();
         build.guildPromotion = data.guildPromotion || 0;
+        build.shrineOfBalance = data.shrineOfBalance || false;
         if (data.bladeId)
             build.blade = ItemModule.ItemStore.getByID(data.bladeId);
         if (data.handleId)

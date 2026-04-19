@@ -1,3 +1,24 @@
+function hasDebuff(build, debuffId) {
+    return !!build?.deBuffs?.find((debuff) => debuff?.id === debuffId);
+}
+function getDebuffCount(build) {
+    return build?.deBuffs?.length || 0;
+}
+function addStat(build, statId, amount) {
+    if (!amount)
+        return;
+    const previousValue = build.stats[statId] || 0;
+    build.stats[statId] = Math.trunc((previousValue + amount) * 100) / 100;
+}
+function getNegativeStatValue(value) {
+    if (!value || value >= 0)
+        return 0;
+    return Math.abs(value);
+}
+function isRuneOrWeaponArtHit(args) {
+    const sourceType = args?.baseDamageData?.sourceType;
+    return sourceType === "Rune" || sourceType === "WeaponArt";
+}
 export const Perks = {
     /** Race Perks Here */
     human: {
@@ -117,19 +138,12 @@ export const Perks = {
     blood_thirsty: {
         id: "blood_thirsty",
         name: "Blood Thirsty",
-        category: "",
+        category: "Perk",
         description: "If you hit a bleeding opponent bleeding by you remove the bleed, deal bonus damage, and heal. Grants bleed potency.",
         onDmgBonusMultiplier(perkAmount) {
-            if (!perkAmount || !this.target || !this.target.deBuffs) {
+            if (!perkAmount || !hasDebuff(this.target, "bleed"))
                 return null;
-            }
-            ;
-            let bleed = this.target.deBuffs.find((deBuff) => deBuff?.id === "bleed");
-            if (!bleed)
-                return null;
-            let baseMultiplier = 20;
-            let multiplier = (baseMultiplier * perkAmount) / 100;
-            return Math.trunc(multiplier * 100) / 100;
+            return Math.trunc((0.2 * perkAmount) * 100) / 100;
         },
     },
     shielding_gong: {
@@ -171,22 +185,29 @@ export const Perks = {
     strong_tides: {
         id: "strong_tides",
         name: "Strong Tides",
-        category: "",
-        description: "Tenacity increases damage dealt.",
+        category: "Perk",
+        description: "Increases your water boost based on your physical boost.",
+        onStatCalculation(perkAmount) {
+            if (!perkAmount)
+                return;
+            const physicalBoost = this.stats.PhysicalBoost || 0;
+            if (!physicalBoost)
+                return;
+            addStat(this, "WaterBoost", (physicalBoost / 10) * perkAmount);
+        },
     },
     reaper: {
         id: "reaper",
         name: "Reaper",
-        category: "",
-        description: "Tenacity increases damage dealt.",
+        category: "Perk",
+        description: "Deal more damage to enemies with debuffs.",
         onDmgBonusMultiplier(perkAmount) {
             if (!perkAmount)
                 return null;
-            if (!this.target || !this.target.deBuffs)
+            const targetDebuff = getDebuffCount(this.target);
+            if (!targetDebuff)
                 return null;
-            let baseMultiplier = 5;
-            let targetDebuff = this.target.deBuffs.length || 0;
-            let multiplier = (baseMultiplier * targetDebuff * perkAmount) / 100;
+            const multiplier = (5 * targetDebuff * perkAmount) / 100;
             return Math.trunc(multiplier * 100) / 100;
         },
     },
@@ -206,32 +227,34 @@ export const Perks = {
     highlander: {
         id: "highlander",
         name: "Highlander",
-        category: "",
-        description: "Tenacity increases damage dealt.",
+        category: "Perk",
+        description: "Your weapon arts and runes ignore some of the opponent's armor and deal bonus damage.",
+        onDmgBonusMultiplier(perkAmount, args) {
+            if (!perkAmount || !isRuneOrWeaponArtHit(args))
+                return null;
+            return Math.trunc((0.2 * perkAmount) * 100) / 100;
+        },
+        onArmorPenCalculation(perkAmount, args) {
+            if (!perkAmount || !isRuneOrWeaponArtHit(args))
+                return null;
+            return 10 * perkAmount;
+        },
     },
     hemorrhage: {
         id: "hemorrhage",
         name: "Hemorrhage",
-        category: "",
+        category: "Perk",
         description: "Hitting a bleeding opponent adds bonus damage, bonus true damage and increases stun. Grants bleed potency.",
         onDmgBonusMultiplier(perkAmount) {
-            if (!perkAmount || !this.target || !this.target.deBuffs)
+            if (!perkAmount || !hasDebuff(this.target, "bleed"))
                 return null;
-            let bleed = this.target.deBuffs.find((deBuffs) => deBuffs?.id === "bleed");
-            if (!bleed)
-                return null;
-            let baseMultiplier = 10 + 10 * perkAmount;
-            let multiplier = baseMultiplier / 100;
-            //console.log(multiplier);
+            const multiplier = (10 + 10 * perkAmount) / 100;
             return Math.trunc(multiplier * 100) / 100;
         },
         onOutputCalculation(perkAmount) {
-            if (!perkAmount || !this.target || !this.target.deBuffs)
+            if (!perkAmount || !hasDebuff(this.target, "bleed"))
                 return null;
-            let bleed = this.target.deBuffs.find((deBuffs) => deBuffs?.id === "bleed");
-            if (!bleed)
-                return null;
-            let outputMultiplier = 0.1;
+            const outputMultiplier = 0.1 * perkAmount;
             let previousValue = this.damageTypes["True"];
             this.damageTypes["True"] = previousValue
                 ? previousValue + outputMultiplier
@@ -239,11 +262,129 @@ export const Perks = {
             return null;
         },
     },
+    melting_slime: {
+        id: "melting_slime",
+        name: "Melting Slime",
+        category: "Perk",
+        description: "Take 20% more fire damage.",
+        onIncreaseSpecificDmgTaken(perkAmount, args) {
+            if (!perkAmount || !args?.outputType)
+                return null;
+            if (args.outputType !== "Fire")
+                return null;
+            return 0.2 * perkAmount;
+        },
+    },
     vicious_edge: {
         id: "vicious_edge",
         name: "Vicious Edge",
         category: "",
         description: "Tenacity increases damage dealt.",
+    },
+    cut_down: {
+        id: "cut_down",
+        name: "Cut Down",
+        category: "Perk",
+        description: "Deal bonus damage based on how much HP the opponent has left.",
+        onDmgBonusMultiplier(perkAmount) {
+            if (!perkAmount || !this.target?.maxHp)
+                return null;
+            const hpRatio = Math.max(0, Math.min(1, this.target.hp / this.target.maxHp));
+            return Math.trunc((0.3 * hpRatio * perkAmount) * 10000) / 10000;
+        },
+    },
+    extra_layers: {
+        id: "extra_layers",
+        name: "Extra Layers",
+        category: "Perk",
+        description: "Gain more warding and protection.",
+        onStatCalculation(perkAmount) {
+            if (!perkAmount)
+                return;
+            const multiplier = 1 + 0.2 * perkAmount;
+            this.stats.Warding = Math.trunc(((this.stats.Warding || 0) * multiplier) * 100) / 100;
+            this.stats.Protection = Math.trunc(((this.stats.Protection || 0) * multiplier) * 100) / 100;
+        },
+    },
+    spellshield: {
+        id: "spellshield",
+        name: "Spellshield",
+        category: "Perk",
+        description: "Increases protection based on your magic boost and magic defense.",
+        onStatCalculation(perkAmount) {
+            if (!perkAmount)
+                return;
+            const magicBoost = this.stats.MagicBoost || 0;
+            const magicDefense = this.stats.MagicDefense || 0;
+            const protection = (magicBoost + magicDefense) / 10 * perkAmount;
+            addStat(this, "Protection", protection);
+        },
+    },
+    spark: {
+        id: "spark",
+        name: "Spark",
+        category: "Perk",
+        description: "Crit damage gains a large bonus if the opponent is on fire.",
+        onCritDamageCalculation(perkAmount) {
+            if (!perkAmount || !hasDebuff(this.target, "burn"))
+                return null;
+            return Math.trunc((0.5 * perkAmount) * 100) / 100;
+        },
+    },
+    vital_strikes: {
+        id: "vital_strikes",
+        name: "Vital Strikes",
+        category: "Perk",
+        description: "Increase crit damage.",
+        onCritDamageCalculation(perkAmount) {
+            if (!perkAmount)
+                return null;
+            return Math.trunc((0.25 * perkAmount) * 100) / 100;
+        },
+    },
+    dark_one: {
+        id: "dark_one",
+        name: "Dark One",
+        category: "Perk",
+        description: "Gain increased damage while afflicted with debuffs.",
+        onDmgBonusMultiplier(perkAmount) {
+            if (!perkAmount)
+                return null;
+            const selfDebuffs = getDebuffCount(this);
+            if (!selfDebuffs)
+                return null;
+            return Math.trunc((0.0666 * selfDebuffs * perkAmount) * 10000) / 10000;
+        },
+    },
+    brawny: {
+        id: "brawny",
+        name: "Brawny",
+        category: "Perk",
+        description: "Converts a portion of all positive boosts to physical boost.",
+        onStatCalculation(perkAmount) {
+            if (!perkAmount)
+                return;
+            const conversionMultiplier = Math.min(1, 0.2 * perkAmount);
+            const offensiveStats = [
+                "MagicBoost",
+                "EarthBoost",
+                "FireBoost",
+                "WaterBoost",
+                "HolyBoost",
+                "HexBoost",
+                "AirBoost",
+                "DexterityBoost",
+                "SummonBoost",
+            ];
+            let convertedBoost = 0;
+            for (const statId of offensiveStats) {
+                const statValue = this.stats[statId] || 0;
+                if (statValue <= 0)
+                    continue;
+                convertedBoost += statValue * conversionMultiplier;
+            }
+            addStat(this, "PhysicalBoost", convertedBoost);
+        },
     },
     voltaic_body: {
         id: "voltaic_body",
@@ -305,15 +446,62 @@ export const Perks = {
         category: "",
         description: "Tenacity increases damage dealt.",
     },
+    righted_wrongs: {
+        id: "righted_wrongs",
+        name: "Righted Wrongs",
+        category: "Perk",
+        description: "Gain bonus Dexterity and Speed Boost scaling off of all of your negative stats combined.",
+        onStatCalculation(perkAmount) {
+            if (!perkAmount)
+                return;
+            const stats = this.stats;
+            const d = getNegativeStatValue(stats.EarthDefense) +
+                getNegativeStatValue(stats.FireDefense) +
+                getNegativeStatValue(stats.WaterDefense) +
+                getNegativeStatValue(stats.HolyDefense) +
+                getNegativeStatValue(stats.HexDefense) +
+                getNegativeStatValue(stats.AirDefense) +
+                getNegativeStatValue(stats.Warding);
+            const p = getNegativeStatValue(stats.Protection);
+            const t = getNegativeStatValue(stats.Tenacity);
+            const o = getNegativeStatValue(stats.MagicBoost) +
+                getNegativeStatValue(stats.PhysicalBoost) +
+                getNegativeStatValue(stats.EarthBoost) +
+                getNegativeStatValue(stats.FireBoost) +
+                getNegativeStatValue(stats.WaterBoost) +
+                getNegativeStatValue(stats.HolyBoost) +
+                getNegativeStatValue(stats.HexBoost) +
+                getNegativeStatValue(stats.AirBoost) +
+                getNegativeStatValue(stats.JumpBoost) +
+                getNegativeStatValue(stats.DexterityBoost) +
+                getNegativeStatValue(stats.SpeedBoost) +
+                getNegativeStatValue(stats.SummonBoost) +
+                getNegativeStatValue(stats.AttackSpeed) +
+                getNegativeStatValue(stats.CritRate) +
+                getNegativeStatValue(stats.CritDamage) +
+                getNegativeStatValue(stats.HeatResistance) +
+                getNegativeStatValue(stats.ColdResistance) +
+                getNegativeStatValue(stats.ArmorPenetration) +
+                (stats.PhysicalDefense || 0) +
+                (stats.MagicDefense || 0);
+            const dexterityBoost = (2 * perkAmount / 21) * (d + ((2 * p / 10) + t) / 5 + (2 * o));
+            const speedBoost = dexterityBoost / 10;
+            addStat(this, "DexterityBoost", dexterityBoost);
+            addStat(this, "SpeedBoost", speedBoost);
+        },
+    },
     immoveable: {
         id: "immoveable",
         name: "Immoveable",
         category: "Perk",
-        description: "Your tenacity Boost now affects your physical defense",
+        description: "Your tenacity boost now affects your physical defense.",
         onStatCalculation(perkAmount) {
-            if (!this.stats || !this.stats.Tenacity)
+            if (!perkAmount)
                 return;
-            let preDefense = this.stats.PhysicalDefense || 0;
+            const tenacity = this.stats.Tenacity || 0;
+            if (!tenacity)
+                return;
+            addStat(this, "PhysicalDefense", 30 * tenacity * perkAmount);
         },
     },
 };

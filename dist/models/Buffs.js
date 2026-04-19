@@ -25,6 +25,14 @@ export class Buff extends ItemModule.events {
     getSourceData() {
         return this.sourceData;
     }
+    getEffectivePotency(sourceBuild) {
+        const sourcePotency = this.sourceData?.sourceInatePotency || 0;
+        const additivePotency = this.potencyId && sourceBuild
+            ? sourceBuild.potencies[this.potencyId] || 0
+            : 0;
+        const directPotency = this.potency || 0;
+        return (sourcePotency + (additivePotency / 10) + directPotency) * 10;
+    }
 }
 export class BuffStore {
     constructor() { }

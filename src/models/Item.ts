@@ -4,6 +4,8 @@ import { Chestplate } from "../data/Chestplates.js";
 import { Leggings } from "../data/Leggings.js";
 import { Blades } from "../data/Blades.js";
 import { Handles } from "../data/Handles.js";
+import { Gloves } from "../data/Gloves.js";
+import { Essences } from "../data/Essences.js";
 import { Rings } from "../data/Rings.js";
 import { Runes } from "../data/Runes.js";
 import { Enchantments } from "../data/Enchantments.js";
@@ -15,6 +17,7 @@ const enchantmentsTable: ItemDataTable = Enchantments;
 export interface eventsArgs {
   outputType?: string
   stat?: any
+  perks?: Build.perks
   baseDamageData?: baseDamageData
   item?: Item
 }
@@ -22,15 +25,18 @@ export interface eventsArgs {
 export class events {
   onAdded?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null | void;
   onRemove?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null | void; 
+  onPerkMod?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => void;
   onStatCalculation?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => void;
-  onArmorPenCalculation?:(this: Build.Build, perkAmount?: number) => number | null;
+  onArmorPenCalculation?:(this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   onArmorStatModified?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => void;
   onStatModified?: (this: Build.Build, perkAmount?: number) => number | null;
-  onArmorModified?: (this: Build.Build, perkAmount?: number) => number | null;
+  onArmorModified?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   onDmgBonusMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   onDmgReducedMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   onSpecificDmgBonusMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   onSpecificDmgReducedMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onCritRateCalculation?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onCritDamageCalculation?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   /**
    * Function acts has the invser of onSpecificDmgReducedMultiplier, it added to the attacker damage
    */
@@ -51,7 +57,11 @@ export class events {
   onDeBuffAdded?: (this: Build.Build, perkAmount?: number) => number | null;
   onBuffRemoved?: (this: Build.Build, perkAmount?: number) => number | null;
   onDeBuffRemoved?: (this: Build.Build, perkAmount?: number) => number | null;
-  onOutputCalculation?: (this: Build.Build, perkAmount?: number) => number | null;
+  /**
+   * Mutates the temporary damage profile for the current packet before output split.
+   * This should only change the cloned calculation context, not the real build state.
+   */
+  onOutputCalculation?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null | void;
 }
 
 // export class perkEvents {
@@ -66,7 +76,7 @@ export class events {
 export type potency =
   | "bouncepotency"
   | "bleedpotency"
-  | "burnboost"
+  | "burnpotency"
   | "poisonpotency"
   | "ragepotency"
   | "reinforcepotency"
@@ -80,7 +90,7 @@ export type potency =
 export const potencyAliases: { [k in potency]: string } = {
   bouncepotency: "Bounce Potency",
   bleedpotency: "Bleed Potency",
-  burnboost: " Burn Potency",
+  burnpotency: " Burn Potency",
   ragepotency: "Rage Potency",
   poisonpotency: "Poison Potency",
   reinforcepotency: "Reinforce Potency",
@@ -91,6 +101,45 @@ export const potencyAliases: { [k in potency]: string } = {
   tauntpotency: "Taunt Potency",
   weakeningpotency: "Weakening Potency",
 };
+
+function normalizePotencyKey(value: string): potency | null {
+  const normalizedValue = value.toLowerCase().replace(/[\s_]+/g, "") as potency;
+
+  if (!normalizedValue.endsWith("potency")) return null;
+
+  return Object.prototype.hasOwnProperty.call(potencyAliases, normalizedValue)
+    ? normalizedValue
+    : null;
+}
+
+function collectNormalizedPotencies(
+  potencies?: Record<string, number>,
+  perks?: Record<string, number>,
+) {
+  const normalizedPotencies = {} as { [k in potency]?: number };
+  const normalizedPerks = { ...(perks || {}) };
+
+  for (const [key, value] of Object.entries(potencies || {})) {
+    if (typeof value !== "number") continue;
+    const potencyKey = normalizePotencyKey(key);
+    if (!potencyKey) continue;
+
+    normalizedPotencies[potencyKey] =
+      (normalizedPotencies[potencyKey] || 0) + value;
+  }
+
+  for (const [key, value] of Object.entries(normalizedPerks)) {
+    if (typeof value !== "number") continue;
+    const potencyKey = normalizePotencyKey(key);
+    if (!potencyKey) continue;
+
+    normalizedPotencies[potencyKey] =
+      (normalizedPotencies[potencyKey] || 0) + value;
+    delete normalizedPerks[key];
+  }
+
+  return { normalizedPotencies, normalizedPerks };
+}
 
 export type stat =
   | "MagicDefense"
@@ -114,6 +163,8 @@ export type stat =
   | "SpeedBoost"
   | "SummonBoost"
   | "AttackSpeed"
+  | "CritRate"
+  | "CritDamage"
   | "HeatResistance"
   | "ColdResistance"
   | "Protection"
@@ -131,6 +182,7 @@ export type scale =
   | "Hex"
   | "Air"
   | "Dexterity"
+  | "Summon"
   | "True";
 
 export type damageType = scale;
@@ -150,6 +202,7 @@ export class Item extends events {
    * Mostly for Runes
    */
   duration?: number;
+  tier?: 1 | 2 | 3 | 4 | 5;
   img?: string;
   /**
    * For addtive potecny that get applied to the over build, and can be added to soruce potency
@@ -186,19 +239,28 @@ export class Item extends events {
   constructor(data?: any) {
     super();
     Object.assign(this, data);
+    const { normalizedPotencies, normalizedPerks } = collectNormalizedPotencies(
+      data?.potencies,
+      data?.perks,
+    );
+    const hasPotenciesInput = data?.potencies !== undefined;
+    const hasPerksInput = data?.perks !== undefined;
     this.id = data?.id || undefined;
     this.name = data?.name || "";
     this.category = data?.category || "";
     this.upgrade = data?.upgrade || 0;
     this.duration = data?.duration;
     this.cooldown = data?.cooldown;
+    this.tier = data?.tier;
     this.img = data ? data.img : undefined;
     this.type = (data && data?.type) || undefined;
     this.description = data?.description || "";
-    this.potencies = data?.potencies || {};
+    this.potencies = hasPotenciesInput || Object.keys(normalizedPotencies).length
+      ? normalizedPotencies
+      : {};
     this.sourcepotencies = data?.sourcepotencies;
     this.stats = data?.stats;
-    this.perks = data?.perks;
+    this.perks = hasPerksInput ? normalizedPerks : undefined;
     this.damageScalings = data?.damageScalings;
     this.damageTypes = data?.damageTypes;
     this.baseDamage = data?.baseDamage ?? undefined;
@@ -219,6 +281,8 @@ export class ItemStore {
     ['legging', Leggings],
     ['blade', Blades],
     ['handle', Handles],
+    ['glove', Gloves],
+    ['essence', Essences],
     ['ring', Rings],
     ['rune', Runes],
     ['enchantment', Enchantments]

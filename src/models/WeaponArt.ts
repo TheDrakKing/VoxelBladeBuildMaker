@@ -111,9 +111,17 @@ export class WeaponArtStore {
     return Object.assign(new WeaponArt(), weaponArt) as WeaponArt;
   }
 
+  private static getRequirementWeaponParts(build: Build.Build) {
+    return {
+      blade: build.getShrineOfBalanceAdjustedWeaponPart(build.blade),
+      handle: build.getShrineOfBalanceAdjustedWeaponPart(build.handle),
+    };
+  }
+
   static getWeaponArtsForBuild(build: Build.Build): WeaponArt[] {
     //get all weaponArts
     const weaponArts = WeaponArtStore.all();
+    const requirementParts = this.getRequirementWeaponParts(build);
 
     let result = weaponArts.map((weaponArt) => {
       //check weapontype Requirement
@@ -138,8 +146,12 @@ export class WeaponArtStore {
         for (const [scale, value] of Object.entries(weaponArt.scalingRequirements) as [Item.scale, number][]) {
           let scaleTotal = 0
 
-          if (build.blade && build.blade.damageScalings?.[scale]) scaleTotal += build.blade.damageScalings[scale];
-          if (build.handle && build.handle.damageScalings?.[scale]) scaleTotal += build.handle.damageScalings[scale];
+          if (requirementParts.blade?.damageScalings?.[scale]) {
+            scaleTotal += requirementParts.blade.damageScalings[scale];
+          }
+          if (requirementParts.handle?.damageScalings?.[scale]) {
+            scaleTotal += requirementParts.handle.damageScalings[scale];
+          }
 
           if (scaleTotal < value) {
             scaling = false
@@ -154,8 +166,12 @@ export class WeaponArtStore {
         for (const [stat, value] of Object.entries(weaponArt.statsRequirements) as [Item.stat, number][]) {
           let statTotal = 0
 
-          if (build.blade && build.blade.stats?.[stat]) statTotal += build.blade.stats[stat]
-          if (build.handle && build.handle.stats?.[stat]) statTotal += build.handle.stats[stat]
+          if (requirementParts.blade?.stats?.[stat]) {
+            statTotal += requirementParts.blade.stats[stat]
+          }
+          if (requirementParts.handle?.stats?.[stat]) {
+            statTotal += requirementParts.handle.stats[stat]
+          }
 
           if (statTotal < value) {
             stats = false

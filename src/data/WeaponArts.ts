@@ -454,7 +454,7 @@ export const WeaponArts: import("../models/WeaponArt").weaponArtDataTable = {
     coolDown: 15,
     baseDamage: 22.5,
     sourcepotencies: {
-      burnboost: 0.5,
+      burnpotency: 0.5,
     },
     damageTypes: {
       Fire: 1,

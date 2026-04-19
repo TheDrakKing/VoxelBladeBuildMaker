@@ -38,22 +38,7 @@
         </div>
       </div>
 
-      <div class="item_hoverinfo" id="itemHoverInfoDiv">
-        Name
-        <div id="itemHoverName"></div>
-        Description
-        <div id="itemHoverDescription"></div>
-        Damage Scale
-        <div id="itemHoverDmgScale"></div>
-        Damage Type
-        <div id="itemHoverDmgType"></div>
-        Stats
-        <div id="itemHoverStats"></div>
-        Perks
-        <div id="itemHoverPerks"></div>
-        Potencies
-        <div id="itemHoverPotencies"></div>
-      </div>
+      <div class="item_hoverinfo" id="itemHoverInfoDiv"></div>
 
       <div class="items_selector" id="itemsSelectorDiv">
         <div class="items_selector_top">
@@ -166,6 +151,10 @@
           <label for="hpValue" id="healthLabel">Health</label>
           <input type="text" id="hpValue" placeholder="100/100">
         </div>
+        <div id="target_hp_bar">
+          <label for="targetHpValue" id="targetHealthLabel">Target Health</label>
+          <input type="text" id="targetHpValue" placeholder="100/100">
+        </div>
         <div id="level_bar">
           <label for="levelValue" id="levelLabel">Level</label>
           <input type="text" id="levelValue" value="1">
@@ -179,6 +168,13 @@
           <select name="" id="race_selector">
             <option value="">Choose a Race</option>
           </select>
+        </div>
+        <div id="shrine_balance_bar">
+          <label for="shrine_balance_toggle" id="shrineBalanceLabel">Shrine of Balance</label>
+          <label class="switch" for="shrine_balance_toggle">
+            <input type="checkbox" id="shrine_balance_toggle">
+            <span class="slider"></span>
+          </label>
         </div>
       </div>
       
@@ -513,40 +509,84 @@
 
       <div class="content-bar statHolder-bar">
 
-        <div class="statHolder-Div">
-          <span>Stats</span>
-          <div class="stat_Container flow_scrollbar" id="stats">
-      
+        <details class="statHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Stats</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="stats">
+        
+            </div>
           </div>
-        </div>
+        </details>
 
-        <div class="statHolder-Div">
-          <span>Perks</span>
-          <div class="stat_Container flow_scrollbar" id="perks">
-      
+        <details class="statHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Perks</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="perks">
+        
+            </div>
           </div>
-        </div>
+        </details>
 
-        <div class="statHolder-Div">
-          <span>Potencies</span>
-          <div class="stat_Container flow_scrollbar" id="potencies">
-      
+        <details class="statHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Potencies</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="potencies">
+        
+            </div>
           </div>
-        </div>
+        </details>
 
-        <div class="statHolder-Div">
-          <span>Damage Scalings</span>
-          <div class="stat_Container flow_scrollbar" id="damageScalings">
-      
+        <details class="statHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Damage Scalings</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="damageScalings">
+        
+            </div>
           </div>
-        </div>
+        </details>
 
-        <div class="statHolder-Div">
-          <span>Damage Types</span>
-          <div class="stat_Container flow_scrollbar" id="damageTypes">
-      
+        <details class="statHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Damage Types</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="damageTypes">
+        
+            </div>
           </div>
-        </div>
+        </details>
+      </div>
+
+      <div class="content-bar statHolder-bar">
+        <details class="statHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Perk Added Scalings</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="perkDamageScalings">
+        
+            </div>
+          </div>
+        </details>
+
+        <details class="statHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Perk Added Damage Types</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="perkDamageTypes">
+        
+            </div>
+          </div>
+        </details>
       </div>
 
       <div class="section-label">
@@ -632,51 +672,75 @@
 
       <div class="content-bar statHolder-bar">
 
-        <div class="statHolder-Div">
-          <span>Damage Bonus Modifiers</span>
-          <div class="stat_Container flow_scrollbar" id="damageModifications">
-             
+        <details class="statHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Damage Bonus Modifiers</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="damageModifications">
+               
+            </div>
           </div>
-        </div>
+        </details>
 
-        <div class="statHolder-Div">
-          <span>Damage Reduction Modifiers</span>
-          <div class="stat_Container flow_scrollbar" id="damageReducedModifications">
-      
+        <details class="statHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Damage Reduction Modifiers</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="damageReducedModifications">
+        
+            </div>
           </div>
-        </div>
+        </details>
       </div>
 
       <div class="content-bar statHolder-bar">
-        <div class="statHolder-Div">
-          <span>Specific Damage Bonus Modifiers</span>
-          <div class="stat_Container flow_scrollbar" id="specificDamageBonusModifications">
-      
+        <details class="statHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Specific Damage Bonus Modifiers</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="specificDamageBonusModifications">
+        
+            </div>
           </div>
-        </div>
+        </details>
 
-        <div class="statHolder-Div">
-          <span>Specific Damage Reduction Modifiers</span>
-          <div class="stat_Container flow_scrollbar" id="specificDamageReducedModifications">
-      
+        <details class="statHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Specific Damage Reduction Modifiers</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="specificDamageReducedModifications">
+        
+            </div>
           </div>
-        </div>
+        </details>
       </div>
 
       <div class="content-bar statHolder-bar">
-        <div class="statHolder-Div">
-          <span>Crit Modifiers</span>
-          <div class="stat_Container flow_scrollbar" id="critModifications">
-      
+        <details class="statHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Crit Modifiers</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="critModifications">
+        
+            </div>
           </div>
-        </div>
+        </details>
 
-        <div class="statHolder-Div">
-          <span>Special Modifiers</span>
-          <div class="stat_Container flow_scrollbar" id="specialModifications">
-      
+        <details class="statHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Special Modifiers</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="specialModifications">
+        
+            </div>
           </div>
-        </div>
+        </details>
       </div>
 
       <div class="section-label">
@@ -684,56 +748,119 @@
       </div>
 
       <div class="content-bar statHolder-bar">
-        <div class="damageHolder-Div">
-          <span class="damageHolder_label">Rune</span>
-          <div class="stat_Container flow_scrollbar" id="rune_damage">
-            
-          </div>
-        </div>
-
-        <div class="damageHolder-Div">
-          <span class="damageHolder_label">Weapon Art</span>
-          <div class="stat_Container flow_scrollbar" id="weaponart_damage">
-            
-          </div>
-        </div>
-      </div>
-
-      <div class="content-bar statHolder-bar">
-        <div class="damageHolder-Div">
-          <span class="damageHolder_label">M1 damage</span>
-          <div class="table_container-div flow_scrollbar">
-            <table class="damage_Table_Container " id="m1_damage_table">
-              <tr class="damage_Table_column" id="damage_table_header" >
-                <th class="damage_colunm_cell" id="damage_header"><span>Damage</span></th> 
-              </tr>
-              <tr class="damage_Table_row" style="display: none;" id="damage_row_template">
-                <td class="damage_row_cell">True</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-
-        <div class="damageHolder-Div">
-          <span class="damageHolder_label">M2 damage</span>
-          <div class="table_container-div flow_scrollbar">
-            <table class="damage_Table_Container " id="m2_damage_table">
-              <tr class="damage_Table_column" id="damage_table_header" >
-                <th class="damage_colunm_cell" id="damage_header"><span>Damage</span></th> 
-              </tr>
+        <details class="damageHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Rune</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="rune_damage">
               
-            </table>
+            </div>
           </div>
-        </div>
+        </details>
+
+        <details class="damageHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Weapon Art</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="weaponart_damage">
+              
+            </div>
+          </div>
+        </details>
       </div>
 
       <div class="content-bar statHolder-bar">
-        <div class="damageHolder-Div damageHolder-full">
-          <span>Other Damages</span>
-          <div class="stat_Container flow_scrollbar" id="perk_damage">
-            
+        <details class="damageHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">M1 damage</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="table_container-div flow_scrollbar">
+              <table class="damage_Table_Container " id="m1_damage_table">
+                <tr class="damage_Table_column" id="damage_table_header" >
+                  <th class="damage_colunm_cell" id="damage_header"><span>Damage</span></th> 
+                </tr>
+                <tr class="damage_Table_row" style="display: none;" id="damage_row_template">
+                  <td class="damage_row_cell">True</td>
+                </tr>
+              </table>
+            </div>
           </div>
-        </div>
+        </details>
+
+        <details class="damageHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">M2 damage</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="table_container-div flow_scrollbar">
+              <table class="damage_Table_Container " id="m2_damage_table">
+                <tr class="damage_Table_column" id="damage_table_header" >
+                  <th class="damage_colunm_cell" id="damage_header"><span>Damage</span></th> 
+                </tr>
+                
+              </table>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="content-bar statHolder-bar">
+        <details class="damageHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">M1 crit damage</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="table_container-div flow_scrollbar">
+              <table class="damage_Table_Container " id="m1_crit_damage_table">
+                <tr class="damage_Table_column" id="damage_table_header" >
+                  <th class="damage_colunm_cell" id="damage_header"><span>Damage</span></th> 
+                </tr>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <details class="damageHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">M2 crit damage</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="table_container-div flow_scrollbar">
+              <table class="damage_Table_Container " id="m2_crit_damage_table">
+                <tr class="damage_Table_column" id="damage_table_header" >
+                  <th class="damage_colunm_cell" id="damage_header"><span>Damage</span></th> 
+                </tr>
+              </table>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="content-bar statHolder-bar">
+        <details class="damageHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Perk Damage</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="perk_damage">
+              
+            </div>
+          </div>
+        </details>
+
+        <details class="damageHolder-Div collapsible-panel" open>
+          <summary class="collapsible-panel_summary">
+            <span class="collapsible-panel_title">Debuff / Buff Damage</span>
+          </summary>
+          <div class="collapsible-panel_body">
+            <div class="stat_Container flow_scrollbar" id="status_damage">
+              
+            </div>
+          </div>
+        </details>
       </div>
 
     </div>

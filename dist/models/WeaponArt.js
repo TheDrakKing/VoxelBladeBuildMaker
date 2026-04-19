@@ -45,9 +45,16 @@ export class WeaponArtStore {
         this.weaponArtCache.set(id, weaponArt);
         return Object.assign(new WeaponArt(), weaponArt);
     }
+    static getRequirementWeaponParts(build) {
+        return {
+            blade: build.getShrineOfBalanceAdjustedWeaponPart(build.blade),
+            handle: build.getShrineOfBalanceAdjustedWeaponPart(build.handle),
+        };
+    }
     static getWeaponArtsForBuild(build) {
         //get all weaponArts
         const weaponArts = WeaponArtStore.all();
+        const requirementParts = this.getRequirementWeaponParts(build);
         let result = weaponArts.map((weaponArt) => {
             //check weapontype Requirement
             let weaponType = true;
@@ -68,10 +75,12 @@ export class WeaponArtStore {
             if (weaponArt.scalingRequirements) {
                 for (const [scale, value] of Object.entries(weaponArt.scalingRequirements)) {
                     let scaleTotal = 0;
-                    if (build.blade && build.blade.damageScalings?.[scale])
-                        scaleTotal += build.blade.damageScalings[scale];
-                    if (build.handle && build.handle.damageScalings?.[scale])
-                        scaleTotal += build.handle.damageScalings[scale];
+                    if (requirementParts.blade?.damageScalings?.[scale]) {
+                        scaleTotal += requirementParts.blade.damageScalings[scale];
+                    }
+                    if (requirementParts.handle?.damageScalings?.[scale]) {
+                        scaleTotal += requirementParts.handle.damageScalings[scale];
+                    }
                     if (scaleTotal < value) {
                         scaling = false;
                         break;
@@ -83,10 +92,12 @@ export class WeaponArtStore {
             if (weaponArt.statsRequirements) {
                 for (const [stat, value] of Object.entries(weaponArt.statsRequirements)) {
                     let statTotal = 0;
-                    if (build.blade && build.blade.stats?.[stat])
-                        statTotal += build.blade.stats[stat];
-                    if (build.handle && build.handle.stats?.[stat])
-                        statTotal += build.handle.stats[stat];
+                    if (requirementParts.blade?.stats?.[stat]) {
+                        statTotal += requirementParts.blade.stats[stat];
+                    }
+                    if (requirementParts.handle?.stats?.[stat]) {
+                        statTotal += requirementParts.handle.stats[stat];
+                    }
                     if (statTotal < value) {
                         stats = false;
                         break;

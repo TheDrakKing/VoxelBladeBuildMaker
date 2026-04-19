@@ -72,15 +72,52 @@
     z-index: 30;
 }
 
-.item_hoverinfo div {
+.item_hoverinfo_name {
+    width: 100%;
+    margin: 0;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 1.08rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: left;
+}
+
+.item_hoverinfo_description {
     width: 100%;
     background: transparent;
     color: var(--muted-text);
     font-size: 0.92rem;
+    line-height: 1.45;
     text-align: left;
 }
 
-.item_hoverinfo div span {
+.item_hoverinfo_section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: transparent;
+}
+
+.item_hoverinfo_section_title {
+    background: transparent;
+    color: var(--text-color);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.item_hoverinfo_section_body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: transparent;
+}
+
+.item_hoverinfo span {
     background: transparent;
     color: var(--text-color);
     font-size: 0.92rem;
@@ -166,9 +203,11 @@
 /*********************************** Top Inputs ***********************************/
 #weapon_type_div,
 #hp_bar,
+#target_hp_bar,
 #level_bar,
 #atkSpe_bar,
-#race_bar {
+#race_bar,
+#shrine_balance_bar {
     width: 100%;
     min-height: 72px;
     display: flex;
@@ -184,14 +223,17 @@
 
 #weapon_type_text,
 #healthLabel,
+#targetHealthLabel,
 #levelLabel,
 #atkSpeLabel,
-#RaceLabel {
+#RaceLabel,
+#shrineBalanceLabel {
     font-weight: 700;
     letter-spacing: 0.02em;
 }
 
 #hpValue,
+#targetHpValue,
 #levelValue,
 #atkSpeValue,
 #race_selector {
@@ -206,6 +248,10 @@
 }
 
 #hpValue::placeholder {
+    color: var(--muted-text);
+}
+
+#targetHpValue::placeholder {
     color: var(--muted-text);
 }
 
@@ -365,6 +411,90 @@
     box-shadow: var(--shadow-soft);
 }
 
+.statHolder-Div.collapsible-panel,
+.damageHolder-Div.collapsible-panel {
+    min-height: 0;
+}
+
+.collapsible-panel:not([open]) {
+    align-self: flex-start;
+}
+
+.statHolder-Div.collapsible-panel[open],
+.damageHolder-Div.collapsible-panel[open] {
+    min-height: 320px;
+}
+
+.collapsible-panel_summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+    list-style: none;
+    background: transparent;
+}
+
+.collapsible-panel_summary::-webkit-details-marker {
+    display: none;
+}
+
+.collapsible-panel_summary:focus-visible {
+    outline: 2px solid var(--border-strong);
+    outline-offset: 4px;
+    border-radius: 16px;
+}
+
+.collapsible-panel_summary::after {
+    content: "+";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid var(--border-soft);
+    background: var(--panel-muted);
+    color: var(--muted-text);
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
+    transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.collapsible-panel[open] > .collapsible-panel_summary::after {
+    content: "-";
+}
+
+.collapsible-panel_summary:hover::after,
+.collapsible-panel_summary:focus-visible::after {
+    transform: translateY(-1px);
+    background: var(--interactive-soft);
+    border-color: var(--border-strong);
+    color: var(--text-color);
+}
+
+.collapsible-panel_title {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text-color);
+    background: transparent;
+    text-align: left;
+}
+
+.collapsible-panel_body {
+    min-height: 0;
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.collapsible-panel_body > .stat_Container,
+.collapsible-panel_body > .table_container-div {
+    flex: 1 1 auto;
+}
+
 .statHolder-Div > span {
     font-size: 1rem;
     font-weight: 700;
@@ -427,7 +557,7 @@
 
 .non_weapon_damage_row {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) repeat(3, auto);
     gap: 12px;
     padding: 10px 12px;
     border-radius: 12px;
@@ -435,11 +565,19 @@
     color: var(--text-color);
 }
 
+#shrine_balance_bar .switch {
+    flex-shrink: 0;
+}
+
+#shrine_balance_bar .slider {
+    background-color: rgba(128, 137, 148, 0.45);
+}
+
 .non_weapon_damage_row span:first-child {
     text-align: left;
 }
 
-.non_weapon_damage_row span:last-child {
+.non_weapon_damage_row span:not(:first-child) {
     text-align: right;
     font-weight: 700;
 }
@@ -608,6 +746,20 @@
     font-weight: 700;
 }
 
+.damage_breakdown_value {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+}
+
+.damage_breakdown_line {
+    display: block;
+    white-space: nowrap;
+    font-size: 0.82rem;
+    line-height: 1.3;
+}
+
 /*********************************** Responsive ***********************************/
 @media (max-width: 1100px) {
     .items_selector {
@@ -629,6 +781,7 @@
     .content-title,
     #weapon_type_div,
     #hp_bar,
+    #target_hp_bar,
     #level_bar,
     #atkSpe_bar,
     #race_bar {

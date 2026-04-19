@@ -13,6 +13,9 @@ export const Buffs = {
         category: "Buff",
         baseDuration: 5,
         potencyId: "guaranteedcritpotency",
+        onCritRateCalculation() {
+            return 1;
+        },
         img: "",
     },
     rage: {
