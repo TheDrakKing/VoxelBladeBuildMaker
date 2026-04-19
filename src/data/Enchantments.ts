@@ -290,7 +290,7 @@ export const Enchantments: ItemModule.ItemDataTable = {
       PhysicalDefense: -20,
     },
   },
-
+  
   worthless: {
     id: "worthless",
     name: "Worthless",
