@@ -67,9 +67,9 @@ export const Perks = {
         category: "",
         description: "Weapon arts gain 10 armor penetration. +0.2 Tenacity and for each active buff you gain an additional +0.1 tenacity.",
     },
-    half_elf: {
-        id: "half_elf",
-        name: "Half Elf",
+    high_elf: {
+        id: "high_elf",
+        name: "High Elf",
         category: "",
         description: "Gain 25% lower Weapon Art cooldown.",
     },
