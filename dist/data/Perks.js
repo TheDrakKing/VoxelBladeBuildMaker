@@ -19,6 +19,103 @@ function isRuneOrWeaponArtHit(args) {
     const sourceType = args?.baseDamageData?.sourceType;
     return sourceType === "Rune" || sourceType === "WeaponArt";
 }
+function normalizePerkId(value) {
+    return value.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+}
+function normalizePotencyId(value) {
+    return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+function getGuildProtectedPerkAmount(build, perkId) {
+    const promotion = build.guild?.promotions?.[build.guildPromotion];
+    if (!promotion?.perks)
+        return 0;
+    let amount = 0;
+    for (const [key, value] of Object.entries(promotion.perks)) {
+        if (value === undefined)
+            continue;
+        if (normalizePerkId(key) !== perkId)
+            continue;
+        amount += value;
+    }
+    return amount;
+}
+function getEnchantmentProtectedPerkAmount(build, perkId) {
+    let amount = 0;
+    for (const enchantments of Object.values(build.enchantments || {})) {
+        if (!enchantments)
+            continue;
+        for (const enchantment of enchantments) {
+            if (!enchantment?.perks)
+                continue;
+            for (const [key, value] of Object.entries(enchantment.perks)) {
+                if (value === undefined)
+                    continue;
+                if (normalizePerkId(key) !== perkId)
+                    continue;
+                amount += value;
+            }
+        }
+    }
+    return amount;
+}
+function getProtectedPerkAmount(build, perkId) {
+    return getGuildProtectedPerkAmount(build, perkId) +
+        getEnchantmentProtectedPerkAmount(build, perkId);
+}
+function getEnchantmentProtectedPotencyAmount(build, potencyId) {
+    let amount = 0;
+    for (const enchantments of Object.values(build.enchantments || {})) {
+        if (!enchantments)
+            continue;
+        for (const enchantment of enchantments) {
+            if (!enchantment?.potencies)
+                continue;
+            for (const [key, value] of Object.entries(enchantment.potencies)) {
+                if (value === undefined)
+                    continue;
+                if (normalizePotencyId(key) !== potencyId)
+                    continue;
+                amount += value;
+            }
+        }
+    }
+    return amount;
+}
+function mutatePerkAmounts(build, perkAmount, ignore) {
+    const ignoredIds = new Set(ignore.map(normalizePerkId));
+    const perkEntries = Object.entries(build.perks || {});
+    const multiplier = 0.1 * perkAmount;
+    for (const [rawPerkId, totalAmount] of perkEntries) {
+        if (totalAmount === undefined)
+            continue;
+        const perkId = normalizePerkId(rawPerkId);
+        if (ignoredIds.has(perkId))
+            continue;
+        const protectedAmount = getProtectedPerkAmount(build, perkId);
+        const eligibleAmount = totalAmount - protectedAmount;
+        if (eligibleAmount <= 0)
+            continue;
+        build.perks[rawPerkId] = Math.round((totalAmount + eligibleAmount * multiplier) * 10000) / 10000;
+    }
+}
+function mutatePotencyAmounts(build, perkAmount, ignore) {
+    const ignoredIds = new Set(ignore.map(normalizePotencyId));
+    const potencyEntries = Object.entries(build.potencies || {});
+    const multiplier = 0.1 * perkAmount;
+    for (const [rawPotencyId, totalAmount] of potencyEntries) {
+        if (totalAmount === undefined)
+            continue;
+        const potencyId = normalizePotencyId(rawPotencyId);
+        if (ignoredIds.has(potencyId))
+            continue;
+        const protectedAmount = getEnchantmentProtectedPotencyAmount(build, potencyId);
+        const eligibleAmount = totalAmount - protectedAmount;
+        if (eligibleAmount <= 0)
+            continue;
+        build.potencies[rawPotencyId] =
+            Math.round((totalAmount + eligibleAmount * multiplier) * 10000) / 10000;
+    }
+}
 export const Perks = {
     /** Race Perks Here */
     human: {
@@ -115,6 +212,32 @@ export const Perks = {
             let diminishedTenacity = summation() + (t - Math.floor(t)) / Math.ceil(t);
             let FerocityDmgBoost = diminishedTenacity * 1.55 * (perkAmount / 10);
             return Math.trunc(FerocityDmgBoost * 100) / 100;
+        },
+    },
+    cursed: {
+        id: "cursed",
+        name: "Cursed",
+        category: "Perk",
+        description: "All perk potency is increased.",
+        onPerkMod(perkAmount) {
+            if (!perkAmount)
+                return;
+            const ignore = ["cursed", "perk_effectiveness"];
+            mutatePerkAmounts(this, perkAmount, ignore);
+            mutatePotencyAmounts(this, perkAmount, ignore);
+        },
+    },
+    perk_effectiveness: {
+        id: "perk_effectiveness",
+        name: "Perk Effectiveness",
+        category: "Perk",
+        description: "Increases the potency of most perks.",
+        onPerkMod(perkAmount) {
+            if (!perkAmount)
+                return;
+            const ignore = ["cursed", "perk_effectiveness"];
+            mutatePerkAmounts(this, perkAmount, ignore);
+            mutatePotencyAmounts(this, perkAmount, ignore);
         },
     },
     potion_chugger: {
@@ -445,6 +568,9 @@ export const Perks = {
         name: "Ignition",
         category: "",
         description: "Tenacity increases damage dealt.",
+        sourcepotencies: {
+            burnpotency: 0.3
+        }
     },
     righted_wrongs: {
         id: "righted_wrongs",

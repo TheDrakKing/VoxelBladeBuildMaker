@@ -233,10 +233,11 @@ export class Build {
                     // key is a string, value is a number or undefined
                     if (value === undefined)
                         continue;
-                    let previousValue = this.perks[key];
-                    this.perks[key] = previousValue !== undefined ? previousValue + value : value;
+                    const perkId = ItemModule.toID(key);
+                    let previousValue = this.perks[perkId];
+                    this.perks[perkId] = previousValue !== undefined ? previousValue + value : value;
                     //certain perks carry hidden stats
-                    const perk = PerkModule.PerkStore.get(key);
+                    const perk = PerkModule.PerkStore.getByID(perkId);
                     if (perk && perk.stats !== undefined) {
                         let perkstats = new ItemModule.Item({
                             id: perk.id,
@@ -520,6 +521,7 @@ export class Build {
                 continue;
             let item = new ItemModule.Item({
                 id: value.id,
+                upgrade: value.upgrade,
                 stats: {},
                 perks: {},
                 potencies: {},

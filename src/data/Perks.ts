@@ -1,3 +1,5 @@
+import { Build } from "../models/Build";
+
 function hasDebuff(build: any, debuffId: string) {
   return !!build?.deBuffs?.find((debuff: any) => debuff?.id === debuffId);
 }
@@ -20,6 +22,111 @@ function getNegativeStatValue(value?: number) {
 function isRuneOrWeaponArtHit(args?: any) {
   const sourceType = args?.baseDamageData?.sourceType;
   return sourceType === "Rune" || sourceType === "WeaponArt";
+}
+
+function normalizePerkId(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+}
+
+function normalizePotencyId(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+function getGuildProtectedPerkAmount(build: any, perkId: string) {
+  const promotion = build.guild?.promotions?.[build.guildPromotion];
+  if (!promotion?.perks) return 0;
+
+  let amount = 0;
+  for (const [key, value] of Object.entries(promotion.perks) as [string, number?][]) {
+    if (value === undefined) continue;
+    if (normalizePerkId(key) !== perkId) continue;
+    amount += value;
+  }
+
+  return amount;
+}
+
+function getEnchantmentProtectedPerkAmount(build: any, perkId: string) {
+  let amount = 0;
+
+  for (const enchantments of Object.values(build.enchantments || {}) as any[]) {
+    if (!enchantments) continue;
+
+    for (const enchantment of enchantments) {
+      if (!enchantment?.perks) continue;
+
+      for (const [key, value] of Object.entries(enchantment.perks) as [string, number?][]) {
+        if (value === undefined) continue;
+        if (normalizePerkId(key) !== perkId) continue;
+        amount += value;
+      }
+    }
+  }
+
+  return amount;
+}
+
+function getProtectedPerkAmount(build: any, perkId: string) {
+  return getGuildProtectedPerkAmount(build, perkId) +
+    getEnchantmentProtectedPerkAmount(build, perkId);
+}
+
+function getEnchantmentProtectedPotencyAmount(build: any, potencyId: string) {
+  let amount = 0;
+
+  for (const enchantments of Object.values(build.enchantments || {}) as any[]) {
+    if (!enchantments) continue;
+
+    for (const enchantment of enchantments) {
+      if (!enchantment?.potencies) continue;
+
+      for (const [key, value] of Object.entries(enchantment.potencies) as [string, number?][]) {
+        if (value === undefined) continue;
+        if (normalizePotencyId(key) !== potencyId) continue;
+        amount += value;
+      }
+    }
+  }
+
+  return amount;
+}
+
+function mutatePerkAmounts(build: Build, perkAmount: number, ignore: string[]) {
+  const ignoredIds = new Set(ignore.map(normalizePerkId));
+  const perkEntries = Object.entries(build.perks || {}) as [string, number?][];
+  const multiplier = 0.1 * perkAmount;
+
+  for (const [rawPerkId, totalAmount] of perkEntries) {
+    if (totalAmount === undefined) continue;
+
+    const perkId = normalizePerkId(rawPerkId);
+    if (ignoredIds.has(perkId)) continue;
+
+    const protectedAmount = getProtectedPerkAmount(build, perkId);
+    const eligibleAmount = totalAmount - protectedAmount;
+    if (eligibleAmount <= 0) continue;
+    build.perks[rawPerkId] = Math.round((totalAmount + eligibleAmount * multiplier) * 10000) / 10000;
+  }
+}
+
+function mutatePotencyAmounts(build: Build, perkAmount: number, ignore: string[]) {
+  const ignoredIds = new Set(ignore.map(normalizePotencyId));
+  const potencyEntries = Object.entries(build.potencies || {}) as [string, number?][];
+  const multiplier = 0.1 * perkAmount;
+
+  for (const [rawPotencyId, totalAmount] of potencyEntries) {
+    if (totalAmount === undefined) continue;
+
+    const potencyId = normalizePotencyId(rawPotencyId);
+    if (ignoredIds.has(potencyId)) continue;
+
+    const protectedAmount = getEnchantmentProtectedPotencyAmount(build, potencyId);
+    const eligibleAmount = totalAmount - protectedAmount;
+    if (eligibleAmount <= 0) continue;
+
+    build.potencies[rawPotencyId as keyof Build["potencies"]] =
+      Math.round((totalAmount + eligibleAmount * multiplier) * 10000) / 10000;
+  }
 }
 
 export const Perks: import("../models/Perk").perkDataTable = {
@@ -115,6 +222,32 @@ export const Perks: import("../models/Perk").perkDataTable = {
       let diminishedTenacity = summation() + (t - Math.floor(t)) / Math.ceil(t);
       let FerocityDmgBoost = diminishedTenacity * 1.55 * (perkAmount / 10);
       return Math.trunc(FerocityDmgBoost * 100) / 100;
+    },
+  },
+
+  cursed: {
+    id: "cursed",
+    name: "Cursed",
+    category: "Perk",
+    description: "All perk potency is increased.",
+    onPerkMod(perkAmount) {
+      if (!perkAmount) return;
+      const ignore = ["cursed", "perk_effectiveness"];
+      mutatePerkAmounts(this, perkAmount, ignore);
+      mutatePotencyAmounts(this, perkAmount, ignore);
+    },
+  },
+
+  perk_effectiveness: {
+    id: "perk_effectiveness",
+    name: "Perk Effectiveness",
+    category: "Perk",
+    description: "Increases the potency of most perks.",
+    onPerkMod(perkAmount) {
+      if (!perkAmount) return;
+      const ignore = ["cursed", "perk_effectiveness"];
+      mutatePerkAmounts(this, perkAmount, ignore);
+      mutatePotencyAmounts(this, perkAmount, ignore);
     },
   },
 
@@ -458,6 +591,9 @@ export const Perks: import("../models/Perk").perkDataTable = {
     name: "Ignition",
     category: "",
     description: "Tenacity increases damage dealt.",
+    sourcepotencies: {
+      burnpotency: 0.3
+    }
   },
 
   righted_wrongs: {

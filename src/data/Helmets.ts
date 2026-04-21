@@ -189,24 +189,6 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     },
     img: "",
   },
-  ironslayer_helmet: {
-    id: "ironslayer_helmet",
-    name: "Iron Slayer Helemt",
-    category: "Armor",
-    type: "Helmet",
-    description: "A helmet corrupted by the void. Fits oddly snug on your head.",
-    stats: {
-      SpeedBoost: -5,
-      PhysicalDefense: 15,
-      PhysicalBoost: 25,
-      Protection: 5,
-      MagicDefense: -20,
-    },
-    perks: {
-      void_rage: 1,
-    },
-    img: "",
-  },
   omegabatty_helmet: {
     id: "omegabatty_helmet",
     name: "Omega-Batty Helemt",
