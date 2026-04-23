@@ -414,6 +414,19 @@ export const Enchantments: ItemModule.ItemDataTable = {
     },
   },
 
+  brawny: {
+    id: "brawny",
+    name: "Brawny",
+    category: "Enchantment",
+    description: "Converts a portion of all positive boosts to physical boost.",
+    stats: {
+      PhysicalBoost: 5,
+    },
+    perks: {
+      brawny: 1,
+    },
+  },
+
   warped: {
     id: "warped",
     name: "Warped",
