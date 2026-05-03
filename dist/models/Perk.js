@@ -9,6 +9,7 @@ export class Perk extends Item.events {
         this.name = data?.name || "";
         this.category = data?.category || "";
         this.description = data?.description || "";
+        this.statPriority = data?.statPriority ?? 0;
         this.baseDamage = data?.baseDamage || "";
         this.stats = data?.stats;
         this.damageScalings = data?.damageScalings;
@@ -16,6 +17,24 @@ export class Perk extends Item.events {
         this.sourcepotencies = data?.sourcepotencies;
         this.potencies = data?.potencies || {};
     }
+}
+export function getSortedPerkEventEntries(perks, eventName) {
+    const entries = [];
+    for (const [perkId, amount] of Object.entries(perks)) {
+        if (amount === undefined)
+            continue;
+        const perk = PerkStore.getByID(perkId);
+        if (!perk[eventName])
+            continue;
+        entries.push({ perkId, amount, perk });
+    }
+    entries.sort((left, right) => {
+        const priorityDiff = (right.perk.statPriority ?? 0) - (left.perk.statPriority ?? 0);
+        if (priorityDiff !== 0)
+            return priorityDiff;
+        return left.perk.name.localeCompare(right.perk.name);
+    });
+    return entries;
 }
 export class PerkStore {
     constructor() { }

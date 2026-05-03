@@ -448,12 +448,9 @@ export class Build {
         //this.resetBuild();
     }
     runPerkEvent(eventName) {
-        const perkEntries = Object.entries(this.perks);
-        for (const [perkId, amount] of perkEntries) {
-            if (amount === undefined)
-                continue;
-            const perk = PerkModule.PerkStore.getByID(perkId);
-            const callback = perk?.[eventName];
+        const perkEntries = PerkModule.getSortedPerkEventEntries(this.perks, eventName);
+        for (const { amount, perk } of perkEntries) {
+            const callback = perk[eventName];
             if (!callback)
                 continue;
             callback.apply(this, [amount]);

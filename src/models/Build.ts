@@ -665,15 +665,11 @@ export class Build {
     //this.resetBuild();
   }
 
-  runPerkEvent(eventName: "onPerkMod" | "onStatCalculation") {
-    const perkEntries = Object.entries(this.perks) as [string, number | undefined][];
+  runPerkEvent(eventName: PerkModule.PerkEventName) {
+    const perkEntries = PerkModule.getSortedPerkEventEntries(this.perks, eventName);
 
-    for (const [perkId, amount] of perkEntries) {
-      if (amount === undefined) continue;
-
-      const perk = PerkModule.PerkStore.getByID(perkId) as PerkModule.Perk &
-        Partial<Record<"onPerkMod" | "onStatCalculation", Function>>;
-      const callback = perk?.[eventName];
+    for (const { amount, perk } of perkEntries) {
+      const callback = perk[eventName] as Function | undefined;
       if (!callback) continue;
 
       callback.apply(this, [amount]);

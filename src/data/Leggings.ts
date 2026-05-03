@@ -108,8 +108,9 @@ export const Leggings: import("../models/Item").ItemDataTable = {
       SpeedBoost: 11,
       Tenacity: -0.1,
       HeatResistance: 200,
-      EarthBoost: 18,
+      EarthBoost: 15,
       FireDefense: 20,
+      AirBoost: 15,
     },
     perks: {
       pulverizing_rush: 1,
