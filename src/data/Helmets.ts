@@ -581,7 +581,7 @@ export const Helmets: import("../models/Item").ItemDataTable = {
       HeatResistance: 150,
     },
     perks: {
-      seismicmomentum: 1,
+      seismic_momentum: 1,
     },
     img: "",
   },

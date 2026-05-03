@@ -580,7 +580,7 @@ export const Helmets = {
             HeatResistance: 150,
         },
         perks: {
-            seismicmomentum: 1,
+            seismic_momentum: 1,
         },
         img: "",
     },
