@@ -620,8 +620,8 @@ export class Build {
         item.upgrade = slot.upgrade || 0;
         return item;
     }
-    buildToJson() {
-        const saveData = {
+    toSavedBuild() {
+        return {
             version: 1,
             level: this.level,
             hp: this.hp,
@@ -657,7 +657,9 @@ export class Build {
                 ring: this.enchantments.ring?.map((item) => item?.id || null),
             },
         };
-        return JSON.stringify(saveData, null, 2);
+    }
+    buildToJson() {
+        return JSON.stringify(this.toSavedBuild(), null, 2);
     }
     static dictToBuild(data) {
         const build = new Build();

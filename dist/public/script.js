@@ -24,6 +24,8 @@ const importBuildInput = document.getElementById("import_build_input");
 const showInfusions = document.getElementById("showInfusions");
 const showMainGear = document.getElementById("showMainGear");
 const theme_Selector_input = document.getElementById("theme_Selector_input");
+const workspaceTabsContainer = document.getElementById("workspace_tabs");
+const addTabButton = document.getElementById("add_tab_button");
 //Level, Hp and Weapon Txt
 const weaponTypeText = document.getElementById("weapon_type_text");
 const healthInput = document.getElementById("hpValue");
@@ -130,10 +132,13 @@ let imgHolders = {
     ring: ringDiv.children[2].children[0].children[0],
     weaponart: weaponArtDiv.children[1].children[0].children[0],
 };
+const WORKSPACE_STORAGE_KEY = "voxel-build-maker-workspace-v1";
 let m1Rows = {};
 let m2Rows = {};
 let m1CritRows = {};
 let m2CritRows = {};
+let workspaceSaveTimer = null;
+let workspaceState = createDefaultWorkspace();
 const selectItemDivs = [];
 let activeSelectorContext = null;
 function isMonkBuild(currentBuild) {
@@ -170,6 +175,270 @@ function getBuffSourceBuild(currentBuild, buff) {
         return getOpposingBuild(currentBuild);
     }
     return currentBuild;
+}
+function createTabId() {
+    return `tab_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+}
+function getCurrentTheme() {
+    return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+}
+function createLinkedBuildPair(savedBuild, savedTarget) {
+    const nextBuild = savedBuild ? Build.Build.dictToBuild(savedBuild) : new Build.Build();
+    const nextTarget = savedTarget ? Build.Build.dictToBuild(savedTarget) : new Build.Build();
+    nextBuild.target = nextTarget;
+    nextTarget.target = nextBuild;
+    return [nextBuild, nextTarget];
+}
+function createSavedWorkspaceTab(name, savedBuild, savedTarget) {
+    const [nextBuild, nextTarget] = createLinkedBuildPair(savedBuild, savedTarget);
+    return {
+        id: createTabId(),
+        name,
+        build: nextBuild.toSavedBuild(),
+        target: nextTarget.toSavedBuild(),
+    };
+}
+function createDefaultWorkspace() {
+    return {
+        version: 1,
+        activeTabId: "",
+        nextTabNumber: 2,
+        theme: getCurrentTheme(),
+        tabs: [createSavedWorkspaceTab("Tab 1")],
+    };
+}
+function getNextTabName() {
+    const name = `Tab ${workspaceState.nextTabNumber}`;
+    workspaceState.nextTabNumber += 1;
+    return name;
+}
+function getWorkspaceTab(tabId = workspaceState.activeTabId) {
+    return workspaceState.tabs.find((tab) => tab.id === tabId);
+}
+function syncActiveTabSnapshot() {
+    const activeTab = getWorkspaceTab();
+    if (!activeTab)
+        return;
+    activeTab.build = build.toSavedBuild();
+    activeTab.target = target.toSavedBuild();
+}
+function persistWorkspaceToStorage() {
+    if (workspaceSaveTimer !== null) {
+        window.clearTimeout(workspaceSaveTimer);
+        workspaceSaveTimer = null;
+    }
+    syncActiveTabSnapshot();
+    workspaceState.theme = getCurrentTheme();
+    try {
+        window.localStorage.setItem(WORKSPACE_STORAGE_KEY, JSON.stringify(workspaceState));
+    }
+    catch (error) {
+        console.error("Could not save workspace state", error);
+    }
+}
+function scheduleWorkspaceSave() {
+    if (workspaceSaveTimer !== null) {
+        window.clearTimeout(workspaceSaveTimer);
+    }
+    workspaceSaveTimer = window.setTimeout(() => {
+        workspaceSaveTimer = null;
+        persistWorkspaceToStorage();
+    }, 150);
+}
+function normalizeSavedWorkspace(value) {
+    if (!value || typeof value !== "object")
+        return null;
+    const rawWorkspace = value;
+    const tabs = [];
+    if (Array.isArray(rawWorkspace.tabs)) {
+        rawWorkspace.tabs.forEach((rawTab, index) => {
+            if (!rawTab || typeof rawTab !== "object")
+                return;
+            const candidateTab = rawTab;
+            if (!candidateTab.build || !candidateTab.target)
+                return;
+            try {
+                const [nextBuild, nextTarget] = createLinkedBuildPair(candidateTab.build, candidateTab.target);
+                tabs.push({
+                    id: typeof candidateTab.id === "string" && candidateTab.id
+                        ? candidateTab.id
+                        : createTabId(),
+                    name: typeof candidateTab.name === "string" && candidateTab.name.trim()
+                        ? candidateTab.name.trim()
+                        : `Tab ${index + 1}`,
+                    build: nextBuild.toSavedBuild(),
+                    target: nextTarget.toSavedBuild(),
+                });
+            }
+            catch (error) {
+                console.warn("Skipping invalid saved tab", error);
+            }
+        });
+    }
+    if (!tabs.length)
+        return null;
+    const activeTabId = tabs.some((tab) => tab.id === rawWorkspace.activeTabId)
+        ? rawWorkspace.activeTabId
+        : tabs[0].id;
+    const nextTabNumber = typeof rawWorkspace.nextTabNumber === "number" &&
+        Number.isFinite(rawWorkspace.nextTabNumber) &&
+        rawWorkspace.nextTabNumber > 0
+        ? Math.floor(rawWorkspace.nextTabNumber)
+        : tabs.length + 1;
+    return {
+        version: 1,
+        activeTabId,
+        nextTabNumber,
+        theme: rawWorkspace.theme === "light" ? "light" : "dark",
+        tabs,
+    };
+}
+function loadWorkspaceFromStorage() {
+    try {
+        const savedWorkspace = window.localStorage.getItem(WORKSPACE_STORAGE_KEY);
+        if (!savedWorkspace)
+            return createDefaultWorkspace();
+        const parsedWorkspace = JSON.parse(savedWorkspace);
+        return normalizeSavedWorkspace(parsedWorkspace) || createDefaultWorkspace();
+    }
+    catch (error) {
+        console.error("Could not load workspace state", error);
+        return createDefaultWorkspace();
+    }
+}
+function loadWorkspaceTab(tab) {
+    hideSelector();
+    activeSelectorContext = null;
+    [build, target] = createLinkedBuildPair(tab.build, tab.target);
+}
+function renderWorkspaceTabs() {
+    workspaceTabsContainer.replaceChildren();
+    workspaceState.tabs.forEach((tab) => {
+        const isActive = tab.id === workspaceState.activeTabId;
+        const tabItem = document.createElement("div");
+        tabItem.className = `workspace-tab_item${isActive ? " is-active" : ""}`;
+        const tabButton = document.createElement("button");
+        tabButton.type = "button";
+        tabButton.className = "workspace-tab_button";
+        tabButton.role = "tab";
+        tabButton.ariaSelected = isActive.toString();
+        tabButton.textContent = tab.name;
+        tabButton.title = `${tab.name} (double-click to rename)`;
+        tabButton.addEventListener("click", () => {
+            switchWorkspaceTab(tab.id);
+        });
+        tabButton.addEventListener("dblclick", () => {
+            renameWorkspaceTab(tab.id);
+        });
+        const closeButton = document.createElement("button");
+        closeButton.type = "button";
+        closeButton.className = "workspace-tab_close";
+        closeButton.textContent = "×";
+        closeButton.disabled = workspaceState.tabs.length === 1;
+        closeButton.title = workspaceState.tabs.length === 1
+            ? "At least one tab is required"
+            : `Close ${tab.name}`;
+        closeButton.addEventListener("click", (event) => {
+            event.stopPropagation();
+            closeWorkspaceTab(tab.id);
+        });
+        tabItem.appendChild(tabButton);
+        tabItem.appendChild(closeButton);
+        workspaceTabsContainer.appendChild(tabItem);
+    });
+}
+function switchWorkspaceTab(tabId) {
+    if (tabId === workspaceState.activeTabId)
+        return;
+    persistWorkspaceToStorage();
+    const nextTab = getWorkspaceTab(tabId);
+    if (!nextTab)
+        return;
+    workspaceState.activeTabId = nextTab.id;
+    loadWorkspaceTab(nextTab);
+    renderWorkspaceTabs();
+    resetPage();
+}
+function addWorkspaceTab() {
+    persistWorkspaceToStorage();
+    const nextTab = createSavedWorkspaceTab(getNextTabName());
+    workspaceState.tabs.push(nextTab);
+    workspaceState.activeTabId = nextTab.id;
+    loadWorkspaceTab(nextTab);
+    renderWorkspaceTabs();
+    resetPage();
+}
+function closeWorkspaceTab(tabId) {
+    const tabIndex = workspaceState.tabs.findIndex((tab) => tab.id === tabId);
+    if (tabIndex === -1)
+        return;
+    if (workspaceState.tabs.length === 1) {
+        const onlyTab = workspaceState.tabs[0];
+        const blankTab = createSavedWorkspaceTab(onlyTab.name);
+        onlyTab.build = blankTab.build;
+        onlyTab.target = blankTab.target;
+        workspaceState.activeTabId = onlyTab.id;
+        loadWorkspaceTab(onlyTab);
+        renderWorkspaceTabs();
+        resetPage();
+        return;
+    }
+    persistWorkspaceToStorage();
+    const isClosingActiveTab = workspaceState.activeTabId === tabId;
+    workspaceState.tabs.splice(tabIndex, 1);
+    if (isClosingActiveTab) {
+        const fallbackTab = workspaceState.tabs[Math.max(0, tabIndex - 1)] || workspaceState.tabs[0];
+        workspaceState.activeTabId = fallbackTab.id;
+        loadWorkspaceTab(fallbackTab);
+        renderWorkspaceTabs();
+        resetPage();
+        return;
+    }
+    renderWorkspaceTabs();
+    scheduleWorkspaceSave();
+}
+function renameWorkspaceTab(tabId) {
+    const tab = getWorkspaceTab(tabId);
+    if (!tab)
+        return;
+    const nextName = window.prompt("Rename tab", tab.name)?.trim();
+    if (!nextName)
+        return;
+    tab.name = nextName.slice(0, 40);
+    renderWorkspaceTabs();
+    scheduleWorkspaceSave();
+}
+function applyTheme(theme, options) {
+    document.documentElement.setAttribute("data-theme", theme);
+    theme_Selector_input.checked = theme === "light";
+    if (theme === "dark") {
+        PlusSymbol = resolveAssetPath("image/plus_symbol_white.png");
+        CloseSymbol = resolveAssetPath("image/close_X_white.png");
+    }
+    else {
+        PlusSymbol = resolveAssetPath("image/plus_symbol_black.png");
+        CloseSymbol = resolveAssetPath("image/close_X_black.png");
+    }
+    setItemButtonImage();
+    if (options?.refresh) {
+        resetPage();
+    }
+    else {
+        renderWorkspaceTabs();
+    }
+    if (options?.persist !== false) {
+        scheduleWorkspaceSave();
+    }
+}
+function initializeWorkspace() {
+    workspaceState = loadWorkspaceFromStorage();
+    applyTheme(workspaceState.theme, { persist: false });
+    const activeTab = getWorkspaceTab(workspaceState.activeTabId) || workspaceState.tabs[0];
+    workspaceState.activeTabId = activeTab.id;
+    loadWorkspaceTab(activeTab);
+    renderWorkspaceTabs();
+    resetPage();
+    persistWorkspaceToStorage();
 }
 function getBuffEffectivePotency(currentBuild, buff) {
     return buff.getEffectivePotency(getBuffSourceBuild(currentBuild, buff));
@@ -1105,6 +1374,7 @@ function resetPage(item) {
     addHeaderToTable(build.weapon.m2, m2Rows, m2DamageTable, "normal");
     addHeaderToTable(build.weapon.m1, m1CritRows, m1CritDamageTable, "crit");
     addHeaderToTable(build.weapon.m2, m2CritRows, m2CritDamageTable, "crit");
+    scheduleWorkspaceSave();
 }
 function loadSelectorPage(build, source, category, section, index, htmlElement, filter, selectorTitle) {
     //Set a Dummy Item to act has a remove
@@ -1272,6 +1542,9 @@ clearBuildButton.addEventListener("click", () => {
     hideSelector();
     resetPage();
 });
+addTabButton.addEventListener("click", () => {
+    addWorkspaceTab();
+});
 exportBuildButton.addEventListener("click", () => {
     exportCurrentBuild();
 });
@@ -1333,23 +1606,10 @@ targetHealthInput.addEventListener("change", () => {
     target.hp = health;
     resetPage();
 });
-//add the current hp and max hp
-healthInput.value = `${build.hp.toString()}/${build.maxHp.toString()}`;
-targetHealthInput.value = `${target.hp.toString()}/${target.maxHp.toString()}`;
 theme_Selector_input.addEventListener("change", () => {
-    const currentTheme = document.documentElement.getAttribute("data-theme");
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-    if (newTheme === "dark") {
-        PlusSymbol = resolveAssetPath("image/plus_symbol_white.png");
-        CloseSymbol = resolveAssetPath("image/close_X_white.png");
-    }
-    else {
-        PlusSymbol = resolveAssetPath("image/plus_symbol_black.png");
-        CloseSymbol = resolveAssetPath("image/close_X_black.png");
-    }
-    document.documentElement.setAttribute("data-theme", newTheme);
-    setItemButtonImage();
-    resetPage();
+    applyTheme(theme_Selector_input.checked ? "light" : "dark", {
+        refresh: true,
+    });
 });
 raceSelector.addEventListener("change", (event) => {
     const selectedValue = event.target.value;
@@ -1541,5 +1801,4 @@ weaponClearButtons.forEach((clearbutton) => {
 document.getElementById("guild_clear_button")?.addEventListener("click", () => {
     removeFromBuild("guild", undefined);
 });
-setItemButtonImage();
-setBuffEvents();
+initializeWorkspace();
