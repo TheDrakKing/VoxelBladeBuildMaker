@@ -907,3 +907,35 @@
         height: 148px;
     }
 }
+
+
+/* Manual scenario values stay inside their status card at every viewport width. */
+.buff_Select.status-scenario {
+    flex-direction: column;
+    width: 180px;
+    height: auto;
+    min-height: 84px;
+    padding: 10px;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.status-scenario .select_buff_wrapper { width: 100%; min-height: 36px; }
+.status-scenario label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+    font-size: 0.8rem;
+}
+.status-scenario input,
+.status-scenario select {
+    min-width: 0;
+    padding: 5px;
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    color: var(--text-color);
+    background: var(--panel-muted);
+}
+
+.status-scenario select { max-width: 6rem; font: inherit; }

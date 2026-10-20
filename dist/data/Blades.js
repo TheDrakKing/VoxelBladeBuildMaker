@@ -16,6 +16,14 @@ export const Blades = {
             Physical: 1,
         },
         img: "../image/blades/basicblade.png",
+        "stats": {},
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda180",
+            "cardUrl": "https://trello.com/c/EWVXCGC2",
+            "sectionId": "69214b9731723704c1eda180"
+        },
     },
     greatsword_blade: {
         id: "greatsword_blade",
@@ -34,6 +42,13 @@ export const Blades = {
             Physical: 1,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda18e",
+            "cardUrl": "https://trello.com/c/5CzAwUqC",
+            "sectionId": "69214b9731723704c1eda18e"
+        },
     },
     sharp_blade: {
         id: "sharp_blade",
@@ -53,6 +68,13 @@ export const Blades = {
             Physical: 1,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda192",
+            "cardUrl": "https://trello.com/c/PXiuED3J",
+            "sectionId": "69214b9731723704c1eda192"
+        },
     },
     dagger_blade: {
         id: "dagger_blade",
@@ -72,6 +94,13 @@ export const Blades = {
             Physical: 1,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda194",
+            "cardUrl": "https://trello.com/c/Eb4EN3M2",
+            "sectionId": "69214b9731723704c1eda194"
+        },
     },
     mage_blade: {
         id: "mage_blade",
@@ -90,6 +119,13 @@ export const Blades = {
             Magic: 1,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda190",
+            "cardUrl": "https://trello.com/c/4pRSnqlo",
+            "sectionId": "69214b9731723704c1eda190"
+        },
     },
     holy_blade: {
         id: "holy_blade",
@@ -113,6 +149,12 @@ export const Blades = {
             blessing: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda23e",
+            "cardUrl": "https://trello.com/c/GrEjXzcG",
+            "sectionId": "69214b9731723704c1eda23e"
+        },
     },
     hex_blade: {
         id: "hex_blade",
@@ -136,6 +178,12 @@ export const Blades = {
             weakening: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda4ec",
+            "cardUrl": "https://trello.com/c/ppEHp44S",
+            "sectionId": "69214b9731723704c1eda4ec"
+        },
     },
     air_blade: {
         id: "air_blade",
@@ -156,6 +204,15 @@ export const Blades = {
             tailwind: 1,
         },
         img: "",
+        "stats": {
+            "AirBoost": 10
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2a8",
+            "cardUrl": "https://trello.com/c/0aV2BY7x",
+            "sectionId": "69214b9731723704c1eda2a8"
+        },
     },
     fire_blade: {
         id: "fire_blade",
@@ -179,6 +236,12 @@ export const Blades = {
             ignition: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2ee",
+            "cardUrl": "https://trello.com/c/jhM2bIMv",
+            "sectionId": "69214b9731723704c1eda2ee"
+        },
     },
     water_blade: {
         id: "water_blade",
@@ -202,6 +265,12 @@ export const Blades = {
             extinguish: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda554",
+            "cardUrl": "https://trello.com/c/ShcOBWDH",
+            "sectionId": "69214b9731723704c1eda554"
+        },
     },
     earth_blade: {
         id: "earth_blade",
@@ -225,6 +294,12 @@ export const Blades = {
             quake: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda552",
+            "cardUrl": "https://trello.com/c/kPV3BKA2",
+            "sectionId": "69214b9731723704c1eda552"
+        },
     },
     executioners_blade: {
         id: "executioners_blade",
@@ -247,6 +322,12 @@ export const Blades = {
             executioner: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda592",
+            "cardUrl": "https://trello.com/c/Fi20AnxQ",
+            "sectionId": "69214b9731723704c1eda592"
+        },
     },
     iron_hammer: {
         id: "iron_hammer",
@@ -269,6 +350,12 @@ export const Blades = {
             shattering_justice: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda594",
+            "cardUrl": "https://trello.com/c/BA9hrQJ8",
+            "sectionId": "69214b9731723704c1eda594"
+        },
     },
     katana_blade: {
         id: "katana_blade",
@@ -293,6 +380,12 @@ export const Blades = {
             flash_strike: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda4e8",
+            "cardUrl": "https://trello.com/c/jWsgnjwo",
+            "sectionId": "69214b9731723704c1eda4e8"
+        },
     },
     jagged_blade: {
         id: "jagged_blade",
@@ -317,6 +410,11 @@ export const Blades = {
             bleedpotency: 4,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9731723704c1eda4f2",
+            "cardUrl": "https://trello.com/c/g2VWkLyt",
+            "sectionId": "69214b9731723704c1eda4f2"
+        },
     },
     sharp_dagger_blade: {
         id: "sharp_dagger_blade",
@@ -326,7 +424,8 @@ export const Blades = {
         type: "Small Blade",
         attackSpeed: 1.1,
         stats: {
-            DexterityBoost: 10,
+            "DexterityBoost": 10,
+            "SpeedBoost": 5
         },
         damageScalings: {
             Dexterity: 0.5,
@@ -338,6 +437,12 @@ export const Blades = {
             vital_strikes: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda596",
+            "cardUrl": "https://trello.com/c/u0Q9vWfN",
+            "sectionId": "69214b9731723704c1eda596"
+        },
     },
     agile_blade: {
         id: "agile_blade",
@@ -361,6 +466,12 @@ export const Blades = {
             sharp_crits: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda598",
+            "cardUrl": "https://trello.com/c/6mfkhmzs",
+            "sectionId": "69214b9731723704c1eda598"
+        },
     },
     great_mage_blade: {
         id: "great_mage_blade",
@@ -383,6 +494,12 @@ export const Blades = {
             magic_guard: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda58e",
+            "cardUrl": "https://trello.com/c/bO4myUFv",
+            "sectionId": "69214b9731723704c1eda58e"
+        },
     },
     enchanted_blade: {
         id: "enchanted_blade",
@@ -404,6 +521,12 @@ export const Blades = {
             royal_finisher: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda590",
+            "cardUrl": "https://trello.com/c/f9ac0aJa",
+            "sectionId": "69214b9731723704c1eda590"
+        },
     },
     radiant_edge: {
         id: "radiant_edge",
@@ -413,8 +536,9 @@ export const Blades = {
         type: "Small Blade",
         attackSpeed: 1.1,
         stats: {
-            HolyBoost: 10,
-            DexterityBoost: 5,
+            "SummonBoost": 5,
+            "HolyBoost": 10,
+            "DexterityBoost": 5
         },
         damageScalings: {
             Holy: 0.4,
@@ -428,6 +552,12 @@ export const Blades = {
             radiance: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda59a",
+            "cardUrl": "https://trello.com/c/248W9p2p",
+            "sectionId": "69214b9731723704c1eda59a"
+        },
     },
     pure_blade: {
         id: "pure_blade",
@@ -450,6 +580,12 @@ export const Blades = {
             blessing: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda59c",
+            "cardUrl": "https://trello.com/c/BWvSKFbM",
+            "sectionId": "69214b9731723704c1eda59c"
+        },
     },
     skull_hammer: {
         id: "skull_hammer",
@@ -459,8 +595,9 @@ export const Blades = {
         type: "Hammer Blade",
         attackSpeed: 1,
         stats: {
-            PhysicalDefense: 8,
-            HexBoost: 10,
+            "SummonBoost": 10,
+            "PhysicalDefense": 8,
+            "HexBoost": 10
         },
         damageScalings: {
             Hex: 0.35,
@@ -475,6 +612,12 @@ export const Blades = {
             revel_in_death: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda59e",
+            "cardUrl": "https://trello.com/c/M1kTI0gX",
+            "sectionId": "69214b9731723704c1eda59e"
+        },
     },
     hexing_cleaver_blade: {
         id: "hexing_cleaver_blade",
@@ -499,6 +642,12 @@ export const Blades = {
             weakening: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5a0",
+            "cardUrl": "https://trello.com/c/1dUlO2Ri",
+            "sectionId": "69214b9731723704c1eda5a0"
+        },
     },
     gust_blade: {
         id: "gust_blade",
@@ -508,7 +657,8 @@ export const Blades = {
         type: "Small Blade",
         attackSpeed: 1.1,
         stats: {
-            DexterityBoost: 7,
+            "DexterityBoost": 7,
+            "AirBoost": 7
         },
         damageScalings: {
             Air: 0.4,
@@ -522,6 +672,12 @@ export const Blades = {
             tailwind: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2aa",
+            "cardUrl": "https://trello.com/c/V63toHAW",
+            "sectionId": "69214b9731723704c1eda2aa"
+        },
     },
     storm_razor: {
         id: "storm_razor",
@@ -531,8 +687,9 @@ export const Blades = {
         type: "Medium Blade",
         attackSpeed: 1.1,
         stats: {
-            MagicBoost: 4,
-            DexterityBoost: 4,
+            "MagicBoost": 4,
+            "DexterityBoost": 4,
+            "AirBoost": 4
         },
         damageScalings: {
             Air: 0.35,
@@ -547,6 +704,12 @@ export const Blades = {
             stormcaller: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2ac",
+            "cardUrl": "https://trello.com/c/GPOU9495",
+            "sectionId": "69214b9731723704c1eda2ac"
+        },
     },
     flame_dagger: {
         id: "flame_dagger",
@@ -572,6 +735,12 @@ export const Blades = {
             kindling: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5a2",
+            "cardUrl": "https://trello.com/c/liDTNyvr",
+            "sectionId": "69214b9731723704c1eda5a2"
+        },
     },
     flame_greatblade: {
         id: "flame_greatblade",
@@ -596,6 +765,12 @@ export const Blades = {
             ignition: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5a4",
+            "cardUrl": "https://trello.com/c/arZ0uOHB",
+            "sectionId": "69214b9731723704c1eda5a4"
+        },
     },
     ocean_blade: {
         id: "ocean_blade",
@@ -620,6 +795,12 @@ export const Blades = {
             extinguish: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5a8",
+            "cardUrl": "https://trello.com/c/nXnLQdJm",
+            "sectionId": "69214b9731723704c1eda5a8"
+        },
     },
     ice_blade: {
         id: "ice_blade",
@@ -645,6 +826,12 @@ export const Blades = {
             frostbite: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5a6",
+            "cardUrl": "https://trello.com/c/XO5tqnE1",
+            "sectionId": "69214b9731723704c1eda5a6"
+        },
     },
     enchanted_lodestone_hammer: {
         id: "enchanted_lodestone_hammer",
@@ -669,6 +856,12 @@ export const Blades = {
             gravity_well: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5aa",
+            "cardUrl": "https://trello.com/c/NrNSoGWm",
+            "sectionId": "69214b9731723704c1eda5aa"
+        },
     },
     earth_greatblade: {
         id: "earth_greatblade",
@@ -694,6 +887,12 @@ export const Blades = {
             quake: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5ac",
+            "cardUrl": "https://trello.com/c/DJRyhAkt",
+            "sectionId": "69214b9731723704c1eda5ac"
+        },
     },
     scourgers_blade: {
         id: "scourgers_blade",
@@ -718,6 +917,12 @@ export const Blades = {
             scourge: 1,
         },
         img: "../image/blades/scourgers_blade.png",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5f2",
+            "cardUrl": "https://trello.com/c/A6bt8Vib",
+            "sectionId": "69214b9731723704c1eda5f2"
+        },
     },
     zweihander_blade: {
         id: "zweihander_blade",
@@ -727,9 +932,10 @@ export const Blades = {
         type: "Heavy Blade",
         attackSpeed: 0.8,
         stats: {
-            Protection: 5,
-            PhysicalDefense: 3,
-            PhysicalBoost: 10,
+            "Protection": 5,
+            "PhysicalDefense": 3,
+            "PhysicalBoost": 10,
+            "SpeedBoost": 2
         },
         damageScalings: {
             Physical: 0.55,
@@ -742,6 +948,12 @@ export const Blades = {
             highlander: 1,
         },
         img: "../image/blades/zweihander_blade.png",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5f0",
+            "cardUrl": "https://trello.com/c/nI176T4e",
+            "sectionId": "69214b9731723704c1eda5f0"
+        },
     },
     gilded_hammer: {
         id: "gilded_hammer",
@@ -765,6 +977,12 @@ export const Blades = {
             aggressive_personality: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5f6",
+            "cardUrl": "https://trello.com/c/v886wIvh",
+            "sectionId": "69214b9731723704c1eda5f6"
+        },
     },
     dark_steel_mace: {
         id: "dark_steel_mace",
@@ -792,6 +1010,11 @@ export const Blades = {
             bleedpotency: 3,
         },
         img: "../image/blades/dark_steel_mace.png",
+        "source": {
+            "cardId": "69214b9731723704c1eda5f4",
+            "cardUrl": "https://trello.com/c/orruy01N",
+            "sectionId": "69214b9731723704c1eda5f4"
+        },
     },
     serrated_blade: {
         id: "serrated_blade",
@@ -818,6 +1041,11 @@ export const Blades = {
             bleedpotency: 3,
         },
         img: "../image/blades/serrated_blade.png",
+        "source": {
+            "cardId": "69214b9731723704c1eda4f0",
+            "cardUrl": "https://trello.com/c/sPPflHll",
+            "sectionId": "69214b9731723704c1eda4f0"
+        },
     },
     bloodied_needle: {
         id: "bloodied_needle",
@@ -847,6 +1075,11 @@ export const Blades = {
             bleedpotency: 3,
         },
         img: "../image/blades/bloodied_needle.png",
+        "source": {
+            "cardId": "69214b9731723704c1eda4f4",
+            "cardUrl": "https://trello.com/c/HbIcZSoI",
+            "sectionId": "69214b9731723704c1eda4f4"
+        },
     },
     bejeweled_blade: {
         id: "bejeweled_blade",
@@ -871,6 +1104,12 @@ export const Blades = {
             parry: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5ec",
+            "cardUrl": "https://trello.com/c/qOyrvLaZ",
+            "sectionId": "69214b9731723704c1eda5ec"
+        },
     },
     shadow_blade: {
         id: "shadow_blade",
@@ -894,6 +1133,12 @@ export const Blades = {
             concealed_edge: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5ee",
+            "cardUrl": "https://trello.com/c/UxM5MVSz",
+            "sectionId": "69214b9731723704c1eda5ee"
+        },
     },
     kings_dagger_blade: {
         id: "kings_dagger_blade",
@@ -903,7 +1148,8 @@ export const Blades = {
         type: "Small Blade",
         attackSpeed: 1.1,
         stats: {
-            DexterityBoost: 15,
+            "DexterityBoost": 15,
+            "SpeedBoost": 5
         },
         damageScalings: {
             Dexterity: 0.7,
@@ -915,6 +1161,12 @@ export const Blades = {
             golden_crits: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5f8",
+            "cardUrl": "https://trello.com/c/dUVeptFk",
+            "sectionId": "69214b9731723704c1eda5f8"
+        },
     },
     beastial_dagger_blade: {
         id: "beastial_dagger_blade",
@@ -924,8 +1176,9 @@ export const Blades = {
         type: "Small Blade",
         attackSpeed: 1.1,
         stats: {
-            DexterityBoost: 10,
-            JumpBoost: 2,
+            "DexterityBoost": 10,
+            "JumpBoost": 2,
+            "SpeedBoost": 7
         },
         damageScalings: {
             Dexterity: 0.55,
@@ -938,6 +1191,12 @@ export const Blades = {
             beastial_rage: 1,
         },
         img: "../image/blades/beastial_dagger_blade.png",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5fa",
+            "cardUrl": "https://trello.com/c/qIq0NtPO",
+            "sectionId": "69214b9731723704c1eda5fa"
+        },
     },
     duelists_needle: {
         id: "duelists_needle",
@@ -947,7 +1206,8 @@ export const Blades = {
         type: "Medium Blade",
         attackSpeed: 1,
         stats: {
-            DexterityBoost: 15,
+            "DexterityBoost": 15,
+            "SpeedBoost": 5
         },
         damageScalings: {
             Dexterity: 0.7,
@@ -959,6 +1219,12 @@ export const Blades = {
             piercer: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5fe",
+            "cardUrl": "https://trello.com/c/5w6hWyec",
+            "sectionId": "69214b9731723704c1eda5fe"
+        },
     },
     crude_blade: {
         id: "crude_blade",
@@ -982,6 +1248,12 @@ export const Blades = {
             savage_combo: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5fc",
+            "cardUrl": "https://trello.com/c/gvrBaCWN",
+            "sectionId": "69214b9731723704c1eda5fc"
+        },
     },
     grandmagic_greatblade: {
         id: "grandmagic_greatblade",
@@ -1005,6 +1277,12 @@ export const Blades = {
             grandmagic_guard: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda600",
+            "cardUrl": "https://trello.com/c/DWb0XQhJ",
+            "sectionId": "69214b9731723704c1eda600"
+        },
     },
     great_mage_core: {
         id: "great_mage_core",
@@ -1014,7 +1292,8 @@ export const Blades = {
         type: "Hammer Blade",
         attackSpeed: 1.1,
         stats: {
-            MagicBoost: 15,
+            "MagicBoost": 15,
+            "SpeedBoost": 2
         },
         damageScalings: {
             Magic: 0.7,
@@ -1027,6 +1306,12 @@ export const Blades = {
             glyph_conduit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda602",
+            "cardUrl": "https://trello.com/c/eyTHtPq4",
+            "sectionId": "69214b9731723704c1eda602"
+        },
     },
     spellbinder_rapier: {
         id: "spellbinder_rapier",
@@ -1050,6 +1335,12 @@ export const Blades = {
             spell_piercer: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda604",
+            "cardUrl": "https://trello.com/c/WA9Jt5Bv",
+            "sectionId": "69214b9731723704c1eda604"
+        },
     },
     curved_magic_blade: {
         id: "curved_magic_blade",
@@ -1072,6 +1363,12 @@ export const Blades = {
             runic_blades: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda606",
+            "cardUrl": "https://trello.com/c/4OitWw65",
+            "sectionId": "69214b9731723704c1eda606"
+        },
     },
     divine_edge: {
         id: "divine_edge",
@@ -1097,6 +1394,12 @@ export const Blades = {
             divinity: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5ae",
+            "cardUrl": "https://trello.com/c/gRTTu2cr",
+            "sectionId": "69214b9731723704c1eda5ae"
+        },
     },
     radiant_hammer: {
         id: "radiant_hammer",
@@ -1106,8 +1409,9 @@ export const Blades = {
         type: "Hammer Blade",
         attackSpeed: 0.9,
         stats: {
-            HolyBoost: 10,
-            Warding: 20,
+            "SummonBoost": 10,
+            "HolyBoost": 10,
+            "Warding": 20
         },
         damageScalings: {
             Holy: 0.5,
@@ -1122,6 +1426,12 @@ export const Blades = {
             divine_intervention: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5b0",
+            "cardUrl": "https://trello.com/c/nxZXbIvU",
+            "sectionId": "69214b9731723704c1eda5b0"
+        },
     },
     hallowed_blade: {
         id: "hallowed_blade",
@@ -1145,6 +1455,12 @@ export const Blades = {
             light_bearer: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5b2",
+            "cardUrl": "https://trello.com/c/CJBJiIKA",
+            "sectionId": "69214b9731723704c1eda5b2"
+        },
     },
     angels_blade: {
         id: "angels_blade",
@@ -1169,6 +1485,12 @@ export const Blades = {
             sacred_grounds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5b4",
+            "cardUrl": "https://trello.com/c/8HGfJzLg",
+            "sectionId": "69214b9731723704c1eda5b4"
+        },
     },
     skull_mace: {
         id: "skull_mace",
@@ -1178,8 +1500,9 @@ export const Blades = {
         type: "Hammer Blade",
         attackSpeed: 1,
         stats: {
-            HexBoost: 10,
-            PhysicalDefense: 10,
+            "HexBoost": 10,
+            "PhysicalDefense": 10,
+            "SummonBoost": 15
         },
         damageScalings: {
             Hex: 0.5,
@@ -1194,6 +1517,12 @@ export const Blades = {
             trusty_servant: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5b6",
+            "cardUrl": "https://trello.com/c/VtwVGQDW",
+            "sectionId": "69214b9731723704c1eda5b6"
+        },
     },
     possessed_blade: {
         id: "possessed_blade",
@@ -1203,7 +1532,8 @@ export const Blades = {
         type: "Medium Blade",
         attackSpeed: 1,
         stats: {
-            HexBoost: 12,
+            "HexBoost": 12,
+            "SummonBoost": 12
         },
         damageScalings: {
             Hex: 0.5,
@@ -1217,6 +1547,12 @@ export const Blades = {
             possession: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5b8",
+            "cardUrl": "https://trello.com/c/3CLgrxSl",
+            "sectionId": "69214b9731723704c1eda5b8"
+        },
     },
     cursed_greatsword_blade: {
         id: "cursed_greatsword_blade",
@@ -1240,6 +1576,12 @@ export const Blades = {
             endless_despair: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5ba",
+            "cardUrl": "https://trello.com/c/2SlSVXje",
+            "sectionId": "69214b9731723704c1eda5ba"
+        },
     },
     cursed_dagger_blade: {
         id: "cursed_dagger_blade",
@@ -1264,6 +1606,12 @@ export const Blades = {
             curse_rip: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5bc",
+            "cardUrl": "https://trello.com/c/VKDHaa5M",
+            "sectionId": "69214b9731723704c1eda5bc"
+        },
     },
     gale_blade: {
         id: "gale_blade",
@@ -1273,7 +1621,8 @@ export const Blades = {
         type: "Small Blade",
         attackSpeed: 1.1,
         stats: {
-            DexterityBoost: 7,
+            "AirBoost": 7,
+            "DexterityBoost": 7
         },
         damageScalings: {
             Air: 0.55,
@@ -1288,6 +1637,12 @@ export const Blades = {
             tailwind: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2f0",
+            "cardUrl": "https://trello.com/c/e3cKdR5S",
+            "sectionId": "69214b9731723704c1eda2f0"
+        },
     },
     windiron_needle: {
         id: "windiron_needle",
@@ -1297,7 +1652,8 @@ export const Blades = {
         type: "Medium Blade",
         attackSpeed: 1.2,
         stats: {
-            DexterityBoost: 7,
+            "AirBoost": 7,
+            "DexterityBoost": 7
         },
         damageScalings: {
             Air: 0.55,
@@ -1312,6 +1668,12 @@ export const Blades = {
             tailwind: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2f2",
+            "cardUrl": "https://trello.com/c/esd3pbeI",
+            "sectionId": "69214b9731723704c1eda2f2"
+        },
     },
     storm_splitter: {
         id: "storm_splitter",
@@ -1321,8 +1683,9 @@ export const Blades = {
         type: "Medium Blade",
         attackSpeed: 1.1,
         stats: {
-            MagicBoost: 8,
-            DexterityBoost: 12,
+            "MagicBoost": 8,
+            "DexterityBoost": 12,
+            "AirBoost": 8
         },
         damageScalings: {
             Air: 0.45,
@@ -1337,6 +1700,12 @@ export const Blades = {
             storm_rend: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5be",
+            "cardUrl": "https://trello.com/c/22glZ6nS",
+            "sectionId": "69214b9731723704c1eda5be"
+        },
     },
     lightning_hammer: {
         id: "lightning_hammer",
@@ -1346,8 +1715,9 @@ export const Blades = {
         type: "Hammer Blade",
         attackSpeed: 1.1,
         stats: {
-            MagicBoost: 6,
-            PhysicalDefense: 5,
+            "MagicBoost": 6,
+            "PhysicalDefense": 5,
+            "AirBoost": 6
         },
         damageScalings: {
             Air: 0.55,
@@ -1361,6 +1731,12 @@ export const Blades = {
             static_buildup: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5c0",
+            "cardUrl": "https://trello.com/c/Or6EOXKz",
+            "sectionId": "69214b9731723704c1eda5c0"
+        },
     },
     steel_flame_dagger: {
         id: "steel_flame_dagger",
@@ -1385,6 +1761,12 @@ export const Blades = {
             spark: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5d4",
+            "cardUrl": "https://trello.com/c/nkZKmjGc",
+            "sectionId": "69214b9731723704c1eda5d4"
+        },
     },
     dragon_flame_dagger: {
         id: "dragon_flame_dagger",
@@ -1412,6 +1794,11 @@ export const Blades = {
             dragon_breath: 1,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9731723704c1eda5d6",
+            "cardUrl": "https://trello.com/c/TIdgEJkh",
+            "sectionId": "69214b9731723704c1eda5d6"
+        },
     },
     blue_flame_greatblade: {
         id: "blue_flame_greatblade",
@@ -1438,6 +1825,11 @@ export const Blades = {
             burnpotency: 3,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9731723704c1eda5d8",
+            "cardUrl": "https://trello.com/c/0iUpkHGE",
+            "sectionId": "69214b9731723704c1eda5d8"
+        },
     },
     cragstone_hammer: {
         id: "cragstone_hammer",
@@ -1465,6 +1857,12 @@ export const Blades = {
             tectonic_heat: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5da",
+            "cardUrl": "https://trello.com/c/VSb7Wkv1",
+            "sectionId": "69214b9731723704c1eda5da"
+        },
     },
     wave_blade: {
         id: "wave_blade",
@@ -1489,6 +1887,12 @@ export const Blades = {
             extinguish: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5e0",
+            "cardUrl": "https://trello.com/c/6MXKGoBN",
+            "sectionId": "69214b9731723704c1eda5e0"
+        },
     },
     golden_trident: {
         id: "golden_trident",
@@ -1513,6 +1917,12 @@ export const Blades = {
             holy_tides: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5e2",
+            "cardUrl": "https://trello.com/c/D6K5q39e",
+            "sectionId": "69214b9731723704c1eda5e2"
+        },
     },
     icicle: {
         id: "icicle",
@@ -1542,6 +1952,11 @@ export const Blades = {
             bleedpotency: 3,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9731723704c1eda5dc",
+            "cardUrl": "https://trello.com/c/zFmbaMRu",
+            "sectionId": "69214b9731723704c1eda5dc"
+        },
     },
     sculpted_blade: {
         id: "sculpted_blade",
@@ -1568,6 +1983,12 @@ export const Blades = {
             frostbite: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5de",
+            "cardUrl": "https://trello.com/c/tQJJH7t8",
+            "sectionId": "69214b9731723704c1eda5de"
+        },
     },
     gravitational_greatblade: {
         id: "gravitational_greatblade",
@@ -1593,6 +2014,12 @@ export const Blades = {
             gravitational_enforcer: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5e4",
+            "cardUrl": "https://trello.com/c/a4hS6UEZ",
+            "sectionId": "69214b9731723704c1eda5e4"
+        },
     },
     gravitational_core: {
         id: "gravitational_core",
@@ -1618,6 +2045,12 @@ export const Blades = {
             cosmic_ray: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5e6",
+            "cardUrl": "https://trello.com/c/ySsbubAT",
+            "sectionId": "69214b9731723704c1eda5e6"
+        },
     },
     earth_spirit_greatblade: {
         id: "earth_spirit_greatblade",
@@ -1645,6 +2078,12 @@ export const Blades = {
             stoneskin: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5e8",
+            "cardUrl": "https://trello.com/c/K4JtHQTa",
+            "sectionId": "69214b9731723704c1eda5e8"
+        },
     },
     sand_glaive: {
         id: "sand_glaive",
@@ -1654,7 +2093,8 @@ export const Blades = {
         type: "Medium Blade",
         attackSpeed: 1.1,
         stats: {
-            EarthBoost: 8,
+            "AirBoost": 8,
+            "EarthBoost": 8
         },
         damageScalings: {
             Air: 0.55,
@@ -1668,6 +2108,12 @@ export const Blades = {
             quicksand: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda5ea",
+            "cardUrl": "https://trello.com/c/cfLCFpBP",
+            "sectionId": "69214b9731723704c1eda5ea"
+        },
     },
     prism_blade: {
         id: "prism_blade",
@@ -1684,6 +2130,14 @@ export const Blades = {
             True: 1,
         },
         img: "",
+        "stats": {},
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda640",
+            "cardUrl": "https://trello.com/c/dQ69H5c0",
+            "sectionId": "69214b9731723704c1eda640"
+        },
     },
     starlight_greatblade: {
         id: "starlight_greatblade",
@@ -1693,11 +2147,12 @@ export const Blades = {
         type: "Heavy Blade",
         attackSpeed: 1,
         stats: {
-            HolyBoost: 5,
-            HexBoost: 5,
-            MagicBoost: 5,
-            FireBoost: 5,
-            WaterBoost: 5,
+            "HolyBoost": 5,
+            "HexBoost": 5,
+            "MagicBoost": 5,
+            "FireBoost": 5,
+            "WaterBoost": 5,
+            "AirBoost": 5
         },
         damageScalings: {
             Holy: 0.4,
@@ -1714,6 +2169,12 @@ export const Blades = {
             star_struck: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda642",
+            "cardUrl": "https://trello.com/c/AUZicZki",
+            "sectionId": "69214b9731723704c1eda642"
+        },
     },
     swaxe: {
         id: "swaxe",
@@ -1735,6 +2196,12 @@ export const Blades = {
             cleave: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda64e",
+            "cardUrl": "https://trello.com/c/jlcUHCw4",
+            "sectionId": "69214b9731723704c1eda64e"
+        },
     },
     bloodiron_sawblade: {
         id: "bloodiron_sawblade",
@@ -1744,7 +2211,8 @@ export const Blades = {
         type: "Medium Blade",
         attackSpeed: 1,
         stats: {
-            PhysicalBoost: 5,
+            "SpeedBoost": 5,
+            "PhysicalBoost": 5
         },
         damageScalings: {
             Physical: 0.7,
@@ -1759,6 +2227,11 @@ export const Blades = {
             bleedpotency: 3,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9831723704c1edac48",
+            "cardUrl": "https://trello.com/c/yzsUIBmb",
+            "sectionId": "69214b9831723704c1edac48"
+        },
     },
     dragonslayer_blade: {
         id: "dragonslayer_blade",
@@ -1782,6 +2255,12 @@ export const Blades = {
             inhuman_swings: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda66a",
+            "cardUrl": "https://trello.com/c/rGk75VnM",
+            "sectionId": "69214b9731723704c1eda66a"
+        },
     },
     murky_blade: {
         id: "murky_blade",
@@ -1811,6 +2290,11 @@ export const Blades = {
             poisonpotency: 2,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9731723704c1eda6d8",
+            "cardUrl": "https://trello.com/c/FoSfeCOn",
+            "sectionId": "69214b9731723704c1eda6d8"
+        },
     },
     spectral_blade: {
         id: "spectral_blade",
@@ -1840,6 +2324,11 @@ export const Blades = {
             poisonpotency: 2,
         },
         img: "../image/blades/spectralblade.png",
+        "source": {
+            "cardId": "69214b9731723704c1eda6da",
+            "cardUrl": "https://trello.com/c/fLMP1v9O",
+            "sectionId": "69214b9731723704c1eda6da"
+        },
     },
     poisonous_blade: {
         id: "poisonous_blade",
@@ -1869,6 +2358,11 @@ export const Blades = {
             poisonpotency: 3,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9731723704c1eda6e0",
+            "cardUrl": "https://trello.com/c/FWXo3GrD",
+            "sectionId": "69214b9731723704c1eda6e0"
+        },
     },
     venomous_blade: {
         id: "venomous_blade",
@@ -1898,6 +2392,11 @@ export const Blades = {
             poisonpotency: 2,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9731723704c1eda6e6",
+            "cardUrl": "https://trello.com/c/szUr3r38",
+            "sectionId": "69214b9731723704c1eda6e6"
+        },
     },
     honeycomb_greatblade: {
         id: "honeycomb_greatblade",
@@ -1924,6 +2423,12 @@ export const Blades = {
             sticky_swings: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6ec",
+            "cardUrl": "https://trello.com/c/ulFeKCTT",
+            "sectionId": "69214b9731723704c1eda6ec"
+        },
     },
     honeysteel_greatblade: {
         id: "honeysteel_greatblade",
@@ -1950,6 +2455,12 @@ export const Blades = {
             explosive_honey: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6ee",
+            "cardUrl": "https://trello.com/c/Ddk5nwBN",
+            "sectionId": "69214b9731723704c1eda6ee"
+        },
     },
     honey_bumblz_mace: {
         id: "honey_bumblz_mace",
@@ -1959,8 +2470,9 @@ export const Blades = {
         type: "Hammer",
         attackSpeed: 1,
         stats: {
-            MagicBoost: 4,
-            PhysicalBoost: 4,
+            "MagicBoost": 4,
+            "SummonBoost": 10,
+            "PhysicalBoost": 4
         },
         damageScalings: {
             Magic: 0.35,
@@ -1972,9 +2484,15 @@ export const Blades = {
             Physical: 0.5,
         },
         perks: {
-            queens_guard: 1,
+            "queen_s_guard": 1
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6f6",
+            "cardUrl": "https://trello.com/c/yy2s4nMl",
+            "sectionId": "69214b9731723704c1eda6f6"
+        },
     },
     queen_bumblz_core: {
         id: "queen_bumblz_core",
@@ -1984,9 +2502,10 @@ export const Blades = {
         type: "Hammer",
         attackSpeed: 1,
         stats: {
-            MagicBoost: 5,
-            HolyBoost: 5,
-            PhysicalBoost: 5,
+            "MagicBoost": 5,
+            "SummonBoost": 10,
+            "HolyBoost": 5,
+            "PhysicalBoost": 5
         },
         damageScalings: {
             Magic: 0.4,
@@ -2000,10 +2519,16 @@ export const Blades = {
             Holy: 0.35,
         },
         perks: {
-            reinforced_block: 1,
-            queens_power: 1,
+            "reinforced_block": 1,
+            "queen_s_power": 1
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6f4",
+            "cardUrl": "https://trello.com/c/ytARjfxe",
+            "sectionId": "69214b9731723704c1eda6f4"
+        },
     },
     magic_great_hammer: {
         id: "magic_great_hammer",
@@ -2027,6 +2552,12 @@ export const Blades = {
             energize: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6d6",
+            "cardUrl": "https://trello.com/c/q5tIaFYV",
+            "sectionId": "69214b9731723704c1eda6d6"
+        },
     },
     dynamite_stick: {
         id: "dynamite_stick",
@@ -2050,6 +2581,12 @@ export const Blades = {
             explosive_charge: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7c8",
+            "cardUrl": "https://trello.com/c/8KXpRDoy",
+            "sectionId": "69214b9731723704c1eda7c8"
+        },
     },
     dynamite_bundle: {
         id: "dynamite_bundle",
@@ -2073,6 +2610,12 @@ export const Blades = {
             explosive_charge: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7ca",
+            "cardUrl": "https://trello.com/c/q6tPcRUS",
+            "sectionId": "69214b9731723704c1eda7ca"
+        },
     },
     timed_dynamite_bundle: {
         id: "timed_dynamite_bundle",
@@ -2096,6 +2639,12 @@ export const Blades = {
             explosive_charge: 3,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7cc",
+            "cardUrl": "https://trello.com/c/xvNevOil",
+            "sectionId": "69214b9731723704c1eda7cc"
+        },
     },
     stratos_core: {
         id: "stratos_core",
@@ -2114,6 +2663,15 @@ export const Blades = {
             stratos_winds: 1,
         },
         img: "",
+        "stats": {
+            "AirBoost": 10
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda91e",
+            "cardUrl": "https://trello.com/c/6DVAn4Ss",
+            "sectionId": "69214b9731723704c1eda91e"
+        },
     },
     lightning_stratos_core: {
         id: "lightning_stratos_core",
@@ -2123,7 +2681,8 @@ export const Blades = {
         type: "Hammer Blade",
         attackSpeed: 1,
         stats: {
-            MagicBoost: 10,
+            "MagicBoost": 10,
+            "AirBoost": 13
         },
         damageScalings: {
             Air: 0.55,
@@ -2138,6 +2697,12 @@ export const Blades = {
             power_surge: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda924",
+            "cardUrl": "https://trello.com/c/ZpK8vsPt",
+            "sectionId": "69214b9731723704c1eda924"
+        },
     },
     caci_blade: {
         id: "caci_blade",
@@ -2162,6 +2727,12 @@ export const Blades = {
             thorns: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda96c",
+            "cardUrl": "https://trello.com/c/ITvft4E8",
+            "sectionId": "69214b9731723704c1eda96c"
+        },
     },
     caci_kings_blade: {
         id: "caci_kings_blade",
@@ -2171,9 +2742,10 @@ export const Blades = {
         type: "Medium Blade",
         attackSpeed: 1.1,
         stats: {
-            DexterityBoost: 5,
-            PhysicalBoost: 5,
-            EarthBoost: 5,
+            "DexterityBoost": 5,
+            "PhysicalBoost": 5,
+            "EarthBoost": 5,
+            "AirBoost": 5
         },
         damageScalings: {
             Dexterity: 0.45,
@@ -2192,6 +2764,11 @@ export const Blades = {
             bleedpotency: 2,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9731723704c1eda976",
+            "cardUrl": "https://trello.com/c/ftYtuWFe",
+            "sectionId": "69214b9731723704c1eda976"
+        },
     },
     buni_prince_hammer: {
         id: "buni_prince_hammer",
@@ -2214,6 +2791,12 @@ export const Blades = {
             iron_bounce: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa26",
+            "cardUrl": "https://trello.com/c/aiP8bTpx",
+            "sectionId": "69214b9731723704c1edaa26"
+        },
     },
     buni_prince_cannon: {
         id: "buni_prince_cannon",
@@ -2236,6 +2819,12 @@ export const Blades = {
             springblast: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa28",
+            "cardUrl": "https://trello.com/c/KA07xwzz",
+            "sectionId": "69214b9731723704c1edaa28"
+        },
     },
     ancient_mallet: {
         id: "ancient_mallet",
@@ -2258,6 +2847,12 @@ export const Blades = {
             rocky_body: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabc0",
+            "cardUrl": "https://trello.com/c/qYOtOU0A",
+            "sectionId": "69214b9731723704c1edabc0"
+        },
     },
     bastion_greatswaxe_blade: {
         id: "bastion_greatswaxe_blade",
@@ -2267,7 +2862,8 @@ export const Blades = {
         type: "Heavy Blade",
         attackSpeed: 1.1,
         stats: {
-            EarthBoost: 8,
+            "EarthBoost": 8,
+            "SpeedBoost": 5
         },
         damageScalings: {
             Earth: 0.8,
@@ -2279,6 +2875,12 @@ export const Blades = {
             golem_guillotine: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabc8",
+            "cardUrl": "https://trello.com/c/6PdIafqa",
+            "sectionId": "69214b9731723704c1edabc8"
+        },
     },
     relic_short_blade: {
         id: "relic_short_blade",
@@ -2303,6 +2905,12 @@ export const Blades = {
             bastion_bless: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabc6",
+            "cardUrl": "https://trello.com/c/eUV56976",
+            "sectionId": "69214b9731723704c1edabc6"
+        },
     },
     bastion_relic_blade: {
         id: "bastion_relic_blade",
@@ -2327,6 +2935,12 @@ export const Blades = {
             essence_totem: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabce",
+            "cardUrl": "https://trello.com/c/W4ubvmOa",
+            "sectionId": "69214b9731723704c1edabce"
+        },
     },
     vaen_kama: {
         id: "vaen_kama",
@@ -2336,7 +2950,8 @@ export const Blades = {
         type: "Small Blade",
         attackSpeed: 1.1,
         stats: {
-            PhysicalBoost: 5,
+            "AirBoost": 5,
+            "PhysicalBoost": 5
         },
         damageScalings: {
             Air: 0.4,
@@ -2351,6 +2966,12 @@ export const Blades = {
             kama_blades: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacbc",
+            "cardUrl": "https://trello.com/c/IJeAYftT",
+            "sectionId": "69214b9831723704c1edacbc"
+        },
     },
     lord_vaen_blade: {
         id: "lord_vaen_blade",
@@ -2360,7 +2981,8 @@ export const Blades = {
         type: "Small Blade",
         attackSpeed: 1.1,
         stats: {
-            PhysicalBoost: 10,
+            "AirBoost": 10,
+            "PhysicalBoost": 10
         },
         damageScalings: {
             Air: 0.55,
@@ -2378,6 +3000,11 @@ export const Blades = {
             bleedpotency: 3,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9831723704c1edacbe",
+            "cardUrl": "https://trello.com/c/raV0zYbR",
+            "sectionId": "69214b9831723704c1edacbe"
+        },
     },
     mungal_mallet: {
         id: "mungal_mallet",
@@ -2407,6 +3034,11 @@ export const Blades = {
             poisonpotency: 3,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9831723704c1edad2a",
+            "cardUrl": "https://trello.com/c/vsUS4b2M",
+            "sectionId": "69214b9831723704c1edad2a"
+        },
     },
     mungus_core: {
         id: "mungus_core",
@@ -2416,9 +3048,10 @@ export const Blades = {
         type: "Hammer",
         attackSpeed: 1,
         stats: {
-            EarthBoost: 5,
-            MagicBoost: 5,
-            HexBoost: 5,
+            "EarthBoost": 5,
+            "MagicBoost": 5,
+            "HexBoost": 5,
+            "SpeedBoost": 2
         },
         damageScalings: {
             Earth: 0.45,
@@ -2434,6 +3067,12 @@ export const Blades = {
             proto_tech: 1,
         },
         img: "../image/blades/munguscore.png",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad22",
+            "cardUrl": "https://trello.com/c/DdGPdmsr",
+            "sectionId": "69214b9831723704c1edad22"
+        },
     },
     spider_fang_blade: {
         id: "spider_fang_blade",
@@ -2460,6 +3099,11 @@ export const Blades = {
             poisonpotency: 2,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9831723704c1edad14",
+            "cardUrl": "https://trello.com/c/9zoETRLr",
+            "sectionId": "69214b9831723704c1edad14"
+        },
     },
     omega_lance_blade: {
         id: "omega_lance_blade",
@@ -2469,9 +3113,10 @@ export const Blades = {
         type: "Heavy Blade",
         attackSpeed: 1,
         stats: {
-            DexterityBoost: 5,
-            PhysicalBoost: 5,
-            FireBoost: 5,
+            "DexterityBoost": 5,
+            "PhysicalBoost": 5,
+            "FireBoost": 5,
+            "AirBoost": 5
         },
         damageScalings: {
             Dexterity: 0.45,
@@ -2487,6 +3132,12 @@ export const Blades = {
             heat_drill: 1,
         },
         img: "../image/blades/omegalanceblade.png",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad18",
+            "cardUrl": "https://trello.com/c/J4uEttmj",
+            "sectionId": "69214b9831723704c1edad18"
+        },
     },
     bronze_frozen_pick: {
         id: "bronze_frozen_pick",
@@ -2513,6 +3164,12 @@ export const Blades = {
             kama_blades: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad34",
+            "cardUrl": "https://trello.com/c/txXR1Bfd",
+            "sectionId": "69214b9831723704c1edad34"
+        },
     },
     frozen_pickaxe_head: {
         id: "frozen_pickaxe_head",
@@ -2539,5 +3196,11 @@ export const Blades = {
             ice_burst: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad36",
+            "cardUrl": "https://trello.com/c/MRhAix7d",
+            "sectionId": "69214b9831723704c1edad36"
+        },
     },
 };

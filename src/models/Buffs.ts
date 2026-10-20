@@ -21,6 +21,11 @@ export class Buff extends ItemModule.events {
    * Only if this buff add it own additve potency, but most times this is undefined
    */
   potency?: number;
+  /** User-selected effective potency in game units (0.1 = one potency point internally). */
+  effectivePotencyOverride?: number;
+  stacks?: number;
+  /** Relative to the build carrying this status. Legacy buffs are self-applied, debuffs opponent-applied. */
+  appliedBy?: "self" | "opponent";
   /**
    * buff scaling are only for this buff only if it does damage, not to be added to the total build scaling
    */
@@ -62,7 +67,18 @@ export class Buff extends ItemModule.events {
     return this.sourceData
   }
 
-  getEffectivePotency(sourceBuild?: Build) {
+  getAppliedBy(): "self" | "opponent" {
+    return this.appliedBy ?? (this.category === "Debuff" ? "opponent" : "self");
+  }
+
+  getSourceBuild<T extends { target?: T; statusOpponent?: T }>(holder: T): T {
+    return this.getAppliedBy() === "opponent" ? holder.statusOpponent || holder.target || holder : holder;
+  }
+
+  getEffectivePotency(sourceBuild?: Pick<Build, "potencies">) {
+    if (typeof this.effectivePotencyOverride === "number" && Number.isFinite(this.effectivePotencyOverride)) {
+      return Math.max(0, this.effectivePotencyOverride) * 10;
+    }
     const sourcePotency = this.sourceData?.sourceInatePotency || 0;
     const additivePotency = this.potencyId && sourceBuild
       ? sourceBuild.potencies[this.potencyId] || 0

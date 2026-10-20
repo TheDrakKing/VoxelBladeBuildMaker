@@ -10,6 +10,8 @@ export class WeaponArt {
         this.coolDown = data?.coolDown || 1;
         this.baseDamage = data?.baseDamage || undefined;
         this.totalHits = data?.totalHits || undefined;
+        this.damageBasis = data?.damageBasis;
+        this.attackTags = data?.attackTags;
         this.potencies = data?.potencies || undefined;
         this.sourcepotencies = data?.sourcepotencies || undefined;
         this.scalingRequirements = data?.scalingRequirements || undefined;

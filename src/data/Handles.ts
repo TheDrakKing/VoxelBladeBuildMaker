@@ -13,6 +13,15 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Dexterity: 0.15,
     },
     img: "../image/handles/basichandle.png",
+
+    "stats": {},
+    "perks": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda17e",
+      "cardUrl": "https://trello.com/c/w4MQPhBg",
+      "sectionId": "69214b9731723704c1eda17e"
+    },
   },
   long_handle: {
     id: "long_handle",
@@ -28,6 +37,14 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Physical: 0.4,
     },
     img: "",
+
+    "perks": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda542",
+      "cardUrl": "https://trello.com/c/gYDMLZtl",
+      "sectionId": "69214b9731723704c1eda542"
+    },
   },
   reinforced_handle: {
     id: "reinforced_handle",
@@ -44,6 +61,14 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Dexterity: 0.3,
     },
     img: "",
+
+    "perks": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda546",
+      "cardUrl": "https://trello.com/c/xXLI6mET",
+      "sectionId": "69214b9731723704c1eda546"
+    },
   },
   agile_handle: {
     id: "agile_handle",
@@ -60,6 +85,14 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Dexterity: 0.3,
     },
     img: "",
+
+    "perks": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda548",
+      "cardUrl": "https://trello.com/c/1EDsK2LZ",
+      "sectionId": "69214b9731723704c1eda548"
+    },
   },
   magewood_handle: {
     id: "magewood_handle",
@@ -75,6 +108,14 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Magic: 0.4,
     },
     img: "",
+
+    "perks": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda544",
+      "cardUrl": "https://trello.com/c/lhxZt8og",
+      "sectionId": "69214b9731723704c1eda544"
+    },
   },
   holywood_handle: {
     id: "holywood_handle",
@@ -92,6 +133,14 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Holy: 0.3,
     },
     img: "",
+
+    "perks": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda23c",
+      "cardUrl": "https://trello.com/c/FcAFWtc8",
+      "sectionId": "69214b9731723704c1eda23c"
+    },
   },
   cursewood_handle: {
     id: "cursewood_handle",
@@ -109,6 +158,14 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Hex: 0.3,
     },
     img: "",
+
+    "perks": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda4ea",
+      "cardUrl": "https://trello.com/c/xhwrdTi5",
+      "sectionId": "69214b9731723704c1eda4ea"
+    },
   },
   windiron_handle: {
     id: "windiron_handle",
@@ -126,6 +183,14 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Air: 0.3,
     },
     img: "",
+
+    "perks": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda2a6",
+      "cardUrl": "https://trello.com/c/rWyKbens",
+      "sectionId": "69214b9731723704c1eda2a6"
+    },
   },
   blazewood_handle: {
     id: "blazewood_handle",
@@ -143,6 +208,14 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Fire: 0.3,
     },
     img: "",
+
+    "perks": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda2ec",
+      "cardUrl": "https://trello.com/c/6Oe689qN",
+      "sectionId": "69214b9731723704c1eda2ec"
+    },
   },
   aquasteel_handle: {
     id: "aquasteel_handle",
@@ -160,6 +233,14 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Water: 0.3,
     },
     img: "",
+
+    "perks": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda54a",
+      "cardUrl": "https://trello.com/c/f5GXfh3p",
+      "sectionId": "69214b9731723704c1eda54a"
+    },
   },
   brass_handle: {
     id: "brass_handle",
@@ -177,6 +258,14 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Physical: 0.35,
     },
     img: "",
+
+    "perks": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda54c",
+      "cardUrl": "https://trello.com/c/PBRkbRdP",
+      "sectionId": "69214b9731723704c1eda54c"
+    },
   },
   executioners_handle: {
     id: "executioners_handle",
@@ -199,6 +288,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       executioner: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda614",
+      "cardUrl": "https://trello.com/c/noYUVk5V",
+      "sectionId": "69214b9731723704c1eda614"
+    },
   },
   reinforced_pole: {
     id: "reinforced_pole",
@@ -218,6 +314,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       reinforced_block: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda612",
+      "cardUrl": "https://trello.com/c/ItNTIjqK",
+      "sectionId": "69214b9731723704c1eda612"
+    },
   },
   katana_handle: {
     id: "katana_handle",
@@ -239,6 +342,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       flash_strike: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda616",
+      "cardUrl": "https://trello.com/c/8PDkFm0M",
+      "sectionId": "69214b9731723704c1eda616"
+    },
   },
   jagged_handle: {
     id: "jagged_handle",
@@ -263,6 +373,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       bleedpotency: 4,
     },
     img: "",
+
+    "source": {
+      "cardId": "69214b9731723704c1eda618",
+      "cardUrl": "https://trello.com/c/PBywizMV",
+      "sectionId": "69214b9731723704c1eda618"
+    },
   },
   noble_handle: {
     id: "noble_handle",
@@ -272,7 +388,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Medium Handle",
     attackSpeed: 1.1,
     stats: {
-      DexterityBoost: 10,
+      "DexterityBoost": 10,
+      "SpeedBoost": 5
     },
     damageScalings: {
       Dexterity: 0.5,
@@ -281,6 +398,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       vital_strikes: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda54e",
+      "cardUrl": "https://trello.com/c/kUeqjOno",
+      "sectionId": "69214b9731723704c1eda54e"
+    },
   },
   graceful_handle: {
     id: "graceful_handle",
@@ -301,6 +425,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       sharp_crits: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda550",
+      "cardUrl": "https://trello.com/c/riQ963ry",
+      "sectionId": "69214b9731723704c1eda550"
+    },
   },
   magewood_long_handle: {
     id: "magewood_long_handle",
@@ -320,6 +451,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       magic_guard: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda61a",
+      "cardUrl": "https://trello.com/c/6Sp9C7hk",
+      "sectionId": "69214b9731723704c1eda61a"
+    },
   },
   enchantwood_handle: {
     id: "enchantwood_handle",
@@ -341,6 +479,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       royal_finisher: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda61c",
+      "cardUrl": "https://trello.com/c/nrqY2ZvP",
+      "sectionId": "69214b9731723704c1eda61c"
+    },
   },
   gilded_pole: {
     id: "gilded_pole",
@@ -350,8 +495,9 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Pole",
     attackSpeed: 1,
     stats: {
-      HolyBoost: 6,
-      DexterityBoost: 6,
+      "SummonBoost": 5,
+      "HolyBoost": 6,
+      "DexterityBoost": 6
     },
     damageScalings: {
       Holy: 0.4,
@@ -361,6 +507,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       reinforced_block: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda648",
+      "cardUrl": "https://trello.com/c/LZhc9EoG",
+      "sectionId": "69214b9731723704c1eda648"
+    },
   },
   purewood_handle: {
     id: "purewood_handle",
@@ -380,6 +533,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       blessing: 2,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda646",
+      "cardUrl": "https://trello.com/c/n6dfX3eD",
+      "sectionId": "69214b9731723704c1eda646"
+    },
   },
   summoning_pole: {
     id: "summoning_pole",
@@ -389,8 +549,9 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Pole",
     attackSpeed: 1,
     stats: {
-      PhysicalDefense: 4,
-      HexBoost: 8,
+      "SummonBoost": 10,
+      "PhysicalDefense": 4,
+      "HexBoost": 8
     },
     damageScalings: {
       Hex: 0.35,
@@ -401,6 +562,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       revel_in_death: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda66e",
+      "cardUrl": "https://trello.com/c/NhmM3GLu",
+      "sectionId": "69214b9731723704c1eda66e"
+    },
   },
   hexsteel_handle: {
     id: "hexsteel_handle",
@@ -424,6 +592,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       weakening: 2,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda66c",
+      "cardUrl": "https://trello.com/c/M4vJanYc",
+      "sectionId": "69214b9731723704c1eda66c"
+    },
   },
   refined_windiron_handle: {
     id: "refined_windiron_handle",
@@ -433,7 +608,9 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Medium Handle",
     attackSpeed: 1.1,
     stats: {
-      DexterityBoost: 7,
+      "DexterityBoost": 7,
+      "SpeedBoost": 5,
+      "AirBoost": 7
     },
     damageScalings: {
       Air: 0.4,
@@ -443,6 +620,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       tailwind: 2,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda4ce",
+      "cardUrl": "https://trello.com/c/i6DBVTZJ",
+      "sectionId": "69214b9731723704c1eda4ce"
+    },
   },
   stormwood_handle: {
     id: "stormwood_handle",
@@ -452,8 +636,9 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Long Handle",
     attackSpeed: 1.1,
     stats: {
-      MagicBoost: 4,
-      DexterityBoost: 4,
+      "MagicBoost": 4,
+      "DexterityBoost": 4,
+      "AirBoost": 4
     },
     damageScalings: {
       Air: 0.35,
@@ -465,6 +650,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       stormcaller: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda4d0",
+      "cardUrl": "https://trello.com/c/hhAeWa88",
+      "sectionId": "69214b9731723704c1eda4d0"
+    },
   },
   kindlewood_handle: {
     id: "kindlewood_handle",
@@ -485,6 +677,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       kindling: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda634",
+      "cardUrl": "https://trello.com/c/u1nRDndZ",
+      "sectionId": "69214b9731723704c1eda634"
+    },
   },
   cragflame_handle: {
     id: "cragflame_handle",
@@ -506,6 +705,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       ignition: 2,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda632",
+      "cardUrl": "https://trello.com/c/thpWn3Ge",
+      "sectionId": "69214b9731723704c1eda632"
+    },
   },
   sunkenwood_handle: {
     id: "sunkenwood_handle",
@@ -526,6 +732,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       extinguish: 2,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda67c",
+      "cardUrl": "https://trello.com/c/MQL1lbU0",
+      "sectionId": "69214b9731723704c1eda67c"
+    },
   },
   frozen_handle: {
     id: "frozen_handle",
@@ -547,6 +760,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       frostbite: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda67a",
+      "cardUrl": "https://trello.com/c/7sIVSi2C",
+      "sectionId": "69214b9731723704c1eda67a"
+    },
   },
   enchanted_stone_handle: {
     id: "enchanted_stone_handle",
@@ -567,6 +787,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       gravity_well: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda67e",
+      "cardUrl": "https://trello.com/c/oNreCsak",
+      "sectionId": "69214b9731723704c1eda67e"
+    },
   },
   bedrock_handle: {
     id: "bedrock_handle",
@@ -588,6 +815,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       quake: 2,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda680",
+      "cardUrl": "https://trello.com/c/a2kP1wxp",
+      "sectionId": "69214b9731723704c1eda680"
+    },
   },
   scourgers_Handle: {
     id: "scourgers_Handle",
@@ -608,6 +842,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       scourge: 1,
     },
     img: "../image/handles/scourgers_handle.png",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda664",
+      "cardUrl": "https://trello.com/c/4On9pazZ",
+      "sectionId": "69214b9731723704c1eda664"
+    },
   },
   zweihander_handle: {
     id: "zweihander_handle",
@@ -617,9 +858,10 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Long Handle",
     attackSpeed: 1,
     stats: {
-      PhysicalBoost: 10,
-      PhysicalDefense: 3,
-      Protection: 5,
+      "PhysicalBoost": 10,
+      "PhysicalDefense": 3,
+      "SpeedBoost": 2,
+      "Protection": 5
     },
     damageScalings: {
       Physical: 0.55,
@@ -629,6 +871,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       highlander: 1,
     },
     img: "../image/handles/zweihander_handle.png",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda666",
+      "cardUrl": "https://trello.com/c/GEkijmgs",
+      "sectionId": "69214b9731723704c1eda666"
+    },
   },
   reinforced_gilded_pole: {
     id: "reinforced_gilded_pole",
@@ -650,6 +899,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       aggressive_personality: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda608",
+      "cardUrl": "https://trello.com/c/14yTVmvj",
+      "sectionId": "69214b9731723704c1eda608"
+    },
   },
   spike_pole: {
     id: "spike_pole",
@@ -674,6 +930,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       bleedpotency: 3,
     },
     img: "../image/handles/spike_pole.png",
+
+    "source": {
+      "cardId": "69214b9731723704c1eda670",
+      "cardUrl": "https://trello.com/c/40478f5O",
+      "sectionId": "69214b9731723704c1eda670"
+    },
   },
   serrated_handle: {
     id: "serrated_handle",
@@ -700,6 +962,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       bleedpotency: 3,
     },
     img: "../image/handles/serrated_handle.png",
+
+    "source": {
+      "cardId": "69214b9731723704c1eda68a",
+      "cardUrl": "https://trello.com/c/nYkqG4d3",
+      "sectionId": "69214b9731723704c1eda68a"
+    },
   },
   bloodied_guard: {
     id: "bloodied_guard",
@@ -726,6 +994,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       bleedpotency: 3,
     },
     img: "../image/handles/bloodied_guard.png",
+
+    "source": {
+      "cardId": "69214b9731723704c1eda688",
+      "cardUrl": "https://trello.com/c/DZPopTo2",
+      "sectionId": "69214b9731723704c1eda688"
+    },
   },
   bejeweled_handle: {
     id: "bejeweled_handle",
@@ -747,6 +1021,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       parry: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda686",
+      "cardUrl": "https://trello.com/c/lhUexpxw",
+      "sectionId": "69214b9731723704c1eda686"
+    },
   },
   shadow_handle: {
     id: "shadow_handle",
@@ -771,6 +1052,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       phantom_pain: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda61e",
+      "cardUrl": "https://trello.com/c/jIJehNhx",
+      "sectionId": "69214b9731723704c1eda61e"
+    },
   },
   kings_handle: {
     id: "kings_handle",
@@ -780,7 +1068,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Medium Handle",
     attackSpeed: 1.1,
     stats: {
-      DexterityBoost: 15,
+      "DexterityBoost": 15,
+      "SpeedBoost": 5
     },
     damageScalings: {
       Dexterity: 0.7,
@@ -789,6 +1078,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       golden_crits: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda684",
+      "cardUrl": "https://trello.com/c/V0XTxXAu",
+      "sectionId": "69214b9731723704c1eda684"
+    },
   },
   beastial_handle: {
     id: "beastial_handle",
@@ -798,8 +1094,9 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Medium Handle",
     attackSpeed: 1,
     stats: {
-      DexterityBoost: 10,
-      JumpBoost: 2,
+      "DexterityBoost": 10,
+      "JumpBoost": 2,
+      "SpeedBoost": 7
     },
     damageScalings: {
       Dexterity: 0.55,
@@ -812,6 +1109,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       beastial_rage: 1,
     },
     img: "../image/handles/beastial_handle.png",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda682",
+      "cardUrl": "https://trello.com/c/lxkPd6Av",
+      "sectionId": "69214b9731723704c1eda682"
+    },
   },
   duelists_handle: {
     id: "duelists_handle",
@@ -821,7 +1125,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Medium Handle",
     attackSpeed: 1,
     stats: {
-      DexterityBoost: 15,
+      "DexterityBoost": 15,
+      "SpeedBoost": 5
     },
     damageScalings: {
       Dexterity: 0.7,
@@ -831,6 +1136,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       piercer: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda636",
+      "cardUrl": "https://trello.com/c/RE5Kqmn8",
+      "sectionId": "69214b9731723704c1eda636"
+    },
   },
   sturdy_handle: {
     id: "sturdy_handle",
@@ -852,6 +1164,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       savage_combo: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda638",
+      "cardUrl": "https://trello.com/c/sYKzHJzn",
+      "sectionId": "69214b9731723704c1eda638"
+    },
   },
   grandmagic_long_handle: {
     id: "grandmagic_long_handle",
@@ -872,6 +1191,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       grandmagic_guard: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6a8",
+      "cardUrl": "https://trello.com/c/gstKo3RU",
+      "sectionId": "69214b9731723704c1eda6a8"
+    },
   },
   reinforced_magewood_pole: {
     id: "reinforced_magewood_pole",
@@ -881,7 +1207,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Pole",
     attackSpeed: 1.1,
     stats: {
-      MagicBoost: 15,
+      "MagicBoost": 15,
+      "SpeedBoost": 2
     },
     damageScalings: {
       Magic: 0.7,
@@ -894,6 +1221,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       glyph_conduit: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6aa",
+      "cardUrl": "https://trello.com/c/QjiyOdeO",
+      "sectionId": "69214b9731723704c1eda6aa"
+    },
   },
   spellbinderguard: {
     id: "spellbinderguard",
@@ -918,6 +1252,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       duelist_stance: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6ae",
+      "cardUrl": "https://trello.com/c/P4ooTvci",
+      "sectionId": "69214b9731723704c1eda6ae"
+    },
   },
   crude_magic_handle: {
     id: "crude_magic_handle",
@@ -937,6 +1278,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       runic_blades: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6ac",
+      "cardUrl": "https://trello.com/c/7GfkbxRo",
+      "sectionId": "69214b9731723704c1eda6ac"
+    },
   },
   blessed_pole: {
     id: "blessed_pole",
@@ -958,6 +1306,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       divinity: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6b0",
+      "cardUrl": "https://trello.com/c/Ww4zdfwT",
+      "sectionId": "69214b9731723704c1eda6b0"
+    },
   },
   sacred_pole: {
     id: "sacred_pole",
@@ -967,8 +1322,9 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Pole",
     attackSpeed: 1,
     stats: {
-      HolyBoost: 10,
-      Warding: 20,
+      "SummonBoost": 10,
+      "HolyBoost": 10,
+      "Warding": 20
     },
     damageScalings: {
       Holy: 0.5,
@@ -980,6 +1336,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       divine_intervention: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6b2",
+      "cardUrl": "https://trello.com/c/iLbeo6B0",
+      "sectionId": "69214b9731723704c1eda6b2"
+    },
   },
   hallowedwood_handle: {
     id: "hallowedwood_handle",
@@ -1000,6 +1363,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       light_bearer: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda64a",
+      "cardUrl": "https://trello.com/c/si3I9X6x",
+      "sectionId": "69214b9731723704c1eda64a"
+    },
   },
   angelwood_handle: {
     id: "angelwood_handle",
@@ -1020,6 +1390,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       sacred_grounds: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda64c",
+      "cardUrl": "https://trello.com/c/yqj2hnA8",
+      "sectionId": "69214b9731723704c1eda64c"
+    },
   },
   skull_summoners_pole: {
     id: "skull_summoners_pole",
@@ -1029,8 +1406,9 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Pole",
     attackSpeed: 1,
     stats: {
-      HexBoost: 10,
-      PhysicalDefense: 4,
+      "HexBoost": 10,
+      "PhysicalDefense": 4,
+      "SummonBoost": 15
     },
     damageScalings: {
       Hex: 0.5,
@@ -1042,6 +1420,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       reinforced_block: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda68e",
+      "cardUrl": "https://trello.com/c/ukrG76xR",
+      "sectionId": "69214b9731723704c1eda68e"
+    },
   },
   necrotic_handle: {
     id: "necrotic_handle",
@@ -1051,7 +1436,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Medium Handle",
     attackSpeed: 1,
     stats: {
-      HexBoost: 10,
+      "HexBoost": 10,
+      "SummonBoost": 12
     },
     damageScalings: {
       Hex: 0.5,
@@ -1062,6 +1448,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       possession: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda68c",
+      "cardUrl": "https://trello.com/c/lXzPeo9K",
+      "sectionId": "69214b9731723704c1eda68c"
+    },
   },
   cursed_handle: {
     id: "cursed_handle",
@@ -1085,6 +1478,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       endless_despair: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda692",
+      "cardUrl": "https://trello.com/c/Z4zjFsat",
+      "sectionId": "69214b9731723704c1eda692"
+    },
   },
   cursesteel_handle: {
     id: "cursesteel_handle",
@@ -1106,6 +1506,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       curse_rip: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda690",
+      "cardUrl": "https://trello.com/c/hDVjnMiz",
+      "sectionId": "69214b9731723704c1eda690"
+    },
   },
   gustiron_handle: {
     id: "gustiron_handle",
@@ -1115,7 +1522,9 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Medium Handle",
     attackSpeed: 1.1,
     stats: {
-      DexterityBoost: 7,
+      "AirBoost": 7,
+      "DexterityBoost": 7,
+      "SpeedBoost": 5
     },
     damageScalings: {
       Air: 0.55,
@@ -1126,6 +1535,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       tailwind: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6b4",
+      "cardUrl": "https://trello.com/c/7Wef5X5o",
+      "sectionId": "69214b9731723704c1eda6b4"
+    },
   },
   gilded_windiron_guard: {
     id: "gilded_windiron_guard",
@@ -1135,7 +1551,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Medium Handle",
     attackSpeed: 1.1,
     stats: {
-      DexterityBoost: 15,
+      "AirBoost": 10,
+      "DexterityBoost": 15
     },
     damageScalings: {
       Air: 0.55,
@@ -1147,6 +1564,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       tailwind: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6b8",
+      "cardUrl": "https://trello.com/c/Zw4uV73N",
+      "sectionId": "69214b9731723704c1eda6b8"
+    },
   },
   lightningstruck_pole: {
     id: "lightningstruck_pole",
@@ -1156,8 +1580,9 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Pole",
     attackSpeed: 1.1,
     stats: {
-      MagicBoost: 8,
-      DexterityBoost: 12,
+      "MagicBoost": 8,
+      "DexterityBoost": 12,
+      "AirBoost": 8
     },
     damageScalings: {
       Air: 0.45,
@@ -1168,6 +1593,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       storm_rend: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6b6",
+      "cardUrl": "https://trello.com/c/jBF4idL4",
+      "sectionId": "69214b9731723704c1eda6b6"
+    },
   },
   thunderwood_handle: {
     id: "thunderwood_handle",
@@ -1177,8 +1609,9 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Long Handle",
     attackSpeed: 1.1,
     stats: {
-      MagicBoost: 6,
-      PhysicalDefense: 5,
+      "MagicBoost": 6,
+      "PhysicalDefense": 5,
+      "AirBoost": 6
     },
     damageScalings: {
       Air: 0.55,
@@ -1188,6 +1621,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       static_buildup: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6ba",
+      "cardUrl": "https://trello.com/c/6Ivzf2LJ",
+      "sectionId": "69214b9731723704c1eda6ba"
+    },
   },
   steel_flame_handle: {
     id: "steel_flame_handle",
@@ -1208,6 +1648,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       spark: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6be",
+      "cardUrl": "https://trello.com/c/VCGUR3TJ",
+      "sectionId": "69214b9731723704c1eda6be"
+    },
   },
   dragonwood_pole: {
     id: "dragonwood_pole",
@@ -1231,6 +1678,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       burnpotency: 2,
     },
     img: "",
+
+    "source": {
+      "cardId": "69214b9731723704c1eda6bc",
+      "cardUrl": "https://trello.com/c/xfw6k39N",
+      "sectionId": "69214b9731723704c1eda6bc"
+    },
   },
   exhaust_handle: {
     id: "exhaust_handle",
@@ -1253,6 +1706,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       burnpotency: 3,
     },
     img: "",
+
+    "source": {
+      "cardId": "69214b9731723704c1eda6c0",
+      "cardUrl": "https://trello.com/c/6rmTU6ux",
+      "sectionId": "69214b9731723704c1eda6c0"
+    },
   },
   cragstone_pole: {
     id: "cragstone_pole",
@@ -1277,6 +1736,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       tectonic_heat: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6c2",
+      "cardUrl": "https://trello.com/c/VfXvRTDj",
+      "sectionId": "69214b9731723704c1eda6c2"
+    },
   },
   wave_great_handle: {
     id: "wave_great_handle",
@@ -1298,6 +1764,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       extinguish: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6c8",
+      "cardUrl": "https://trello.com/c/2OU8sZED",
+      "sectionId": "69214b9731723704c1eda6c8"
+    },
   },
   ornate_pole: {
     id: "ornate_pole",
@@ -1320,6 +1793,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       reinforced_block: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6ca",
+      "cardUrl": "https://trello.com/c/5Em8C9P0",
+      "sectionId": "69214b9731723704c1eda6ca"
+    },
   },
   frozen_guard: {
     id: "frozen_guard",
@@ -1346,6 +1826,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       bleedpotency: 3,
     },
     img: "",
+
+    "source": {
+      "cardId": "69214b9731723704c1eda6c4",
+      "cardUrl": "https://trello.com/c/8NriKWdz",
+      "sectionId": "69214b9731723704c1eda6c4"
+    },
   },
   sculpted_handle: {
     id: "sculpted_handle",
@@ -1368,6 +1854,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       frostbite: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6c6",
+      "cardUrl": "https://trello.com/c/r5P51Dk9",
+      "sectionId": "69214b9731723704c1eda6c6"
+    },
   },
   gravitational_handle: {
     id: "gravitational_handle",
@@ -1389,6 +1882,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       gravitational_enforcer: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6cc",
+      "cardUrl": "https://trello.com/c/PkwxIawO",
+      "sectionId": "69214b9731723704c1eda6cc"
+    },
   },
   gravitational_pole: {
     id: "gravitational_pole",
@@ -1409,6 +1909,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       gravity_well: 2,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6ce",
+      "cardUrl": "https://trello.com/c/6XgRUVEx",
+      "sectionId": "69214b9731723704c1eda6ce"
+    },
   },
   earth_spirit_handle: {
     id: "earth_spirit_handle",
@@ -1431,6 +1938,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       stoneskin: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6d0",
+      "cardUrl": "https://trello.com/c/a3Us2gu4",
+      "sectionId": "69214b9731723704c1eda6d0"
+    },
   },
   sandstone_handle: {
     id: "sandstone_handle",
@@ -1440,7 +1954,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Pole",
     attackSpeed: 1.1,
     stats: {
-      EarthBoost: 8,
+      "AirBoost": 8,
+      "EarthBoost": 8
     },
     damageScalings: {
       Air: 0.55,
@@ -1450,6 +1965,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       quicksand: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6d2",
+      "cardUrl": "https://trello.com/c/lieUGmP6",
+      "sectionId": "69214b9731723704c1eda6d2"
+    },
   },
   prism_handle: {
     id: "prism_handle",
@@ -1463,6 +1985,15 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Magic: 0.15,
     },
     img: "",
+
+    "stats": {},
+    "perks": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda63e",
+      "cardUrl": "https://trello.com/c/UggGlXst",
+      "sectionId": "69214b9731723704c1eda63e"
+    },
   },
   starlight_handle: {
     id: "starlight_handle",
@@ -1472,11 +2003,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Long Handle",
     attackSpeed: 1,
     stats: {
-      HolyBoost: 5,
-      HexBoost: 5,
-      MagicBoost: 5,
-      FireBoost: 5,
-      WaterBoost: 5,
+      "HolyBoost": 5,
+      "HexBoost": 5,
+      "MagicBoost": 5,
+      "FireBoost": 5,
+      "WaterBoost": 5,
+      "AirBoost": 5
     },
     damageScalings: {
       Holy: 0.4,
@@ -1490,6 +2022,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       star_struck: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda644",
+      "cardUrl": "https://trello.com/c/aQI8BiAL",
+      "sectionId": "69214b9731723704c1eda644"
+    },
   },
   bloodengine_handle: {
     id: "bloodengine_handle",
@@ -1499,7 +2038,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Long Handle",
     attackSpeed: 1,
     stats: {
-      PhysicalBoost: 5,
+      "SpeedBoost": 5,
+      "PhysicalBoost": 5
     },
     damageScalings: {
       Physical: 0.7,
@@ -1511,6 +2051,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       bleedpotency: 3,
     },
     img: "",
+
+    "source": {
+      "cardId": "69214b9831723704c1edac4c",
+      "cardUrl": "https://trello.com/c/tfSOvTEN",
+      "sectionId": "69214b9831723704c1edac4c"
+    },
   },
   enchained_handle: {
     id: "enchained_handle",
@@ -1531,6 +2077,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       weight_distribution: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda668",
+      "cardUrl": "https://trello.com/c/tU5IairI",
+      "sectionId": "69214b9731723704c1eda668"
+    },
   },
   murkwater_handle: {
     id: "murkwater_handle",
@@ -1556,6 +2109,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       poisonpotency: 2,
     },
     img: "",
+
+    "source": {
+      "cardId": "69214b9731723704c1eda6dc",
+      "cardUrl": "https://trello.com/c/haEhJAf0",
+      "sectionId": "69214b9731723704c1eda6dc"
+    },
   },
   spectral_handle: {
     id: "spectral_handle",
@@ -1581,6 +2140,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       poisonpotency: 2,
     },
     img: "../image/handles/spectralhandle.png",
+
+    "source": {
+      "cardId": "69214b9731723704c1eda6de",
+      "cardUrl": "https://trello.com/c/HKzovbsD",
+      "sectionId": "69214b9731723704c1eda6de"
+    },
   },
   rotwood_pole: {
     id: "rotwood_pole",
@@ -1607,6 +2172,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       poisonpotency: 4,
     },
     img: "",
+
+    "source": {
+      "cardId": "69214b9731723704c1eda6e2",
+      "cardUrl": "https://trello.com/c/q2F954ve",
+      "sectionId": "69214b9731723704c1eda6e2"
+    },
   },
   snake_venom_pole: {
     id: "snake_venom_pole",
@@ -1633,6 +2204,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       poisonpotency: 4,
     },
     img: "",
+
+    "source": {
+      "cardId": "69214b9731723704c1eda6e4",
+      "cardUrl": "https://trello.com/c/lCqUSaoC",
+      "sectionId": "69214b9731723704c1eda6e4"
+    },
   },
   honeycomb_handle: {
     id: "honeycomb_handle",
@@ -1655,6 +2232,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       sticky_swings: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6e8",
+      "cardUrl": "https://trello.com/c/kgjr93E0",
+      "sectionId": "69214b9731723704c1eda6e8"
+    },
   },
   honeysteel_handle: {
     id: "honeysteel_handle",
@@ -1677,6 +2261,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       explosive_honey: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6ea",
+      "cardUrl": "https://trello.com/c/ZhhAHWtS",
+      "sectionId": "69214b9731723704c1eda6ea"
+    },
   },
   honey_bumblz_pole: {
     id: "honey_bumblz_pole",
@@ -1686,8 +2277,9 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Pole",
     attackSpeed: 1,
     stats: {
-      MagicBoost: 4,
-      PhysicalBoost: 4,
+      "MagicBoost": 4,
+      "SummonBoost": 10,
+      "PhysicalBoost": 4
     },
     damageScalings: {
       Magic: 0.35,
@@ -1695,10 +2287,17 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Summon: 0.1,
     },
     perks: {
-      reinforced_block: 1,
-      queens_guard: 1,
+      "reinforced_block": 1,
+      "queen_s_guard": 1
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6f0",
+      "cardUrl": "https://trello.com/c/UD7jAgZH",
+      "sectionId": "69214b9731723704c1eda6f0"
+    },
   },
   queen_bumblz_pole: {
     id: "queen_bumblz_pole",
@@ -1708,9 +2307,10 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Pole",
     attackSpeed: 1,
     stats: {
-      MagicBoost: 5,
-      HolyBoost: 5,
-      PhysicalBoost: 5,
+      "MagicBoost": 5,
+      "SummonBoost": 10,
+      "HolyBoost": 5,
+      "PhysicalBoost": 5
     },
     damageScalings: {
       Physical: 0.4,
@@ -1719,10 +2319,17 @@ export const Handles: import("../models/Item").ItemDataTable = {
       Summon: 0.2,
     },
     perks: {
-      reinforced_block: 1,
-      queens_power: 1,
+      "reinforced_block": 1,
+      "queen_s_power": 1
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6f2",
+      "cardUrl": "https://trello.com/c/LzXlCHsv",
+      "sectionId": "69214b9731723704c1eda6f2"
+    },
   },
   magic_great_hammer_pole: {
     id: "magic_great_hammer_pole",
@@ -1747,6 +2354,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       reinforced_block: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda6d4",
+      "cardUrl": "https://trello.com/c/nylFjrNA",
+      "sectionId": "69214b9731723704c1eda6d4"
+    },
   },
   stratos_pole: {
     id: "stratos_pole",
@@ -1763,6 +2377,16 @@ export const Handles: import("../models/Item").ItemDataTable = {
       air_barrier: 1,
     },
     img: "",
+
+    "stats": {
+      "AirBoost": 10
+    },
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda91a",
+      "cardUrl": "https://trello.com/c/O21xr9Ko",
+      "sectionId": "69214b9731723704c1eda91a"
+    },
   },
   lightning_stratos_pole: {
     id: "lightning_stratos_pole",
@@ -1772,7 +2396,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Pole",
     attackSpeed: 1,
     stats: {
-      MagicBoost: 13,
+      "AirBoost": 10,
+      "MagicBoost": 13
     },
     damageScalings: {
       Air: 0.55,
@@ -1783,6 +2408,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       power_surge: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda928",
+      "cardUrl": "https://trello.com/c/nIHe5Wb9",
+      "sectionId": "69214b9731723704c1eda928"
+    },
   },
   caci_handle: {
     id: "caci_handle",
@@ -1804,6 +2436,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       dual_wielding: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda96a",
+      "cardUrl": "https://trello.com/c/hQkahzwz",
+      "sectionId": "69214b9731723704c1eda96a"
+    },
   },
   caci_kings_handle: {
     id: "caci_kings_handle",
@@ -1813,9 +2452,10 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Medium Handle",
     attackSpeed: 1.1,
     stats: {
-      DexterityBoost: 5,
-      PhysicalBoost: 5,
-      EarthBoost: 5,
+      "DexterityBoost": 5,
+      "PhysicalBoost": 5,
+      "AirBoost": 5,
+      "EarthBoost": 5
     },
     damageScalings: {
       Dexterity: 0.45,
@@ -1831,6 +2471,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       bleedpotency: 2,
     },
     img: "",
+
+    "source": {
+      "cardId": "69214b9731723704c1eda972",
+      "cardUrl": "https://trello.com/c/yjTkbQnE",
+      "sectionId": "69214b9731723704c1eda972"
+    },
   },
   buni_prince_pole: {
     id: "buni_prince_pole",
@@ -1851,6 +2497,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       reinforced_block: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1edaa30",
+      "cardUrl": "https://trello.com/c/R5ejTHzN",
+      "sectionId": "69214b9731723704c1edaa30"
+    },
   },
   buni_prince_cannon_pole: {
     id: "buni_prince_cannon_pole",
@@ -1871,6 +2524,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       reinforced_block: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1edaa32",
+      "cardUrl": "https://trello.com/c/uahl0gtU",
+      "sectionId": "69214b9731723704c1edaa32"
+    },
   },
   ancient_handle: {
     id: "ancient_handle",
@@ -1890,6 +2550,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       rocky_body: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1edabcc",
+      "cardUrl": "https://trello.com/c/TsE3FzT4",
+      "sectionId": "69214b9731723704c1edabcc"
+    },
   },
   bastion_greatswaxe_handle: {
     id: "bastion_greatswaxe_handle",
@@ -1899,7 +2566,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Medium Handle",
     attackSpeed: 1.1,
     stats: {
-      EarthBoost: 8,
+      "EarthBoost": 8,
+      "SpeedBoost": 5
     },
     damageScalings: {
       Earth: 0.8,
@@ -1908,6 +2576,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       golem_guillotine: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1edabf2",
+      "cardUrl": "https://trello.com/c/ryhjQJrT",
+      "sectionId": "69214b9731723704c1edabf2"
+    },
   },
   relic_handle: {
     id: "relic_handle",
@@ -1928,6 +2603,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       bastion_bless: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1edabc2",
+      "cardUrl": "https://trello.com/c/ZeRVjzOy",
+      "sectionId": "69214b9731723704c1edabc2"
+    },
   },
   bastion_relic_handle: {
     id: "bastion_relic_handle",
@@ -1948,6 +2630,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       essence_totem: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1edabd2",
+      "cardUrl": "https://trello.com/c/C9rJZkCI",
+      "sectionId": "69214b9731723704c1edabd2"
+    },
   },
   vaen_handle: {
     id: "vaen_handle",
@@ -1957,7 +2646,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Medium Handle",
     attackSpeed: 1.1,
     stats: {
-      PhysicalBoost: 5,
+      "AirBoost": 5,
+      "PhysicalBoost": 5
     },
     damageScalings: {
       Air: 0.4,
@@ -1967,6 +2657,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       crimson_tithe: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edacc4",
+      "cardUrl": "https://trello.com/c/bBBt9GEY",
+      "sectionId": "69214b9831723704c1edacc4"
+    },
   },
   lord_vaen_scythe_pole: {
     id: "lord_vaen_scythe_pole",
@@ -1976,7 +2673,8 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Pole",
     attackSpeed: 1.1,
     stats: {
-      PhysicalBoost: 10,
+      "AirBoost": 10,
+      "PhysicalBoost": 10
     },
     damageScalings: {
       Air: 0.55,
@@ -1989,6 +2687,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       bleedpotency: 3,
     },
     img: "",
+
+    "source": {
+      "cardId": "69214b9831723704c1edacc8",
+      "cardUrl": "https://trello.com/c/oTIzZ5aJ",
+      "sectionId": "69214b9831723704c1edacc8"
+    },
   },
   mungal_handle: {
     id: "mungal_handle",
@@ -2015,6 +2719,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       poisonpotency: 3,
     },
     img: "",
+
+    "source": {
+      "cardId": "69214b9831723704c1edad1e",
+      "cardUrl": "https://trello.com/c/RmCEfD2M",
+      "sectionId": "69214b9831723704c1edad1e"
+    },
   },
   mungal_pole: {
     id: "mungal_pole",
@@ -2024,9 +2734,10 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Pole",
     attackSpeed: 1,
     stats: {
-      HexBoost: 5,
-      MagicBoost: 5,
-      EarthBoost: 5,
+      "HexBoost": 5,
+      "MagicBoost": 5,
+      "EarthBoost": 5,
+      "SpeedBoost": 2
     },
     damageScalings: {
       Earth: 0.5,
@@ -2038,6 +2749,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       proto_tech: 1,
     },
     img: "../image/handles/mungalpole.png",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edad44",
+      "cardUrl": "https://trello.com/c/EvxKu0Et",
+      "sectionId": "69214b9831723704c1edad44"
+    },
   },
   spider_handle: {
     id: "spider_handle",
@@ -2060,6 +2778,12 @@ export const Handles: import("../models/Item").ItemDataTable = {
       poisonpotency: 2,
     },
     img: "",
+
+    "source": {
+      "cardId": "69214b9831723704c1edad28",
+      "cardUrl": "https://trello.com/c/mbY2Gwat",
+      "sectionId": "69214b9831723704c1edad28"
+    },
   },
   omega_lance_handle: {
     id: "omega_lance_handle",
@@ -2069,9 +2793,10 @@ export const Handles: import("../models/Item").ItemDataTable = {
     type: "Long Handle",
     attackSpeed: 1,
     stats: {
-      DexterityBoost: 5,
-      PhysicalBoost: 5,
-      FireBoost: 5,
+      "DexterityBoost": 5,
+      "PhysicalBoost": 5,
+      "FireBoost": 5,
+      "AirBoost": 5
     },
     damageScalings: {
       Dexterity: 0.45,
@@ -2083,6 +2808,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       heat_drill: 1,
     },
     img: "../image/handles/omegalancehandle.png",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edad46",
+      "cardUrl": "https://trello.com/c/6HqDIU9F",
+      "sectionId": "69214b9831723704c1edad46"
+    },
   },
   freezing_bronze_handle: {
     id: "freezing_bronze_handle",
@@ -2104,6 +2836,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       glacial_buildup: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edad4c",
+      "cardUrl": "https://trello.com/c/gYX7BLcn",
+      "sectionId": "69214b9831723704c1edad4c"
+    },
   },
   icewood_pole: {
     id: "icewood_pole",
@@ -2125,6 +2864,13 @@ export const Handles: import("../models/Item").ItemDataTable = {
       ice_burst: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edad4e",
+      "cardUrl": "https://trello.com/c/UXVLFOwP",
+      "sectionId": "69214b9831723704c1edad4e"
+    },
   },
 };
 

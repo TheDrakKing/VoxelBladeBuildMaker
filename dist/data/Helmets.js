@@ -22,6 +22,12 @@ export const Helmets = {
             potion_chugger: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda624",
+            "cardUrl": "https://trello.com/c/sIlzLrfW",
+            "sectionId": "69214b9731723704c1eda624:section:2"
+        },
     },
     animal_tamer_hat: {
         id: "animal_tamer_hat",
@@ -41,6 +47,12 @@ export const Helmets = {
             rider: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edac10",
+            "cardUrl": "https://trello.com/c/IoFcdMXX",
+            "sectionId": "69214b9731723704c1edac10:section:2"
+        },
     },
     altolodon_Helmet: {
         id: "altolodon_Helmet",
@@ -58,6 +70,12 @@ export const Helmets = {
             wind_drill: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae90",
+            "cardUrl": "https://trello.com/c/W8NgSR8b",
+            "sectionId": "69214b9831723704c1edae90:section:2"
+        },
     },
     Arachnid_Hood: {
         id: "Arachnid_Hood",
@@ -77,6 +95,12 @@ export const Helmets = {
             venom_eater: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6a2",
+            "cardUrl": "https://trello.com/c/RYSHBAFF",
+            "sectionId": "69214b9731723704c1eda6a2:section:2"
+        },
     },
     berserking_helmet: {
         id: "berserking_helmet",
@@ -95,6 +119,12 @@ export const Helmets = {
             berserkingstrength: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6fc",
+            "cardUrl": "https://trello.com/c/jurO41m0",
+            "sectionId": "69214b9731723704c1eda6fc:section:2"
+        },
     },
     winter_woof_hood: {
         id: "winter_woof_hood",
@@ -113,6 +143,12 @@ export const Helmets = {
             blood_thirsty: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda60a",
+            "cardUrl": "https://trello.com/c/DjednJwL",
+            "sectionId": "69214b9731723704c1eda60a:section:2"
+        },
     },
     croakernaut_helmet: {
         id: "croakernaut_helmet",
@@ -133,6 +169,12 @@ export const Helmets = {
             shielding_gong: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edadbe",
+            "cardUrl": "https://trello.com/c/ml8eDUX2",
+            "sectionId": "69214b9831723704c1edadbe:section:2"
+        },
     },
     thornmaiden_helmet: {
         id: "thornmaiden_helmet",
@@ -150,6 +192,12 @@ export const Helmets = {
             barbskin: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda780",
+            "cardUrl": "https://trello.com/c/p0WZdgre",
+            "sectionId": "69214b9731723704c1eda780:section:2"
+        },
     },
     dunefang_helmet: {
         id: "dunefang_helmet",
@@ -169,6 +217,12 @@ export const Helmets = {
             pulverizing_rush: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab4e",
+            "cardUrl": "https://trello.com/c/hQNbbeV4",
+            "sectionId": "69214b9731723704c1edab4e:section:2"
+        },
     },
     gladiator_helmet: {
         id: "gladiator_helmet",
@@ -224,6 +278,12 @@ export const Helmets = {
             strong_tides: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda556",
+            "cardUrl": "https://trello.com/c/Ih8XHqv0",
+            "sectionId": "69214b9731723704c1eda556:section:2"
+        },
     },
     reaperninja_hood: {
         id: "reaperninja_hood",
@@ -241,6 +301,12 @@ export const Helmets = {
             reaper: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda212",
+            "cardUrl": "https://trello.com/c/DOoMAP82",
+            "sectionId": "69214b9731723704c1eda212:section:2"
+        },
     },
     proto_mungus_helmet: {
         id: "proto_mungus_helmet",
@@ -260,6 +326,12 @@ export const Helmets = {
             fungal_prototype: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad2c",
+            "cardUrl": "https://trello.com/c/91FyozNY",
+            "sectionId": "69214b9831723704c1edad2c:section:2"
+        },
     },
     rot_wood_mage_hood: {
         id: "rot_wood_mage_hood",
@@ -279,6 +351,12 @@ export const Helmets = {
             siphoning_rot: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda75c",
+            "cardUrl": "https://trello.com/c/t8tsLHvS",
+            "sectionId": "69214b9731723704c1eda75c:section:2"
+        },
     },
     rot_wood_fighter_hat: {
         id: "rot_wood_fighter_hat",
@@ -297,10 +375,16 @@ export const Helmets = {
             undying_rot: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda75a",
+            "cardUrl": "https://trello.com/c/8zpxQnj3",
+            "sectionId": "69214b9731723704c1eda75a:section:2"
+        },
     },
     snailsmans_noggin: {
         id: "snailsmans_noggin",
-        name: "Snailsmans Noggin",
+        name: "Snailsman's Noggin",
         category: "Armor",
         type: "Helmet",
         description: "A shell from an extraterrestrial snail, drips caustic goo.",
@@ -316,6 +400,12 @@ export const Helmets = {
             caustic_slow: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda766",
+            "cardUrl": "https://trello.com/c/FZUhxQD4",
+            "sectionId": "69214b9731723704c1eda766:section:2"
+        },
     },
     true_moon_worshipper_hood: {
         id: "true_moon_worshipper_hood",
@@ -334,6 +424,12 @@ export const Helmets = {
             true_moon: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad0c",
+            "cardUrl": "https://trello.com/c/m8rVu3xD",
+            "sectionId": "69214b9831723704c1edad0c:section:2"
+        },
     },
     thunder_gallant_helmet: {
         id: "thunder_gallant_helmet",
@@ -352,6 +448,12 @@ export const Helmets = {
             voltaic_body: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda28a",
+            "cardUrl": "https://trello.com/c/fjwAjqHz",
+            "sectionId": "69214b9731723704c1eda28a:section:2"
+        },
     },
     lodestone_monk_mask: {
         id: "lodestone_monk_mask",
@@ -369,6 +471,12 @@ export const Helmets = {
             lodestone_barrage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda746",
+            "cardUrl": "https://trello.com/c/GyjQ79lP",
+            "sectionId": "69214b9731723704c1eda746:section:2"
+        },
     },
     steam_mage_helmet: {
         id: "steam_mage_helmet",
@@ -387,6 +495,12 @@ export const Helmets = {
             magic_circuit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa42",
+            "cardUrl": "https://trello.com/c/9r0wJBmp",
+            "sectionId": "69214b9731723704c1edaa42:section:2"
+        },
     },
     armored_mage_hat: {
         id: "armored_mage_hat",
@@ -404,6 +518,12 @@ export const Helmets = {
             spellshield: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda1b0",
+            "cardUrl": "https://trello.com/c/ZchdWe25",
+            "sectionId": "69214b9731723704c1eda1b0:section:2"
+        },
     },
     astro_iris_helmet: {
         id: "astro_iris_helmet",
@@ -422,6 +542,12 @@ export const Helmets = {
             apollo_boost: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6f8",
+            "cardUrl": "https://trello.com/c/MnUUGHw1",
+            "sectionId": "69214b9731723704c1eda6f8:section:2"
+        },
     },
     atonement_helmet: {
         id: "atonement_helmet",
@@ -440,6 +566,12 @@ export const Helmets = {
             penance: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabae",
+            "cardUrl": "https://trello.com/c/dNoQ2PMF",
+            "sectionId": "69214b9731723704c1edabae:section:2"
+        },
     },
     aviator_hat: {
         id: "aviator_hat",
@@ -455,9 +587,15 @@ export const Helmets = {
             AirBoost: 7,
         },
         perks: {
-            frequent_flyer: 1,
+            "frequent_flier": 1
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6fa",
+            "cardUrl": "https://trello.com/c/tKBru1L0",
+            "sectionId": "69214b9731723704c1eda6fa:section:2"
+        },
     },
     backpack_berserker_helmet: {
         id: "backpack_berserker_helmet",
@@ -474,6 +612,12 @@ export const Helmets = {
             packaged_power: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda200",
+            "cardUrl": "https://trello.com/c/H1U3LW9J",
+            "sectionId": "69214b9731723704c1eda200:section:2"
+        },
     },
     banker_hat: {
         id: "banker_hat",
@@ -492,6 +636,12 @@ export const Helmets = {
             money_smart: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edac70",
+            "cardUrl": "https://trello.com/c/yVq00inw",
+            "sectionId": "69214b9831723704c1edac70:section:2"
+        },
     },
     bastion_guardian_head: {
         id: "bastion_guardian_head",
@@ -511,6 +661,12 @@ export const Helmets = {
             guardian_spin: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaba4",
+            "cardUrl": "https://trello.com/c/LXhYalcR",
+            "sectionId": "69214b9731723704c1edaba4:section:2"
+        },
     },
     batty_helmet: {
         id: "batty_helmet",
@@ -528,6 +684,12 @@ export const Helmets = {
             echo_blast: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda9fc",
+            "cardUrl": "https://trello.com/c/CyYReY0B",
+            "sectionId": "69214b9731723704c1eda9fc:section:2"
+        },
     },
     blood_bumblz_helmet: {
         id: "blood_bumblz_helmet",
@@ -547,6 +709,12 @@ export const Helmets = {
             blood_rush: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda620",
+            "cardUrl": "https://trello.com/c/TggC7k4G",
+            "sectionId": "69214b9731723704c1eda620:section:2"
+        },
     },
     bomber_hat: {
         id: "bomber_hat",
@@ -565,6 +733,12 @@ export const Helmets = {
             bomber_charge: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edadc4",
+            "cardUrl": "https://trello.com/c/Ef6LJsk8",
+            "sectionId": "69214b9831723704c1edadc4:section:2"
+        },
     },
     bowldur_helmet: {
         id: "bowldur_helmet",
@@ -583,6 +757,12 @@ export const Helmets = {
             seismic_momentum: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda290",
+            "cardUrl": "https://trello.com/c/sIXr9dIH",
+            "sectionId": "69214b9731723704c1eda290:section:2"
+        },
     },
     bumblz_hat: {
         id: "bumblz_hat",
@@ -599,6 +779,12 @@ export const Helmets = {
             swarm: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda700",
+            "cardUrl": "https://trello.com/c/iWCiczD0",
+            "sectionId": "69214b9731723704c1eda700:section:2"
+        },
     },
     buni_hood: {
         id: "buni_hood",
@@ -614,6 +800,12 @@ export const Helmets = {
             rabbits_foot: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda15a",
+            "cardUrl": "https://trello.com/c/hN1U0YiC",
+            "sectionId": "69214b9731723704c1eda15a:section:2"
+        },
     },
     buni_prince_hood: {
         id: "buni_prince_hood",
@@ -631,6 +823,12 @@ export const Helmets = {
             cannonball: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa00",
+            "cardUrl": "https://trello.com/c/TbfEr3GM",
+            "sectionId": "69214b9731723704c1edaa00:section:2"
+        },
     },
     caci_hood: {
         id: "caci_hood",
@@ -648,6 +846,12 @@ export const Helmets = {
             thorns: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda702",
+            "cardUrl": "https://trello.com/c/fKS95Ele",
+            "sectionId": "69214b9731723704c1eda702:section:2"
+        },
     },
     caci_king_crown: {
         id: "caci_king_crown",
@@ -665,6 +869,12 @@ export const Helmets = {
             ruler_of_the_sands: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6a4",
+            "cardUrl": "https://trello.com/c/7r9cucia",
+            "sectionId": "69214b9731723704c1eda6a4:section:2"
+        },
     },
     civilian_hat: {
         id: "civilian_hat",
@@ -681,6 +891,12 @@ export const Helmets = {
             civilian: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda9f0",
+            "cardUrl": "https://trello.com/c/7mRMzJHR",
+            "sectionId": "69214b9731723704c1eda9f0:section:2"
+        },
     },
     coral_templar_helmet: {
         id: "coral_templar_helmet",
@@ -700,6 +916,12 @@ export const Helmets = {
             cleansed_blade: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae2c",
+            "cardUrl": "https://trello.com/c/zm793BRP",
+            "sectionId": "69214b9831723704c1edae2c:section:2"
+        },
     },
     cragstone_helmet: {
         id: "cragstone_helmet",
@@ -717,6 +939,12 @@ export const Helmets = {
             smoldering: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda724",
+            "cardUrl": "https://trello.com/c/SUBysNLe",
+            "sectionId": "69214b9731723704c1eda724:section:2"
+        },
     },
     crazy_hare_hat: {
         id: "crazy_hare_hat",
@@ -725,6 +953,22 @@ export const Helmets = {
         type: "Helmet",
         description: "A sickly gross disgusting hat covered in the snot of a",
         img: "",
+        "stats": {
+            "SpeedBoost": 5,
+            "HexBoost": 15,
+            "EarthBoost": 15,
+            "HexDefense": -15,
+            "Warding": 20
+        },
+        "perks": {
+            "sickness": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaad6",
+            "cardUrl": "https://trello.com/c/ssRsseHC",
+            "sectionId": "69214b9731723704c1edaad6:section:2"
+        },
     },
     crimson_rogue_crown: {
         id: "crimson_rogue_crown",
@@ -742,6 +986,12 @@ export const Helmets = {
             fiery_pursuit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda60e",
+            "cardUrl": "https://trello.com/c/OEpy9F0R",
+            "sectionId": "69214b9731723704c1eda60e:section:2"
+        },
     },
     cryosteel_helmet: {
         id: "cryosteel_helmet",
@@ -760,6 +1010,12 @@ export const Helmets = {
             cryo_engine: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda726",
+            "cardUrl": "https://trello.com/c/rgTaTDSy",
+            "sectionId": "69214b9731723704c1eda726:section:2"
+        },
     },
     curse_flame_mask: {
         id: "curse_flame_mask",
@@ -778,6 +1034,12 @@ export const Helmets = {
             cursed_flames: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda728",
+            "cardUrl": "https://trello.com/c/9VOoxFVj",
+            "sectionId": "69214b9731723704c1eda728:section:2"
+        },
     },
     dandelion_knight_helmet: {
         id: "dandelion_knight_helmet",
@@ -796,6 +1058,12 @@ export const Helmets = {
             carrying_winds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda72a",
+            "cardUrl": "https://trello.com/c/eana461M",
+            "sectionId": "69214b9731723704c1eda72a:section:2"
+        },
     },
     deathmist_knight_helmet: {
         id: "deathmist_knight_helmet",
@@ -814,6 +1082,12 @@ export const Helmets = {
             deathmist_slash: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edac3e",
+            "cardUrl": "https://trello.com/c/dlmI9uI4",
+            "sectionId": "69214b9831723704c1edac3e:section:2"
+        },
     },
     deep_spider_tricorne: {
         id: "deep_spider_tricorne",
@@ -835,6 +1109,12 @@ export const Helmets = {
             toxin_transfer: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacf6",
+            "cardUrl": "https://trello.com/c/RcvJzIJ2",
+            "sectionId": "69214b9831723704c1edacf6:section:2"
+        },
     },
     deepcrystal_gaze: {
         id: "deepcrystal_gaze",
@@ -843,6 +1123,20 @@ export const Helmets = {
         type: "Helmet",
         description: "An obsession turned to madness But controlled madness cannot be contained in flesh",
         img: "",
+        "stats": {
+            "MagicDefense": -10,
+            "PhysicalDefense": 10,
+            "WaterBoost": 18
+        },
+        "perks": {
+            "deepcrystal_calling": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edac42",
+            "cardUrl": "https://trello.com/c/4b4PHB7W",
+            "sectionId": "69214b9831723704c1edac42:section:2"
+        },
     },
     deepsteel_helmet: {
         id: "deepsteel_helmet",
@@ -862,6 +1156,12 @@ export const Helmets = {
             crushing_pressure: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa12",
+            "cardUrl": "https://trello.com/c/XeboFgDj",
+            "sectionId": "69214b9731723704c1edaa12:section:2"
+        },
     },
     delta_spider_helmet: {
         id: "delta_spider_helmet",
@@ -881,6 +1181,12 @@ export const Helmets = {
             delta_drill: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacf8",
+            "cardUrl": "https://trello.com/c/OiFvqzP2",
+            "sectionId": "69214b9831723704c1edacf8:section:2"
+        },
     },
     desert_battle_mage_hat: {
         id: "desert_battle_mage_hat",
@@ -899,6 +1205,12 @@ export const Helmets = {
             blastshield: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda72c",
+            "cardUrl": "https://trello.com/c/pLN4aQLZ",
+            "sectionId": "69214b9731723704c1eda72c:section:2"
+        },
     },
     desert_champion_helmet: {
         id: "desert_champion_helmet",
@@ -917,6 +1229,12 @@ export const Helmets = {
             wrathful_crits: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda72e",
+            "cardUrl": "https://trello.com/c/TIgjoM2l",
+            "sectionId": "69214b9731723704c1eda72e:section:2"
+        },
     },
     desert_explorer_hood: {
         id: "desert_explorer_hood",
@@ -931,6 +1249,13 @@ export const Helmets = {
             HeatResistance: 150,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda208",
+            "cardUrl": "https://trello.com/c/yvR6hMEC",
+            "sectionId": "69214b9731723704c1eda208:section:2"
+        },
     },
     dire_buni_hood: {
         id: "dire_buni_hood",
@@ -949,6 +1274,12 @@ export const Helmets = {
             quick_witted: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda174",
+            "cardUrl": "https://trello.com/c/Y01kWJN4",
+            "sectionId": "69214b9731723704c1eda174:section:2"
+        },
     },
     divine_infantry_helmet: {
         id: "divine_infantry_helmet",
@@ -967,6 +1298,12 @@ export const Helmets = {
             mortal_will: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda214",
+            "cardUrl": "https://trello.com/c/1a2XN4F3",
+            "sectionId": "69214b9731723704c1eda214:section:2"
+        },
     },
     dragigator_helmet: {
         id: "dragigator_helmet",
@@ -975,6 +1312,21 @@ export const Helmets = {
         type: "Helmet",
         description: "Helmet made from the fiery hide of a",
         img: "",
+        "stats": {
+            "FireBoost": 12,
+            "WaterBoost": -15,
+            "PhysicalBoost": 10,
+            "FireDefense": 20
+        },
+        "perks": {
+            "bellowing_ember": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda524",
+            "cardUrl": "https://trello.com/c/0Zy8r1gj",
+            "sectionId": "69214b9731723704c1eda524:section:2"
+        },
     },
     dragon_spirit_mark: {
         id: "dragon_spirit_mark",
@@ -992,6 +1344,12 @@ export const Helmets = {
             dragon_state: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda9ec",
+            "cardUrl": "https://trello.com/c/kX2pSRc5",
+            "sectionId": "69214b9731723704c1eda9ec:section:2"
+        },
     },
     dreadful_lift_helmet: {
         id: "dreadful_lift_helmet",
@@ -1011,6 +1369,12 @@ export const Helmets = {
             grounded_despair: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad04",
+            "cardUrl": "https://trello.com/c/pV14KQdh",
+            "sectionId": "69214b9831723704c1edad04:section:2"
+        },
     },
     drone_hat: {
         id: "drone_hat",
@@ -1025,6 +1389,15 @@ export const Helmets = {
             SummonBoost: 13,
         },
         img: "",
+        "perks": {
+            "drone": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda732",
+            "cardUrl": "https://trello.com/c/87NazquU",
+            "sectionId": "69214b9731723704c1eda732:section:2"
+        },
     },
     ember_guardian_helmet: {
         id: "ember_guardian_helmet",
@@ -1045,6 +1418,12 @@ export const Helmets = {
             rejuvenating_flame: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda288",
+            "cardUrl": "https://trello.com/c/EqzrrfQy",
+            "sectionId": "69214b9731723704c1eda288:section:2"
+        },
     },
     ember_mage_hood: {
         id: "ember_mage_hood",
@@ -1061,6 +1440,12 @@ export const Helmets = {
             ignition: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda734",
+            "cardUrl": "https://trello.com/c/4PEijkrq",
+            "sectionId": "69214b9731723704c1eda734:section:2"
+        },
     },
     experimental_froggmail_helmet: {
         id: "experimental_froggmail_helmet",
@@ -1079,6 +1464,12 @@ export const Helmets = {
             cursed_experiment: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda736",
+            "cardUrl": "https://trello.com/c/gAlCdJ8G",
+            "sectionId": "69214b9731723704c1eda736:section:2"
+        },
     },
     fallen_seraph_helmet: {
         id: "fallen_seraph_helmet",
@@ -1097,6 +1488,12 @@ export const Helmets = {
             fell_rush: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacb8",
+            "cardUrl": "https://trello.com/c/WGaVk19R",
+            "sectionId": "69214b9831723704c1edacb8:section:2"
+        },
     },
     false_idol_helmet: {
         id: "false_idol_helmet",
@@ -1115,6 +1512,12 @@ export const Helmets = {
             fractured_energy: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabb6",
+            "cardUrl": "https://trello.com/c/bd2jIGrD",
+            "sectionId": "69214b9731723704c1edabb6:section:2"
+        },
     },
     floral_duelist_hat: {
         id: "floral_duelist_hat",
@@ -1135,6 +1538,12 @@ export const Helmets = {
             guiding_winds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacea",
+            "cardUrl": "https://trello.com/c/PGVbPl1z",
+            "sectionId": "69214b9831723704c1edacea:section:2"
+        },
     },
     flower_scout_hat: {
         id: "flower_scout_hat",
@@ -1151,6 +1560,12 @@ export const Helmets = {
             photosynthesis: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda20c",
+            "cardUrl": "https://trello.com/c/HeJpMntf",
+            "sectionId": "69214b9731723704c1eda20c:section:2"
+        },
     },
     flowering_cowboy_hat: {
         id: "flowering_cowboy_hat",
@@ -1170,6 +1585,12 @@ export const Helmets = {
             standoff: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edade4",
+            "cardUrl": "https://trello.com/c/G5L2GTFL",
+            "sectionId": "69214b9831723704c1edade4:section:2"
+        },
     },
     fragrant_piercings: {
         id: "fragrant_piercings",
@@ -1187,6 +1608,12 @@ export const Helmets = {
             fragrance_aura: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edaea8",
+            "cardUrl": "https://trello.com/c/LvCqOZQE",
+            "sectionId": "69214b9831723704c1edaea8:section:2"
+        },
     },
     frogg_hat: {
         id: "frogg_hat",
@@ -1204,6 +1631,12 @@ export const Helmets = {
             spring_step: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda526",
+            "cardUrl": "https://trello.com/c/HpJFQGh5",
+            "sectionId": "69214b9731723704c1eda526:section:2"
+        },
     },
     fungus_mage_hood: {
         id: "fungus_mage_hood",
@@ -1221,6 +1654,12 @@ export const Helmets = {
             toxin_caster: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda1a0",
+            "cardUrl": "https://trello.com/c/ASynukBN",
+            "sectionId": "69214b9731723704c1eda1a0:section:2"
+        },
     },
     fusillade_diver_helmet: {
         id: "fusillade_diver_helmet",
@@ -1238,6 +1677,12 @@ export const Helmets = {
             torpedo_barrage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacda",
+            "cardUrl": "https://trello.com/c/hKpuh4mz",
+            "sectionId": "69214b9831723704c1edacda:section:2"
+        },
     },
     galactic_graviturgy_helmet: {
         id: "galactic_graviturgy_helmet",
@@ -1255,6 +1700,12 @@ export const Helmets = {
             heavy_gravitate: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae34",
+            "cardUrl": "https://trello.com/c/vfQNfby3",
+            "sectionId": "69214b9831723704c1edae34:section:2"
+        },
     },
     gale_wanderer_helmet: {
         id: "gale_wanderer_helmet",
@@ -1273,6 +1724,12 @@ export const Helmets = {
             flowing_crits: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda308",
+            "cardUrl": "https://trello.com/c/DHhPhgmU",
+            "sectionId": "69214b9731723704c1eda308:section:2"
+        },
     },
     gemstone_crown: {
         id: "gemstone_crown",
@@ -1289,6 +1746,12 @@ export const Helmets = {
             healing_arts: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda738",
+            "cardUrl": "https://trello.com/c/v4L2bSVy",
+            "sectionId": "69214b9731723704c1eda738:section:2"
+        },
     },
     glacial_snapper_helmet: {
         id: "glacial_snapper_helmet",
@@ -1297,6 +1760,25 @@ export const Helmets = {
         type: "Helmet",
         description: "C-c-cold helmet made out of",
         img: "",
+        "stats": {
+            "WaterBoost": 5,
+            "PhysicalDefense": 10,
+            "PhysicalBoost": 5,
+            "HeatResistance": 150,
+            "Protection": 7,
+            "MagicDefense": 10,
+            "ColdResistance": 100,
+            "Tenacity": 0.22
+        },
+        "perks": {
+            "ice_barge": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda73a",
+            "cardUrl": "https://trello.com/c/LXvVZovD",
+            "sectionId": "69214b9731723704c1eda73a:section:2"
+        },
     },
     gladiator_mask: {
         id: "gladiator_mask",
@@ -1316,6 +1798,12 @@ export const Helmets = {
             fury: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda294",
+            "cardUrl": "https://trello.com/c/FQmTbRNS",
+            "sectionId": "69214b9731723704c1eda294:section:2"
+        },
     },
     goodguy_band: {
         id: "goodguy_band",
@@ -1332,6 +1820,12 @@ export const Helmets = {
             blazing_finisher: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda73c",
+            "cardUrl": "https://trello.com/c/WabSBqle",
+            "sectionId": "69214b9731723704c1eda73c:section:2"
+        },
     },
     gremlin_helmet: {
         id: "gremlin_helmet",
@@ -1350,6 +1844,12 @@ export const Helmets = {
             slow_leak: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda28c",
+            "cardUrl": "https://trello.com/c/f8nQ3vtm",
+            "sectionId": "69214b9731723704c1eda28c:section:2"
+        },
     },
     gremlinancer_hat: {
         id: "gremlinancer_hat",
@@ -1367,6 +1867,12 @@ export const Helmets = {
             dark_magic: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda28e",
+            "cardUrl": "https://trello.com/c/wleVtlSu",
+            "sectionId": "69214b9731723704c1eda28e:section:2"
+        },
     },
     gunslinger_hat: {
         id: "gunslinger_hat",
@@ -1385,6 +1891,12 @@ export const Helmets = {
             quickdraw: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda73e",
+            "cardUrl": "https://trello.com/c/x4Jx00pw",
+            "sectionId": "69214b9731723704c1eda73e:section:2"
+        },
     },
     hex_magician_hat: {
         id: "hex_magician_hat",
@@ -1401,6 +1913,12 @@ export const Helmets = {
             final_act: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda740",
+            "cardUrl": "https://trello.com/c/Jya4t8A1",
+            "sectionId": "69214b9731723704c1eda740:section:2"
+        },
     },
     holy_robe_hood: {
         id: "holy_robe_hood",
@@ -1418,6 +1936,12 @@ export const Helmets = {
             blessing: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda17c",
+            "cardUrl": "https://trello.com/c/OQQaaluc",
+            "sectionId": "69214b9731723704c1eda17c:section:2"
+        },
     },
     honeysteel_helmet: {
         id: "honeysteel_helmet",
@@ -1437,6 +1961,12 @@ export const Helmets = {
             sticky_guard: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda742",
+            "cardUrl": "https://trello.com/c/ZETsQdyx",
+            "sectionId": "69214b9731723704c1eda742:section:2"
+        },
     },
     hypnotist_hat: {
         id: "hypnotist_hat",
@@ -1452,6 +1982,15 @@ export const Helmets = {
             SummonBoost: 15,
         },
         img: "",
+        "perks": {
+            "hypnotist": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab52",
+            "cardUrl": "https://trello.com/c/g23k1g4s",
+            "sectionId": "69214b9731723704c1edab52:section:2"
+        },
     },
     infused_knight_helmet: {
         id: "infused_knight_helmet",
@@ -1469,6 +2008,12 @@ export const Helmets = {
             true_balance: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda744",
+            "cardUrl": "https://trello.com/c/r7wayI7M",
+            "sectionId": "69214b9731723704c1eda744:section:2"
+        },
     },
     investigator_hat: {
         id: "investigator_hat",
@@ -1485,6 +2030,12 @@ export const Helmets = {
             investigator: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda1e2",
+            "cardUrl": "https://trello.com/c/LhY5lCXd",
+            "sectionId": "69214b9731723704c1eda1e2:section:2"
+        },
     },
     iron_slayer_helmet: {
         id: "iron_slayer_helmet",
@@ -1503,6 +2054,12 @@ export const Helmets = {
             void_rage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda20a",
+            "cardUrl": "https://trello.com/c/g3L3tCKL",
+            "sectionId": "69214b9731723704c1eda20a:section:2"
+        },
     },
     jerry_hat: {
         id: "jerry_hat",
@@ -1520,6 +2077,12 @@ export const Helmets = {
             equipment_farmer: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae66",
+            "cardUrl": "https://trello.com/c/esJLH5xZ",
+            "sectionId": "69214b9831723704c1edae66:section:2"
+        },
     },
     king_carp_hat: {
         id: "king_carp_hat",
@@ -1538,6 +2101,12 @@ export const Helmets = {
             blub_blub: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edac38",
+            "cardUrl": "https://trello.com/c/YZD20aqt",
+            "sectionId": "69214b9831723704c1edac38:section:2"
+        },
     },
     knight_helmet: {
         id: "knight_helmet",
@@ -1557,6 +2126,12 @@ export const Helmets = {
             hardened_will: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2a0",
+            "cardUrl": "https://trello.com/c/EckIEPm2",
+            "sectionId": "69214b9731723704c1eda2a0:section:2"
+        },
     },
     last_seraph_helmet: {
         id: "last_seraph_helmet",
@@ -1575,6 +2150,12 @@ export const Helmets = {
             divine_crash: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda97a",
+            "cardUrl": "https://trello.com/c/moyuMrpz",
+            "sectionId": "69214b9731723704c1eda97a:section:2"
+        },
     },
     lich_king_crown: {
         id: "lich_king_crown",
@@ -1583,6 +2164,22 @@ export const Helmets = {
         type: "Helmet",
         description: "A creepy crown belonging to the",
         img: "",
+        "stats": {
+            "HexBoost": 13,
+            "HexDefense": 20,
+            "SummonBoost": 13,
+            "HolyDefense": -20,
+            "Warding": 30
+        },
+        "perks": {
+            "sacrificial_summoning": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda27e",
+            "cardUrl": "https://trello.com/c/Jzivijtx",
+            "sectionId": "69214b9731723704c1eda27e:section:2"
+        },
     },
     lilimonster_blossom: {
         id: "lilimonster_blossom",
@@ -1601,6 +2198,12 @@ export const Helmets = {
             fragrant_flesh: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab90",
+            "cardUrl": "https://trello.com/c/aQ66jBW7",
+            "sectionId": "69214b9731723704c1edab90:section:2"
+        },
     },
     lone_samurai_eyepatch: {
         id: "lone_samurai_eyepatch",
@@ -1618,6 +2221,12 @@ export const Helmets = {
             cut_down: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda29a",
+            "cardUrl": "https://trello.com/c/Vx35ZHwG",
+            "sectionId": "69214b9731723704c1eda29a:section:2"
+        },
     },
     looters_hat: {
         id: "looters_hat",
@@ -1635,6 +2244,12 @@ export const Helmets = {
             trophy_hunter: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda256",
+            "cardUrl": "https://trello.com/c/sjlYkjr8",
+            "sectionId": "69214b9731723704c1eda256:section:2"
+        },
     },
     lord_dung_helmet: {
         id: "lord_dung_helmet",
@@ -1654,6 +2269,12 @@ export const Helmets = {
             vile_presence: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda748",
+            "cardUrl": "https://trello.com/c/ThIlrurA",
+            "sectionId": "69214b9731723704c1eda748:section:2"
+        },
     },
     lord_frogg_helmet: {
         id: "lord_frogg_helmet",
@@ -1662,6 +2283,23 @@ export const Helmets = {
         type: "Helmet",
         description: "Helmet worn by the tribal chieftan of the toadzerkers,",
         img: "",
+        "stats": {
+            "SpeedBoost": -2,
+            "Tenacity": 0.15,
+            "PhysicalDefense": 15,
+            "PhysicalBoost": 16,
+            "JumpBoost": 1,
+            "Protection": 5
+        },
+        "perks": {
+            "weighty_slam": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda74a",
+            "cardUrl": "https://trello.com/c/iavWv7xL",
+            "sectionId": "69214b9731723704c1eda74a:section:2"
+        },
     },
     mad_mage_hood: {
         id: "mad_mage_hood",
@@ -1679,6 +2317,12 @@ export const Helmets = {
             mage_rage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabb2",
+            "cardUrl": "https://trello.com/c/2vlGjGFT",
+            "sectionId": "69214b9731723704c1edabb2:section:2"
+        },
     },
     mageling_hood: {
         id: "mageling_hood",
@@ -1694,6 +2338,12 @@ export const Helmets = {
             caster: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda74c",
+            "cardUrl": "https://trello.com/c/NxcqAjO7",
+            "sectionId": "69214b9731723704c1eda74c:section:2"
+        },
     },
     mines_captain_hat: {
         id: "mines_captain_hat",
@@ -1710,6 +2360,12 @@ export const Helmets = {
             inspiration: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacde",
+            "cardUrl": "https://trello.com/c/2SPdtuqz",
+            "sectionId": "69214b9831723704c1edacde:section:2"
+        },
     },
     mischievous_mask: {
         id: "mischievous_mask",
@@ -1728,6 +2384,12 @@ export const Helmets = {
             trickster: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda74e",
+            "cardUrl": "https://trello.com/c/KeWPSUG5",
+            "sectionId": "69214b9731723704c1eda74e:section:2"
+        },
     },
     nectar_knight_visor: {
         id: "nectar_knight_visor",
@@ -1748,6 +2410,12 @@ export const Helmets = {
             sickly_sweetness: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda750",
+            "cardUrl": "https://trello.com/c/FJrhc2HT",
+            "sectionId": "69214b9731723704c1eda750:section:2"
+        },
     },
     ninja_headwear: {
         id: "ninja_headwear",
@@ -1765,6 +2433,12 @@ export const Helmets = {
             stealth: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda21e",
+            "cardUrl": "https://trello.com/c/YNsjmoDS",
+            "sectionId": "69214b9731723704c1eda21e:section:2"
+        },
     },
     nomad_kasa: {
         id: "nomad_kasa",
@@ -1782,6 +2456,12 @@ export const Helmets = {
             runic_winds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda298",
+            "cardUrl": "https://trello.com/c/gomv63ry",
+            "sectionId": "69214b9731723704c1eda298:section:2"
+        },
     },
     northern_innovator_helmet: {
         id: "northern_innovator_helmet",
@@ -1800,6 +2480,12 @@ export const Helmets = {
             adaptive_plate: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edace4",
+            "cardUrl": "https://trello.com/c/4G2lhwcp",
+            "sectionId": "69214b9831723704c1edace4:section:2"
+        },
     },
     northern_miner_hat: {
         id: "northern_miner_hat",
@@ -1818,6 +2504,12 @@ export const Helmets = {
             quarry: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacd4",
+            "cardUrl": "https://trello.com/c/ezZKJYBw",
+            "sectionId": "69214b9831723704c1edacd4:section:2"
+        },
     },
     ocean_guardian_helmet: {
         id: "ocean_guardian_helmet",
@@ -1835,6 +2527,12 @@ export const Helmets = {
             warding_tides: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda752",
+            "cardUrl": "https://trello.com/c/NpBLVCgR",
+            "sectionId": "69214b9731723704c1eda752:section:2"
+        },
     },
     old_knight_helmet: {
         id: "old_knight_helmet",
@@ -1856,6 +2554,12 @@ export const Helmets = {
             forgotten_chivalry: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad08",
+            "cardUrl": "https://trello.com/c/drhSmPnO",
+            "sectionId": "69214b9831723704c1edad08:section:2"
+        },
     },
     omega_batty_helmet: {
         id: "omega_batty_helmet",
@@ -1875,6 +2579,12 @@ export const Helmets = {
             echo_incineration: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edace6",
+            "cardUrl": "https://trello.com/c/Ah3U29HJ",
+            "sectionId": "69214b9831723704c1edace6:section:2"
+        },
     },
     omen_bearer_hat: {
         id: "omen_bearer_hat",
@@ -1893,6 +2603,12 @@ export const Helmets = {
             darkening_hex: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda202",
+            "cardUrl": "https://trello.com/c/dlL5bnPz",
+            "sectionId": "69214b9731723704c1eda202:section:2"
+        },
     },
     plains_woof_hood: {
         id: "plains_woof_hood",
@@ -1909,6 +2625,12 @@ export const Helmets = {
             sharp_claws: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2ca",
+            "cardUrl": "https://trello.com/c/rDcdPtEa",
+            "sectionId": "69214b9731723704c1eda2ca:section:2"
+        },
     },
     prisoner_helmet: {
         id: "prisoner_helmet",
@@ -1928,6 +2650,12 @@ export const Helmets = {
             righted_wrongs: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda204",
+            "cardUrl": "https://trello.com/c/ixc48un3",
+            "sectionId": "69214b9731723704c1eda204:section:2"
+        },
     },
     profane_hood: {
         id: "profane_hood",
@@ -1945,6 +2673,12 @@ export const Helmets = {
             gorecast: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab9a",
+            "cardUrl": "https://trello.com/c/7gJXALQA",
+            "sectionId": "69214b9731723704c1edab9a:section:2"
+        },
     },
     puffball_hat: {
         id: "puffball_hat",
@@ -1962,6 +2696,12 @@ export const Helmets = {
             gnawing_poison: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad30",
+            "cardUrl": "https://trello.com/c/I9g0VyTd",
+            "sectionId": "69214b9831723704c1edad30:section:2"
+        },
     },
     pyre_druid_hood: {
         id: "pyre_druid_hood",
@@ -1981,6 +2721,12 @@ export const Helmets = {
             pyre_bloom: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae30",
+            "cardUrl": "https://trello.com/c/zMO5WfeK",
+            "sectionId": "69214b9831723704c1edae30:section:2"
+        },
     },
     queen_bumblz_visor: {
         id: "queen_bumblz_visor",
@@ -1989,6 +2735,22 @@ export const Helmets = {
         type: "Helmet",
         description: "A fancy visor made in the beautiful image of the",
         img: "",
+        "stats": {
+            "MagicBoost": 10,
+            "MagicDefense": 10,
+            "HolyBoost": 10,
+            "SummonBoost": 13,
+            "PhysicalDefense": -10
+        },
+        "perks": {
+            "sticky_summons": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda69e",
+            "cardUrl": "https://trello.com/c/IQy36BeG",
+            "sectionId": "69214b9731723704c1eda69e:section:2"
+        },
     },
     queen_bumblz_antennae: {
         id: "queen_bumblz_antennae",
@@ -2006,6 +2768,12 @@ export const Helmets = {
             directive: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edaee6",
+            "cardUrl": "https://trello.com/c/VWDWGTsP",
+            "sectionId": "69214b9831723704c1edaee6:section:2"
+        },
     },
     radiant_laurels: {
         id: "radiant_laurels",
@@ -2022,6 +2790,12 @@ export const Helmets = {
             solar_light: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edaed6",
+            "cardUrl": "https://trello.com/c/IWd0vMlz",
+            "sectionId": "69214b9831723704c1edaed6:section:2"
+        },
     },
     redsky_saint_helmet: {
         id: "redsky_saint_helmet",
@@ -2040,6 +2814,12 @@ export const Helmets = {
             vital_mist: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacb4",
+            "cardUrl": "https://trello.com/c/Cvnq7F25",
+            "sectionId": "69214b9831723704c1edacb4:section:2"
+        },
     },
     relic_jewel: {
         id: "relic_jewel",
@@ -2058,6 +2838,12 @@ export const Helmets = {
             essence_ray: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edaeb4",
+            "cardUrl": "https://trello.com/c/XebIy2af",
+            "sectionId": "69214b9831723704c1edaeb4:section:2"
+        },
     },
     revved_helmet: {
         id: "revved_helmet",
@@ -2076,6 +2862,12 @@ export const Helmets = {
             engine: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda756",
+            "cardUrl": "https://trello.com/c/TytwaUDZ",
+            "sectionId": "69214b9731723704c1eda756:section:2"
+        },
     },
     riptide_crown: {
         id: "riptide_crown",
@@ -2094,6 +2886,12 @@ export const Helmets = {
             ocean_song: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda20e",
+            "cardUrl": "https://trello.com/c/ph33c9ZS",
+            "sectionId": "69214b9731723704c1eda20e:section:2"
+        },
     },
     rock_hare_jaw: {
         id: "rock_hare_jaw",
@@ -2102,6 +2900,20 @@ export const Helmets = {
         type: "Helmet",
         description: "The Jaw of a Red",
         img: "",
+        "stats": {
+            "SpeedBoost": -2,
+            "Tenacity": 0.2,
+            "Protection": 2
+        },
+        "perks": {
+            "immoveable": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda758",
+            "cardUrl": "https://trello.com/c/60JzHO2H",
+            "sectionId": "69214b9731723704c1eda758:section:2"
+        },
     },
     ronin_helmet: {
         id: "ronin_helmet",
@@ -2121,6 +2933,12 @@ export const Helmets = {
             heightened_reflexes: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaaf4",
+            "cardUrl": "https://trello.com/c/M5Xt9wcX",
+            "sectionId": "69214b9731723704c1edaaf4:section:2"
+        },
     },
     royal_clerics_crown: {
         id: "royal_clerics_crown",
@@ -2138,6 +2956,12 @@ export const Helmets = {
             critical_healing: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda75e",
+            "cardUrl": "https://trello.com/c/9HiIjhtw",
+            "sectionId": "69214b9731723704c1eda75e:section:2"
+        },
     },
     saur_head: {
         id: "saur_head",
@@ -2155,6 +2979,12 @@ export const Helmets = {
             primal: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda9e0",
+            "cardUrl": "https://trello.com/c/TFisqUmQ",
+            "sectionId": "69214b9731723704c1eda9e0:section:2"
+        },
     },
     scow_marauder_helmet: {
         id: "scow_marauder_helmet",
@@ -2175,6 +3005,12 @@ export const Helmets = {
             frozen_heart: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda760",
+            "cardUrl": "https://trello.com/c/qw16KvFQ",
+            "sectionId": "69214b9731723704c1eda760:section:2"
+        },
     },
     scow_shaman_mask: {
         id: "scow_shaman_mask",
@@ -2194,6 +3030,12 @@ export const Helmets = {
             shamanic_flow: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda60c",
+            "cardUrl": "https://trello.com/c/A0fjZOMk",
+            "sectionId": "69214b9731723704c1eda60c:section:2"
+        },
     },
     sea_demon_mask: {
         id: "sea_demon_mask",
@@ -2211,6 +3053,12 @@ export const Helmets = {
             oceans_rage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae26",
+            "cardUrl": "https://trello.com/c/eBcem3UO",
+            "sectionId": "69214b9831723704c1edae26:section:2"
+        },
     },
     shadow_dweller_mask: {
         id: "shadow_dweller_mask",
@@ -2228,6 +3076,12 @@ export const Helmets = {
             dark_harvest: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa16",
+            "cardUrl": "https://trello.com/c/RxlFPGk6",
+            "sectionId": "69214b9731723704c1edaa16:section:2"
+        },
     },
     skull_mage_hood: {
         id: "skull_mage_hood",
@@ -2246,6 +3100,12 @@ export const Helmets = {
             pain_distribution: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda762",
+            "cardUrl": "https://trello.com/c/nEVx4Huw",
+            "sectionId": "69214b9731723704c1eda762:section:2"
+        },
     },
     slizard_helmet: {
         id: "slizard_helmet",
@@ -2254,6 +3114,23 @@ export const Helmets = {
         type: "Helmet",
         description: "Helmet made from the carapace of a",
         img: "",
+        "stats": {
+            "PhysicalDefense": 15,
+            "SpeedBoost": -5,
+            "HeatResistance": 50,
+            "EarthBoost": 15,
+            "WaterDefense": -40,
+            "Protection": 8
+        },
+        "perks": {
+            "carapace": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda764",
+            "cardUrl": "https://trello.com/c/GLYMHHA1",
+            "sectionId": "69214b9731723704c1eda764:section:2"
+        },
     },
     snailsman_s_noggin: {
         id: "snailsman_s_noggin",
@@ -2273,6 +3150,12 @@ export const Helmets = {
             caustic_slow: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda766",
+            "cardUrl": "https://trello.com/c/FZUhxQD4",
+            "sectionId": "69214b9731723704c1eda766:section:2"
+        },
     },
     snoeman_hood: {
         id: "snoeman_hood",
@@ -2292,6 +3175,12 @@ export const Helmets = {
             icestorm: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda768",
+            "cardUrl": "https://trello.com/c/GmbFmEke",
+            "sectionId": "69214b9731723704c1eda768:section:2"
+        },
     },
     sol_warrior_helmet: {
         id: "sol_warrior_helmet",
@@ -2309,6 +3198,12 @@ export const Helmets = {
             sunburn: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda76a",
+            "cardUrl": "https://trello.com/c/MgGDt4Kw",
+            "sectionId": "69214b9731723704c1eda76a:section:2"
+        },
     },
     spell_slinger_hat: {
         id: "spell_slinger_hat",
@@ -2323,6 +3218,15 @@ export const Helmets = {
             SpeedBoost: 5,
         },
         img: "",
+        "perks": {
+            "spell_slinger": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda76c",
+            "cardUrl": "https://trello.com/c/2XxZIxNF",
+            "sectionId": "69214b9731723704c1eda76c:section:2"
+        },
     },
     spore_boss_man_hat: {
         id: "spore_boss_man_hat",
@@ -2340,6 +3244,12 @@ export const Helmets = {
             spore_trooper: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda76e",
+            "cardUrl": "https://trello.com/c/dEsqYYvR",
+            "sectionId": "69214b9731723704c1eda76e:section:2"
+        },
     },
     sporeling_hat: {
         id: "sporeling_hat",
@@ -2357,6 +3267,12 @@ export const Helmets = {
             spore_burst: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda206",
+            "cardUrl": "https://trello.com/c/mhnRhn2L",
+            "sectionId": "69214b9731723704c1eda206:section:2"
+        },
     },
     stacked_plate_helmet: {
         id: "stacked_plate_helmet",
@@ -2377,6 +3293,12 @@ export const Helmets = {
             extra_layers: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda770",
+            "cardUrl": "https://trello.com/c/8W8Dg4d3",
+            "sectionId": "69214b9731723704c1eda770:section:2"
+        },
     },
     stagroot_helmet: {
         id: "stagroot_helmet",
@@ -2397,6 +3319,12 @@ export const Helmets = {
             vapor_aegis: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda772",
+            "cardUrl": "https://trello.com/c/IuHcpSTR",
+            "sectionId": "69214b9731723704c1eda772:section:2"
+        },
     },
     stalker_hat: {
         id: "stalker_hat",
@@ -2416,6 +3344,12 @@ export const Helmets = {
             wild_bolt: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacf2",
+            "cardUrl": "https://trello.com/c/pvBKQQaw",
+            "sectionId": "69214b9831723704c1edacf2:section:2"
+        },
     },
     stardust_hat: {
         id: "stardust_hat",
@@ -2434,6 +3368,12 @@ export const Helmets = {
             star_barrage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda778",
+            "cardUrl": "https://trello.com/c/NVuQStcf",
+            "sectionId": "69214b9731723704c1eda778:section:2"
+        },
     },
     star_guardian_helmet: {
         id: "star_guardian_helmet",
@@ -2451,6 +3391,12 @@ export const Helmets = {
             star_friendship: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda774",
+            "cardUrl": "https://trello.com/c/mNwc3CZL",
+            "sectionId": "69214b9731723704c1eda774:section:2"
+        },
     },
     steam_energy_prosthesis: {
         id: "steam_energy_prosthesis",
@@ -2468,6 +3414,12 @@ export const Helmets = {
             steam_charge: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edaef4",
+            "cardUrl": "https://trello.com/c/f2FlWoGe",
+            "sectionId": "69214b9831723704c1edaef4:section:2"
+        },
     },
     steam_golem_helmet: {
         id: "steam_golem_helmet",
@@ -2476,6 +3428,23 @@ export const Helmets = {
         type: "Helmet",
         description: "A helmet made from the metal of a",
         img: "",
+        "stats": {
+            "FireBoost": 6,
+            "AirBoost": 17,
+            "PhysicalDefense": 10,
+            "ColdResistance": 200,
+            "Warding": 20,
+            "SpeedBoost": -5
+        },
+        "perks": {
+            "steam_powered": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda77a",
+            "cardUrl": "https://trello.com/c/6jkhMmum",
+            "sectionId": "69214b9731723704c1eda77a:section:2"
+        },
     },
     steel_legion_helmet: {
         id: "steel_legion_helmet",
@@ -2496,6 +3465,12 @@ export const Helmets = {
             juggernaut: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda97c",
+            "cardUrl": "https://trello.com/c/vTADfuNG",
+            "sectionId": "69214b9731723704c1eda97c:section:2"
+        },
     },
     steel_sentry_helmet: {
         id: "steel_sentry_helmet",
@@ -2514,6 +3489,12 @@ export const Helmets = {
             bulwark: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda77c",
+            "cardUrl": "https://trello.com/c/VymLlFFH",
+            "sectionId": "69214b9731723704c1eda77c:section:2"
+        },
     },
     sticky_hat: {
         id: "sticky_hat",
@@ -2530,6 +3511,12 @@ export const Helmets = {
             honey_arts: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6a0",
+            "cardUrl": "https://trello.com/c/treGnAhu",
+            "sectionId": "69214b9731723704c1eda6a0:section:2"
+        },
     },
     stone_archer_head: {
         id: "stone_archer_head",
@@ -2548,6 +3535,12 @@ export const Helmets = {
             bastion_ballista: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab72",
+            "cardUrl": "https://trello.com/c/9C9wlNIH",
+            "sectionId": "69214b9731723704c1edab72:section:2"
+        },
     },
     stone_cleric_head: {
         id: "stone_cleric_head",
@@ -2566,6 +3559,12 @@ export const Helmets = {
             lithic_veil: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab70",
+            "cardUrl": "https://trello.com/c/PasoYcv9",
+            "sectionId": "69214b9731723704c1edab70:section:2"
+        },
     },
     stone_knight_head: {
         id: "stone_knight_head",
@@ -2586,6 +3585,12 @@ export const Helmets = {
             heavy_slate: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab6c",
+            "cardUrl": "https://trello.com/c/OTkN7Lxv",
+            "sectionId": "69214b9731723704c1edab6c:section:2"
+        },
     },
     stratos_helmet: {
         id: "stratos_helmet",
@@ -2606,6 +3611,12 @@ export const Helmets = {
             air_pressure: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda978",
+            "cardUrl": "https://trello.com/c/v7FjcMPx",
+            "sectionId": "69214b9731723704c1eda978:section:2"
+        },
     },
     sunken_mage_hood: {
         id: "sunken_mage_hood",
@@ -2624,6 +3635,12 @@ export const Helmets = {
             channeled_depths: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda210",
+            "cardUrl": "https://trello.com/c/CzKGOnV8",
+            "sectionId": "69214b9731723704c1eda210:section:2"
+        },
     },
     swamp_brawler_mask: {
         id: "swamp_brawler_mask",
@@ -2642,6 +3659,12 @@ export const Helmets = {
             marsh_flow: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda77e",
+            "cardUrl": "https://trello.com/c/ayAux5xd",
+            "sectionId": "69214b9731723704c1eda77e:section:2"
+        },
     },
     swamp_marauder_mask: {
         id: "swamp_marauder_mask",
@@ -2659,6 +3682,12 @@ export const Helmets = {
             swift_guard: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda776",
+            "cardUrl": "https://trello.com/c/QBlSGfJW",
+            "sectionId": "69214b9731723704c1eda776:section:2"
+        },
     },
     the_emotions: {
         id: "the_emotions",
@@ -2676,6 +3705,12 @@ export const Helmets = {
             emotional: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda622",
+            "cardUrl": "https://trello.com/c/Ik58ZUXr",
+            "sectionId": "69214b9731723704c1eda622:section:2"
+        },
     },
     thieves_hood: {
         id: "thieves_hood",
@@ -2692,6 +3727,12 @@ export const Helmets = {
             critical_master: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda306",
+            "cardUrl": "https://trello.com/c/n2H8syje",
+            "sectionId": "69214b9731723704c1eda306:section:2"
+        },
     },
     toadzerker_helmet: {
         id: "toadzerker_helmet",
@@ -2709,6 +3750,12 @@ export const Helmets = {
             raging_bounce: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda626",
+            "cardUrl": "https://trello.com/c/c8Y0A2cR",
+            "sectionId": "69214b9731723704c1eda626:section:2"
+        },
     },
     tundra_explorer_hood: {
         id: "tundra_explorer_hood",
@@ -2723,6 +3770,13 @@ export const Helmets = {
             ColdResistance: 150,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda784",
+            "cardUrl": "https://trello.com/c/XsFanANr",
+            "sectionId": "69214b9731723704c1eda784:section:2"
+        },
     },
     void_root_helmet: {
         id: "void_root_helmet",
@@ -2743,6 +3797,12 @@ export const Helmets = {
             cursed_bark: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda788",
+            "cardUrl": "https://trello.com/c/X0tFjdyJ",
+            "sectionId": "69214b9731723704c1eda788:section:2"
+        },
     },
     void_stained_blindfold: {
         id: "void_stained_blindfold",
@@ -2762,6 +3822,12 @@ export const Helmets = {
             inoculation: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edaed2",
+            "cardUrl": "https://trello.com/c/FN33o9N5",
+            "sectionId": "69214b9831723704c1edaed2:section:2"
+        },
     },
     wearable_mysterious_crown: {
         id: "wearable_mysterious_crown",
@@ -2778,6 +3844,12 @@ export const Helmets = {
             spring_powered: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edaeda",
+            "cardUrl": "https://trello.com/c/ICM6HnPW",
+            "sectionId": "69214b9831723704c1edaeda:section:2"
+        },
     },
     whirlray_dancer_hat: {
         id: "whirlray_dancer_hat",
@@ -2796,6 +3868,12 @@ export const Helmets = {
             whirl_foot: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae94",
+            "cardUrl": "https://trello.com/c/MkNrU4rp",
+            "sectionId": "69214b9831723704c1edae94:section:2"
+        },
     },
     whispering_heads: {
         id: "whispering_heads",
@@ -2812,6 +3890,12 @@ export const Helmets = {
             roaring_heads: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edaf02",
+            "cardUrl": "https://trello.com/c/tHsYc2Km",
+            "sectionId": "69214b9831723704c1edaf02:section:2"
+        },
     },
     whistle_warrior_helmet: {
         id: "whistle_warrior_helmet",
@@ -2829,6 +3913,12 @@ export const Helmets = {
             screeching_sound: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa0e",
+            "cardUrl": "https://trello.com/c/MZ23WQbb",
+            "sectionId": "69214b9731723704c1edaa0e:section:2"
+        },
     },
     wind_champion_band: {
         id: "wind_champion_band",
@@ -2847,6 +3937,12 @@ export const Helmets = {
             wind_walker: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda254",
+            "cardUrl": "https://trello.com/c/xlhF3LD8",
+            "sectionId": "69214b9731723704c1eda254:section:3"
+        },
     },
     wind_spirit_crown: {
         id: "wind_spirit_crown",
@@ -2865,6 +3961,12 @@ export const Helmets = {
             spirit_winds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda240",
+            "cardUrl": "https://trello.com/c/rHG6YrKm",
+            "sectionId": "69214b9731723704c1eda240:section:2"
+        },
     },
     woof_scarf: {
         id: "woof_scarf",
@@ -2881,6 +3983,12 @@ export const Helmets = {
             hex_ray: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edaf1a",
+            "cardUrl": "https://trello.com/c/DVMCdNDG",
+            "sectionId": "69214b9831723704c1edaf1a:section:2"
+        },
     },
     // artemis_patented_head_mounted_solar_flare: {
     //   id: "artemis_patented_head_mounted_solar_flare",
@@ -3112,4 +4220,89 @@ export const Helmets = {
     //   description: "Covering yourself in snow That s pretty cool! Obtainable during the 2025 Voxlmas Event",
     //   img: "",
     // },
+    "astro_pajama_hat": {
+        "id": "astro_pajama_hat",
+        "name": "Astro-Pajama Hat",
+        "stats": {
+            "AirBoost": -15,
+            "MagicBoost": 14,
+            "WaterBoost": 14,
+            "MagicDefense": 5
+        },
+        "perks": {
+            "counting_sheep": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda176",
+            "cardUrl": "https://trello.com/c/8twxqyme",
+            "sectionId": "69214b9731723704c1eda176:section:2"
+        },
+        "category": "Armor",
+        "type": "Helmet"
+    },
+    "batty_s_propeller_hat": {
+        "id": "batty_s_propeller_hat",
+        "name": "Batty’s Propeller Hat",
+        "stats": {
+            "FireBoost": 15,
+            "AirBoost": 15,
+            "EarthBoost": -20,
+            "JumpBoost": 10
+        },
+        "perks": {
+            "propelling_fun": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edaea4",
+            "cardUrl": "https://trello.com/c/sI9c2K6q",
+            "sectionId": "69214b9831723704c1edaea4:section:2"
+        },
+        "category": "Armor",
+        "type": "Helmet"
+    },
+    "bowling_knight_helmet": {
+        "id": "bowling_knight_helmet",
+        "name": "Bowling Knight Helmet",
+        "stats": {
+            "Tenacity": 1,
+            "PhysicalDefense": 15,
+            "Protection": 0.3,
+            "MagicDefense": 15
+        },
+        "perks": {
+            "bowlers_roll": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6fe",
+            "cardUrl": "https://trello.com/c/QSthSf2F",
+            "sectionId": "69214b9731723704c1eda6fe:section:2"
+        },
+        "category": "Armor",
+        "type": "Helmet"
+    },
+    "tundra_warlord_helmet": {
+        "id": "tundra_warlord_helmet",
+        "name": "Tundra Warlord Helmet",
+        "stats": {
+            "Protection": 0.1,
+            "PhysicalDefense": 7,
+            "ColdResistance": 150,
+            "MagicDefense": -7,
+            "PhysicalBoost": 15
+        },
+        "perks": {
+            "conquerer": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda786",
+            "cardUrl": "https://trello.com/c/QCxAjLNS",
+            "sectionId": "69214b9731723704c1eda786:section:2"
+        },
+        "category": "Armor",
+        "type": "Helmet"
+    },
 };

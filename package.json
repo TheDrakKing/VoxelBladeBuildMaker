@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --require ./tests/register.cjs --test",
     "start": "nodemon --exec ts-node src/server.ts",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "check": "tsc --noEmit",
+    "build": "tsc",
+    "catalog:sync": "node tools/sync-catalog.cjs",
+    "test:catalog": "python -m unittest discover -s tests -p test_catalog_sync.py",
+    "audit:perks": "node tools/audit-perks.cjs"
   },
   "keywords": [],
   "author": "",

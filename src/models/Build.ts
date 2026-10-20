@@ -1,10 +1,11 @@
+import { toPerkID } from "./Identifiers.js";
 import * as ItemModule from "../models/Item.js";
 import * as PerkModule from "../models/Perk.js";
 import * as BuffModule from "../models/Buffs.js";
 import * as WeaponTypes from "../models/WeaponTypes.js";
 import { Guild, GuildStore } from "./Guild.js";
 import { Race, RaceStore } from "./Race.js";
-import { WeaponArt } from "./WeaponArt.js";
+import { WeaponArt, WeaponArtStore } from "./WeaponArt.js";
 
 export type potencies = { [k in ItemModule.potency]?: number };
 export type stats = {[k in ItemModule.stat]?: number};
@@ -23,7 +24,7 @@ export type outputDamage = { [k in ItemModule.damageType]?: damageBreakdown };
 export type damageArray = outputDamage[];
 type mods = { [id: string]: number };
 
-type damageModifications = {
+export type damageModifications = {
   damage_bonus_mods: mods;
   damage_reduced_mods: mods;
   specific_bonus_mods: mods;
@@ -88,6 +89,15 @@ type savedEnchantments = {
   [K in keyof Armor]?: (string | null)[];
 };
 
+export type savedStatus = {
+  id: string;
+  sourceData?: BuffModule.Buff["sourceData"];
+  potency?: number;
+  effectivePotencyOverride?: number;
+  stacks?: number;
+  appliedBy?: "self" | "opponent";
+};
+
 export type savedBuild = {
   version: number;
   level: number;
@@ -100,6 +110,8 @@ export type savedBuild = {
   weaponArtId?: string;
   guildId?: string;
   raceId?: string;
+  buffs?: savedStatus[];
+  debuffs?: savedStatus[];
   buffIds?: string[];
   deBuffIds?: string[];
   mainArmor: savedArmor;
@@ -406,7 +418,7 @@ export class Build {
         ][]) {
           // key is a string, value is a number or undefined
           if (value === undefined) continue;
-          const perkId = ItemModule.toID(key);
+          const perkId = toPerkID(key);
           let previousValue = this.perks[perkId];
           this.perks[perkId] = previousValue !== undefined ? previousValue + value : value;
           //certain perks carry hidden stats
@@ -845,16 +857,42 @@ export class Build {
 
   private static savedSlotToItem(
     slot?: savedArmorSlot,
+    category?: keyof Armor,
   ): ItemModule.Item | undefined {
     if (!slot?.id) return undefined;
-    const item = ItemModule.ItemStore.getByID(slot.id);
+    const item = ItemModule.ItemStore.getByID(slot.id, category);
     item.upgrade = slot.upgrade || 0;
     return item;
   }
 
+  private static statusToSaved(status: BuffModule.Buff): savedStatus {
+    return {
+      id: status.id,
+      sourceData: status.sourceData ? { ...status.sourceData } : undefined,
+      potency: status.potency,
+      effectivePotencyOverride: status.effectivePotencyOverride,
+      stacks: status.stacks,
+      appliedBy: status.appliedBy,
+    };
+  }
+
+  private static restoreStatuses(statuses?: savedStatus[], legacyIds?: string[]): BuffModule.Buff[] | undefined {
+    if (!statuses && !legacyIds) return undefined;
+    const entries: savedStatus[] = statuses ?? legacyIds!.map((id) => ({ id }));
+    return entries.map((saved) => {
+      const status = BuffModule.BuffStore.getByID(saved.id);
+      if (saved.sourceData) status.sourceData = { ...saved.sourceData };
+      if (typeof saved.potency === "number") status.potency = saved.potency;
+      if (typeof saved.effectivePotencyOverride === "number") status.effectivePotencyOverride = saved.effectivePotencyOverride;
+      if (typeof saved.stacks === "number") status.stacks = saved.stacks;
+      if (saved.appliedBy === "self" || saved.appliedBy === "opponent") status.appliedBy = saved.appliedBy;
+      return status;
+    }).filter((status) => !!status.name);
+  }
+
   toSavedBuild(): savedBuild {
     return {
-      version: 1,
+      version: 2,
       level: this.level,
       hp: this.hp,
       maxHp: this.maxHp,
@@ -865,6 +903,8 @@ export class Build {
       weaponArtId: this.weaponart?.id,
       guildId: this.guild?.id,
       raceId: this.race?.id,
+      buffs: this.buff?.filter(Boolean).map(Build.statusToSaved),
+      debuffs: this.deBuffs?.filter(Boolean).map(Build.statusToSaved),
       buffIds: this.buff?.map((buff) => buff.id).filter(Boolean),
       deBuffIds: this.deBuffs?.map((buff) => buff.id).filter(Boolean),
       mainArmor: {
@@ -900,8 +940,8 @@ export class Build {
   static dictToBuild(data: savedBuild): Build {
     const build = new Build();
 
-    build.level = data.level || 1;
-    build.hp = data.hp || 100;
+    build.level = data.level ?? 1;
+    build.hp = data.hp ?? 100;
     build.maxHp = data.maxHp || build.getHp();
     build.guildPromotion = data.guildPromotion || 0;
     build.shrineOfBalance = data.shrineOfBalance || false;
@@ -910,24 +950,24 @@ export class Build {
     if (data.handleId)
       build.handle = ItemModule.ItemStore.getByID(data.handleId);
     if (data.weaponArtId)
-      build.weaponart = ItemModule.ItemStore.getByID(data.weaponArtId);
+      build.weaponart = WeaponArtStore.getByID(data.weaponArtId);
     if (data.guildId) build.guild = GuildStore.getByID(data.guildId);
     if (data.raceId) build.race = RaceStore.getByID(data.raceId);
 
     build.mainArmor = {
-      helmet: Build.savedSlotToItem(data.mainArmor?.helmet),
-      chestplate: Build.savedSlotToItem(data.mainArmor?.chestplate),
-      legging: Build.savedSlotToItem(data.mainArmor?.legging),
-      rune: Build.savedSlotToItem(data.mainArmor?.rune),
-      ring: Build.savedSlotToItem(data.mainArmor?.ring),
+      helmet: Build.savedSlotToItem(data.mainArmor?.helmet, "helmet"),
+      chestplate: Build.savedSlotToItem(data.mainArmor?.chestplate, "chestplate"),
+      legging: Build.savedSlotToItem(data.mainArmor?.legging, "legging"),
+      rune: Build.savedSlotToItem(data.mainArmor?.rune, "rune"),
+      ring: Build.savedSlotToItem(data.mainArmor?.ring, "ring"),
     };
 
     build.infuseArmor = {
-      helmet: Build.savedSlotToItem(data.infuseArmor?.helmet),
-      chestplate: Build.savedSlotToItem(data.infuseArmor?.chestplate),
-      legging: Build.savedSlotToItem(data.infuseArmor?.legging),
-      rune: Build.savedSlotToItem(data.infuseArmor?.rune),
-      ring: Build.savedSlotToItem(data.infuseArmor?.ring),
+      helmet: Build.savedSlotToItem(data.infuseArmor?.helmet, "helmet"),
+      chestplate: Build.savedSlotToItem(data.infuseArmor?.chestplate, "chestplate"),
+      legging: Build.savedSlotToItem(data.infuseArmor?.legging, "legging"),
+      rune: Build.savedSlotToItem(data.infuseArmor?.rune, "rune"),
+      ring: Build.savedSlotToItem(data.infuseArmor?.ring, "ring"),
     };
 
     const armorKeys: (keyof Armor)[] = [
@@ -947,13 +987,8 @@ export class Build {
       }) as [ItemModule.Item?, ItemModule.Item?, ItemModule.Item?];
     });
 
-    build.buff = data.buffIds
-      ?.map((id) => BuffModule.BuffStore.getByID(id))
-      .filter((buff) => !!buff.id);
-
-    build.deBuffs = data.deBuffIds
-      ?.map((id) => BuffModule.BuffStore.getByID(id))
-      .filter((buff) => !!buff.id);
+    build.buff = Build.restoreStatuses(data.buffs, data.buffIds);
+    build.deBuffs = Build.restoreStatuses(data.debuffs, data.deBuffIds);
 
     build.resetBuild();
     return build;

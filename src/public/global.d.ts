@@ -3,7 +3,12 @@ export {};
 declare global {
     type sourceType = "Weapon" | "Perk" | "Rune" | "WeaponArt" | "normal" | "Status";
     
+    type attackTag = "Weapon" | "Rune" | "WeaponArt" | "Perk" | "Status" | "M1" | "M2" | "Finisher" | "DoT";
     export interface baseDamageData {
+        /** Damage is per hit. Tags can overlap (e.g. a WeaponArt that is also a Finisher). */
+        tags?: attackTag[];
+        canCrit?: boolean;
+        procCoefficient?: number;
         /**
          * The dmaage amount
          */

@@ -161,9 +161,8 @@ export const Debuffs: import("../models/Buffs").BuffDataTable = {
     potencyId: "weakeningpotency",
     onDecreaseDmgBonusMultiplier(perkAmount) {
       if (!perkAmount) return null;
-      const potency = perkAmount / 10;
-      let multiplier = 1 - (1/(1+potency));
-      return Math.trunc(multiplier * 100) / 100;
+      // Combat divides outgoing damage by (1 + this bonus).
+      return perkAmount / 10;
     },
     img: "",
   },

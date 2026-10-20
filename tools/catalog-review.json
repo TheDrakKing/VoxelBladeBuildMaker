@@ -1,0 +1,5490 @@
+{
+  "boardId": "69214b9731723704c1eda103",
+  "boardName": "Voxel Board Copy",
+  "sourceHash": "ca47ae9a42e6108fca74bb52277fcdfef2411a017f7f88eb1d2202afe3df4893",
+  "counts": {
+    "handle": 102,
+    "helmet": 170,
+    "chestplate": 159,
+    "legging": 158,
+    "rune": 45,
+    "blade": 106,
+    "ring": 39,
+    "glove": 22,
+    "essence": 106
+  },
+  "perkDefinitions": 367,
+  "newItems": 0,
+  "updatedItems": 0,
+  "held": [
+    {
+      "name": "Cindersoul Essence",
+      "category": "chestplate",
+      "recordId": "69214b9731723704c1eda722",
+      "reason": "Unresolved source structure or field; legacy definition retained."
+    },
+    {
+      "name": "Cindersoul Shirt",
+      "category": "chestplate",
+      "recordId": "69214b9731723704c1eda722",
+      "reason": "Unresolved source structure or field; legacy definition retained."
+    },
+    {
+      "name": "Cindersoul Pants",
+      "category": "legging",
+      "recordId": "69214b9731723704c1eda722",
+      "reason": "Unresolved source structure or field; legacy definition retained."
+    },
+    {
+      "name": "Croakernaut Rune",
+      "category": "rune",
+      "recordId": "69214b9731723704c1edaae2",
+      "reason": "Reinforce Potency is not an unambiguous numeric value."
+    }
+  ],
+  "changes": [],
+  "bindings": [
+    {
+      "category": "handle",
+      "id": "basic_handle",
+      "sourceKey": "69214b9731723704c1eda17e",
+      "name": "Basic Handle"
+    },
+    {
+      "category": "handle",
+      "id": "long_handle",
+      "sourceKey": "69214b9731723704c1eda542",
+      "name": "Long Handle"
+    },
+    {
+      "category": "handle",
+      "id": "reinforced_handle",
+      "sourceKey": "69214b9731723704c1eda546",
+      "name": "Reinforced Handle"
+    },
+    {
+      "category": "handle",
+      "id": "agile_handle",
+      "sourceKey": "69214b9731723704c1eda548",
+      "name": "Agile Handle"
+    },
+    {
+      "category": "handle",
+      "id": "magewood_handle",
+      "sourceKey": "69214b9731723704c1eda544",
+      "name": "Magewood Handle"
+    },
+    {
+      "category": "handle",
+      "id": "holywood_handle",
+      "sourceKey": "69214b9731723704c1eda23c",
+      "name": "Holywood Handle"
+    },
+    {
+      "category": "handle",
+      "id": "cursewood_handle",
+      "sourceKey": "69214b9731723704c1eda4ea",
+      "name": "Cursewood Handle"
+    },
+    {
+      "category": "handle",
+      "id": "windiron_handle",
+      "sourceKey": "69214b9731723704c1eda2a6",
+      "name": "Windiron Handle"
+    },
+    {
+      "category": "handle",
+      "id": "blazewood_handle",
+      "sourceKey": "69214b9731723704c1eda2ec",
+      "name": "Blazewood Handle"
+    },
+    {
+      "category": "handle",
+      "id": "aquasteel_handle",
+      "sourceKey": "69214b9731723704c1eda54a",
+      "name": "Aquasteel Handle"
+    },
+    {
+      "category": "handle",
+      "id": "brass_handle",
+      "sourceKey": "69214b9731723704c1eda54c",
+      "name": "Brass Handle"
+    },
+    {
+      "category": "handle",
+      "id": "executioners_handle",
+      "sourceKey": "69214b9731723704c1eda614",
+      "name": "Executioners Handle"
+    },
+    {
+      "category": "handle",
+      "id": "reinforced_pole",
+      "sourceKey": "69214b9731723704c1eda612",
+      "name": "Reinforced Pole"
+    },
+    {
+      "category": "handle",
+      "id": "katana_handle",
+      "sourceKey": "69214b9731723704c1eda616",
+      "name": "Katana Handle"
+    },
+    {
+      "category": "handle",
+      "id": "jagged_handle",
+      "sourceKey": "69214b9731723704c1eda618",
+      "name": "Jagged Handle"
+    },
+    {
+      "category": "handle",
+      "id": "noble_handle",
+      "sourceKey": "69214b9731723704c1eda54e",
+      "name": "Noble Handle"
+    },
+    {
+      "category": "handle",
+      "id": "graceful_handle",
+      "sourceKey": "69214b9731723704c1eda550",
+      "name": "Graceful Handle"
+    },
+    {
+      "category": "handle",
+      "id": "magewood_long_handle",
+      "sourceKey": "69214b9731723704c1eda61a",
+      "name": "Magewood Long Handle"
+    },
+    {
+      "category": "handle",
+      "id": "enchantwood_handle",
+      "sourceKey": "69214b9731723704c1eda61c",
+      "name": "Enchantwood Handle"
+    },
+    {
+      "category": "handle",
+      "id": "gilded_pole",
+      "sourceKey": "69214b9731723704c1eda648",
+      "name": "Gilded Pole"
+    },
+    {
+      "category": "handle",
+      "id": "purewood_handle",
+      "sourceKey": "69214b9731723704c1eda646",
+      "name": "Purewood Handle"
+    },
+    {
+      "category": "handle",
+      "id": "summoning_pole",
+      "sourceKey": "69214b9731723704c1eda66e",
+      "name": "Summoning Pole"
+    },
+    {
+      "category": "handle",
+      "id": "hexsteel_handle",
+      "sourceKey": "69214b9731723704c1eda66c",
+      "name": "Hexsteel Handle"
+    },
+    {
+      "category": "handle",
+      "id": "refined_windiron_handle",
+      "sourceKey": "69214b9731723704c1eda4ce",
+      "name": "Refined Windiron Handle"
+    },
+    {
+      "category": "handle",
+      "id": "stormwood_handle",
+      "sourceKey": "69214b9731723704c1eda4d0",
+      "name": "Stormwood Handle"
+    },
+    {
+      "category": "handle",
+      "id": "kindlewood_handle",
+      "sourceKey": "69214b9731723704c1eda634",
+      "name": "Kindlewood Handle"
+    },
+    {
+      "category": "handle",
+      "id": "cragflame_handle",
+      "sourceKey": "69214b9731723704c1eda632",
+      "name": "Cragflame Handle"
+    },
+    {
+      "category": "handle",
+      "id": "sunkenwood_handle",
+      "sourceKey": "69214b9731723704c1eda67c",
+      "name": "Sunkenwood Handle"
+    },
+    {
+      "category": "handle",
+      "id": "frozen_handle",
+      "sourceKey": "69214b9731723704c1eda67a",
+      "name": "Frozen Handle"
+    },
+    {
+      "category": "handle",
+      "id": "enchanted_stone_handle",
+      "sourceKey": "69214b9731723704c1eda67e",
+      "name": "Enchanted Stone Handle"
+    },
+    {
+      "category": "handle",
+      "id": "bedrock_handle",
+      "sourceKey": "69214b9731723704c1eda680",
+      "name": "Bedrock Handle"
+    },
+    {
+      "category": "handle",
+      "id": "scourgers_Handle",
+      "sourceKey": "69214b9731723704c1eda664",
+      "name": "Scourgers Handle"
+    },
+    {
+      "category": "handle",
+      "id": "zweihander_handle",
+      "sourceKey": "69214b9731723704c1eda666",
+      "name": "Zweihander Handle"
+    },
+    {
+      "category": "handle",
+      "id": "reinforced_gilded_pole",
+      "sourceKey": "69214b9731723704c1eda608",
+      "name": "Reinforced Gilded Pole"
+    },
+    {
+      "category": "handle",
+      "id": "spike_pole",
+      "sourceKey": "69214b9731723704c1eda670",
+      "name": "Spike Pole"
+    },
+    {
+      "category": "handle",
+      "id": "serrated_handle",
+      "sourceKey": "69214b9731723704c1eda68a",
+      "name": "Serrated Handle"
+    },
+    {
+      "category": "handle",
+      "id": "bloodied_guard",
+      "sourceKey": "69214b9731723704c1eda688",
+      "name": "Bloodied Guard"
+    },
+    {
+      "category": "handle",
+      "id": "bejeweled_handle",
+      "sourceKey": "69214b9731723704c1eda686",
+      "name": "Bejeweled Handle"
+    },
+    {
+      "category": "handle",
+      "id": "shadow_handle",
+      "sourceKey": "69214b9731723704c1eda61e",
+      "name": "Shadow Handle"
+    },
+    {
+      "category": "handle",
+      "id": "kings_handle",
+      "sourceKey": "69214b9731723704c1eda684",
+      "name": "Kings Handle"
+    },
+    {
+      "category": "handle",
+      "id": "beastial_handle",
+      "sourceKey": "69214b9731723704c1eda682",
+      "name": "Beastial Handle"
+    },
+    {
+      "category": "handle",
+      "id": "duelists_handle",
+      "sourceKey": "69214b9731723704c1eda636",
+      "name": "Duelists Handle"
+    },
+    {
+      "category": "handle",
+      "id": "sturdy_handle",
+      "sourceKey": "69214b9731723704c1eda638",
+      "name": "Sturdy Handle"
+    },
+    {
+      "category": "handle",
+      "id": "grandmagic_long_handle",
+      "sourceKey": "69214b9731723704c1eda6a8",
+      "name": "Grandmagic Long Handle"
+    },
+    {
+      "category": "handle",
+      "id": "reinforced_magewood_pole",
+      "sourceKey": "69214b9731723704c1eda6aa",
+      "name": "Reinforced Magewood Pole"
+    },
+    {
+      "category": "handle",
+      "id": "spellbinderguard",
+      "sourceKey": "69214b9731723704c1eda6ae",
+      "name": "Spellbinder Guard"
+    },
+    {
+      "category": "handle",
+      "id": "crude_magic_handle",
+      "sourceKey": "69214b9731723704c1eda6ac",
+      "name": "Crude Magic Handle"
+    },
+    {
+      "category": "handle",
+      "id": "blessed_pole",
+      "sourceKey": "69214b9731723704c1eda6b0",
+      "name": "Blessed Pole"
+    },
+    {
+      "category": "handle",
+      "id": "sacred_pole",
+      "sourceKey": "69214b9731723704c1eda6b2",
+      "name": "Sacred Pole"
+    },
+    {
+      "category": "handle",
+      "id": "hallowedwood_handle",
+      "sourceKey": "69214b9731723704c1eda64a",
+      "name": "Hallowedwood Handle"
+    },
+    {
+      "category": "handle",
+      "id": "angelwood_handle",
+      "sourceKey": "69214b9731723704c1eda64c",
+      "name": "Angelwood Handle"
+    },
+    {
+      "category": "handle",
+      "id": "skull_summoners_pole",
+      "sourceKey": "69214b9731723704c1eda68e",
+      "name": "Skull Summoners Pole"
+    },
+    {
+      "category": "handle",
+      "id": "necrotic_handle",
+      "sourceKey": "69214b9731723704c1eda68c",
+      "name": "Necrotic Handle"
+    },
+    {
+      "category": "handle",
+      "id": "cursed_handle",
+      "sourceKey": "69214b9731723704c1eda692",
+      "name": "Cursed Handle"
+    },
+    {
+      "category": "handle",
+      "id": "cursesteel_handle",
+      "sourceKey": "69214b9731723704c1eda690",
+      "name": "Cursesteel Handle"
+    },
+    {
+      "category": "handle",
+      "id": "gustiron_handle",
+      "sourceKey": "69214b9731723704c1eda6b4",
+      "name": "Gustiron Handle"
+    },
+    {
+      "category": "handle",
+      "id": "gilded_windiron_guard",
+      "sourceKey": "69214b9731723704c1eda6b8",
+      "name": "Gilded Windiron Guard"
+    },
+    {
+      "category": "handle",
+      "id": "lightningstruck_pole",
+      "sourceKey": "69214b9731723704c1eda6b6",
+      "name": "Lightningstruck Pole"
+    },
+    {
+      "category": "handle",
+      "id": "thunderwood_handle",
+      "sourceKey": "69214b9731723704c1eda6ba",
+      "name": "Thunderwood Handle"
+    },
+    {
+      "category": "handle",
+      "id": "steel_flame_handle",
+      "sourceKey": "69214b9731723704c1eda6be",
+      "name": "Steel Flame Handle"
+    },
+    {
+      "category": "handle",
+      "id": "dragonwood_pole",
+      "sourceKey": "69214b9731723704c1eda6bc",
+      "name": "Dragonwood Pole"
+    },
+    {
+      "category": "handle",
+      "id": "exhaust_handle",
+      "sourceKey": "69214b9731723704c1eda6c0",
+      "name": "Exhaust Handle"
+    },
+    {
+      "category": "handle",
+      "id": "cragstone_pole",
+      "sourceKey": "69214b9731723704c1eda6c2",
+      "name": "Cragstone Pole"
+    },
+    {
+      "category": "handle",
+      "id": "wave_great_handle",
+      "sourceKey": "69214b9731723704c1eda6c8",
+      "name": "Wave Great Handle"
+    },
+    {
+      "category": "handle",
+      "id": "ornate_pole",
+      "sourceKey": "69214b9731723704c1eda6ca",
+      "name": "Ornate Pole"
+    },
+    {
+      "category": "handle",
+      "id": "frozen_guard",
+      "sourceKey": "69214b9731723704c1eda6c4",
+      "name": "Frozen Guard"
+    },
+    {
+      "category": "handle",
+      "id": "sculpted_handle",
+      "sourceKey": "69214b9731723704c1eda6c6",
+      "name": "Sculpted Handle"
+    },
+    {
+      "category": "handle",
+      "id": "gravitational_handle",
+      "sourceKey": "69214b9731723704c1eda6cc",
+      "name": "Gravitational Handle"
+    },
+    {
+      "category": "handle",
+      "id": "gravitational_pole",
+      "sourceKey": "69214b9731723704c1eda6ce",
+      "name": "Gravitational Pole"
+    },
+    {
+      "category": "handle",
+      "id": "earth_spirit_handle",
+      "sourceKey": "69214b9731723704c1eda6d0",
+      "name": "Earth Spirit Handle"
+    },
+    {
+      "category": "handle",
+      "id": "sandstone_handle",
+      "sourceKey": "69214b9731723704c1eda6d2",
+      "name": "Sandstone Handle"
+    },
+    {
+      "category": "handle",
+      "id": "prism_handle",
+      "sourceKey": "69214b9731723704c1eda63e",
+      "name": "Prism Handle"
+    },
+    {
+      "category": "handle",
+      "id": "starlight_handle",
+      "sourceKey": "69214b9731723704c1eda644",
+      "name": "Starlight Handle"
+    },
+    {
+      "category": "handle",
+      "id": "bloodengine_handle",
+      "sourceKey": "69214b9831723704c1edac4c",
+      "name": "Bloodengine Handle"
+    },
+    {
+      "category": "handle",
+      "id": "enchained_handle",
+      "sourceKey": "69214b9731723704c1eda668",
+      "name": "Enchained Handle"
+    },
+    {
+      "category": "handle",
+      "id": "murkwater_handle",
+      "sourceKey": "69214b9731723704c1eda6dc",
+      "name": "Murkwater Handle"
+    },
+    {
+      "category": "handle",
+      "id": "spectral_handle",
+      "sourceKey": "69214b9731723704c1eda6de",
+      "name": "Spectral Handle"
+    },
+    {
+      "category": "handle",
+      "id": "rotwood_pole",
+      "sourceKey": "69214b9731723704c1eda6e2",
+      "name": "Rotwood Pole"
+    },
+    {
+      "category": "handle",
+      "id": "snake_venom_pole",
+      "sourceKey": "69214b9731723704c1eda6e4",
+      "name": "Snake Venom Pole"
+    },
+    {
+      "category": "handle",
+      "id": "honeycomb_handle",
+      "sourceKey": "69214b9731723704c1eda6e8",
+      "name": "Honeycomb Handle"
+    },
+    {
+      "category": "handle",
+      "id": "honeysteel_handle",
+      "sourceKey": "69214b9731723704c1eda6ea",
+      "name": "Honeysteel Handle"
+    },
+    {
+      "category": "handle",
+      "id": "honey_bumblz_pole",
+      "sourceKey": "69214b9731723704c1eda6f0",
+      "name": "Honey Bumblz Pole"
+    },
+    {
+      "category": "handle",
+      "id": "queen_bumblz_pole",
+      "sourceKey": "69214b9731723704c1eda6f2",
+      "name": "Queen Bumblz Pole"
+    },
+    {
+      "category": "handle",
+      "id": "magic_great_hammer_pole",
+      "sourceKey": "69214b9731723704c1eda6d4",
+      "name": "Magic Great Hammer Pole"
+    },
+    {
+      "category": "handle",
+      "id": "stratos_pole",
+      "sourceKey": "69214b9731723704c1eda91a",
+      "name": "Stratos Pole"
+    },
+    {
+      "category": "handle",
+      "id": "lightning_stratos_pole",
+      "sourceKey": "69214b9731723704c1eda928",
+      "name": "Lightning Stratos Pole"
+    },
+    {
+      "category": "handle",
+      "id": "caci_handle",
+      "sourceKey": "69214b9731723704c1eda96a",
+      "name": "Caci Handle"
+    },
+    {
+      "category": "handle",
+      "id": "caci_kings_handle",
+      "sourceKey": "69214b9731723704c1eda972",
+      "name": "Caci Kings Handle"
+    },
+    {
+      "category": "handle",
+      "id": "buni_prince_pole",
+      "sourceKey": "69214b9731723704c1edaa30",
+      "name": "Buni Prince Pole"
+    },
+    {
+      "category": "handle",
+      "id": "buni_prince_cannon_pole",
+      "sourceKey": "69214b9731723704c1edaa32",
+      "name": "Buni Prince Cannon Pole"
+    },
+    {
+      "category": "handle",
+      "id": "ancient_handle",
+      "sourceKey": "69214b9731723704c1edabcc",
+      "name": "Ancient Handle"
+    },
+    {
+      "category": "handle",
+      "id": "bastion_greatswaxe_handle",
+      "sourceKey": "69214b9731723704c1edabf2",
+      "name": "Bastion Greatswaxe Handle"
+    },
+    {
+      "category": "handle",
+      "id": "relic_handle",
+      "sourceKey": "69214b9731723704c1edabc2",
+      "name": "Relic Handle"
+    },
+    {
+      "category": "handle",
+      "id": "bastion_relic_handle",
+      "sourceKey": "69214b9731723704c1edabd2",
+      "name": "Bastion Relic Handle"
+    },
+    {
+      "category": "handle",
+      "id": "vaen_handle",
+      "sourceKey": "69214b9831723704c1edacc4",
+      "name": "Vaen Handle"
+    },
+    {
+      "category": "handle",
+      "id": "lord_vaen_scythe_pole",
+      "sourceKey": "69214b9831723704c1edacc8",
+      "name": "Lord Vaen Scythe Pole"
+    },
+    {
+      "category": "handle",
+      "id": "mungal_handle",
+      "sourceKey": "69214b9831723704c1edad1e",
+      "name": "Mungal Handle"
+    },
+    {
+      "category": "handle",
+      "id": "mungal_pole",
+      "sourceKey": "69214b9831723704c1edad44",
+      "name": "Mungal Pole"
+    },
+    {
+      "category": "handle",
+      "id": "spider_handle",
+      "sourceKey": "69214b9831723704c1edad28",
+      "name": "Spider Handle"
+    },
+    {
+      "category": "handle",
+      "id": "omega_lance_handle",
+      "sourceKey": "69214b9831723704c1edad46",
+      "name": "Omega Lance Handle"
+    },
+    {
+      "category": "handle",
+      "id": "freezing_bronze_handle",
+      "sourceKey": "69214b9831723704c1edad4c",
+      "name": "Freezing Bronze Handle"
+    },
+    {
+      "category": "handle",
+      "id": "icewood_pole",
+      "sourceKey": "69214b9831723704c1edad4e",
+      "name": "Icewood Pole"
+    },
+    {
+      "category": "helmet",
+      "id": "alchemical_band",
+      "sourceKey": "69214b9731723704c1eda624:section:2",
+      "name": "Alchemical Band"
+    },
+    {
+      "category": "chestplate",
+      "id": "alchemical_robes",
+      "sourceKey": "69214b9731723704c1eda624:section:3",
+      "name": "Alchemical Robes"
+    },
+    {
+      "category": "legging",
+      "id": "alchemical_pants",
+      "sourceKey": "69214b9731723704c1eda624:section:4",
+      "name": "Alchemical Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "altolodon_Helmet",
+      "sourceKey": "69214b9831723704c1edae90:section:2",
+      "name": "Altolodon Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "altolodon_shirt",
+      "sourceKey": "69214b9831723704c1edae90:section:3",
+      "name": "Altolodon Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "altolodon_pants",
+      "sourceKey": "69214b9831723704c1edae90:section:4",
+      "name": "Altolodon Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "animal_tamer_hat",
+      "sourceKey": "69214b9731723704c1edac10:section:2",
+      "name": "Animal Tamer Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "alchemical_tamer_shirt",
+      "sourceKey": "69214b9731723704c1edac10:section:3",
+      "name": "Animal Tamer Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "animal_tamer_pants",
+      "sourceKey": "69214b9731723704c1edac10:section:4",
+      "name": "Animal Tamer Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "Arachnid_Hood",
+      "sourceKey": "69214b9731723704c1eda6a2:section:2",
+      "name": "Arachnid Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "arachnid_Cloak",
+      "sourceKey": "69214b9731723704c1eda6a2:section:3",
+      "name": "Arachnid Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "arachnid_pants",
+      "sourceKey": "69214b9731723704c1eda6a2:section:4",
+      "name": "Arachnid Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "armored_mage_hat",
+      "sourceKey": "69214b9731723704c1eda1b0:section:2",
+      "name": "Armored Mage Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "armored_mage_shirt",
+      "sourceKey": "69214b9731723704c1eda1b0:section:3",
+      "name": "Armored Mage Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "armored_mage_pants",
+      "sourceKey": "69214b9731723704c1eda1b0:section:4",
+      "name": "Armored Mage Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "astro_iris_helmet",
+      "sourceKey": "69214b9731723704c1eda6f8:section:2",
+      "name": "Astro Iris Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "astro_iris_chestplate",
+      "sourceKey": "69214b9731723704c1eda6f8:section:3",
+      "name": "Astro Iris Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "astro_iris_leggings",
+      "sourceKey": "69214b9731723704c1eda6f8:section:4",
+      "name": "Astro Iris Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "astro_pajama_hat",
+      "sourceKey": "69214b9731723704c1eda176:section:2",
+      "name": "Astro-Pajama Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "astro_pajama_robes",
+      "sourceKey": "69214b9731723704c1eda176:section:3",
+      "name": "Astro-Pajama Robes"
+    },
+    {
+      "category": "legging",
+      "id": "astro_pajama_pants",
+      "sourceKey": "69214b9731723704c1eda176:section:4",
+      "name": "Astro-Pajama Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "atonement_helmet",
+      "sourceKey": "69214b9731723704c1edabae:section:2",
+      "name": "Atonement Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "atonement_chestplate",
+      "sourceKey": "69214b9731723704c1edabae:section:3",
+      "name": "Atonement Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "atonement_leggings",
+      "sourceKey": "69214b9731723704c1edabae:section:4",
+      "name": "Atonement Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "aviator_hat",
+      "sourceKey": "69214b9731723704c1eda6fa:section:2",
+      "name": "Aviator Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "aviator_Shirt",
+      "sourceKey": "69214b9731723704c1eda6fa:section:3",
+      "name": "Aviator Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "aviator_pants",
+      "sourceKey": "69214b9731723704c1eda6fa:section:4",
+      "name": "Aviator Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "backpack_berserker_helmet",
+      "sourceKey": "69214b9731723704c1eda200:section:2",
+      "name": "Backpack Berserker Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "backpack_berserker_chestplate",
+      "sourceKey": "69214b9731723704c1eda200:section:3",
+      "name": "Backpack Berserker Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "backpack_berserker_leggings",
+      "sourceKey": "69214b9731723704c1eda200:section:4",
+      "name": "Backpack Berserker Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "banker_hat",
+      "sourceKey": "69214b9831723704c1edac70:section:2",
+      "name": "Banker Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "banker_Shirt",
+      "sourceKey": "69214b9831723704c1edac70:section:3",
+      "name": "Banker Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "banker_pants",
+      "sourceKey": "69214b9831723704c1edac70:section:4",
+      "name": "Banker Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "bastion_guardian_head",
+      "sourceKey": "69214b9731723704c1edaba4:section:2",
+      "name": "Bastion Guardian Head"
+    },
+    {
+      "category": "chestplate",
+      "id": "bastion_guardian_body",
+      "sourceKey": "69214b9731723704c1edaba4:section:3",
+      "name": "Bastion Guardian Body"
+    },
+    {
+      "category": "legging",
+      "id": "bastion_guardian_legs",
+      "sourceKey": "69214b9731723704c1edaba4:section:4",
+      "name": "Bastion Guardian Legs"
+    },
+    {
+      "category": "helmet",
+      "id": "batty_helmet",
+      "sourceKey": "69214b9731723704c1eda9fc:section:2",
+      "name": "Batty Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "batty_chestplate",
+      "sourceKey": "69214b9731723704c1eda9fc:section:3",
+      "name": "Batty Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "batty_leggings",
+      "sourceKey": "69214b9731723704c1eda9fc:section:4",
+      "name": "Batty Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "batty_s_propeller_hat",
+      "sourceKey": "69214b9831723704c1edaea4:section:2",
+      "name": "Batty’s Propeller Hat"
+    },
+    {
+      "category": "helmet",
+      "id": "berserking_helmet",
+      "sourceKey": "69214b9731723704c1eda6fc:section:2",
+      "name": "Berserking Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "berserking_chestplate",
+      "sourceKey": "69214b9731723704c1eda6fc:section:3",
+      "name": "Berserking Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "berserking_leggings",
+      "sourceKey": "69214b9731723704c1eda6fc:section:4",
+      "name": "Berserking Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "blood_bumblz_helmet",
+      "sourceKey": "69214b9731723704c1eda620:section:2",
+      "name": "Blood Bumblz Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "blood_bumblz_chestplate",
+      "sourceKey": "69214b9731723704c1eda620:section:3",
+      "name": "Blood Bumblz Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "blood_bumblz_leggings",
+      "sourceKey": "69214b9731723704c1eda620:section:4",
+      "name": "Blood Bumblz Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "bomber_hat",
+      "sourceKey": "69214b9831723704c1edadc4:section:2",
+      "name": "Bomber Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "bomber_shirt",
+      "sourceKey": "69214b9831723704c1edadc4:section:3",
+      "name": "Bomber Shirt"
+    },
+    {
+      "category": "helmet",
+      "id": "bowldur_helmet",
+      "sourceKey": "69214b9731723704c1eda290:section:2",
+      "name": "Bowldur Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "bowldur_chestplate",
+      "sourceKey": "69214b9731723704c1eda290:section:3",
+      "name": "Bowldur Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "bowldur_leggings",
+      "sourceKey": "69214b9731723704c1eda290:section:4",
+      "name": "Bowldur Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "bowling_knight_helmet",
+      "sourceKey": "69214b9731723704c1eda6fe:section:2",
+      "name": "Bowling Knight Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "bowling_knight_chestplate",
+      "sourceKey": "69214b9731723704c1eda6fe:section:3",
+      "name": "Bowling Knight Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "bowling_knight_leggings",
+      "sourceKey": "69214b9731723704c1eda6fe:section:4",
+      "name": "Bowling Knight Leggings"
+    },
+    {
+      "category": "chestplate",
+      "id": "brain_burner_body",
+      "sourceKey": "69214b9831723704c1edacee:section:3",
+      "name": "Brain Burner Body"
+    },
+    {
+      "category": "legging",
+      "id": "brain_burner_legs",
+      "sourceKey": "69214b9831723704c1edacee:section:4",
+      "name": "Brain Burner Legs"
+    },
+    {
+      "category": "helmet",
+      "id": "bumblz_hat",
+      "sourceKey": "69214b9731723704c1eda700:section:2",
+      "name": "Bumblz Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "bumblz_shirt",
+      "sourceKey": "69214b9731723704c1eda700:section:3",
+      "name": "Bumblz Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "bumblz_pants",
+      "sourceKey": "69214b9731723704c1eda700:section:4",
+      "name": "Bumblz Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "buni_hood",
+      "sourceKey": "69214b9731723704c1eda15a:section:2",
+      "name": "Buni Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "buni_cloak",
+      "sourceKey": "69214b9731723704c1eda15a:section:3",
+      "name": "Buni Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "buni_pants",
+      "sourceKey": "69214b9731723704c1eda15a:section:4",
+      "name": "Buni Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "buni_prince_hood",
+      "sourceKey": "69214b9731723704c1edaa00:section:2",
+      "name": "Buni Prince Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "buni_prince_cloak",
+      "sourceKey": "69214b9731723704c1edaa00:section:3",
+      "name": "Buni Prince Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "buni_prince_pants",
+      "sourceKey": "69214b9731723704c1edaa00:section:4",
+      "name": "Buni Prince Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "caci_hood",
+      "sourceKey": "69214b9731723704c1eda702:section:2",
+      "name": "Caci Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "caci_cloak",
+      "sourceKey": "69214b9731723704c1eda702:section:3",
+      "name": "Caci Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "caci_pants",
+      "sourceKey": "69214b9731723704c1eda702:section:4",
+      "name": "Caci Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "caci_king_crown",
+      "sourceKey": "69214b9731723704c1eda6a4:section:2",
+      "name": "Caci King Crown"
+    },
+    {
+      "category": "chestplate",
+      "id": "caci_king_garments",
+      "sourceKey": "69214b9731723704c1eda6a4:section:3",
+      "name": "Caci King Garments"
+    },
+    {
+      "category": "legging",
+      "id": "caci_king_pants",
+      "sourceKey": "69214b9731723704c1eda6a4:section:4",
+      "name": "Caci King Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "civilian_hat",
+      "sourceKey": "69214b9731723704c1eda9f0:section:2",
+      "name": "Civilian Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "civilian_shirt",
+      "sourceKey": "69214b9731723704c1eda9f0:section:3",
+      "name": "Civilian Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "civilian_pants",
+      "sourceKey": "69214b9731723704c1eda9f0:section:4",
+      "name": "Civilian Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "coral_templar_helmet",
+      "sourceKey": "69214b9831723704c1edae2c:section:2",
+      "name": "Coral Templar Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "coral_templar_chestplate",
+      "sourceKey": "69214b9831723704c1edae2c:section:3",
+      "name": "Coral Templar Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "coral_templar_leggings",
+      "sourceKey": "69214b9831723704c1edae2c:section:4",
+      "name": "Coral Templar Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "cragstone_helmet",
+      "sourceKey": "69214b9731723704c1eda724:section:2",
+      "name": "Cragstone Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "cragstone_chestplate",
+      "sourceKey": "69214b9731723704c1eda724:section:3",
+      "name": "Cragstone Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "cragstone_leggings",
+      "sourceKey": "69214b9731723704c1eda724:section:4",
+      "name": "Cragstone Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "crazy_hare_hat",
+      "sourceKey": "69214b9731723704c1edaad6:section:2",
+      "name": "Crazy Hare Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "crazy_hare_shirt",
+      "sourceKey": "69214b9731723704c1edaad6:section:3",
+      "name": "Crazy Hare Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "crazy_hare_pants",
+      "sourceKey": "69214b9731723704c1edaad6:section:4",
+      "name": "Crazy Hare Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "crimson_rogue_crown",
+      "sourceKey": "69214b9731723704c1eda60e:section:2",
+      "name": "Crimson Rogue Crown"
+    },
+    {
+      "category": "chestplate",
+      "id": "crimson_rogue_cloak",
+      "sourceKey": "69214b9731723704c1eda60e:section:3",
+      "name": "Crimson Rogue Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "crimson_rogue_pants",
+      "sourceKey": "69214b9731723704c1eda60e:section:4",
+      "name": "Crimson Rogue Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "croakernaut_helmet",
+      "sourceKey": "69214b9831723704c1edadbe:section:2",
+      "name": "Croakernaut Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "croakernaut_chestplate",
+      "sourceKey": "69214b9831723704c1edadbe:section:3",
+      "name": "Croakernaut Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "croakernaut_leggings",
+      "sourceKey": "69214b9831723704c1edadbe:section:4",
+      "name": "Croakernaut Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "cryosteel_helmet",
+      "sourceKey": "69214b9731723704c1eda726:section:2",
+      "name": "Cryosteel Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "cryosteel_chestplate",
+      "sourceKey": "69214b9731723704c1eda726:section:3",
+      "name": "Cryosteel Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "cryosteel_leggings",
+      "sourceKey": "69214b9731723704c1eda726:section:4",
+      "name": "Cryosteel Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "curse_flame_mask",
+      "sourceKey": "69214b9731723704c1eda728:section:2",
+      "name": "Curse Flame Mask"
+    },
+    {
+      "category": "chestplate",
+      "id": "curse_flame_cloak",
+      "sourceKey": "69214b9731723704c1eda728:section:3",
+      "name": "Curse Flame Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "curse_flame_pants",
+      "sourceKey": "69214b9731723704c1eda728:section:4",
+      "name": "Curse Flame Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "dandelion_knight_helmet",
+      "sourceKey": "69214b9731723704c1eda72a:section:2",
+      "name": "Dandelion Knight Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "dandelion_knight_chestplate",
+      "sourceKey": "69214b9731723704c1eda72a:section:3",
+      "name": "Dandelion Knight Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "dandelion_knight_leggings",
+      "sourceKey": "69214b9731723704c1eda72a:section:4",
+      "name": "Dandelion Knight Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "deathmist_knight_helmet",
+      "sourceKey": "69214b9831723704c1edac3e:section:2",
+      "name": "Deathmist Knight Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "deathmist_knight_chestplate",
+      "sourceKey": "69214b9831723704c1edac3e:section:3",
+      "name": "Deathmist Knight Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "deathmist_knight_leggings",
+      "sourceKey": "69214b9831723704c1edac3e:section:4",
+      "name": "Deathmist Knight Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "deep_spider_tricorne",
+      "sourceKey": "69214b9831723704c1edacf6:section:2",
+      "name": "Deep Spider Tricorne"
+    },
+    {
+      "category": "chestplate",
+      "id": "deep_spider_cloak",
+      "sourceKey": "69214b9831723704c1edacf6:section:3",
+      "name": "Deep Spider Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "deep_spider_pants",
+      "sourceKey": "69214b9831723704c1edacf6:section:4",
+      "name": "Deep Spider Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "deepcrystal_gaze",
+      "sourceKey": "69214b9831723704c1edac42:section:2",
+      "name": "Deepcrystal Gaze"
+    },
+    {
+      "category": "chestplate",
+      "id": "deepcrystal_dress",
+      "sourceKey": "69214b9831723704c1edac42:section:3",
+      "name": "Deepcrystal Dress"
+    },
+    {
+      "category": "legging",
+      "id": "deepcrystal_pants",
+      "sourceKey": "69214b9831723704c1edac42:section:4",
+      "name": "Deepcrystal Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "deepsteel_helmet",
+      "sourceKey": "69214b9731723704c1edaa12:section:2",
+      "name": "Deepsteel Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "deepsteel_chestplate",
+      "sourceKey": "69214b9731723704c1edaa12:section:3",
+      "name": "Deepsteel Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "deepsteel_leggings",
+      "sourceKey": "69214b9731723704c1edaa12:section:4",
+      "name": "Deepsteel Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "delta_spider_helmet",
+      "sourceKey": "69214b9831723704c1edacf8:section:2",
+      "name": "Delta Spider Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "delta_spider_chestplate",
+      "sourceKey": "69214b9831723704c1edacf8:section:3",
+      "name": "Delta Spider Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "delta_spider_leggings",
+      "sourceKey": "69214b9831723704c1edacf8:section:4",
+      "name": "Delta Spider Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "desert_battle_mage_hat",
+      "sourceKey": "69214b9731723704c1eda72c:section:2",
+      "name": "Desert Battle Mage Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "desert_battle_mage_shirt",
+      "sourceKey": "69214b9731723704c1eda72c:section:3",
+      "name": "Desert Battle Mage Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "desert_battle_mage_pants",
+      "sourceKey": "69214b9731723704c1eda72c:section:4",
+      "name": "Desert Battle Mage Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "desert_champion_helmet",
+      "sourceKey": "69214b9731723704c1eda72e:section:2",
+      "name": "Desert Champion Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "desert_champion_chestplate",
+      "sourceKey": "69214b9731723704c1eda72e:section:3",
+      "name": "Desert Champion Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "desert_champion_leggings",
+      "sourceKey": "69214b9731723704c1eda72e:section:4",
+      "name": "Desert Champion Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "desert_explorer_hood",
+      "sourceKey": "69214b9731723704c1eda208:section:2",
+      "name": "Desert Explorer Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "desert_explorer_cloak",
+      "sourceKey": "69214b9731723704c1eda208:section:3",
+      "name": "Desert Explorer Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "desert_explorer_pants",
+      "sourceKey": "69214b9731723704c1eda208:section:4",
+      "name": "Desert Explorer Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "dire_buni_hood",
+      "sourceKey": "69214b9731723704c1eda174:section:2",
+      "name": "Dire Buni Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "dire_buni_cloak",
+      "sourceKey": "69214b9731723704c1eda174:section:3",
+      "name": "Dire Buni Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "dire_buni_pants",
+      "sourceKey": "69214b9731723704c1eda174:section:4",
+      "name": "Dire Buni Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "divine_infantry_helmet",
+      "sourceKey": "69214b9731723704c1eda214:section:2",
+      "name": "Divine Infantry Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "divine_infantry_chestplate",
+      "sourceKey": "69214b9731723704c1eda214:section:3",
+      "name": "Divine Infantry Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "divine_infantry_leggings",
+      "sourceKey": "69214b9731723704c1eda214:section:4",
+      "name": "Divine Infantry Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "dragigator_helmet",
+      "sourceKey": "69214b9731723704c1eda524:section:2",
+      "name": "Dragigator Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "dragigator_chestplate",
+      "sourceKey": "69214b9731723704c1eda524:section:3",
+      "name": "Dragigator Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "dragigator_leggings",
+      "sourceKey": "69214b9731723704c1eda524:section:4",
+      "name": "Dragigator Leggings"
+    },
+    {
+      "category": "chestplate",
+      "id": "dragon_soul_jacket",
+      "sourceKey": "69214b9731723704c1eda730:section:3",
+      "name": "Dragon Soul Jacket"
+    },
+    {
+      "category": "legging",
+      "id": "dragon_soul_pants",
+      "sourceKey": "69214b9731723704c1eda730:section:4",
+      "name": "Dragon Soul Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "dragon_spirit_mark",
+      "sourceKey": "69214b9731723704c1eda9ec:section:2",
+      "name": "Dragon Spirit Mark"
+    },
+    {
+      "category": "chestplate",
+      "id": "dragon_spirit_jacket",
+      "sourceKey": "69214b9731723704c1eda9ec:section:3",
+      "name": "Dragon Spirit Jacket"
+    },
+    {
+      "category": "legging",
+      "id": "dragon_spirit_pants",
+      "sourceKey": "69214b9731723704c1eda9ec:section:4",
+      "name": "Dragon Spirit Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "dreadful_lift_helmet",
+      "sourceKey": "69214b9831723704c1edad04:section:2",
+      "name": "Dreadful Lift Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "dreadful_lift_chestplate",
+      "sourceKey": "69214b9831723704c1edad04:section:3",
+      "name": "Dreadful Lift Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "dreadful_lift_leggings",
+      "sourceKey": "69214b9831723704c1edad04:section:4",
+      "name": "Dreadful Lift Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "drone_hat",
+      "sourceKey": "69214b9731723704c1eda732:section:2",
+      "name": "Drone Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "drone_chestplate",
+      "sourceKey": "69214b9731723704c1eda732:section:3",
+      "name": "Drone Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "drone_leggings",
+      "sourceKey": "69214b9731723704c1eda732:section:4",
+      "name": "Drone Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "dunefang_helmet",
+      "sourceKey": "69214b9731723704c1edab4e:section:2",
+      "name": "Dunefang Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "dunefang_chestplate",
+      "sourceKey": "69214b9731723704c1edab4e:section:3",
+      "name": "Dunefang Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "dunefang_legging",
+      "sourceKey": "69214b9731723704c1edab4e:section:4",
+      "name": "Dunefang Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "ember_guardian_helmet",
+      "sourceKey": "69214b9731723704c1eda288:section:2",
+      "name": "Ember Guardian Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "ember_guardian_chestplate",
+      "sourceKey": "69214b9731723704c1eda288:section:3",
+      "name": "Ember Guardian Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "ember_guardian_leggings",
+      "sourceKey": "69214b9731723704c1eda288:section:4",
+      "name": "Ember Guardian Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "ember_mage_hood",
+      "sourceKey": "69214b9731723704c1eda734:section:2",
+      "name": "Ember Mage Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "ember_mage_cloak",
+      "sourceKey": "69214b9731723704c1eda734:section:3",
+      "name": "Ember Mage Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "ember_mage_pants",
+      "sourceKey": "69214b9731723704c1eda734:section:4",
+      "name": "Ember Mage Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "experimental_froggmail_helmet",
+      "sourceKey": "69214b9731723704c1eda736:section:2",
+      "name": "Experimental Froggmail Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "experimental_froggmail_chestplate",
+      "sourceKey": "69214b9731723704c1eda736:section:3",
+      "name": "Experimental Froggmail Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "experimental_froggmail_leggings",
+      "sourceKey": "69214b9731723704c1eda736:section:4",
+      "name": "Experimental Froggmail Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "fallen_seraph_helmet",
+      "sourceKey": "69214b9831723704c1edacb8:section:2",
+      "name": "Fallen Seraph Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "fallen_seraph_chestplate",
+      "sourceKey": "69214b9831723704c1edacb8:section:3",
+      "name": "Fallen Seraph Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "fallen_seraph_leggings",
+      "sourceKey": "69214b9831723704c1edacb8:section:4",
+      "name": "Fallen Seraph Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "false_idol_helmet",
+      "sourceKey": "69214b9731723704c1edabb6:section:2",
+      "name": "False Idol Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "false_idol_chestplate",
+      "sourceKey": "69214b9731723704c1edabb6:section:3",
+      "name": "False Idol Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "false_idol_leggings",
+      "sourceKey": "69214b9731723704c1edabb6:section:4",
+      "name": "False Idol Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "floral_duelist_hat",
+      "sourceKey": "69214b9831723704c1edacea:section:2",
+      "name": "Floral Duelist Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "floral_duelist_shirt",
+      "sourceKey": "69214b9831723704c1edacea:section:3",
+      "name": "Floral Duelist Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "floral_duelist_pants",
+      "sourceKey": "69214b9831723704c1edacea:section:4",
+      "name": "Floral Duelist Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "flower_scout_hat",
+      "sourceKey": "69214b9731723704c1eda20c:section:2",
+      "name": "Flower Scout Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "flower_scout_shirt",
+      "sourceKey": "69214b9731723704c1eda20c:section:3",
+      "name": "Flower Scout Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "flower_scout_pants",
+      "sourceKey": "69214b9731723704c1eda20c:section:4",
+      "name": "Flower Scout Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "flowering_cowboy_hat",
+      "sourceKey": "69214b9831723704c1edade4:section:2",
+      "name": "Flowering Cowboy Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "flowering_cowboy_shirt",
+      "sourceKey": "69214b9831723704c1edade4:section:3",
+      "name": "Flowering Cowboy Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "flowering_cowboy_pants",
+      "sourceKey": "69214b9831723704c1edade4:section:4",
+      "name": "Flowering Cowboy Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "fragrant_piercings",
+      "sourceKey": "69214b9831723704c1edaea8:section:2",
+      "name": "Fragrant Piercings"
+    },
+    {
+      "category": "helmet",
+      "id": "frogg_hat",
+      "sourceKey": "69214b9731723704c1eda526:section:2",
+      "name": "Frogg Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "frogg_shirt",
+      "sourceKey": "69214b9731723704c1eda526:section:3",
+      "name": "Frogg Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "frogg_pants",
+      "sourceKey": "69214b9731723704c1eda526:section:4",
+      "name": "Frogg Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "fungus_mage_hood",
+      "sourceKey": "69214b9731723704c1eda1a0:section:2",
+      "name": "Fungus Mage Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "fungus_mage_robes",
+      "sourceKey": "69214b9731723704c1eda1a0:section:3",
+      "name": "Fungus Mage Robes"
+    },
+    {
+      "category": "legging",
+      "id": "fungus_mage_pants",
+      "sourceKey": "69214b9731723704c1eda1a0:section:4",
+      "name": "Fungus Mage Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "fusillade_diver_helmet",
+      "sourceKey": "69214b9831723704c1edacda:section:2",
+      "name": "Fusillade Diver Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "fusillade_diver_chestplate",
+      "sourceKey": "69214b9831723704c1edacda:section:3",
+      "name": "Fusillade Diver Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "fusillade_diver_leggings",
+      "sourceKey": "69214b9831723704c1edacda:section:4",
+      "name": "Fusillade Diver Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "galactic_graviturgy_helmet",
+      "sourceKey": "69214b9831723704c1edae34:section:2",
+      "name": "Galactic Graviturgy Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "galactic_graviturgy_chestplate",
+      "sourceKey": "69214b9831723704c1edae34:section:3",
+      "name": "Galactic Graviturgy Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "galactic_graviturgy_leggings",
+      "sourceKey": "69214b9831723704c1edae34:section:4",
+      "name": "Galactic Graviturgy Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "gale_wanderer_helmet",
+      "sourceKey": "69214b9731723704c1eda308:section:2",
+      "name": "Gale Wanderer Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "gale_wanderer_cloak",
+      "sourceKey": "69214b9731723704c1eda308:section:3",
+      "name": "Gale Wanderer Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "gale_wanderer_pants",
+      "sourceKey": "69214b9731723704c1eda308:section:4",
+      "name": "Gale Wanderer Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "gemstone_crown",
+      "sourceKey": "69214b9731723704c1eda738:section:2",
+      "name": "Gemstone Crown"
+    },
+    {
+      "category": "chestplate",
+      "id": "gemstone_robe",
+      "sourceKey": "69214b9731723704c1eda738:section:3",
+      "name": "Gemstone Robe"
+    },
+    {
+      "category": "legging",
+      "id": "gemstone_pants",
+      "sourceKey": "69214b9731723704c1eda738:section:4",
+      "name": "Gemstone Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "glacial_snapper_helmet",
+      "sourceKey": "69214b9731723704c1eda73a:section:2",
+      "name": "Glacial Snapper Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "glacial_snapper_chestplate",
+      "sourceKey": "69214b9731723704c1eda73a:section:3",
+      "name": "Glacial Snapper Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "glacial_snapper_leggings",
+      "sourceKey": "69214b9731723704c1eda73a:section:4",
+      "name": "Glacial Snapper Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "gladiator_mask",
+      "sourceKey": "69214b9731723704c1eda294:section:2",
+      "name": "Gladiator Mask"
+    },
+    {
+      "category": "chestplate",
+      "id": "gladiator_chestplate",
+      "sourceKey": "69214b9731723704c1eda294:section:3",
+      "name": "Gladiator Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "gladiator_legging",
+      "sourceKey": "69214b9731723704c1eda294:section:4",
+      "name": "Gladiator Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "goodguy_band",
+      "sourceKey": "69214b9731723704c1eda73c:section:2",
+      "name": "Goodguy Band"
+    },
+    {
+      "category": "chestplate",
+      "id": "goodguy_jacket",
+      "sourceKey": "69214b9731723704c1eda73c:section:3",
+      "name": "Goodguy Jacket"
+    },
+    {
+      "category": "legging",
+      "id": "goodguy_pants",
+      "sourceKey": "69214b9731723704c1eda73c:section:4",
+      "name": "Goodguy Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "gremlin_helmet",
+      "sourceKey": "69214b9731723704c1eda28c:section:2",
+      "name": "Gremlin Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "gremlin_chestplate",
+      "sourceKey": "69214b9731723704c1eda28c:section:3",
+      "name": "Gremlin Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "gremlin_leggings",
+      "sourceKey": "69214b9731723704c1eda28c:section:4",
+      "name": "Gremlin Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "gremlinancer_hat",
+      "sourceKey": "69214b9731723704c1eda28e:section:2",
+      "name": "Gremlinancer Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "gremlinancer_shirt",
+      "sourceKey": "69214b9731723704c1eda28e:section:3",
+      "name": "Gremlinancer Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "gremlinancer_pants",
+      "sourceKey": "69214b9731723704c1eda28e:section:4",
+      "name": "Gremlinancer Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "gunslinger_hat",
+      "sourceKey": "69214b9731723704c1eda73e:section:2",
+      "name": "Gunslinger Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "gunslinger_shirt",
+      "sourceKey": "69214b9731723704c1eda73e:section:3",
+      "name": "Gunslinger Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "gunslinger_pants",
+      "sourceKey": "69214b9731723704c1eda73e:section:4",
+      "name": "Gunslinger Pants"
+    },
+    {
+      "category": "legging",
+      "id": "heavy_boots",
+      "sourceKey": "69214b9831723704c1edaefc:section:2",
+      "name": "Heavy Boots"
+    },
+    {
+      "category": "helmet",
+      "id": "hex_magician_hat",
+      "sourceKey": "69214b9731723704c1eda740:section:2",
+      "name": "Hex Magician Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "hex_magician_shirt",
+      "sourceKey": "69214b9731723704c1eda740:section:3",
+      "name": "Hex Magician Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "hex_magician_pants",
+      "sourceKey": "69214b9731723704c1eda740:section:4",
+      "name": "Hex Magician Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "holy_robe_hood",
+      "sourceKey": "69214b9731723704c1eda17c:section:2",
+      "name": "Holy Robe Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "holy_robe_cloak",
+      "sourceKey": "69214b9731723704c1eda17c:section:3",
+      "name": "Holy Robe Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "holy_robe_pants",
+      "sourceKey": "69214b9731723704c1eda17c:section:4",
+      "name": "Holy Robe Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "honeysteel_helmet",
+      "sourceKey": "69214b9731723704c1eda742:section:2",
+      "name": "Honeysteel Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "honeysteel_chestplate",
+      "sourceKey": "69214b9731723704c1eda742:section:3",
+      "name": "Honeysteel Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "honeysteel_leggings",
+      "sourceKey": "69214b9731723704c1eda742:section:4",
+      "name": "Honeysteel Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "hypnotist_hat",
+      "sourceKey": "69214b9731723704c1edab52:section:2",
+      "name": "Hypnotist Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "hypnotist_suit",
+      "sourceKey": "69214b9731723704c1edab52:section:3",
+      "name": "Hypnotist Suit"
+    },
+    {
+      "category": "legging",
+      "id": "hypnotist_pants",
+      "sourceKey": "69214b9731723704c1edab52:section:4",
+      "name": "Hypnotist Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "infused_knight_helmet",
+      "sourceKey": "69214b9731723704c1eda744:section:2",
+      "name": "Infused Knight Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "infused_knight_chestplate",
+      "sourceKey": "69214b9731723704c1eda744:section:3",
+      "name": "Infused Knight Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "infused_knight_leggings",
+      "sourceKey": "69214b9731723704c1eda744:section:4",
+      "name": "Infused Knight Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "investigator_hat",
+      "sourceKey": "69214b9731723704c1eda1e2:section:2",
+      "name": "InvestiGATOR Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "investigator_shirt",
+      "sourceKey": "69214b9731723704c1eda1e2:section:3",
+      "name": "InvestiGATOR Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "investigator_pants",
+      "sourceKey": "69214b9731723704c1eda1e2:section:4",
+      "name": "InvestiGATOR Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "iron_slayer_helmet",
+      "sourceKey": "69214b9731723704c1eda20a:section:2",
+      "name": "Iron Slayer Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "ironslayer_chestplate",
+      "sourceKey": "69214b9731723704c1eda20a:section:3",
+      "name": "Iron Slayer Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "ironslayer_legging",
+      "sourceKey": "69214b9731723704c1eda20a:section:4",
+      "name": "Iron Slayer Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "jerry_hat",
+      "sourceKey": "69214b9831723704c1edae66:section:2",
+      "name": "Jerry Hat"
+    },
+    {
+      "category": "helmet",
+      "id": "king_carp_hat",
+      "sourceKey": "69214b9831723704c1edac38:section:2",
+      "name": "King Carp Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "king_carp_chestplate",
+      "sourceKey": "69214b9831723704c1edac38:section:3",
+      "name": "King Carp Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "king_carp_leggings",
+      "sourceKey": "69214b9831723704c1edac38:section:4",
+      "name": "King Carp Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "knight_helmet",
+      "sourceKey": "69214b9731723704c1eda2a0:section:2",
+      "name": "Knight Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "knight_chestplate",
+      "sourceKey": "69214b9731723704c1eda2a0:section:3",
+      "name": "Knight Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "knight_leggings",
+      "sourceKey": "69214b9731723704c1eda2a0:section:4",
+      "name": "Knight Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "last_seraph_helmet",
+      "sourceKey": "69214b9731723704c1eda97a:section:2",
+      "name": "Last Seraph Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "last_seraph_chestplate",
+      "sourceKey": "69214b9731723704c1eda97a:section:3",
+      "name": "Last Seraph Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "last_seraph_leggings",
+      "sourceKey": "69214b9731723704c1eda97a:section:4",
+      "name": "Last Seraph Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "lich_king_crown",
+      "sourceKey": "69214b9731723704c1eda27e:section:2",
+      "name": "Lich King Crown"
+    },
+    {
+      "category": "chestplate",
+      "id": "lich_king_chestplate",
+      "sourceKey": "69214b9731723704c1eda27e:section:3",
+      "name": "Lich King Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "lich_king_pants",
+      "sourceKey": "69214b9731723704c1eda27e:section:4",
+      "name": "Lich King Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "lilimonster_blossom",
+      "sourceKey": "69214b9731723704c1edab90:section:2",
+      "name": "Lilimonster Blossom"
+    },
+    {
+      "category": "chestplate",
+      "id": "lilimonster_body",
+      "sourceKey": "69214b9731723704c1edab90:section:3",
+      "name": "Lilimonster Body"
+    },
+    {
+      "category": "legging",
+      "id": "lilimonster_legs",
+      "sourceKey": "69214b9731723704c1edab90:section:4",
+      "name": "Lilimonster Legs"
+    },
+    {
+      "category": "helmet",
+      "id": "lodestone_monk_mask",
+      "sourceKey": "69214b9731723704c1eda746:section:2",
+      "name": "Lodestone Monk Mask"
+    },
+    {
+      "category": "chestplate",
+      "id": "lodestone_monk_robes",
+      "sourceKey": "69214b9731723704c1eda746:section:3",
+      "name": "Lodestone Monk Robes"
+    },
+    {
+      "category": "legging",
+      "id": "lodestone_monk_pants",
+      "sourceKey": "69214b9731723704c1eda746:section:4",
+      "name": "Lodestone Monk Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "lone_samurai_eyepatch",
+      "sourceKey": "69214b9731723704c1eda29a:section:2",
+      "name": "Lone Samurai Eyepatch"
+    },
+    {
+      "category": "chestplate",
+      "id": "lone_samurai_jacket",
+      "sourceKey": "69214b9731723704c1eda29a:section:3",
+      "name": "Lone Samurai Jacket"
+    },
+    {
+      "category": "legging",
+      "id": "lone_samurai_pants",
+      "sourceKey": "69214b9731723704c1eda29a:section:4",
+      "name": "Lone Samurai Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "looters_hat",
+      "sourceKey": "69214b9731723704c1eda256:section:2",
+      "name": "Looters Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "looters_shirt",
+      "sourceKey": "69214b9731723704c1eda256:section:3",
+      "name": "Looters Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "looters_pants",
+      "sourceKey": "69214b9731723704c1eda256:section:4",
+      "name": "Looters Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "lord_dung_helmet",
+      "sourceKey": "69214b9731723704c1eda748:section:2",
+      "name": "Lord Dung Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "lord_dung_chestplate",
+      "sourceKey": "69214b9731723704c1eda748:section:3",
+      "name": "Lord Dung Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "lord_dung_leggings",
+      "sourceKey": "69214b9731723704c1eda748:section:4",
+      "name": "Lord Dung Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "lord_frogg_helmet",
+      "sourceKey": "69214b9731723704c1eda74a:section:2",
+      "name": "Lord Frogg Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "lord_frogg_chestplate",
+      "sourceKey": "69214b9731723704c1eda74a:section:3",
+      "name": "Lord Frogg Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "lord_frogg_leggings",
+      "sourceKey": "69214b9731723704c1eda74a:section:4",
+      "name": "Lord Frogg Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "mad_mage_hood",
+      "sourceKey": "69214b9731723704c1edabb2:section:2",
+      "name": "Mad Mage Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "mad_mage_cloak",
+      "sourceKey": "69214b9731723704c1edabb2:section:3",
+      "name": "Mad Mage Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "mad_mage_pants",
+      "sourceKey": "69214b9731723704c1edabb2:section:4",
+      "name": "Mad Mage Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "mageling_hood",
+      "sourceKey": "69214b9731723704c1eda74c:section:2",
+      "name": "Mageling Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "mageling_cloak",
+      "sourceKey": "69214b9731723704c1eda74c:section:3",
+      "name": "Mageling Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "mageling_pants",
+      "sourceKey": "69214b9731723704c1eda74c:section:4",
+      "name": "Mageling Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "mines_captain_hat",
+      "sourceKey": "69214b9831723704c1edacde:section:2",
+      "name": "Mines Captain Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "mines_captain_shirt",
+      "sourceKey": "69214b9831723704c1edacde:section:3",
+      "name": "Mines Captain Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "mines_captain_pants",
+      "sourceKey": "69214b9831723704c1edacde:section:4",
+      "name": "Mines Captain Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "mischievous_mask",
+      "sourceKey": "69214b9731723704c1eda74e:section:2",
+      "name": "Mischievous Mask"
+    },
+    {
+      "category": "chestplate",
+      "id": "muscles_of_the_wrestler",
+      "sourceKey": "69214b9831723704c1edae74:section:2",
+      "name": "MUSCLES OF THE WRESTLER"
+    },
+    {
+      "category": "chestplate",
+      "id": "mushell",
+      "sourceKey": "69214b9831723704c1edaeca:section:2",
+      "name": "Mushell"
+    },
+    {
+      "category": "helmet",
+      "id": "nectar_knight_visor",
+      "sourceKey": "69214b9731723704c1eda750:section:2",
+      "name": "Nectar Knight Visor"
+    },
+    {
+      "category": "chestplate",
+      "id": "nectar_knight_chestplate",
+      "sourceKey": "69214b9731723704c1eda750:section:3",
+      "name": "Nectar Knight Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "nectar_knight_leggings",
+      "sourceKey": "69214b9731723704c1eda750:section:4",
+      "name": "Nectar Knight Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "ninja_headwear",
+      "sourceKey": "69214b9731723704c1eda21e:section:2",
+      "name": "Ninja Headwear"
+    },
+    {
+      "category": "chestplate",
+      "id": "ninja_garb",
+      "sourceKey": "69214b9731723704c1eda21e:section:3",
+      "name": "Ninja Garb"
+    },
+    {
+      "category": "legging",
+      "id": "ninja_pants",
+      "sourceKey": "69214b9731723704c1eda21e:section:4",
+      "name": "Ninja Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "nomad_kasa",
+      "sourceKey": "69214b9731723704c1eda298:section:2",
+      "name": "Nomad Kasa"
+    },
+    {
+      "category": "chestplate",
+      "id": "nomad_shirt",
+      "sourceKey": "69214b9731723704c1eda298:section:3",
+      "name": "Nomad Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "nomad_pants",
+      "sourceKey": "69214b9731723704c1eda298:section:4",
+      "name": "Nomad Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "northern_innovator_helmet",
+      "sourceKey": "69214b9831723704c1edace4:section:2",
+      "name": "Northern Innovator Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "northern_innovator_chestplate",
+      "sourceKey": "69214b9831723704c1edace4:section:3",
+      "name": "Northern Innovator Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "northern_innovator_leggings",
+      "sourceKey": "69214b9831723704c1edace4:section:4",
+      "name": "Northern Innovator Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "northern_miner_hat",
+      "sourceKey": "69214b9831723704c1edacd4:section:2",
+      "name": "Northern Miner Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "northern_miner_shirt",
+      "sourceKey": "69214b9831723704c1edacd4:section:3",
+      "name": "Northern Miner Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "northern_miner_pants",
+      "sourceKey": "69214b9831723704c1edacd4:section:4",
+      "name": "Northern Miner Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "ocean_guardian_helmet",
+      "sourceKey": "69214b9731723704c1eda752:section:2",
+      "name": "Ocean Guardian Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "ocean_guardian_chestplate",
+      "sourceKey": "69214b9731723704c1eda752:section:3",
+      "name": "Ocean Guardian Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "ocean_guardian_leggings",
+      "sourceKey": "69214b9731723704c1eda752:section:4",
+      "name": "Ocean Guardian Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "old_knight_helmet",
+      "sourceKey": "69214b9831723704c1edad08:section:2",
+      "name": "Old Knight Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "old_knight_chestplate",
+      "sourceKey": "69214b9831723704c1edad08:section:3",
+      "name": "Old Knight Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "old_knight_leggings",
+      "sourceKey": "69214b9831723704c1edad08:section:4",
+      "name": "Old Knight Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "omega_batty_helmet",
+      "sourceKey": "69214b9831723704c1edace6:section:2",
+      "name": "Omega-Batty Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "omegabatty_chestplate",
+      "sourceKey": "69214b9831723704c1edace6:section:3",
+      "name": "Omega-Batty Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "omegabatty_legging",
+      "sourceKey": "69214b9831723704c1edace6:section:4",
+      "name": "Omega-Batty Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "omen_bearer_hat",
+      "sourceKey": "69214b9731723704c1eda202:section:2",
+      "name": "Omen Bearer Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "omen_bearer_cloak",
+      "sourceKey": "69214b9731723704c1eda202:section:3",
+      "name": "Omen Bearer Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "omen_bearer_pants",
+      "sourceKey": "69214b9731723704c1eda202:section:4",
+      "name": "Omen Bearer Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "plains_woof_hood",
+      "sourceKey": "69214b9731723704c1eda2ca:section:2",
+      "name": "Plains Woof Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "plains_woof_cloak",
+      "sourceKey": "69214b9731723704c1eda2ca:section:3",
+      "name": "Plains Woof Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "plains_woof_pants",
+      "sourceKey": "69214b9731723704c1eda2ca:section:4",
+      "name": "Plains Woof Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "prisoner_helmet",
+      "sourceKey": "69214b9731723704c1eda204:section:2",
+      "name": "Prisoner Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "prisoner_shirt",
+      "sourceKey": "69214b9731723704c1eda204:section:3",
+      "name": "Prisoner Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "prisoner_pants",
+      "sourceKey": "69214b9731723704c1eda204:section:4",
+      "name": "Prisoner Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "profane_hood",
+      "sourceKey": "69214b9731723704c1edab9a:section:2",
+      "name": "Profane Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "profane_robes",
+      "sourceKey": "69214b9731723704c1edab9a:section:3",
+      "name": "Profane Robes"
+    },
+    {
+      "category": "legging",
+      "id": "profane_pants",
+      "sourceKey": "69214b9731723704c1edab9a:section:4",
+      "name": "Profane Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "proto_mungus_helmet",
+      "sourceKey": "69214b9831723704c1edad2c:section:2",
+      "name": "Proto-Mungus Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "proto_mungus_chestplate",
+      "sourceKey": "69214b9831723704c1edad2c:section:3",
+      "name": "Proto-Mungus Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "proto_mungus_leggings",
+      "sourceKey": "69214b9831723704c1edad2c:section:4",
+      "name": "Proto-Mungus Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "puffball_hat",
+      "sourceKey": "69214b9831723704c1edad30:section:2",
+      "name": "Puffball Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "puffball_shirt",
+      "sourceKey": "69214b9831723704c1edad30:section:3",
+      "name": "Puffball Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "puffball_pants",
+      "sourceKey": "69214b9831723704c1edad30:section:4",
+      "name": "Puffball Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "pyre_druid_hood",
+      "sourceKey": "69214b9831723704c1edae30:section:2",
+      "name": "Pyre Druid Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "pyre_druid_cloak",
+      "sourceKey": "69214b9831723704c1edae30:section:3",
+      "name": "Pyre Druid Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "pyre_druid_pants",
+      "sourceKey": "69214b9831723704c1edae30:section:4",
+      "name": "Pyre Druid Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "queen_bumblz_visor",
+      "sourceKey": "69214b9731723704c1eda69e:section:2",
+      "name": "Queen Bumblz Visor"
+    },
+    {
+      "category": "chestplate",
+      "id": "queen_bumblz_chestplate",
+      "sourceKey": "69214b9731723704c1eda69e:section:3",
+      "name": "Queen Bumblz Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "queen_bumblz_leggings",
+      "sourceKey": "69214b9731723704c1eda69e:section:4",
+      "name": "Queen Bumblz Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "queen_bumblz_antennae",
+      "sourceKey": "69214b9831723704c1edaee6:section:2",
+      "name": "Queen Bumblz Antennae"
+    },
+    {
+      "category": "helmet",
+      "id": "radiant_laurels",
+      "sourceKey": "69214b9831723704c1edaed6:section:2",
+      "name": "Radiant Laurels"
+    },
+    {
+      "category": "helmet",
+      "id": "reaperninja_hood",
+      "sourceKey": "69214b9731723704c1eda212:section:2",
+      "name": "Reaper Ninja Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "reaperninja_cloak",
+      "sourceKey": "69214b9731723704c1eda212:section:3",
+      "name": "Reaper Ninja Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "reaperninja_pants",
+      "sourceKey": "69214b9731723704c1eda212:section:4",
+      "name": "Reaper Ninja Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "redsky_saint_helmet",
+      "sourceKey": "69214b9831723704c1edacb4:section:2",
+      "name": "Redsky Saint Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "redsky_saint_robes",
+      "sourceKey": "69214b9831723704c1edacb4:section:3",
+      "name": "Redsky Saint Robes"
+    },
+    {
+      "category": "legging",
+      "id": "redsky_saint_pants",
+      "sourceKey": "69214b9831723704c1edacb4:section:4",
+      "name": "Redsky Saint Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "relic_jewel",
+      "sourceKey": "69214b9831723704c1edaeb4:section:2",
+      "name": "Relic Jewel"
+    },
+    {
+      "category": "helmet",
+      "id": "revved_helmet",
+      "sourceKey": "69214b9731723704c1eda756:section:2",
+      "name": "Revved Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "revved_chestplate",
+      "sourceKey": "69214b9731723704c1eda756:section:3",
+      "name": "Revved Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "revved_leggings",
+      "sourceKey": "69214b9731723704c1eda756:section:4",
+      "name": "Revved Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "riptide_crown",
+      "sourceKey": "69214b9731723704c1eda20e:section:2",
+      "name": "Riptide Crown"
+    },
+    {
+      "category": "chestplate",
+      "id": "riptide_shirt",
+      "sourceKey": "69214b9731723704c1eda20e:section:3",
+      "name": "Riptide Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "riptide_pants",
+      "sourceKey": "69214b9731723704c1eda20e:section:4",
+      "name": "Riptide Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "rock_hare_jaw",
+      "sourceKey": "69214b9731723704c1eda758:section:2",
+      "name": "Rock Hare Jaw"
+    },
+    {
+      "category": "chestplate",
+      "id": "rock_hare_chestplate",
+      "sourceKey": "69214b9731723704c1eda758:section:3",
+      "name": "Rock Hare Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "rock_hare_leggings",
+      "sourceKey": "69214b9731723704c1eda758:section:4",
+      "name": "Rock Hare Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "ronin_helmet",
+      "sourceKey": "69214b9731723704c1edaaf4:section:2",
+      "name": "Ronin Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "ronin_chestplate",
+      "sourceKey": "69214b9731723704c1edaaf4:section:3",
+      "name": "Ronin Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "ronin_leggings",
+      "sourceKey": "69214b9731723704c1edaaf4:section:4",
+      "name": "Ronin Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "rot_wood_fighter_hat",
+      "sourceKey": "69214b9731723704c1eda75a:section:2",
+      "name": "Rot Wood Fighter Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "rot_wood_fighter_shirt",
+      "sourceKey": "69214b9731723704c1eda75a:section:3",
+      "name": "Rot Wood Fighter Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "rot_wood_fighter_pants",
+      "sourceKey": "69214b9731723704c1eda75a:section:4",
+      "name": "Rot Wood Fighter Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "rot_wood_mage_hood",
+      "sourceKey": "69214b9731723704c1eda75c:section:2",
+      "name": "Rot Wood Mage Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "rot_wood_mage_shirt",
+      "sourceKey": "69214b9731723704c1eda75c:section:3",
+      "name": "Rot Wood Mage Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "rot_wood_mage_pants",
+      "sourceKey": "69214b9731723704c1eda75c:section:4",
+      "name": "Rot Wood Mage Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "royal_clerics_crown",
+      "sourceKey": "69214b9731723704c1eda75e:section:2",
+      "name": "Royal Clerics Crown"
+    },
+    {
+      "category": "chestplate",
+      "id": "royal_clerics_chestplate",
+      "sourceKey": "69214b9731723704c1eda75e:section:3",
+      "name": "Royal Clerics Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "royal_clerics_pants",
+      "sourceKey": "69214b9731723704c1eda75e:section:4",
+      "name": "Royal Clerics Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "saur_head",
+      "sourceKey": "69214b9731723704c1eda9e0:section:2",
+      "name": "Saur Head"
+    },
+    {
+      "category": "chestplate",
+      "id": "saur_body",
+      "sourceKey": "69214b9731723704c1eda9e0:section:3",
+      "name": "Saur Body"
+    },
+    {
+      "category": "legging",
+      "id": "saur_legs",
+      "sourceKey": "69214b9731723704c1eda9e0:section:4",
+      "name": "Saur Legs"
+    },
+    {
+      "category": "helmet",
+      "id": "scow_marauder_helmet",
+      "sourceKey": "69214b9731723704c1eda760:section:2",
+      "name": "Scow Marauder Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "scow_marauder_chestplate",
+      "sourceKey": "69214b9731723704c1eda760:section:3",
+      "name": "Scow Marauder Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "scow_marauder_leggings",
+      "sourceKey": "69214b9731723704c1eda760:section:4",
+      "name": "Scow Marauder Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "scow_shaman_mask",
+      "sourceKey": "69214b9731723704c1eda60c:section:2",
+      "name": "Scow Shaman Mask"
+    },
+    {
+      "category": "chestplate",
+      "id": "scow_shaman_chestplate",
+      "sourceKey": "69214b9731723704c1eda60c:section:3",
+      "name": "Scow Shaman Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "scow_shaman_pants",
+      "sourceKey": "69214b9731723704c1eda60c:section:4",
+      "name": "Scow Shaman Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "sea_demon_mask",
+      "sourceKey": "69214b9831723704c1edae26:section:2",
+      "name": "Sea Demon Mask"
+    },
+    {
+      "category": "chestplate",
+      "id": "sea_demon_body",
+      "sourceKey": "69214b9831723704c1edae26:section:3",
+      "name": "Sea Demon Body"
+    },
+    {
+      "category": "legging",
+      "id": "sea_demon_legs",
+      "sourceKey": "69214b9831723704c1edae26:section:4",
+      "name": "Sea Demon Legs"
+    },
+    {
+      "category": "helmet",
+      "id": "shadow_dweller_mask",
+      "sourceKey": "69214b9731723704c1edaa16:section:2",
+      "name": "Shadow Dweller Mask"
+    },
+    {
+      "category": "chestplate",
+      "id": "shadow_dweller_shirt",
+      "sourceKey": "69214b9731723704c1edaa16:section:3",
+      "name": "Shadow Dweller Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "shadow_dweller_pants",
+      "sourceKey": "69214b9731723704c1edaa16:section:4",
+      "name": "Shadow Dweller Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "skull_mage_hood",
+      "sourceKey": "69214b9731723704c1eda762:section:2",
+      "name": "Skull Mage Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "skull_mage_cloak",
+      "sourceKey": "69214b9731723704c1eda762:section:3",
+      "name": "Skull Mage Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "skull_mage_pants",
+      "sourceKey": "69214b9731723704c1eda762:section:4",
+      "name": "Skull Mage Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "slizard_helmet",
+      "sourceKey": "69214b9731723704c1eda764:section:2",
+      "name": "Slizard Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "slizard_chestplate",
+      "sourceKey": "69214b9731723704c1eda764:section:3",
+      "name": "Slizard Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "slizard_leggings",
+      "sourceKey": "69214b9731723704c1eda764:section:4",
+      "name": "Slizard Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "snailsmans_noggin",
+      "sourceKey": "69214b9731723704c1eda766:section:2",
+      "name": "Snailsman's Noggin"
+    },
+    {
+      "category": "helmet",
+      "id": "snailsman_s_noggin",
+      "sourceKey": "69214b9731723704c1eda766:section:2",
+      "name": "Snailsman's Noggin"
+    },
+    {
+      "category": "helmet",
+      "id": "snoeman_hood",
+      "sourceKey": "69214b9731723704c1eda768:section:2",
+      "name": "Snoeman Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "snoeman_cloak",
+      "sourceKey": "69214b9731723704c1eda768:section:3",
+      "name": "Snoeman Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "snoeman_pants",
+      "sourceKey": "69214b9731723704c1eda768:section:4",
+      "name": "Snoeman Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "sol_warrior_helmet",
+      "sourceKey": "69214b9731723704c1eda76a:section:2",
+      "name": "Sol Warrior Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "sol_warrior_chestplate",
+      "sourceKey": "69214b9731723704c1eda76a:section:3",
+      "name": "Sol Warrior Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "sol_warrior_leggings",
+      "sourceKey": "69214b9731723704c1eda76a:section:4",
+      "name": "Sol Warrior Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "spell_slinger_hat",
+      "sourceKey": "69214b9731723704c1eda76c:section:2",
+      "name": "Spell Slinger Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "spell_slinger_cloak",
+      "sourceKey": "69214b9731723704c1eda76c:section:3",
+      "name": "Spell Slinger Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "spell_slinger_pants",
+      "sourceKey": "69214b9731723704c1eda76c:section:4",
+      "name": "Spell Slinger Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "spore_boss_man_hat",
+      "sourceKey": "69214b9731723704c1eda76e:section:2",
+      "name": "Spore Boss Man Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "spore_boss_man_shirt",
+      "sourceKey": "69214b9731723704c1eda76e:section:3",
+      "name": "Spore Boss Man Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "spore_boss_man_pants",
+      "sourceKey": "69214b9731723704c1eda76e:section:4",
+      "name": "Spore Boss Man Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "sporeling_hat",
+      "sourceKey": "69214b9731723704c1eda206:section:2",
+      "name": "Sporeling Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "sporeling_shirt",
+      "sourceKey": "69214b9731723704c1eda206:section:3",
+      "name": "Sporeling Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "sporeling_pants",
+      "sourceKey": "69214b9731723704c1eda206:section:4",
+      "name": "Sporeling Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "stacked_plate_helmet",
+      "sourceKey": "69214b9731723704c1eda770:section:2",
+      "name": "Stacked Plate Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "stacked_plate_chestplate",
+      "sourceKey": "69214b9731723704c1eda770:section:3",
+      "name": "Stacked Plate Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "stacked_plate_leggings",
+      "sourceKey": "69214b9731723704c1eda770:section:4",
+      "name": "Stacked Plate Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "stagroot_helmet",
+      "sourceKey": "69214b9731723704c1eda772:section:2",
+      "name": "Stagroot Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "stagroot_chestplate",
+      "sourceKey": "69214b9731723704c1eda772:section:3",
+      "name": "Stagroot Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "stagroot_leggings",
+      "sourceKey": "69214b9731723704c1eda772:section:4",
+      "name": "Stagroot Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "stalker_hat",
+      "sourceKey": "69214b9831723704c1edacf2:section:2",
+      "name": "Stalker Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "stalker_shirt",
+      "sourceKey": "69214b9831723704c1edacf2:section:3",
+      "name": "Stalker Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "stalker_pants",
+      "sourceKey": "69214b9831723704c1edacf2:section:4",
+      "name": "Stalker Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "stardust_hat",
+      "sourceKey": "69214b9731723704c1eda778:section:2",
+      "name": "Stardust Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "stardust_shirt",
+      "sourceKey": "69214b9731723704c1eda778:section:3",
+      "name": "Stardust Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "stardust_pants",
+      "sourceKey": "69214b9731723704c1eda778:section:4",
+      "name": "Stardust Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "star_guardian_helmet",
+      "sourceKey": "69214b9731723704c1eda774:section:2",
+      "name": "Star Guardian Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "star_guardian_chestplate",
+      "sourceKey": "69214b9731723704c1eda774:section:3",
+      "name": "Star Guardian Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "star_guardian_leggings",
+      "sourceKey": "69214b9731723704c1eda774:section:4",
+      "name": "Star Guardian Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "steam_energy_prosthesis",
+      "sourceKey": "69214b9831723704c1edaef4:section:2",
+      "name": "Steam Energy Prosthesis"
+    },
+    {
+      "category": "helmet",
+      "id": "steam_golem_helmet",
+      "sourceKey": "69214b9731723704c1eda77a:section:2",
+      "name": "Steam Golem Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "steam_golem_chestplate",
+      "sourceKey": "69214b9731723704c1eda77a:section:3",
+      "name": "Steam Golem Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "steam_golem_leggings",
+      "sourceKey": "69214b9731723704c1eda77a:section:4",
+      "name": "Steam Golem Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "steam_mage_helmet",
+      "sourceKey": "69214b9731723704c1edaa42:section:2",
+      "name": "Steam Mage Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "steam_mage_chestplate",
+      "sourceKey": "69214b9731723704c1edaa42:section:3",
+      "name": "Steam Mage Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "steam_mage_leggings",
+      "sourceKey": "69214b9731723704c1edaa42:section:4",
+      "name": "Steam Mage Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "steel_legion_helmet",
+      "sourceKey": "69214b9731723704c1eda97c:section:2",
+      "name": "Steel Legion Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "steel_legion_chestplate",
+      "sourceKey": "69214b9731723704c1eda97c:section:3",
+      "name": "Steel Legion Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "steel_legion_leggings",
+      "sourceKey": "69214b9731723704c1eda97c:section:4",
+      "name": "Steel Legion Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "steel_sentry_helmet",
+      "sourceKey": "69214b9731723704c1eda77c:section:2",
+      "name": "Steel Sentry Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "steel_sentry_chestplate",
+      "sourceKey": "69214b9731723704c1eda77c:section:3",
+      "name": "Steel Sentry Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "steel_sentry_leggings",
+      "sourceKey": "69214b9731723704c1eda77c:section:4",
+      "name": "Steel Sentry Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "sticky_hat",
+      "sourceKey": "69214b9731723704c1eda6a0:section:2",
+      "name": "Sticky Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "sticky_robes",
+      "sourceKey": "69214b9731723704c1eda6a0:section:3",
+      "name": "Sticky Robes"
+    },
+    {
+      "category": "legging",
+      "id": "sticky_pants",
+      "sourceKey": "69214b9731723704c1eda6a0:section:4",
+      "name": "Sticky Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "stone_archer_head",
+      "sourceKey": "69214b9731723704c1edab72:section:2",
+      "name": "Stone Archer Head"
+    },
+    {
+      "category": "chestplate",
+      "id": "stone_archer_body",
+      "sourceKey": "69214b9731723704c1edab72:section:3",
+      "name": "Stone Archer Body"
+    },
+    {
+      "category": "legging",
+      "id": "stone_archer_legs",
+      "sourceKey": "69214b9731723704c1edab72:section:4",
+      "name": "Stone Archer Legs"
+    },
+    {
+      "category": "helmet",
+      "id": "stone_cleric_head",
+      "sourceKey": "69214b9731723704c1edab70:section:2",
+      "name": "Stone Cleric Head"
+    },
+    {
+      "category": "chestplate",
+      "id": "stone_cleric_body",
+      "sourceKey": "69214b9731723704c1edab70:section:3",
+      "name": "Stone Cleric Body"
+    },
+    {
+      "category": "legging",
+      "id": "stone_cleric_legs",
+      "sourceKey": "69214b9731723704c1edab70:section:4",
+      "name": "Stone Cleric Legs"
+    },
+    {
+      "category": "helmet",
+      "id": "stone_knight_head",
+      "sourceKey": "69214b9731723704c1edab6c:section:2",
+      "name": "Stone Knight Head"
+    },
+    {
+      "category": "chestplate",
+      "id": "stone_knight_body",
+      "sourceKey": "69214b9731723704c1edab6c:section:3",
+      "name": "Stone Knight Body"
+    },
+    {
+      "category": "legging",
+      "id": "stone_knight_legs",
+      "sourceKey": "69214b9731723704c1edab6c:section:4",
+      "name": "Stone Knight Legs"
+    },
+    {
+      "category": "helmet",
+      "id": "stratos_helmet",
+      "sourceKey": "69214b9731723704c1eda978:section:2",
+      "name": "Stratos Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "stratos_chestplate",
+      "sourceKey": "69214b9731723704c1eda978:section:3",
+      "name": "Stratos Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "stratos_leggings",
+      "sourceKey": "69214b9731723704c1eda978:section:4",
+      "name": "Stratos Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "sunken_mage_hood",
+      "sourceKey": "69214b9731723704c1eda210:section:2",
+      "name": "Sunken Mage Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "sunken_mage_cloak",
+      "sourceKey": "69214b9731723704c1eda210:section:3",
+      "name": "Sunken Mage Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "sunken_mage_pants",
+      "sourceKey": "69214b9731723704c1eda210:section:4",
+      "name": "Sunken Mage Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "sunkenpirate_hat",
+      "sourceKey": "69214b9731723704c1eda556:section:2",
+      "name": "Sunken Pirate Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "sunkenpirate_shirt",
+      "sourceKey": "69214b9731723704c1eda556:section:3",
+      "name": "Sunken Pirate Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "sunkenpirate_pants",
+      "sourceKey": "69214b9731723704c1eda556:section:4",
+      "name": "Sunken Pirate Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "swamp_brawler_mask",
+      "sourceKey": "69214b9731723704c1eda77e:section:2",
+      "name": "Swamp Brawler Mask"
+    },
+    {
+      "category": "chestplate",
+      "id": "swamp_brawler_shirt",
+      "sourceKey": "69214b9731723704c1eda77e:section:3",
+      "name": "Swamp Brawler Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "swamp_brawler_pants",
+      "sourceKey": "69214b9731723704c1eda77e:section:4",
+      "name": "Swamp Brawler Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "swamp_marauder_mask",
+      "sourceKey": "69214b9731723704c1eda776:section:2",
+      "name": "Swamp Marauder Mask"
+    },
+    {
+      "category": "chestplate",
+      "id": "swamp_marauder_shirt",
+      "sourceKey": "69214b9731723704c1eda776:section:3",
+      "name": "Swamp Marauder Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "swamp_marauder_pants",
+      "sourceKey": "69214b9731723704c1eda776:section:4",
+      "name": "Swamp Marauder Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "the_emotions",
+      "sourceKey": "69214b9731723704c1eda622:section:2",
+      "name": "The Emotions"
+    },
+    {
+      "category": "helmet",
+      "id": "thieves_hood",
+      "sourceKey": "69214b9731723704c1eda306:section:2",
+      "name": "Thieves Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "thieves_cloak",
+      "sourceKey": "69214b9731723704c1eda306:section:3",
+      "name": "Thieves Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "thieves_pants",
+      "sourceKey": "69214b9731723704c1eda306:section:4",
+      "name": "Thieves Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "thornmaiden_helmet",
+      "sourceKey": "69214b9731723704c1eda780:section:2",
+      "name": "Thorn Maiden Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "thornmaiden_chestplate",
+      "sourceKey": "69214b9731723704c1eda780:section:3",
+      "name": "Thorn Maiden Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "thornmaiden_legging",
+      "sourceKey": "69214b9731723704c1eda780:section:4",
+      "name": "Thorn Maiden Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "thunder_gallant_helmet",
+      "sourceKey": "69214b9731723704c1eda28a:section:2",
+      "name": "Thunder Gallant Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "thunder_gallant_chestplate",
+      "sourceKey": "69214b9731723704c1eda28a:section:3",
+      "name": "Thunder Gallant Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "thunder_gallant_leggings",
+      "sourceKey": "69214b9731723704c1eda28a:section:4",
+      "name": "Thunder Gallant Leggings"
+    },
+    {
+      "category": "legging",
+      "id": "time_travelers_pants",
+      "sourceKey": "69214b9731723704c1eda782:section:4",
+      "name": "Time Travelers Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "toadzerker_helmet",
+      "sourceKey": "69214b9731723704c1eda626:section:2",
+      "name": "Toadzerker Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "toadzerker_chestplate",
+      "sourceKey": "69214b9731723704c1eda626:section:3",
+      "name": "Toadzerker Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "toadzerker_leggings",
+      "sourceKey": "69214b9731723704c1eda626:section:4",
+      "name": "Toadzerker Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "true_moon_worshipper_hood",
+      "sourceKey": "69214b9831723704c1edad0c:section:2",
+      "name": "True Moon Worshipper Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "true_moon_worshipper_cloak",
+      "sourceKey": "69214b9831723704c1edad0c:section:3",
+      "name": "True Moon Worshipper Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "true_moon_worshipper_pants",
+      "sourceKey": "69214b9831723704c1edad0c:section:4",
+      "name": "True Moon Worshipper Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "tundra_explorer_hood",
+      "sourceKey": "69214b9731723704c1eda784:section:2",
+      "name": "Tundra Explorer Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "tundra_explorer_cloak",
+      "sourceKey": "69214b9731723704c1eda784:section:3",
+      "name": "Tundra Explorer Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "tundra_explorer_pants",
+      "sourceKey": "69214b9731723704c1eda784:section:4",
+      "name": "Tundra Explorer Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "tundra_warlord_helmet",
+      "sourceKey": "69214b9731723704c1eda786:section:2",
+      "name": "Tundra Warlord Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "tundra_warlord_chestplate",
+      "sourceKey": "69214b9731723704c1eda786:section:3",
+      "name": "Tundra Warlord Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "tundra_warlord_leggings",
+      "sourceKey": "69214b9731723704c1eda786:section:4",
+      "name": "Tundra Warlord Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "void_root_helmet",
+      "sourceKey": "69214b9731723704c1eda788:section:2",
+      "name": "Void Root Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "void_root_chestplate",
+      "sourceKey": "69214b9731723704c1eda788:section:3",
+      "name": "Void Root Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "void_root_leggings",
+      "sourceKey": "69214b9731723704c1eda788:section:4",
+      "name": "Void Root Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "void_stained_blindfold",
+      "sourceKey": "69214b9831723704c1edaed2:section:2",
+      "name": "Void-Stained Blindfold"
+    },
+    {
+      "category": "helmet",
+      "id": "wearable_mysterious_crown",
+      "sourceKey": "69214b9831723704c1edaeda:section:2",
+      "name": "Wearable Mysterious Crown"
+    },
+    {
+      "category": "helmet",
+      "id": "whirlray_dancer_hat",
+      "sourceKey": "69214b9831723704c1edae94:section:2",
+      "name": "Whirlray Dancer Hat"
+    },
+    {
+      "category": "chestplate",
+      "id": "whirlray_dancer_shirt",
+      "sourceKey": "69214b9831723704c1edae94:section:3",
+      "name": "Whirlray Dancer Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "whirlray_dancer_pants",
+      "sourceKey": "69214b9831723704c1edae94:section:4",
+      "name": "Whirlray Dancer Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "whispering_heads",
+      "sourceKey": "69214b9831723704c1edaf02:section:2",
+      "name": "Whispering Heads"
+    },
+    {
+      "category": "helmet",
+      "id": "whistle_warrior_helmet",
+      "sourceKey": "69214b9731723704c1edaa0e:section:2",
+      "name": "Whistle Warrior Helmet"
+    },
+    {
+      "category": "chestplate",
+      "id": "whistle_warrior_chestplate",
+      "sourceKey": "69214b9731723704c1edaa0e:section:3",
+      "name": "Whistle Warrior Chestplate"
+    },
+    {
+      "category": "legging",
+      "id": "whistle_warrior_leggings",
+      "sourceKey": "69214b9731723704c1edaa0e:section:4",
+      "name": "Whistle Warrior Leggings"
+    },
+    {
+      "category": "helmet",
+      "id": "wind_champion_band",
+      "sourceKey": "69214b9731723704c1eda254:section:3",
+      "name": "Wind Champion Band"
+    },
+    {
+      "category": "chestplate",
+      "id": "wind_champion_shirt",
+      "sourceKey": "69214b9731723704c1eda254:section:4",
+      "name": "Wind Champion Shirt"
+    },
+    {
+      "category": "legging",
+      "id": "wind_champion_pants",
+      "sourceKey": "69214b9731723704c1eda254:section:5",
+      "name": "Wind Champion Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "wind_spirit_crown",
+      "sourceKey": "69214b9731723704c1eda240:section:2",
+      "name": "Wind Spirit Crown"
+    },
+    {
+      "category": "chestplate",
+      "id": "wind_spirit_cloak",
+      "sourceKey": "69214b9731723704c1eda240:section:3",
+      "name": "Wind Spirit Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "wind_spirit_pants",
+      "sourceKey": "69214b9731723704c1eda240:section:4",
+      "name": "Wind Spirit Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "winter_woof_hood",
+      "sourceKey": "69214b9731723704c1eda60a:section:2",
+      "name": "Winter Woof Hood"
+    },
+    {
+      "category": "chestplate",
+      "id": "winter_woof_cloak",
+      "sourceKey": "69214b9731723704c1eda60a:section:3",
+      "name": "Winter Woof Cloak"
+    },
+    {
+      "category": "legging",
+      "id": "winter_woof_pants",
+      "sourceKey": "69214b9731723704c1eda60a:section:4",
+      "name": "Winter Woof Pants"
+    },
+    {
+      "category": "helmet",
+      "id": "woof_scarf",
+      "sourceKey": "69214b9831723704c1edaf1a:section:2",
+      "name": "Woof Scarf"
+    },
+    {
+      "category": "rune",
+      "id": "spooky_woof_mount_rune",
+      "sourceKey": "69214b9831723704c1edaf48",
+      "name": "Spooky Woof Mount Rune"
+    },
+    {
+      "category": "rune",
+      "id": "enchanted_sword_rune",
+      "sourceKey": "69214b9831723704c1edaea2",
+      "name": "Enchanted Sword Rune"
+    },
+    {
+      "category": "rune",
+      "id": "ancient_cleric_rune",
+      "sourceKey": "69214b9831723704c1edaf18",
+      "name": "Ancient Cleric Rune"
+    },
+    {
+      "category": "rune",
+      "id": "beenade_rune",
+      "sourceKey": "69214b9831723704c1edaeae",
+      "name": "Beenade Rune"
+    },
+    {
+      "category": "rune",
+      "id": "boostshroom_rune",
+      "sourceKey": "69214b9831723704c1edaec4",
+      "name": "Boostshroom Rune"
+    },
+    {
+      "category": "rune",
+      "id": "bounce_rune",
+      "sourceKey": "69214b9731723704c1edaa24",
+      "name": "Bounce Rune"
+    },
+    {
+      "category": "rune",
+      "id": "brainblast_rune",
+      "sourceKey": "69214b9831723704c1edaf00",
+      "name": "Brainblast Rune"
+    },
+    {
+      "category": "rune",
+      "id": "caci_rune",
+      "sourceKey": "69214b9731723704c1eda796",
+      "name": "Caci Rune"
+    },
+    {
+      "category": "rune",
+      "id": "cacitrops_rune",
+      "sourceKey": "69214b9831723704c1edaeea",
+      "name": "Cacitrops Rune"
+    },
+    {
+      "category": "rune",
+      "id": "combat_roll_rune",
+      "sourceKey": "69214b9731723704c1eda52e",
+      "name": "Combat Roll Rune"
+    },
+    {
+      "category": "rune",
+      "id": "demonic_step_rune",
+      "sourceKey": "69214b9831723704c1edad98",
+      "name": "Demonic Step Rune"
+    },
+    {
+      "category": "rune",
+      "id": "false_sun_rune",
+      "sourceKey": "69214b9831723704c1edae2a",
+      "name": "False Sun Rune"
+    },
+    {
+      "category": "rune",
+      "id": "fireball_rune",
+      "sourceKey": "69214b9731723704c1eda52a",
+      "name": "Fireball Rune"
+    },
+    {
+      "category": "rune",
+      "id": "foot_dive_rune",
+      "sourceKey": "69214b9831723704c1edaeb2",
+      "name": "Foot Dive Rune"
+    },
+    {
+      "category": "rune",
+      "id": "gastric_tempest_rune",
+      "sourceKey": "69214b9831723704c1edad96",
+      "name": "Gastric Tempest Rune"
+    },
+    {
+      "category": "rune",
+      "id": "gastric_winds_rune",
+      "sourceKey": "69214b9831723704c1edac66",
+      "name": "Gastric Winds Rune"
+    },
+    {
+      "category": "rune",
+      "id": "glacial_shell_rune",
+      "sourceKey": "69214b9831723704c1edaf26",
+      "name": "Glacial Shell Rune"
+    },
+    {
+      "category": "rune",
+      "id": "healing_rune",
+      "sourceKey": "69214b9731723704c1eda5ca",
+      "name": "Healing Rune"
+    },
+    {
+      "category": "rune",
+      "id": "hex_web_rune",
+      "sourceKey": "69214b9831723704c1edaf0c",
+      "name": "Hex Web Rune"
+    },
+    {
+      "category": "rune",
+      "id": "jetstream_rune",
+      "sourceKey": "69214b9831723704c1edaede",
+      "name": "Jetstream Rune"
+    },
+    {
+      "category": "rune",
+      "id": "launch_rune",
+      "sourceKey": "69214b9731723704c1eda98c",
+      "name": "Launch Rune"
+    },
+    {
+      "category": "rune",
+      "id": "magic_missile_rune",
+      "sourceKey": "69214b9731723704c1eda78e",
+      "name": "Magic Missile Rune"
+    },
+    {
+      "category": "rune",
+      "id": "pack_leader_rune",
+      "sourceKey": "69214b9831723704c1edaeb8",
+      "name": "Pack Leader Rune"
+    },
+    {
+      "category": "rune",
+      "id": "plan_bee_rune",
+      "sourceKey": "69214b9831723704c1edaf0e",
+      "name": "Plan Bee Rune"
+    },
+    {
+      "category": "rune",
+      "id": "proto_grappler_rune",
+      "sourceKey": "69214b9831723704c1edaf0a",
+      "name": "Proto Grappler Rune"
+    },
+    {
+      "category": "rune",
+      "id": "rage_rune",
+      "sourceKey": "69214b9731723704c1eda79c",
+      "name": "Rage Rune"
+    },
+    {
+      "category": "rune",
+      "id": "reinforce_rune",
+      "sourceKey": "69214b9731723704c1eda798",
+      "name": "Reinforce Rune"
+    },
+    {
+      "category": "rune",
+      "id": "rocky_tail_rune",
+      "sourceKey": "69214b9831723704c1edaf06",
+      "name": "Rocky Tail Rune"
+    },
+    {
+      "category": "rune",
+      "id": "rubble_rune",
+      "sourceKey": "69214b9731723704c1edab4a",
+      "name": "Rubble Rune"
+    },
+    {
+      "category": "rune",
+      "id": "rune_of_cleansing",
+      "sourceKey": "69214b9731723704c1eda694",
+      "name": "Rune of Cleansing"
+    },
+    {
+      "category": "rune",
+      "id": "sanguine_bolt_rune",
+      "sourceKey": "69214b9831723704c1edacb2",
+      "name": "Sanguine Bolt Rune"
+    },
+    {
+      "category": "rune",
+      "id": "snarl_rune",
+      "sourceKey": "69214b9831723704c1edaeac",
+      "name": "Snarl Rune"
+    },
+    {
+      "category": "rune",
+      "id": "snoeball_rune",
+      "sourceKey": "69214b9831723704c1edaf28",
+      "name": "Snoeball Rune"
+    },
+    {
+      "category": "rune",
+      "id": "sporeling_toss_rune",
+      "sourceKey": "69214b9831723704c1edaec8",
+      "name": "Sporeling Toss Rune"
+    },
+    {
+      "category": "rune",
+      "id": "static_field_rune",
+      "sourceKey": "69214b9831723704c1edaec6",
+      "name": "Static Field Rune"
+    },
+    {
+      "category": "rune",
+      "id": "swarm_rune",
+      "sourceKey": "69214b9731723704c1eda79a",
+      "name": "Swarm Rune"
+    },
+    {
+      "category": "rune",
+      "id": "taunting_rune",
+      "sourceKey": "69214b9731723704c1eda78c",
+      "name": "Taunting Rune"
+    },
+    {
+      "category": "rune",
+      "id": "thunderous_charge_rune",
+      "sourceKey": "69214b9831723704c1edaf08",
+      "name": "Thunderous Charge Rune"
+    },
+    {
+      "category": "rune",
+      "id": "toad_slam_rune",
+      "sourceKey": "69214b9831723704c1edae98",
+      "name": "Toad Slam Rune"
+    },
+    {
+      "category": "rune",
+      "id": "toadzerker_rune_unobtainable",
+      "sourceKey": "69214b9731723704c1eda794",
+      "name": "Toadzerker Rune (UNOBTAINABLE)"
+    },
+    {
+      "category": "rune",
+      "id": "weakening_roar_rune",
+      "sourceKey": "69214b9731723704c1eda790",
+      "name": "Weakening Roar Rune"
+    },
+    {
+      "category": "rune",
+      "id": "slizard_mount_rune",
+      "sourceKey": "69214b9731723704c1eda792",
+      "name": "Slizard Mount Rune"
+    },
+    {
+      "category": "rune",
+      "id": "winter_woof_mount_rune",
+      "sourceKey": "69214b9731723704c1edac14",
+      "name": "Winter Woof Mount Rune"
+    },
+    {
+      "category": "rune",
+      "id": "glacial_snapper_mount_rune",
+      "sourceKey": "69214b9831723704c1edadee",
+      "name": "Glacial Snapper Mount Rune"
+    },
+    {
+      "category": "rune",
+      "id": "voxlmas_glacial_snapper_mount_rune",
+      "sourceKey": "69214b9831723704c1edae0c",
+      "name": "Voxlmas Glacial Snapper Mount Rune"
+    },
+    {
+      "category": "blade",
+      "id": "basic_blade",
+      "sourceKey": "69214b9731723704c1eda180",
+      "name": "Basic Blade"
+    },
+    {
+      "category": "blade",
+      "id": "greatsword_blade",
+      "sourceKey": "69214b9731723704c1eda18e",
+      "name": "Greatsword Blade"
+    },
+    {
+      "category": "blade",
+      "id": "sharp_blade",
+      "sourceKey": "69214b9731723704c1eda192",
+      "name": "Sharp Blade"
+    },
+    {
+      "category": "blade",
+      "id": "dagger_blade",
+      "sourceKey": "69214b9731723704c1eda194",
+      "name": "Dagger Blade"
+    },
+    {
+      "category": "blade",
+      "id": "mage_blade",
+      "sourceKey": "69214b9731723704c1eda190",
+      "name": "Mage Blade"
+    },
+    {
+      "category": "blade",
+      "id": "holy_blade",
+      "sourceKey": "69214b9731723704c1eda23e",
+      "name": "Holy Blade"
+    },
+    {
+      "category": "blade",
+      "id": "hex_blade",
+      "sourceKey": "69214b9731723704c1eda4ec",
+      "name": "Hex Blade"
+    },
+    {
+      "category": "blade",
+      "id": "air_blade",
+      "sourceKey": "69214b9731723704c1eda2a8",
+      "name": "Air Blade"
+    },
+    {
+      "category": "blade",
+      "id": "fire_blade",
+      "sourceKey": "69214b9731723704c1eda2ee",
+      "name": "Fire Blade"
+    },
+    {
+      "category": "blade",
+      "id": "water_blade",
+      "sourceKey": "69214b9731723704c1eda554",
+      "name": "Water Blade"
+    },
+    {
+      "category": "blade",
+      "id": "earth_blade",
+      "sourceKey": "69214b9731723704c1eda552",
+      "name": "Earth Blade"
+    },
+    {
+      "category": "blade",
+      "id": "executioners_blade",
+      "sourceKey": "69214b9731723704c1eda592",
+      "name": "Executioners Blade"
+    },
+    {
+      "category": "blade",
+      "id": "iron_hammer",
+      "sourceKey": "69214b9731723704c1eda594",
+      "name": "Iron Hammer"
+    },
+    {
+      "category": "blade",
+      "id": "katana_blade",
+      "sourceKey": "69214b9731723704c1eda4e8",
+      "name": "Katana Blade"
+    },
+    {
+      "category": "blade",
+      "id": "jagged_blade",
+      "sourceKey": "69214b9731723704c1eda4f2",
+      "name": "Jagged Blade"
+    },
+    {
+      "category": "blade",
+      "id": "sharp_dagger_blade",
+      "sourceKey": "69214b9731723704c1eda596",
+      "name": "Sharp Dagger Blade"
+    },
+    {
+      "category": "blade",
+      "id": "agile_blade",
+      "sourceKey": "69214b9731723704c1eda598",
+      "name": "Agile Blade"
+    },
+    {
+      "category": "blade",
+      "id": "great_mage_blade",
+      "sourceKey": "69214b9731723704c1eda58e",
+      "name": "Great Mage Blade"
+    },
+    {
+      "category": "blade",
+      "id": "enchanted_blade",
+      "sourceKey": "69214b9731723704c1eda590",
+      "name": "Enchanted Blade"
+    },
+    {
+      "category": "blade",
+      "id": "radiant_edge",
+      "sourceKey": "69214b9731723704c1eda59a",
+      "name": "Radiant Edge"
+    },
+    {
+      "category": "blade",
+      "id": "pure_blade",
+      "sourceKey": "69214b9731723704c1eda59c",
+      "name": "Pure Blade"
+    },
+    {
+      "category": "blade",
+      "id": "skull_hammer",
+      "sourceKey": "69214b9731723704c1eda59e",
+      "name": "Skull Hammer"
+    },
+    {
+      "category": "blade",
+      "id": "hexing_cleaver_blade",
+      "sourceKey": "69214b9731723704c1eda5a0",
+      "name": "Hexing Cleaver Blade"
+    },
+    {
+      "category": "blade",
+      "id": "gust_blade",
+      "sourceKey": "69214b9731723704c1eda2aa",
+      "name": "Gust Blade"
+    },
+    {
+      "category": "blade",
+      "id": "storm_razor",
+      "sourceKey": "69214b9731723704c1eda2ac",
+      "name": "Storm Razor"
+    },
+    {
+      "category": "blade",
+      "id": "flame_dagger",
+      "sourceKey": "69214b9731723704c1eda5a2",
+      "name": "Flame Dagger"
+    },
+    {
+      "category": "blade",
+      "id": "flame_greatblade",
+      "sourceKey": "69214b9731723704c1eda5a4",
+      "name": "Flame Greatblade"
+    },
+    {
+      "category": "blade",
+      "id": "ocean_blade",
+      "sourceKey": "69214b9731723704c1eda5a8",
+      "name": "Ocean Blade"
+    },
+    {
+      "category": "blade",
+      "id": "ice_blade",
+      "sourceKey": "69214b9731723704c1eda5a6",
+      "name": "Ice Blade"
+    },
+    {
+      "category": "blade",
+      "id": "enchanted_lodestone_hammer",
+      "sourceKey": "69214b9731723704c1eda5aa",
+      "name": "Enchanted Lodestone Hammer"
+    },
+    {
+      "category": "blade",
+      "id": "earth_greatblade",
+      "sourceKey": "69214b9731723704c1eda5ac",
+      "name": "Earth Greatblade"
+    },
+    {
+      "category": "blade",
+      "id": "scourgers_blade",
+      "sourceKey": "69214b9731723704c1eda5f2",
+      "name": "Scourgers Blade"
+    },
+    {
+      "category": "blade",
+      "id": "zweihander_blade",
+      "sourceKey": "69214b9731723704c1eda5f0",
+      "name": "Zweihander Blade"
+    },
+    {
+      "category": "blade",
+      "id": "gilded_hammer",
+      "sourceKey": "69214b9731723704c1eda5f6",
+      "name": "Gilded Hammer"
+    },
+    {
+      "category": "blade",
+      "id": "dark_steel_mace",
+      "sourceKey": "69214b9731723704c1eda5f4",
+      "name": "Dark Steel Mace"
+    },
+    {
+      "category": "blade",
+      "id": "serrated_blade",
+      "sourceKey": "69214b9731723704c1eda4f0",
+      "name": "Serrated Blade"
+    },
+    {
+      "category": "blade",
+      "id": "bloodied_needle",
+      "sourceKey": "69214b9731723704c1eda4f4",
+      "name": "Bloodied Needle"
+    },
+    {
+      "category": "blade",
+      "id": "bejeweled_blade",
+      "sourceKey": "69214b9731723704c1eda5ec",
+      "name": "Bejeweled Blade"
+    },
+    {
+      "category": "blade",
+      "id": "shadow_blade",
+      "sourceKey": "69214b9731723704c1eda5ee",
+      "name": "Shadow Blade"
+    },
+    {
+      "category": "blade",
+      "id": "kings_dagger_blade",
+      "sourceKey": "69214b9731723704c1eda5f8",
+      "name": "Kings Dagger Blade"
+    },
+    {
+      "category": "blade",
+      "id": "beastial_dagger_blade",
+      "sourceKey": "69214b9731723704c1eda5fa",
+      "name": "Beastial Dagger Blade"
+    },
+    {
+      "category": "blade",
+      "id": "duelists_needle",
+      "sourceKey": "69214b9731723704c1eda5fe",
+      "name": "Duelists Needle"
+    },
+    {
+      "category": "blade",
+      "id": "crude_blade",
+      "sourceKey": "69214b9731723704c1eda5fc",
+      "name": "Crude Blade"
+    },
+    {
+      "category": "blade",
+      "id": "grandmagic_greatblade",
+      "sourceKey": "69214b9731723704c1eda600",
+      "name": "Grandmagic Greatblade"
+    },
+    {
+      "category": "blade",
+      "id": "great_mage_core",
+      "sourceKey": "69214b9731723704c1eda602",
+      "name": "Great Mage Core"
+    },
+    {
+      "category": "blade",
+      "id": "spellbinder_rapier",
+      "sourceKey": "69214b9731723704c1eda604",
+      "name": "Spellbinder Rapier"
+    },
+    {
+      "category": "blade",
+      "id": "curved_magic_blade",
+      "sourceKey": "69214b9731723704c1eda606",
+      "name": "Curved Magic Blade"
+    },
+    {
+      "category": "blade",
+      "id": "divine_edge",
+      "sourceKey": "69214b9731723704c1eda5ae",
+      "name": "Divine Edge"
+    },
+    {
+      "category": "blade",
+      "id": "radiant_hammer",
+      "sourceKey": "69214b9731723704c1eda5b0",
+      "name": "Radiant Hammer"
+    },
+    {
+      "category": "blade",
+      "id": "hallowed_blade",
+      "sourceKey": "69214b9731723704c1eda5b2",
+      "name": "Hallowed Blade"
+    },
+    {
+      "category": "blade",
+      "id": "angels_blade",
+      "sourceKey": "69214b9731723704c1eda5b4",
+      "name": "Angels Blade"
+    },
+    {
+      "category": "blade",
+      "id": "skull_mace",
+      "sourceKey": "69214b9731723704c1eda5b6",
+      "name": "Skull Mace"
+    },
+    {
+      "category": "blade",
+      "id": "possessed_blade",
+      "sourceKey": "69214b9731723704c1eda5b8",
+      "name": "Possessed Blade"
+    },
+    {
+      "category": "blade",
+      "id": "cursed_greatsword_blade",
+      "sourceKey": "69214b9731723704c1eda5ba",
+      "name": "Cursed Greatsword Blade"
+    },
+    {
+      "category": "blade",
+      "id": "cursed_dagger_blade",
+      "sourceKey": "69214b9731723704c1eda5bc",
+      "name": "Cursed Dagger Blade"
+    },
+    {
+      "category": "blade",
+      "id": "gale_blade",
+      "sourceKey": "69214b9731723704c1eda2f0",
+      "name": "Gale Blade"
+    },
+    {
+      "category": "blade",
+      "id": "windiron_needle",
+      "sourceKey": "69214b9731723704c1eda2f2",
+      "name": "Windiron Needle"
+    },
+    {
+      "category": "blade",
+      "id": "storm_splitter",
+      "sourceKey": "69214b9731723704c1eda5be",
+      "name": "Storm Splitter"
+    },
+    {
+      "category": "blade",
+      "id": "lightning_hammer",
+      "sourceKey": "69214b9731723704c1eda5c0",
+      "name": "Lightning Hammer"
+    },
+    {
+      "category": "blade",
+      "id": "steel_flame_dagger",
+      "sourceKey": "69214b9731723704c1eda5d4",
+      "name": "Steel Flame Dagger"
+    },
+    {
+      "category": "blade",
+      "id": "dragon_flame_dagger",
+      "sourceKey": "69214b9731723704c1eda5d6",
+      "name": "Dragon Flame Dagger"
+    },
+    {
+      "category": "blade",
+      "id": "blue_flame_greatblade",
+      "sourceKey": "69214b9731723704c1eda5d8",
+      "name": "Blue Flame Greatblade"
+    },
+    {
+      "category": "blade",
+      "id": "cragstone_hammer",
+      "sourceKey": "69214b9731723704c1eda5da",
+      "name": "Cragstone Hammer"
+    },
+    {
+      "category": "blade",
+      "id": "wave_blade",
+      "sourceKey": "69214b9731723704c1eda5e0",
+      "name": "Wave Blade"
+    },
+    {
+      "category": "blade",
+      "id": "golden_trident",
+      "sourceKey": "69214b9731723704c1eda5e2",
+      "name": "Golden Trident"
+    },
+    {
+      "category": "blade",
+      "id": "icicle",
+      "sourceKey": "69214b9731723704c1eda5dc",
+      "name": "Icicle"
+    },
+    {
+      "category": "blade",
+      "id": "sculpted_blade",
+      "sourceKey": "69214b9731723704c1eda5de",
+      "name": "Sculpted Blade"
+    },
+    {
+      "category": "blade",
+      "id": "gravitational_greatblade",
+      "sourceKey": "69214b9731723704c1eda5e4",
+      "name": "Gravitational Greatblade"
+    },
+    {
+      "category": "blade",
+      "id": "gravitational_core",
+      "sourceKey": "69214b9731723704c1eda5e6",
+      "name": "Gravitational Core"
+    },
+    {
+      "category": "blade",
+      "id": "earth_spirit_greatblade",
+      "sourceKey": "69214b9731723704c1eda5e8",
+      "name": "Earth Spirit Greatblade"
+    },
+    {
+      "category": "blade",
+      "id": "sand_glaive",
+      "sourceKey": "69214b9731723704c1eda5ea",
+      "name": "Sand Glaive"
+    },
+    {
+      "category": "blade",
+      "id": "prism_blade",
+      "sourceKey": "69214b9731723704c1eda640",
+      "name": "Prism Blade"
+    },
+    {
+      "category": "blade",
+      "id": "starlight_greatblade",
+      "sourceKey": "69214b9731723704c1eda642",
+      "name": "Starlight Greatblade"
+    },
+    {
+      "category": "blade",
+      "id": "swaxe",
+      "sourceKey": "69214b9731723704c1eda64e",
+      "name": "Swaxe"
+    },
+    {
+      "category": "blade",
+      "id": "bloodiron_sawblade",
+      "sourceKey": "69214b9831723704c1edac48",
+      "name": "Bloodiron Sawblade"
+    },
+    {
+      "category": "blade",
+      "id": "dragonslayer_blade",
+      "sourceKey": "69214b9731723704c1eda66a",
+      "name": "Dragonslayer Blade"
+    },
+    {
+      "category": "blade",
+      "id": "murky_blade",
+      "sourceKey": "69214b9731723704c1eda6d8",
+      "name": "Murky Blade"
+    },
+    {
+      "category": "blade",
+      "id": "spectral_blade",
+      "sourceKey": "69214b9731723704c1eda6da",
+      "name": "Spectral Blade"
+    },
+    {
+      "category": "blade",
+      "id": "poisonous_blade",
+      "sourceKey": "69214b9731723704c1eda6e0",
+      "name": "Poisonous Blade"
+    },
+    {
+      "category": "blade",
+      "id": "venomous_blade",
+      "sourceKey": "69214b9731723704c1eda6e6",
+      "name": "Venomous Blade"
+    },
+    {
+      "category": "blade",
+      "id": "honeycomb_greatblade",
+      "sourceKey": "69214b9731723704c1eda6ec",
+      "name": "Honeycomb Greatblade"
+    },
+    {
+      "category": "blade",
+      "id": "honeysteel_greatblade",
+      "sourceKey": "69214b9731723704c1eda6ee",
+      "name": "Honeysteel Greatblade"
+    },
+    {
+      "category": "blade",
+      "id": "honey_bumblz_mace",
+      "sourceKey": "69214b9731723704c1eda6f6",
+      "name": "Honey Bumblz Mace"
+    },
+    {
+      "category": "blade",
+      "id": "queen_bumblz_core",
+      "sourceKey": "69214b9731723704c1eda6f4",
+      "name": "Queen Bumblz Core"
+    },
+    {
+      "category": "blade",
+      "id": "magic_great_hammer",
+      "sourceKey": "69214b9731723704c1eda6d6",
+      "name": "Magic Great Hammer"
+    },
+    {
+      "category": "blade",
+      "id": "dynamite_stick",
+      "sourceKey": "69214b9731723704c1eda7c8",
+      "name": "Dynamite Stick"
+    },
+    {
+      "category": "blade",
+      "id": "dynamite_bundle",
+      "sourceKey": "69214b9731723704c1eda7ca",
+      "name": "Dynamite Bundle"
+    },
+    {
+      "category": "blade",
+      "id": "timed_dynamite_bundle",
+      "sourceKey": "69214b9731723704c1eda7cc",
+      "name": "Timed Dynamite Bundle"
+    },
+    {
+      "category": "blade",
+      "id": "stratos_core",
+      "sourceKey": "69214b9731723704c1eda91e",
+      "name": "Stratos Core"
+    },
+    {
+      "category": "blade",
+      "id": "lightning_stratos_core",
+      "sourceKey": "69214b9731723704c1eda924",
+      "name": "Lightning Stratos Core"
+    },
+    {
+      "category": "blade",
+      "id": "caci_blade",
+      "sourceKey": "69214b9731723704c1eda96c",
+      "name": "Caci Blade"
+    },
+    {
+      "category": "blade",
+      "id": "caci_kings_blade",
+      "sourceKey": "69214b9731723704c1eda976",
+      "name": "Caci Kings Blade"
+    },
+    {
+      "category": "blade",
+      "id": "buni_prince_hammer",
+      "sourceKey": "69214b9731723704c1edaa26",
+      "name": "Buni Prince Hammer"
+    },
+    {
+      "category": "blade",
+      "id": "buni_prince_cannon",
+      "sourceKey": "69214b9731723704c1edaa28",
+      "name": "Buni Prince Cannon"
+    },
+    {
+      "category": "blade",
+      "id": "ancient_mallet",
+      "sourceKey": "69214b9731723704c1edabc0",
+      "name": "Ancient Mallet"
+    },
+    {
+      "category": "blade",
+      "id": "bastion_greatswaxe_blade",
+      "sourceKey": "69214b9731723704c1edabc8",
+      "name": "Bastion Greatswaxe Blade"
+    },
+    {
+      "category": "blade",
+      "id": "relic_short_blade",
+      "sourceKey": "69214b9731723704c1edabc6",
+      "name": "Relic Short Blade"
+    },
+    {
+      "category": "blade",
+      "id": "bastion_relic_blade",
+      "sourceKey": "69214b9731723704c1edabce",
+      "name": "Bastion Relic Blade"
+    },
+    {
+      "category": "blade",
+      "id": "vaen_kama",
+      "sourceKey": "69214b9831723704c1edacbc",
+      "name": "Vaen Kama"
+    },
+    {
+      "category": "blade",
+      "id": "lord_vaen_blade",
+      "sourceKey": "69214b9831723704c1edacbe",
+      "name": "Lord Vaen Blade"
+    },
+    {
+      "category": "blade",
+      "id": "mungal_mallet",
+      "sourceKey": "69214b9831723704c1edad2a",
+      "name": "Mungal Mallet"
+    },
+    {
+      "category": "blade",
+      "id": "mungus_core",
+      "sourceKey": "69214b9831723704c1edad22",
+      "name": "Mungus Core"
+    },
+    {
+      "category": "blade",
+      "id": "spider_fang_blade",
+      "sourceKey": "69214b9831723704c1edad14",
+      "name": "Spider Fang Blade"
+    },
+    {
+      "category": "blade",
+      "id": "omega_lance_blade",
+      "sourceKey": "69214b9831723704c1edad18",
+      "name": "Omega Lance Blade"
+    },
+    {
+      "category": "blade",
+      "id": "bronze_frozen_pick",
+      "sourceKey": "69214b9831723704c1edad34",
+      "name": "Bronze Frozen Pick"
+    },
+    {
+      "category": "blade",
+      "id": "frozen_pickaxe_head",
+      "sourceKey": "69214b9831723704c1edad36",
+      "name": "Frozen Pickaxe Head"
+    },
+    {
+      "category": "ring",
+      "id": "agile_ring",
+      "sourceKey": "69214b9731723704c1eda7c0",
+      "name": "Agile Ring"
+    },
+    {
+      "category": "ring",
+      "id": "bastion_ring",
+      "sourceKey": "69214b9731723704c1edab78",
+      "name": "Bastion Ring"
+    },
+    {
+      "category": "ring",
+      "id": "blaster_ring",
+      "sourceKey": "69214b9731723704c1eda7c6",
+      "name": "Blaster Ring"
+    },
+    {
+      "category": "ring",
+      "id": "boglord_ring",
+      "sourceKey": "69214b9831723704c1edaf22",
+      "name": "Boglord Ring"
+    },
+    {
+      "category": "ring",
+      "id": "bumblz_honey_ring",
+      "sourceKey": "69214b9731723704c1eda886",
+      "name": "Bumblz Honey Ring"
+    },
+    {
+      "category": "ring",
+      "id": "buni_ring",
+      "sourceKey": "69214b9731723704c1eda2c0",
+      "name": "Buni Ring"
+    },
+    {
+      "category": "ring",
+      "id": "caster_ring",
+      "sourceKey": "69214b9731723704c1eda218",
+      "name": "Caster Ring"
+    },
+    {
+      "category": "ring",
+      "id": "compressor_ring",
+      "sourceKey": "69214b9831723704c1edad94",
+      "name": "Compressor Ring"
+    },
+    {
+      "category": "ring",
+      "id": "concussive_ring",
+      "sourceKey": "69214b9831723704c1edae70",
+      "name": "Concussive Ring"
+    },
+    {
+      "category": "ring",
+      "id": "drill_bit_ring",
+      "sourceKey": "69214b9831723704c1edaf14",
+      "name": "Drill-Bit Ring"
+    },
+    {
+      "category": "ring",
+      "id": "earthen_ring",
+      "sourceKey": "69214b9731723704c1eda7bc",
+      "name": "Earthen Ring"
+    },
+    {
+      "category": "ring",
+      "id": "escape_ring",
+      "sourceKey": "69214b9831723704c1edaece",
+      "name": "Escape Ring"
+    },
+    {
+      "category": "ring",
+      "id": "eyering",
+      "sourceKey": "69214b9831723704c1edaee2",
+      "name": "Eyering"
+    },
+    {
+      "category": "ring",
+      "id": "fire_ring",
+      "sourceKey": "69214b9731723704c1eda7be",
+      "name": "Fire Ring"
+    },
+    {
+      "category": "ring",
+      "id": "froggy_ring",
+      "sourceKey": "69214b9831723704c1edaef8",
+      "name": "Froggy Ring"
+    },
+    {
+      "category": "ring",
+      "id": "fungal_ring",
+      "sourceKey": "69214b9731723704c1eda888",
+      "name": "Fungal Ring"
+    },
+    {
+      "category": "ring",
+      "id": "gemstone_ring",
+      "sourceKey": "69214b9731723704c1eda7a8",
+      "name": "Gemstone Ring"
+    },
+    {
+      "category": "ring",
+      "id": "hex_ring",
+      "sourceKey": "69214b9731723704c1eda79e",
+      "name": "Hex Ring"
+    },
+    {
+      "category": "ring",
+      "id": "holy_ring",
+      "sourceKey": "69214b9731723704c1eda7b2",
+      "name": "Holy Ring"
+    },
+    {
+      "category": "ring",
+      "id": "infectious_ring",
+      "sourceKey": "69214b9831723704c1edaf1e",
+      "name": "Infectious Ring"
+    },
+    {
+      "category": "ring",
+      "id": "lucky_ring",
+      "sourceKey": "69214b9731723704c1eda7ba",
+      "name": "Lucky Ring"
+    },
+    {
+      "category": "ring",
+      "id": "parrying_ring",
+      "sourceKey": "69214b9831723704c1edaeec",
+      "name": "Parrying Ring"
+    },
+    {
+      "category": "ring",
+      "id": "phalanx_ring",
+      "sourceKey": "69214b9831723704c1edae9a",
+      "name": "Phalanx Ring"
+    },
+    {
+      "category": "ring",
+      "id": "quickstep_ring",
+      "sourceKey": "69214b9831723704c1edae6c",
+      "name": "Quickstep Ring"
+    },
+    {
+      "category": "ring",
+      "id": "raging_slayer_ring",
+      "sourceKey": "69214b9831723704c1edaef0",
+      "name": "Raging Slayer Ring"
+    },
+    {
+      "category": "ring",
+      "id": "scalar_ring",
+      "sourceKey": "69214b9831723704c1edadaa",
+      "name": "Scalar Ring"
+    },
+    {
+      "category": "ring",
+      "id": "sharp_ring",
+      "sourceKey": "69214b9731723704c1eda7a6",
+      "name": "Sharp Ring"
+    },
+    {
+      "category": "ring",
+      "id": "sharpshooter_ring",
+      "sourceKey": "69214b9831723704c1edae9e",
+      "name": "Sharpshooter Ring"
+    },
+    {
+      "category": "ring",
+      "id": "steampunk_ring_unobtainable",
+      "sourceKey": "69214b9731723704c1eda7a0",
+      "name": "Steampunk Ring (UNOBTAINABLE)"
+    },
+    {
+      "category": "ring",
+      "id": "sticky_ring",
+      "sourceKey": "69214b9731723704c1eda7b8",
+      "name": "Sticky Ring"
+    },
+    {
+      "category": "ring",
+      "id": "stone_giant_ring",
+      "sourceKey": "69214b9831723704c1edacfc",
+      "name": "Stone Giant's Ring"
+    },
+    {
+      "category": "ring",
+      "id": "sweet_ring",
+      "sourceKey": "69214b9831723704c1edaf10",
+      "name": "Sweet Ring"
+    },
+    {
+      "category": "ring",
+      "id": "vampiric_ring_unobtainable",
+      "sourceKey": "69214b9731723704c1eda7b4",
+      "name": "Vampiric Ring (UNOBTAINABLE)"
+    },
+    {
+      "category": "ring",
+      "id": "void_contract_ring",
+      "sourceKey": "69214b9831723704c1edac62",
+      "name": "Void Contract Ring"
+    },
+    {
+      "category": "ring",
+      "id": "void_ring",
+      "sourceKey": "69214b9731723704c1eda7a2",
+      "name": "Void Ring"
+    },
+    {
+      "category": "ring",
+      "id": "warden_ring",
+      "sourceKey": "69214b9831723704c1edad00",
+      "name": "Warden Ring"
+    },
+    {
+      "category": "ring",
+      "id": "water_ring",
+      "sourceKey": "69214b9731723704c1eda7b0",
+      "name": "Water Ring"
+    },
+    {
+      "category": "ring",
+      "id": "whirl_inhale_ring",
+      "sourceKey": "69214b9831723704c1edaec0",
+      "name": "Whirl Inhale Ring"
+    },
+    {
+      "category": "ring",
+      "id": "wind_ring",
+      "sourceKey": "69214b9731723704c1eda7b6",
+      "name": "Wind Ring"
+    },
+    {
+      "category": "glove",
+      "id": "basic_gloves",
+      "sourceKey": "69214b9731723704c1eda650",
+      "name": "Basic Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "woof_fang_fist",
+      "sourceKey": "69214b9731723704c1eda658",
+      "name": "Woof Fang Fist"
+    },
+    {
+      "category": "glove",
+      "id": "mageling_gloves",
+      "sourceKey": "69214b9731723704c1eda65a",
+      "name": "Mageling Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "buni_gloves",
+      "sourceKey": "69214b9731723704c1eda65c",
+      "name": "Buni Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "toadzerker_gloves",
+      "sourceKey": "69214b9731723704c1eda65e",
+      "name": "Toadzerker Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "winter_woof_gloves",
+      "sourceKey": "69214b9731723704c1eda660",
+      "name": "Winter Woof Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "bumblz_gloves",
+      "sourceKey": "69214b9731723704c1eda696",
+      "name": "Bumblz Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "bulfrogg_gloves",
+      "sourceKey": "69214b9731723704c1eda698",
+      "name": "Bulfrogg Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "dire_buni_gloves",
+      "sourceKey": "69214b9731723704c1eda674",
+      "name": "Dire Buni Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "caci_gloves",
+      "sourceKey": "69214b9731723704c1eda672",
+      "name": "Caci Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "croakernaut_shield",
+      "sourceKey": "69214b9731723704c1eda62c",
+      "name": "Croakernaut Shield"
+    },
+    {
+      "category": "glove",
+      "id": "dragigator_gloves",
+      "sourceKey": "69214b9731723704c1eda662",
+      "name": "Dragigator Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "bowldur_gloves",
+      "sourceKey": "69214b9731723704c1eda7d2",
+      "name": "Bowldur Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "iron_slayer_gloves",
+      "sourceKey": "69214b9731723704c1eda7d0",
+      "name": "Iron Slayer Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "bomber_gloves",
+      "sourceKey": "69214b9731723704c1eda7d8",
+      "name": "Bomber Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "queen_bumblz_gloves",
+      "sourceKey": "69214b9731723704c1eda69a",
+      "name": "Queen Bumblz Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "snoeman_gloves",
+      "sourceKey": "69214b9731723704c1eda7d6",
+      "name": "Snoeman Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "void_root_gloves",
+      "sourceKey": "69214b9731723704c1eda69c",
+      "name": "Void Root Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "roguent_gloves",
+      "sourceKey": "69214b9731723704c1eda676",
+      "name": "Roguent Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "deep_spider_gloves",
+      "sourceKey": "69214b9731723704c1eda678",
+      "name": "Deep Spider Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "caci_king_gloves",
+      "sourceKey": "69214b9731723704c1eda7d4",
+      "name": "Caci King Gloves"
+    },
+    {
+      "category": "glove",
+      "id": "gremlin_gloves",
+      "sourceKey": "69214b9731723704c1eda7ce",
+      "name": "Gremlin Gloves"
+    },
+    {
+      "category": "essence",
+      "id": "basic_essence",
+      "sourceKey": "69214b9731723704c1eda6a6",
+      "name": "Basic Essence"
+    },
+    {
+      "category": "essence",
+      "id": "greatsword_essence",
+      "sourceKey": "69214b9731723704c1eda70e",
+      "name": "Greatsword Essence"
+    },
+    {
+      "category": "essence",
+      "id": "sharp_essence",
+      "sourceKey": "69214b9731723704c1eda710",
+      "name": "Sharp Essence"
+    },
+    {
+      "category": "essence",
+      "id": "agile_essence",
+      "sourceKey": "69214b9731723704c1eda712",
+      "name": "Agile Essence"
+    },
+    {
+      "category": "essence",
+      "id": "mage_essence",
+      "sourceKey": "69214b9731723704c1eda714",
+      "name": "Mage Essence"
+    },
+    {
+      "category": "essence",
+      "id": "holy_essence",
+      "sourceKey": "69214b9731723704c1eda71a",
+      "name": "Holy Essence"
+    },
+    {
+      "category": "essence",
+      "id": "cursed_essence",
+      "sourceKey": "69214b9731723704c1eda718",
+      "name": "Cursed Essence"
+    },
+    {
+      "category": "essence",
+      "id": "wind_essence",
+      "sourceKey": "69214b9731723704c1eda71c",
+      "name": "Wind Essence"
+    },
+    {
+      "category": "essence",
+      "id": "blaze_essence",
+      "sourceKey": "69214b9731723704c1eda716",
+      "name": "Blaze Essence"
+    },
+    {
+      "category": "essence",
+      "id": "water_essence",
+      "sourceKey": "69214b9731723704c1eda71e",
+      "name": "Water Essence"
+    },
+    {
+      "category": "essence",
+      "id": "earth_essence",
+      "sourceKey": "69214b9731723704c1eda720",
+      "name": "Earth Essence"
+    },
+    {
+      "category": "essence",
+      "id": "executioners_essence",
+      "sourceKey": "69214b9731723704c1eda7da",
+      "name": "Executioners Essence"
+    },
+    {
+      "category": "essence",
+      "id": "hammer_essence",
+      "sourceKey": "69214b9731723704c1eda7dc",
+      "name": "Hammer Essence"
+    },
+    {
+      "category": "essence",
+      "id": "katana_essence",
+      "sourceKey": "69214b9731723704c1eda7de",
+      "name": "Katana Essence"
+    },
+    {
+      "category": "essence",
+      "id": "jagged_essence",
+      "sourceKey": "69214b9731723704c1eda7e0",
+      "name": "Jagged Essence"
+    },
+    {
+      "category": "essence",
+      "id": "noble_essence",
+      "sourceKey": "69214b9731723704c1eda7e2",
+      "name": "Noble Essence"
+    },
+    {
+      "category": "essence",
+      "id": "graceful_essence",
+      "sourceKey": "69214b9731723704c1eda7e4",
+      "name": "Graceful Essence"
+    },
+    {
+      "category": "essence",
+      "id": "greatmage_essence",
+      "sourceKey": "69214b9731723704c1eda7e6",
+      "name": "Greatmage Essence"
+    },
+    {
+      "category": "essence",
+      "id": "enchanted_essence",
+      "sourceKey": "69214b9731723704c1eda7e8",
+      "name": "Enchanted Essence"
+    },
+    {
+      "category": "essence",
+      "id": "radiant_essence",
+      "sourceKey": "69214b9731723704c1eda7ea",
+      "name": "Radiant Essence"
+    },
+    {
+      "category": "essence",
+      "id": "pure_essence",
+      "sourceKey": "69214b9731723704c1eda7ec",
+      "name": "Pure Essence"
+    },
+    {
+      "category": "essence",
+      "id": "summoning_essence",
+      "sourceKey": "69214b9731723704c1eda2ce",
+      "name": "Summoning Essence"
+    },
+    {
+      "category": "essence",
+      "id": "hex_cleaver_essence",
+      "sourceKey": "69214b9731723704c1eda2d0",
+      "name": "Hex Cleaver Essence"
+    },
+    {
+      "category": "essence",
+      "id": "refined_wind_essence",
+      "sourceKey": "69214b9731723704c1eda7f0",
+      "name": "Refined Wind Essence"
+    },
+    {
+      "category": "essence",
+      "id": "stormwood_essence",
+      "sourceKey": "69214b9731723704c1eda7ee",
+      "name": "Stormwood Essence"
+    },
+    {
+      "category": "essence",
+      "id": "kindlewood_essence",
+      "sourceKey": "69214b9731723704c1eda7f2",
+      "name": "Kindlewood Essence"
+    },
+    {
+      "category": "essence",
+      "id": "greatflame_essence",
+      "sourceKey": "69214b9731723704c1eda7f4",
+      "name": "Greatflame Essence"
+    },
+    {
+      "category": "essence",
+      "id": "sunken_essence",
+      "sourceKey": "69214b9731723704c1eda7f6",
+      "name": "Sunken Essence"
+    },
+    {
+      "category": "essence",
+      "id": "frozen_essence",
+      "sourceKey": "69214b9731723704c1eda7f8",
+      "name": "Frozen Essence"
+    },
+    {
+      "category": "essence",
+      "id": "gravity_mallet_essence",
+      "sourceKey": "69214b9731723704c1eda7fc",
+      "name": "Gravity Mallet Essence"
+    },
+    {
+      "category": "essence",
+      "id": "bedrock_essence",
+      "sourceKey": "69214b9731723704c1eda7fa",
+      "name": "Bedrock Essence"
+    },
+    {
+      "category": "essence",
+      "id": "scourgers_essence",
+      "sourceKey": "69214b9731723704c1eda800",
+      "name": "Scourgers Essence"
+    },
+    {
+      "category": "essence",
+      "id": "zweihander_essence",
+      "sourceKey": "69214b9731723704c1eda7fe",
+      "name": "Zweihander Essence"
+    },
+    {
+      "category": "essence",
+      "id": "gilded_essence",
+      "sourceKey": "69214b9731723704c1eda804",
+      "name": "Gilded Essence"
+    },
+    {
+      "category": "essence",
+      "id": "dark_steel_essence",
+      "sourceKey": "69214b9731723704c1eda806",
+      "name": "Dark Steel Essence"
+    },
+    {
+      "category": "essence",
+      "id": "serrated_essence",
+      "sourceKey": "69214b9731723704c1eda630",
+      "name": "Serrated Essence"
+    },
+    {
+      "category": "essence",
+      "id": "bloodied_essence",
+      "sourceKey": "69214b9731723704c1eda802",
+      "name": "Bloodied Essence"
+    },
+    {
+      "category": "essence",
+      "id": "bejeweled_essence",
+      "sourceKey": "69214b9731723704c1eda58a",
+      "name": "Bejeweled Essence"
+    },
+    {
+      "category": "essence",
+      "id": "shadow_essence",
+      "sourceKey": "69214b9731723704c1eda808",
+      "name": "Shadow Essence"
+    },
+    {
+      "category": "essence",
+      "id": "kings_essence",
+      "sourceKey": "69214b9731723704c1eda80a",
+      "name": "Kings Essence"
+    },
+    {
+      "category": "essence",
+      "id": "beastial_essence",
+      "sourceKey": "69214b9731723704c1eda80c",
+      "name": "Beastial Essence"
+    },
+    {
+      "category": "essence",
+      "id": "duelist_essence",
+      "sourceKey": "69214b9731723704c1eda80e",
+      "name": "Duelist Essence"
+    },
+    {
+      "category": "essence",
+      "id": "crude_essence",
+      "sourceKey": "69214b9731723704c1eda810",
+      "name": "Crude Essence"
+    },
+    {
+      "category": "essence",
+      "id": "grandmagic_great_essence",
+      "sourceKey": "69214b9731723704c1eda814",
+      "name": "Grandmagic Great Essence"
+    },
+    {
+      "category": "essence",
+      "id": "mage_core_essence",
+      "sourceKey": "69214b9731723704c1eda812",
+      "name": "Mage Core Essence"
+    },
+    {
+      "category": "essence",
+      "id": "spellbinder_essence",
+      "sourceKey": "69214b9731723704c1eda816",
+      "name": "Spellbinder Essence"
+    },
+    {
+      "category": "essence",
+      "id": "dual_magic_essence",
+      "sourceKey": "69214b9731723704c1eda818",
+      "name": "Dual Magic Essence"
+    },
+    {
+      "category": "essence",
+      "id": "divine_essence",
+      "sourceKey": "69214b9731723704c1eda81a",
+      "name": "Divine Essence"
+    },
+    {
+      "category": "essence",
+      "id": "radiant_hammer_essence",
+      "sourceKey": "69214b9731723704c1eda81c",
+      "name": "Radiant Hammer Essence"
+    },
+    {
+      "category": "essence",
+      "id": "hallowed_essence",
+      "sourceKey": "69214b9731723704c1eda81e",
+      "name": "Hallowed Essence"
+    },
+    {
+      "category": "essence",
+      "id": "angels_essence",
+      "sourceKey": "69214b9731723704c1eda820",
+      "name": "Angels Essence"
+    },
+    {
+      "category": "essence",
+      "id": "skull_essence",
+      "sourceKey": "69214b9731723704c1eda2d2",
+      "name": "Skull Essence"
+    },
+    {
+      "category": "essence",
+      "id": "possessed_essence",
+      "sourceKey": "69214b9731723704c1eda822",
+      "name": "Possessed Essence"
+    },
+    {
+      "category": "essence",
+      "id": "cursed_greatsword_essence",
+      "sourceKey": "69214b9731723704c1eda824",
+      "name": "Cursed Greatsword Essence"
+    },
+    {
+      "category": "essence",
+      "id": "cursed_dagger_essence",
+      "sourceKey": "69214b9731723704c1eda826",
+      "name": "Cursed Dagger Essence"
+    },
+    {
+      "category": "essence",
+      "id": "gale_essence",
+      "sourceKey": "69214b9731723704c1eda828",
+      "name": "Gale Essence"
+    },
+    {
+      "category": "essence",
+      "id": "windiron_needle_essence",
+      "sourceKey": "69214b9731723704c1eda82a",
+      "name": "Windiron Needle Essence"
+    },
+    {
+      "category": "essence",
+      "id": "storm_splitter_essence",
+      "sourceKey": "69214b9731723704c1eda82c",
+      "name": "Storm Splitter Essence"
+    },
+    {
+      "category": "essence",
+      "id": "lightning_essence",
+      "sourceKey": "69214b9731723704c1eda82e",
+      "name": "Lightning Essence"
+    },
+    {
+      "category": "essence",
+      "id": "steel_flame_dagger_essence",
+      "sourceKey": "69214b9731723704c1eda836",
+      "name": "Steel Flame Dagger Essence"
+    },
+    {
+      "category": "essence",
+      "id": "dragon_flame_essence",
+      "sourceKey": "69214b9731723704c1eda834",
+      "name": "Dragon Flame Essence"
+    },
+    {
+      "category": "essence",
+      "id": "blue_flame_essence",
+      "sourceKey": "69214b9731723704c1eda830",
+      "name": "Blue Flame Essence"
+    },
+    {
+      "category": "essence",
+      "id": "cragstone_essence",
+      "sourceKey": "69214b9731723704c1eda832",
+      "name": "Cragstone Essence"
+    },
+    {
+      "category": "essence",
+      "id": "wave_essence",
+      "sourceKey": "69214b9731723704c1eda838",
+      "name": "Wave Essence"
+    },
+    {
+      "category": "essence",
+      "id": "golden_trident_essence",
+      "sourceKey": "69214b9731723704c1eda83a",
+      "name": "Golden Trident Essence"
+    },
+    {
+      "category": "essence",
+      "id": "icicle_essence",
+      "sourceKey": "69214b9731723704c1eda83c",
+      "name": "Icicle Essence"
+    },
+    {
+      "category": "essence",
+      "id": "sculpted_essence",
+      "sourceKey": "69214b9731723704c1eda83e",
+      "name": "Sculpted Essence"
+    },
+    {
+      "category": "essence",
+      "id": "gravity_greatsword_essence",
+      "sourceKey": "69214b9731723704c1eda840",
+      "name": "Gravity Greatsword Essence"
+    },
+    {
+      "category": "essence",
+      "id": "gravity_staff_essence",
+      "sourceKey": "69214b9731723704c1eda842",
+      "name": "Gravity Staff Essence"
+    },
+    {
+      "category": "essence",
+      "id": "earth_spirit_essence",
+      "sourceKey": "69214b9731723704c1eda844",
+      "name": "Earth Spirit Essence"
+    },
+    {
+      "category": "essence",
+      "id": "sand_essence",
+      "sourceKey": "69214b9731723704c1eda846",
+      "name": "Sand Essence"
+    },
+    {
+      "category": "essence",
+      "id": "prism_essence",
+      "sourceKey": "69214b9731723704c1eda848",
+      "name": "Prism Essence"
+    },
+    {
+      "category": "essence",
+      "id": "starlight_essence",
+      "sourceKey": "69214b9731723704c1eda84a",
+      "name": "Starlight Essence"
+    },
+    {
+      "category": "essence",
+      "id": "swaxe_essence",
+      "sourceKey": "69214b9731723704c1eda9b2",
+      "name": "Swaxe Essence"
+    },
+    {
+      "category": "essence",
+      "id": "sawblade_essence",
+      "sourceKey": "69214b9831723704c1edac52",
+      "name": "Sawblade Essence"
+    },
+    {
+      "category": "essence",
+      "id": "dragonslayer_essence",
+      "sourceKey": "69214b9731723704c1eda84c",
+      "name": "Dragonslayer Essence"
+    },
+    {
+      "category": "essence",
+      "id": "murkwater_essence",
+      "sourceKey": "69214b9731723704c1eda850",
+      "name": "Murkwater Essence"
+    },
+    {
+      "category": "essence",
+      "id": "spectral_essence",
+      "sourceKey": "69214b9731723704c1eda852",
+      "name": "Spectral Essence"
+    },
+    {
+      "category": "essence",
+      "id": "rot_essence",
+      "sourceKey": "69214b9731723704c1eda854",
+      "name": "Rot Essence"
+    },
+    {
+      "category": "essence",
+      "id": "venomous_essence",
+      "sourceKey": "69214b9731723704c1eda856",
+      "name": "Venomous Essence"
+    },
+    {
+      "category": "essence",
+      "id": "honeycomb_essence",
+      "sourceKey": "69214b9731723704c1eda85e",
+      "name": "Honeycomb Essence"
+    },
+    {
+      "category": "essence",
+      "id": "honeysteel_essence",
+      "sourceKey": "69214b9731723704c1eda85a",
+      "name": "Honeysteel Essence"
+    },
+    {
+      "category": "essence",
+      "id": "honey_bumblz_essence",
+      "sourceKey": "69214b9731723704c1eda85c",
+      "name": "Honey Bumblz Essence"
+    },
+    {
+      "category": "essence",
+      "id": "queen_bumblz_essence",
+      "sourceKey": "69214b9731723704c1eda858",
+      "name": "Queen Bumblz Essence"
+    },
+    {
+      "category": "essence",
+      "id": "magic_great_hammer_essence",
+      "sourceKey": "69214b9731723704c1eda84e",
+      "name": "Magic Great Hammer Essence"
+    },
+    {
+      "category": "essence",
+      "id": "dynamite_stick_essence",
+      "sourceKey": "69214b9731723704c1eda99a",
+      "name": "Dynamite Stick Essence"
+    },
+    {
+      "category": "essence",
+      "id": "dynamite_bundle_essence",
+      "sourceKey": "69214b9731723704c1eda99c",
+      "name": "Dynamite Bundle Essence"
+    },
+    {
+      "category": "essence",
+      "id": "timed_dynamite_bundle_essence",
+      "sourceKey": "69214b9731723704c1eda99e",
+      "name": "Timed Dynamite Bundle Essence"
+    },
+    {
+      "category": "essence",
+      "id": "stratos_essence",
+      "sourceKey": "69214b9731723704c1eda922",
+      "name": "Stratos Essence"
+    },
+    {
+      "category": "essence",
+      "id": "lightning_stratos_essence",
+      "sourceKey": "69214b9731723704c1eda92c",
+      "name": "Lightning Stratos Essence"
+    },
+    {
+      "category": "essence",
+      "id": "caci_essence",
+      "sourceKey": "69214b9731723704c1eda970",
+      "name": "Caci Essence"
+    },
+    {
+      "category": "essence",
+      "id": "caci_kings_essence",
+      "sourceKey": "69214b9731723704c1eda97e",
+      "name": "Caci Kings Essence"
+    },
+    {
+      "category": "essence",
+      "id": "buni_prince_essence",
+      "sourceKey": "69214b9731723704c1edaa08",
+      "name": "Buni Prince Essence"
+    },
+    {
+      "category": "essence",
+      "id": "buni_prince_cannon_essence",
+      "sourceKey": "69214b9731723704c1edaa04",
+      "name": "Buni Prince Cannon Essence"
+    },
+    {
+      "category": "essence",
+      "id": "ancient_mallet_essence",
+      "sourceKey": "69214b9731723704c1edabbc",
+      "name": "Ancient Mallet Essence"
+    },
+    {
+      "category": "essence",
+      "id": "bastion_greatswaxe_essence",
+      "sourceKey": "69214b9731723704c1edabf4",
+      "name": "Bastion Greatswaxe Essence"
+    },
+    {
+      "category": "essence",
+      "id": "relic_dagger_essence",
+      "sourceKey": "69214b9731723704c1edabf0",
+      "name": "Relic Dagger Essence"
+    },
+    {
+      "category": "essence",
+      "id": "bastion_relic_essence",
+      "sourceKey": "69214b9731723704c1edabf6",
+      "name": "Bastion Relic Essence"
+    },
+    {
+      "category": "essence",
+      "id": "vaen_kama_essence",
+      "sourceKey": "69214b9831723704c1edacca",
+      "name": "Vaen Kama Essence"
+    },
+    {
+      "category": "essence",
+      "id": "lord_vaen_scythe_essence",
+      "sourceKey": "69214b9831723704c1edaccc",
+      "name": "Lord Vaen Scythe Essence"
+    },
+    {
+      "category": "essence",
+      "id": "mungal_essence",
+      "sourceKey": "69214b9831723704c1edad3e",
+      "name": "Mungal Essence"
+    },
+    {
+      "category": "essence",
+      "id": "proto_essence",
+      "sourceKey": "69214b9831723704c1edad68",
+      "name": "Proto Essence"
+    },
+    {
+      "category": "essence",
+      "id": "spider_essence",
+      "sourceKey": "69214b9831723704c1edad4a",
+      "name": "Spider Essence"
+    },
+    {
+      "category": "essence",
+      "id": "omega_lance_essence",
+      "sourceKey": "69214b9831723704c1edad48",
+      "name": "Omega Lance Essence"
+    },
+    {
+      "category": "essence",
+      "id": "freezing_bronze_essence",
+      "sourceKey": "69214b9831723704c1edad40",
+      "name": "Freezing Bronze Essence"
+    },
+    {
+      "category": "essence",
+      "id": "pickaxe_essence",
+      "sourceKey": "69214b9831723704c1edad42",
+      "name": "Pickaxe Essence"
+    }
+  ]
+}

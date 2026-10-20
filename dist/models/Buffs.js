@@ -25,7 +25,16 @@ export class Buff extends ItemModule.events {
     getSourceData() {
         return this.sourceData;
     }
+    getAppliedBy() {
+        return this.appliedBy ?? (this.category === "Debuff" ? "opponent" : "self");
+    }
+    getSourceBuild(holder) {
+        return this.getAppliedBy() === "opponent" ? holder.statusOpponent || holder.target || holder : holder;
+    }
     getEffectivePotency(sourceBuild) {
+        if (typeof this.effectivePotencyOverride === "number" && Number.isFinite(this.effectivePotencyOverride)) {
+            return Math.max(0, this.effectivePotencyOverride) * 10;
+        }
         const sourcePotency = this.sourceData?.sourceInatePotency || 0;
         const additivePotency = this.potencyId && sourceBuild
             ? sourceBuild.potencies[this.potencyId] || 0

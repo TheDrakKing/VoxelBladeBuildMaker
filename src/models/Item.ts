@@ -1,3 +1,4 @@
+import type { CombatContext } from "./CombatTypes.js";
 import * as Build from "./Build.js";
 import { Helmets } from "../data/Helmets.js";
 import { Chestplate } from "../data/Chestplates.js";
@@ -23,36 +24,38 @@ export interface eventsArgs {
 }
 
 export class events {
+  /** Direct damage-taken multiplier for effects that explicitly bypass diminishing returns. */
+  onFinalDamageTakenMultiplier?: (this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   onAdded?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null | void;
   onRemove?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null | void; 
   onPerkMod?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => void;
   onStatCalculation?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => void;
-  onArmorPenCalculation?:(this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onArmorPenCalculation?:(this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   onArmorStatModified?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => void;
   onStatModified?: (this: Build.Build, perkAmount?: number) => number | null;
-  onArmorModified?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
-  onDmgBonusMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
-  onDmgReducedMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
-  onSpecificDmgBonusMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
-  onSpecificDmgReducedMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
-  onCritRateCalculation?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
-  onCritDamageCalculation?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onArmorModified?: (this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onDmgBonusMultiplier?: (this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onDmgReducedMultiplier?: (this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onSpecificDmgBonusMultiplier?: (this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onSpecificDmgReducedMultiplier?: (this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onCritRateCalculation?: (this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onCritDamageCalculation?: (this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   /**
    * Function acts has the invser of onSpecificDmgReducedMultiplier, it added to the attacker damage
    */
-  onIncreaseSpecificDmgTaken?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onIncreaseSpecificDmgTaken?: (this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   /**
    * Function acts has the invser of onDmgReducedMultiplier, it added to the attacker damage
    */
-  onIncreaseDmgTaken?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onIncreaseDmgTaken?: (this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   /**
    * Function acts has the invser of onSpecificDmgBonusMultiplier, it reduces to the attacker damage
    */
-  onDecreaseSpecificDmgBonusMultiplier?:(this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onDecreaseSpecificDmgBonusMultiplier?:(this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   /**
    * Function acts has the invser of onDmgBonusMultiplier, it reduces to the attacker damage
    */
-  onDecreaseDmgBonusMultiplier?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null;
+  onDecreaseDmgBonusMultiplier?: (this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   onBuffAdded?: (this: Build.Build, perkAmount?: number) => number | null;
   onDeBuffAdded?: (this: Build.Build, perkAmount?: number) => number | null;
   onBuffRemoved?: (this: Build.Build, perkAmount?: number) => number | null;
@@ -61,15 +64,15 @@ export class events {
    * Mutates the temporary damage profile for the current packet before output split.
    * This should only change the cloned calculation context, not the real build state.
    */
-  onOutputCalculation?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null | void;
+  onOutputCalculation?: (this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null | void;
 }
 
 // export class perkEvents {
 //   onStatCalculation?: (this: Build.Build, perkAmount: number) => number | false | null;
-//   onDmgBonusMultiplier?: (this: Build.Build, perkAmount: number) => number | null;
-//   onDmgReducedMultiplier?: (this: Build.Build, perkAmount: number) => number | null;
-//   onSpecificDmgBonusMultiplier?: (this: Build.Build, perkAmount: number, outputType?:string) => number | null;
-//   onSpecificDmgReducedMultiplier?: (this: Build.Build, perkAmount: number, outputType?:string) => number | null;
+//   onDmgBonusMultiplier?: (this: CombatContext, perkAmount: number) => number | null;
+//   onDmgReducedMultiplier?: (this: CombatContext, perkAmount: number) => number | null;
+//   onSpecificDmgBonusMultiplier?: (this: CombatContext, perkAmount: number, outputType?:string) => number | null;
+//   onSpecificDmgReducedMultiplier?: (this: CombatContext, perkAmount: number, outputType?:string) => number | null;
 // }
 
 
@@ -188,6 +191,8 @@ export type scale =
 export type damageType = scale;
 
 export class Item extends events {
+  source?: { cardId: string; cardUrl: string; sectionId?: string };
+  dataWarnings?: string[];
   id: string;
   name: string;
   category?: string;
@@ -272,6 +277,11 @@ export function toID(name: string) {
   return name.toLowerCase().replace(" ", "_");
 }
 
+// Compatibility for saves made before the mislabeled leg-slot item was corrected.
+const legacyCategoryAliases: Record<string, Record<string, string>> = {
+  legging: { bowldur_helmet: "bowldur_leggings" },
+};
+
 export class ItemStore {
   private static readonly itemCache = new Map<string, Item>();
   private static readonly categoryCache = new Map<string, Item[]>();
@@ -303,17 +313,21 @@ export class ItemStore {
     return this.getByID(id);
   }
 
-  static getByID(id: string): Item {
+  static getByID(id: string, requestedCategory?: string): Item {
+    const scopedCategory = requestedCategory?.toLowerCase();
+    if (scopedCategory) id = legacyCategoryAliases[scopedCategory]?.[id] || id;
+    const cacheKey = `${scopedCategory || ""}:${id}`;
      // Check cache first
-    if (this.itemCache.has(id)) {
-      return Object.assign(new Item(), this.itemCache.get(id));
+    if (this.itemCache.has(cacheKey)) {
+      return Object.assign(new Item(), this.itemCache.get(cacheKey));
     }
 
     // Find item in category tables
     for (const [category, table] of this.categoryMap) {
+      if (scopedCategory && category !== scopedCategory) continue;
       if (id in table) {
         const item = Object.freeze(new Item({ ...table[id], category }));
-        this.itemCache.set(id, item);
+        this.itemCache.set(cacheKey, item);
         return Object.assign(new Item(), item);
       }
     }
@@ -330,7 +344,14 @@ export class ItemStore {
     const table = this.categoryMap.get(category.toLowerCase());
     if (!table) return [];
 
-    const items = Object.keys(table).map(id => this.getByID(id));
+    const seenSources = new Set<string>();
+    const items = Object.keys(table).map(id => this.getByID(id, category)).filter((item) => {
+      const sourceKey = item.source?.sectionId;
+      if (!sourceKey) return true;
+      if (seenSources.has(sourceKey)) return false;
+      seenSources.add(sourceKey);
+      return true;
+    });
     this.categoryCache.set(category, items);
     return items;
   }

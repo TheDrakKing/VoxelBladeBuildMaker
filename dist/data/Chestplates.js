@@ -18,6 +18,12 @@ export const Chestplate = {
             rider: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edac10",
+            "cardUrl": "https://trello.com/c/IoFcdMXX",
+            "sectionId": "69214b9731723704c1edac10:section:3"
+        },
     },
     arachnid_Cloak: {
         id: "arachnid_Cloak",
@@ -37,6 +43,12 @@ export const Chestplate = {
             venom_eater: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6a2",
+            "cardUrl": "https://trello.com/c/RYSHBAFF",
+            "sectionId": "69214b9731723704c1eda6a2:section:3"
+        },
     },
     armored_mage_shirt: {
         id: "armored_mage_shirt",
@@ -54,6 +66,12 @@ export const Chestplate = {
             spellshield: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda1b0",
+            "cardUrl": "https://trello.com/c/ZchdWe25",
+            "sectionId": "69214b9731723704c1eda1b0:section:3"
+        },
     },
     astro_iris_chestplate: {
         id: "astro_iris_chestplate",
@@ -72,6 +90,12 @@ export const Chestplate = {
             apollo_boost: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6f8",
+            "cardUrl": "https://trello.com/c/MnUUGHw1",
+            "sectionId": "69214b9731723704c1eda6f8:section:3"
+        },
     },
     astro_pajamas: {
         id: "astro_pajamas",
@@ -104,9 +128,15 @@ export const Chestplate = {
             AirBoost: 7,
         },
         perks: {
-            frequent_flyer: 1,
+            "frequent_flier": 1
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6fa",
+            "cardUrl": "https://trello.com/c/tKBru1L0",
+            "sectionId": "69214b9731723704c1eda6fa:section:3"
+        },
     },
     banker_Shirt: {
         id: "banker_Shirt",
@@ -125,6 +155,12 @@ export const Chestplate = {
             money_smart: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edac70",
+            "cardUrl": "https://trello.com/c/yVq00inw",
+            "sectionId": "69214b9831723704c1edac70:section:3"
+        },
     },
     bastion_guardian_body: {
         id: "bastion_guardian_body",
@@ -133,18 +169,23 @@ export const Chestplate = {
         type: "Chestplate",
         description: "The body of a legendary bastion guardian. A last beacon of hope shining in the deadlands.",
         stats: {
-            EarthDefense: 10,
-            PhysicalBoost: 10,
-            EarthBoost: 20,
-            WaterDefense: -50,
-            ColdResistance: -50,
-            SpeedBoost: -2,
-            AirDefense: -50,
+            "EarthDefense": 10,
+            "SpeedBoost": -2,
+            "PhysicalBoost": 10,
+            "EarthBoost": 20,
+            "AirDefense": -50,
+            "WaterDefense": -50
         },
         perks: {
             guardian_spin: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaba4",
+            "cardUrl": "https://trello.com/c/LXhYalcR",
+            "sectionId": "69214b9731723704c1edaba4:section:3"
+        },
     },
     batty_chestplate: {
         id: "batty_chestplate",
@@ -162,6 +203,12 @@ export const Chestplate = {
             echo_blast: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda9fc",
+            "cardUrl": "https://trello.com/c/CyYReY0B",
+            "sectionId": "69214b9731723704c1eda9fc:section:3"
+        },
     },
     berserking_chestplate: {
         id: "berserking_chestplate",
@@ -180,6 +227,12 @@ export const Chestplate = {
             berserkingstrength: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6fc",
+            "cardUrl": "https://trello.com/c/jurO41m0",
+            "sectionId": "69214b9731723704c1eda6fc:section:3"
+        },
     },
     blood_bumblz_chestplate: {
         id: "blood_bumblz_chestplate",
@@ -199,6 +252,12 @@ export const Chestplate = {
             blood_rush: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda620",
+            "cardUrl": "https://trello.com/c/TggC7k4G",
+            "sectionId": "69214b9731723704c1eda620:section:3"
+        },
     },
     bomber_shirt: {
         id: "bomber_shirt",
@@ -217,6 +276,12 @@ export const Chestplate = {
             bomber_charge: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edadc4",
+            "cardUrl": "https://trello.com/c/Ef6LJsk8",
+            "sectionId": "69214b9831723704c1edadc4:section:3"
+        },
     },
     bowldur_chestplate: {
         id: "bowldur_chestplate",
@@ -235,6 +300,12 @@ export const Chestplate = {
             seismic_momentum: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda290",
+            "cardUrl": "https://trello.com/c/sIXr9dIH",
+            "sectionId": "69214b9731723704c1eda290:section:3"
+        },
     },
     brain_burner_body: {
         id: "brain_burner_body",
@@ -255,6 +326,12 @@ export const Chestplate = {
             melting_slime: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacee",
+            "cardUrl": "https://trello.com/c/sNF7QA0o",
+            "sectionId": "69214b9831723704c1edacee:section:3"
+        },
     },
     bumblz_shirt: {
         id: "bumblz_shirt",
@@ -271,6 +348,12 @@ export const Chestplate = {
             swarm: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda700",
+            "cardUrl": "https://trello.com/c/iWCiczD0",
+            "sectionId": "69214b9731723704c1eda700:section:3"
+        },
     },
     buni_cloak: {
         id: "buni_cloak",
@@ -286,6 +369,12 @@ export const Chestplate = {
             rabbits_foot: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda15a",
+            "cardUrl": "https://trello.com/c/hN1U0YiC",
+            "sectionId": "69214b9731723704c1eda15a:section:3"
+        },
     },
     croakernaut_chestplate: {
         id: "croakernaut_chestplate",
@@ -306,6 +395,12 @@ export const Chestplate = {
             shielding_gong: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edadbe",
+            "cardUrl": "https://trello.com/c/ml8eDUX2",
+            "sectionId": "69214b9831723704c1edadbe:section:3"
+        },
     },
     dunefang_chestplate: {
         id: "dunefang_chestplate",
@@ -325,6 +420,12 @@ export const Chestplate = {
             pulverizing_rush: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab4e",
+            "cardUrl": "https://trello.com/c/hQNbbeV4",
+            "sectionId": "69214b9731723704c1edab4e:section:3"
+        },
     },
     gladiator_chestplate: {
         id: "gladiator_chestplate",
@@ -344,6 +445,12 @@ export const Chestplate = {
             fury: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda294",
+            "cardUrl": "https://trello.com/c/FQmTbRNS",
+            "sectionId": "69214b9731723704c1eda294:section:3"
+        },
     },
     ironslayer_chestplate: {
         id: "ironslayer_chestplate",
@@ -362,6 +469,12 @@ export const Chestplate = {
             void_rage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda20a",
+            "cardUrl": "https://trello.com/c/g3L3tCKL",
+            "sectionId": "69214b9731723704c1eda20a:section:3"
+        },
     },
     omegabatty_chestplate: {
         id: "omegabatty_chestplate",
@@ -381,6 +494,12 @@ export const Chestplate = {
             echo_incineration: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edace6",
+            "cardUrl": "https://trello.com/c/Ah3U29HJ",
+            "sectionId": "69214b9831723704c1edace6:section:3"
+        },
     },
     mushell: {
         id: "mushell",
@@ -399,6 +518,12 @@ export const Chestplate = {
             volatile_shell: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edaeca",
+            "cardUrl": "https://trello.com/c/pZLaET2F",
+            "sectionId": "69214b9831723704c1edaeca:section:2"
+        },
     },
     proto_mungus_chestplate: {
         id: "proto_mungus_chestplate",
@@ -418,6 +543,12 @@ export const Chestplate = {
             fungal_prototype: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad2c",
+            "cardUrl": "https://trello.com/c/91FyozNY",
+            "sectionId": "69214b9831723704c1edad2c:section:3"
+        },
     },
     reaperninja_cloak: {
         id: "reaperninja_cloak",
@@ -435,6 +566,12 @@ export const Chestplate = {
             reaper: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda212",
+            "cardUrl": "https://trello.com/c/DOoMAP82",
+            "sectionId": "69214b9731723704c1eda212:section:3"
+        },
     },
     rot_wood_mage_shirt: {
         id: "rot_wood_mage_shirt",
@@ -454,6 +591,12 @@ export const Chestplate = {
             siphoning_rot: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda75c",
+            "cardUrl": "https://trello.com/c/t8tsLHvS",
+            "sectionId": "69214b9731723704c1eda75c:section:3"
+        },
     },
     rot_wood_fighter_shirt: {
         id: "rot_wood_fighter_shirt",
@@ -472,6 +615,12 @@ export const Chestplate = {
             undying_rot: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda75a",
+            "cardUrl": "https://trello.com/c/8zpxQnj3",
+            "sectionId": "69214b9731723704c1eda75a:section:3"
+        },
     },
     sunkenpirate_shirt: {
         id: "sunkenpirate_shirt",
@@ -489,6 +638,12 @@ export const Chestplate = {
             strong_tides: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda556",
+            "cardUrl": "https://trello.com/c/Ih8XHqv0",
+            "sectionId": "69214b9731723704c1eda556:section:3"
+        },
     },
     true_moon_worshipper_cloak: {
         id: "true_moon_worshipper_cloak",
@@ -507,6 +662,12 @@ export const Chestplate = {
             true_moon: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad0c",
+            "cardUrl": "https://trello.com/c/m8rVu3xD",
+            "sectionId": "69214b9831723704c1edad0c:section:3"
+        },
     },
     thunder_gallant_chestplate: {
         id: "thunder_gallant_chestplate",
@@ -525,6 +686,12 @@ export const Chestplate = {
             voltaic_body: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda28a",
+            "cardUrl": "https://trello.com/c/fjwAjqHz",
+            "sectionId": "69214b9731723704c1eda28a:section:3"
+        },
     },
     thornmaiden_chestplate: {
         id: "thornmaiden_chestplate",
@@ -542,6 +709,12 @@ export const Chestplate = {
             barbskin: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda780",
+            "cardUrl": "https://trello.com/c/p0WZdgre",
+            "sectionId": "69214b9731723704c1eda780:section:3"
+        },
     },
     lodestone_monk_robes: {
         id: "lodestone_monk_robes",
@@ -559,6 +732,12 @@ export const Chestplate = {
             lodestone_barrage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda746",
+            "cardUrl": "https://trello.com/c/GyjQ79lP",
+            "sectionId": "69214b9731723704c1eda746:section:3"
+        },
     },
     steam_mage_chestplate: {
         id: "steam_mage_chestplate",
@@ -577,6 +756,12 @@ export const Chestplate = {
             magic_circuit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa42",
+            "cardUrl": "https://trello.com/c/9r0wJBmp",
+            "sectionId": "69214b9731723704c1edaa42:section:3"
+        },
     },
     winter_woof_cloak: {
         id: "winter_woof_cloak",
@@ -595,6 +780,12 @@ export const Chestplate = {
             blood_thirsty: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda60a",
+            "cardUrl": "https://trello.com/c/DjednJwL",
+            "sectionId": "69214b9731723704c1eda60a:section:3"
+        },
     },
     alchemical_robes: {
         id: "alchemical_robes",
@@ -618,6 +809,12 @@ export const Chestplate = {
             potion_chugger: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda624",
+            "cardUrl": "https://trello.com/c/sIlzLrfW",
+            "sectionId": "69214b9731723704c1eda624:section:3"
+        },
     },
     altolodon_shirt: {
         id: "altolodon_shirt",
@@ -635,6 +832,12 @@ export const Chestplate = {
             wind_drill: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae90",
+            "cardUrl": "https://trello.com/c/W8NgSR8b",
+            "sectionId": "69214b9831723704c1edae90:section:3"
+        },
     },
     atonement_chestplate: {
         id: "atonement_chestplate",
@@ -653,6 +856,12 @@ export const Chestplate = {
             penance: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabae",
+            "cardUrl": "https://trello.com/c/dNoQ2PMF",
+            "sectionId": "69214b9731723704c1edabae:section:3"
+        },
     },
     backpack_berserker_chestplate: {
         id: "backpack_berserker_chestplate",
@@ -669,6 +878,12 @@ export const Chestplate = {
             packaged_power: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda200",
+            "cardUrl": "https://trello.com/c/H1U3LW9J",
+            "sectionId": "69214b9731723704c1eda200:section:3"
+        },
     },
     buni_prince_cloak: {
         id: "buni_prince_cloak",
@@ -686,6 +901,12 @@ export const Chestplate = {
             cannonball: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa00",
+            "cardUrl": "https://trello.com/c/TbfEr3GM",
+            "sectionId": "69214b9731723704c1edaa00:section:3"
+        },
     },
     caci_cloak: {
         id: "caci_cloak",
@@ -703,6 +924,12 @@ export const Chestplate = {
             thorns: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda702",
+            "cardUrl": "https://trello.com/c/fKS95Ele",
+            "sectionId": "69214b9731723704c1eda702:section:3"
+        },
     },
     caci_king_garments: {
         id: "caci_king_garments",
@@ -720,6 +947,12 @@ export const Chestplate = {
             ruler_of_the_sands: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6a4",
+            "cardUrl": "https://trello.com/c/7r9cucia",
+            "sectionId": "69214b9731723704c1eda6a4:section:3"
+        },
     },
     cindersoul_essence: {
         id: "cindersoul_essence",
@@ -737,6 +970,13 @@ export const Chestplate = {
             cinder_soul: 1,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9731723704c1eda722",
+            "cardUrl": "https://trello.com/c/cnk2FImL"
+        },
+        "dataWarnings": [
+            "Armor slot needs review; the original item definition is retained."
+        ],
     },
     cindersoul_shirt: {
         id: "cindersoul_shirt",
@@ -754,6 +994,13 @@ export const Chestplate = {
             cinder_soul: 1,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9731723704c1eda722",
+            "cardUrl": "https://trello.com/c/cnk2FImL"
+        },
+        "dataWarnings": [
+            "Armor slot needs review; the original item definition is retained."
+        ],
     },
     civilian_shirt: {
         id: "civilian_shirt",
@@ -770,6 +1017,12 @@ export const Chestplate = {
             civilian: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda9f0",
+            "cardUrl": "https://trello.com/c/7mRMzJHR",
+            "sectionId": "69214b9731723704c1eda9f0:section:3"
+        },
     },
     coral_templar_chestplate: {
         id: "coral_templar_chestplate",
@@ -789,6 +1042,12 @@ export const Chestplate = {
             cleansed_blade: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae2c",
+            "cardUrl": "https://trello.com/c/zm793BRP",
+            "sectionId": "69214b9831723704c1edae2c:section:3"
+        },
     },
     cragstone_chestplate: {
         id: "cragstone_chestplate",
@@ -806,6 +1065,12 @@ export const Chestplate = {
             smoldering: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda724",
+            "cardUrl": "https://trello.com/c/SUBysNLe",
+            "sectionId": "69214b9731723704c1eda724:section:3"
+        },
     },
     crazy_hare_shirt: {
         id: "crazy_hare_shirt",
@@ -824,6 +1089,12 @@ export const Chestplate = {
             sickness: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaad6",
+            "cardUrl": "https://trello.com/c/ssRsseHC",
+            "sectionId": "69214b9731723704c1edaad6:section:3"
+        },
     },
     crimson_rogue_cloak: {
         id: "crimson_rogue_cloak",
@@ -841,6 +1112,12 @@ export const Chestplate = {
             fiery_pursuit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda60e",
+            "cardUrl": "https://trello.com/c/OEpy9F0R",
+            "sectionId": "69214b9731723704c1eda60e:section:3"
+        },
     },
     cryosteel_chestplate: {
         id: "cryosteel_chestplate",
@@ -859,6 +1136,12 @@ export const Chestplate = {
             cryo_engine: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda726",
+            "cardUrl": "https://trello.com/c/rgTaTDSy",
+            "sectionId": "69214b9731723704c1eda726:section:3"
+        },
     },
     curse_flame_cloak: {
         id: "curse_flame_cloak",
@@ -877,6 +1160,12 @@ export const Chestplate = {
             cursed_flames: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda728",
+            "cardUrl": "https://trello.com/c/9VOoxFVj",
+            "sectionId": "69214b9731723704c1eda728:section:3"
+        },
     },
     dandelion_knight_chestplate: {
         id: "dandelion_knight_chestplate",
@@ -895,6 +1184,12 @@ export const Chestplate = {
             carrying_winds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda72a",
+            "cardUrl": "https://trello.com/c/eana461M",
+            "sectionId": "69214b9731723704c1eda72a:section:3"
+        },
     },
     deathmist_knight_chestplate: {
         id: "deathmist_knight_chestplate",
@@ -913,6 +1208,12 @@ export const Chestplate = {
             deathmist_slash: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edac3e",
+            "cardUrl": "https://trello.com/c/dlmI9uI4",
+            "sectionId": "69214b9831723704c1edac3e:section:3"
+        },
     },
     deep_spider_cloak: {
         id: "deep_spider_cloak",
@@ -934,6 +1235,12 @@ export const Chestplate = {
             toxin_transfer: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacf6",
+            "cardUrl": "https://trello.com/c/RcvJzIJ2",
+            "sectionId": "69214b9831723704c1edacf6:section:3"
+        },
     },
     deepcrystal_dress: {
         id: "deepcrystal_dress",
@@ -950,6 +1257,12 @@ export const Chestplate = {
             deepcrystal_calling: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edac42",
+            "cardUrl": "https://trello.com/c/4b4PHB7W",
+            "sectionId": "69214b9831723704c1edac42:section:3"
+        },
     },
     deepsteel_chestplate: {
         id: "deepsteel_chestplate",
@@ -969,6 +1282,12 @@ export const Chestplate = {
             crushing_pressure: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa12",
+            "cardUrl": "https://trello.com/c/XeboFgDj",
+            "sectionId": "69214b9731723704c1edaa12:section:3"
+        },
     },
     delta_spider_chestplate: {
         id: "delta_spider_chestplate",
@@ -988,6 +1307,12 @@ export const Chestplate = {
             delta_drill: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacf8",
+            "cardUrl": "https://trello.com/c/OiFvqzP2",
+            "sectionId": "69214b9831723704c1edacf8:section:3"
+        },
     },
     desert_battle_mage_shirt: {
         id: "desert_battle_mage_shirt",
@@ -1006,6 +1331,12 @@ export const Chestplate = {
             blastshield: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda72c",
+            "cardUrl": "https://trello.com/c/pLN4aQLZ",
+            "sectionId": "69214b9731723704c1eda72c:section:3"
+        },
     },
     desert_champion_chestplate: {
         id: "desert_champion_chestplate",
@@ -1024,6 +1355,12 @@ export const Chestplate = {
             wrathful_crits: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda72e",
+            "cardUrl": "https://trello.com/c/TIgjoM2l",
+            "sectionId": "69214b9731723704c1eda72e:section:3"
+        },
     },
     desert_explorer_cloak: {
         id: "desert_explorer_cloak",
@@ -1038,6 +1375,13 @@ export const Chestplate = {
             HeatResistance: 150,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda208",
+            "cardUrl": "https://trello.com/c/yvR6hMEC",
+            "sectionId": "69214b9731723704c1eda208:section:3"
+        },
     },
     dire_buni_cloak: {
         id: "dire_buni_cloak",
@@ -1056,6 +1400,12 @@ export const Chestplate = {
             quick_witted: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda174",
+            "cardUrl": "https://trello.com/c/Y01kWJN4",
+            "sectionId": "69214b9731723704c1eda174:section:3"
+        },
     },
     divine_infantry_chestplate: {
         id: "divine_infantry_chestplate",
@@ -1074,6 +1424,12 @@ export const Chestplate = {
             mortal_will: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda214",
+            "cardUrl": "https://trello.com/c/1a2XN4F3",
+            "sectionId": "69214b9731723704c1eda214:section:3"
+        },
     },
     dragigator_chestplate: {
         id: "dragigator_chestplate",
@@ -1091,6 +1447,12 @@ export const Chestplate = {
             bellowing_ember: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda524",
+            "cardUrl": "https://trello.com/c/0Zy8r1gj",
+            "sectionId": "69214b9731723704c1eda524:section:3"
+        },
     },
     dragon_spirit_jacket: {
         id: "dragon_spirit_jacket",
@@ -1108,6 +1470,12 @@ export const Chestplate = {
             dragon_state: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda9ec",
+            "cardUrl": "https://trello.com/c/kX2pSRc5",
+            "sectionId": "69214b9731723704c1eda9ec:section:3"
+        },
     },
     dreadful_lift_chestplate: {
         id: "dreadful_lift_chestplate",
@@ -1127,6 +1495,12 @@ export const Chestplate = {
             grounded_despair: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad04",
+            "cardUrl": "https://trello.com/c/pV14KQdh",
+            "sectionId": "69214b9831723704c1edad04:section:3"
+        },
     },
     drone_chestplate: {
         id: "drone_chestplate",
@@ -1144,6 +1518,12 @@ export const Chestplate = {
             drone: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda732",
+            "cardUrl": "https://trello.com/c/87NazquU",
+            "sectionId": "69214b9731723704c1eda732:section:3"
+        },
     },
     ember_guardian_chestplate: {
         id: "ember_guardian_chestplate",
@@ -1164,6 +1544,12 @@ export const Chestplate = {
             rejuvenating_flame: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda288",
+            "cardUrl": "https://trello.com/c/EqzrrfQy",
+            "sectionId": "69214b9731723704c1eda288:section:3"
+        },
     },
     ember_mage_cloak: {
         id: "ember_mage_cloak",
@@ -1180,6 +1566,12 @@ export const Chestplate = {
             ignition: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda734",
+            "cardUrl": "https://trello.com/c/4PEijkrq",
+            "sectionId": "69214b9731723704c1eda734:section:3"
+        },
     },
     experimental_froggmail_chestplate: {
         id: "experimental_froggmail_chestplate",
@@ -1198,6 +1590,12 @@ export const Chestplate = {
             cursed_experiment: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda736",
+            "cardUrl": "https://trello.com/c/gAlCdJ8G",
+            "sectionId": "69214b9731723704c1eda736:section:3"
+        },
     },
     fallen_seraph_chestplate: {
         id: "fallen_seraph_chestplate",
@@ -1216,6 +1614,12 @@ export const Chestplate = {
             fell_rush: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacb8",
+            "cardUrl": "https://trello.com/c/WGaVk19R",
+            "sectionId": "69214b9831723704c1edacb8:section:3"
+        },
     },
     false_idol_chestplate: {
         id: "false_idol_chestplate",
@@ -1234,6 +1638,12 @@ export const Chestplate = {
             fractured_energy: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabb6",
+            "cardUrl": "https://trello.com/c/bd2jIGrD",
+            "sectionId": "69214b9731723704c1edabb6:section:3"
+        },
     },
     floral_duelist_shirt: {
         id: "floral_duelist_shirt",
@@ -1254,6 +1664,12 @@ export const Chestplate = {
             guiding_winds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacea",
+            "cardUrl": "https://trello.com/c/PGVbPl1z",
+            "sectionId": "69214b9831723704c1edacea:section:3"
+        },
     },
     flower_scout_shirt: {
         id: "flower_scout_shirt",
@@ -1270,6 +1686,12 @@ export const Chestplate = {
             photosynthesis: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda20c",
+            "cardUrl": "https://trello.com/c/HeJpMntf",
+            "sectionId": "69214b9731723704c1eda20c:section:3"
+        },
     },
     flowering_cowboy_shirt: {
         id: "flowering_cowboy_shirt",
@@ -1289,6 +1711,12 @@ export const Chestplate = {
             standoff: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edade4",
+            "cardUrl": "https://trello.com/c/G5L2GTFL",
+            "sectionId": "69214b9831723704c1edade4:section:3"
+        },
     },
     frogg_shirt: {
         id: "frogg_shirt",
@@ -1306,6 +1734,12 @@ export const Chestplate = {
             spring_step: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda526",
+            "cardUrl": "https://trello.com/c/HpJFQGh5",
+            "sectionId": "69214b9731723704c1eda526:section:3"
+        },
     },
     fungus_mage_robes: {
         id: "fungus_mage_robes",
@@ -1323,6 +1757,12 @@ export const Chestplate = {
             toxin_caster: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda1a0",
+            "cardUrl": "https://trello.com/c/ASynukBN",
+            "sectionId": "69214b9731723704c1eda1a0:section:3"
+        },
     },
     fusillade_diver_chestplate: {
         id: "fusillade_diver_chestplate",
@@ -1340,6 +1780,12 @@ export const Chestplate = {
             torpedo_barrage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacda",
+            "cardUrl": "https://trello.com/c/hKpuh4mz",
+            "sectionId": "69214b9831723704c1edacda:section:3"
+        },
     },
     galactic_graviturgy_chestplate: {
         id: "galactic_graviturgy_chestplate",
@@ -1357,6 +1803,12 @@ export const Chestplate = {
             heavy_gravitate: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae34",
+            "cardUrl": "https://trello.com/c/vfQNfby3",
+            "sectionId": "69214b9831723704c1edae34:section:3"
+        },
     },
     gale_wanderer_cloak: {
         id: "gale_wanderer_cloak",
@@ -1375,6 +1827,12 @@ export const Chestplate = {
             flowing_crits: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda308",
+            "cardUrl": "https://trello.com/c/DHhPhgmU",
+            "sectionId": "69214b9731723704c1eda308:section:3"
+        },
     },
     gemstone_robe: {
         id: "gemstone_robe",
@@ -1391,6 +1849,12 @@ export const Chestplate = {
             healing_arts: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda738",
+            "cardUrl": "https://trello.com/c/v4L2bSVy",
+            "sectionId": "69214b9731723704c1eda738:section:3"
+        },
     },
     glacial_snapper_chestplate: {
         id: "glacial_snapper_chestplate",
@@ -1412,6 +1876,12 @@ export const Chestplate = {
             ice_barge: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda73a",
+            "cardUrl": "https://trello.com/c/LXvVZovD",
+            "sectionId": "69214b9731723704c1eda73a:section:3"
+        },
     },
     goodguy_jacket: {
         id: "goodguy_jacket",
@@ -1428,6 +1898,12 @@ export const Chestplate = {
             blazing_finisher: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda73c",
+            "cardUrl": "https://trello.com/c/WabSBqle",
+            "sectionId": "69214b9731723704c1eda73c:section:3"
+        },
     },
     gremlin_chestplate: {
         id: "gremlin_chestplate",
@@ -1446,6 +1922,12 @@ export const Chestplate = {
             slow_leak: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda28c",
+            "cardUrl": "https://trello.com/c/f8nQ3vtm",
+            "sectionId": "69214b9731723704c1eda28c:section:3"
+        },
     },
     gremlinancer_shirt: {
         id: "gremlinancer_shirt",
@@ -1463,6 +1945,12 @@ export const Chestplate = {
             dark_magic: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda28e",
+            "cardUrl": "https://trello.com/c/wleVtlSu",
+            "sectionId": "69214b9731723704c1eda28e:section:3"
+        },
     },
     gunslinger_shirt: {
         id: "gunslinger_shirt",
@@ -1481,6 +1969,12 @@ export const Chestplate = {
             quickdraw: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda73e",
+            "cardUrl": "https://trello.com/c/x4Jx00pw",
+            "sectionId": "69214b9731723704c1eda73e:section:3"
+        },
     },
     hex_magician_shirt: {
         id: "hex_magician_shirt",
@@ -1497,6 +1991,12 @@ export const Chestplate = {
             final_act: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda740",
+            "cardUrl": "https://trello.com/c/Jya4t8A1",
+            "sectionId": "69214b9731723704c1eda740:section:3"
+        },
     },
     holy_robe_cloak: {
         id: "holy_robe_cloak",
@@ -1514,6 +2014,12 @@ export const Chestplate = {
             blessing: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda17c",
+            "cardUrl": "https://trello.com/c/OQQaaluc",
+            "sectionId": "69214b9731723704c1eda17c:section:3"
+        },
     },
     honeysteel_chestplate: {
         id: "honeysteel_chestplate",
@@ -1533,6 +2039,12 @@ export const Chestplate = {
             sticky_guard: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda742",
+            "cardUrl": "https://trello.com/c/ZETsQdyx",
+            "sectionId": "69214b9731723704c1eda742:section:3"
+        },
     },
     hypnotist_suit: {
         id: "hypnotist_suit",
@@ -1551,6 +2063,12 @@ export const Chestplate = {
             hypnotist: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab52",
+            "cardUrl": "https://trello.com/c/g23k1g4s",
+            "sectionId": "69214b9731723704c1edab52:section:3"
+        },
     },
     infused_knight_chestplate: {
         id: "infused_knight_chestplate",
@@ -1568,6 +2086,12 @@ export const Chestplate = {
             true_balance: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda744",
+            "cardUrl": "https://trello.com/c/r7wayI7M",
+            "sectionId": "69214b9731723704c1eda744:section:3"
+        },
     },
     investigator_shirt: {
         id: "investigator_shirt",
@@ -1584,6 +2108,12 @@ export const Chestplate = {
             investigator: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda1e2",
+            "cardUrl": "https://trello.com/c/LhY5lCXd",
+            "sectionId": "69214b9731723704c1eda1e2:section:3"
+        },
     },
     king_carp_chestplate: {
         id: "king_carp_chestplate",
@@ -1602,6 +2132,12 @@ export const Chestplate = {
             blub_blub: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edac38",
+            "cardUrl": "https://trello.com/c/YZD20aqt",
+            "sectionId": "69214b9831723704c1edac38:section:3"
+        },
     },
     knight_chestplate: {
         id: "knight_chestplate",
@@ -1621,6 +2157,12 @@ export const Chestplate = {
             hardened_will: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2a0",
+            "cardUrl": "https://trello.com/c/EckIEPm2",
+            "sectionId": "69214b9731723704c1eda2a0:section:3"
+        },
     },
     last_seraph_chestplate: {
         id: "last_seraph_chestplate",
@@ -1639,6 +2181,12 @@ export const Chestplate = {
             divine_crash: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda97a",
+            "cardUrl": "https://trello.com/c/moyuMrpz",
+            "sectionId": "69214b9731723704c1eda97a:section:3"
+        },
     },
     lich_king_chestplate: {
         id: "lich_king_chestplate",
@@ -1657,6 +2205,12 @@ export const Chestplate = {
             sacrificial_summoning: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda27e",
+            "cardUrl": "https://trello.com/c/Jzivijtx",
+            "sectionId": "69214b9731723704c1eda27e:section:3"
+        },
     },
     lilimonster_body: {
         id: "lilimonster_body",
@@ -1675,6 +2229,12 @@ export const Chestplate = {
             fragrant_flesh: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab90",
+            "cardUrl": "https://trello.com/c/aQ66jBW7",
+            "sectionId": "69214b9731723704c1edab90:section:3"
+        },
     },
     lone_samurai_jacket: {
         id: "lone_samurai_jacket",
@@ -1692,6 +2252,12 @@ export const Chestplate = {
             cut_down: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda29a",
+            "cardUrl": "https://trello.com/c/Vx35ZHwG",
+            "sectionId": "69214b9731723704c1eda29a:section:3"
+        },
     },
     looters_shirt: {
         id: "looters_shirt",
@@ -1709,6 +2275,12 @@ export const Chestplate = {
             trophy_hunter: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda256",
+            "cardUrl": "https://trello.com/c/sjlYkjr8",
+            "sectionId": "69214b9731723704c1eda256:section:3"
+        },
     },
     lord_dung_chestplate: {
         id: "lord_dung_chestplate",
@@ -1728,6 +2300,12 @@ export const Chestplate = {
             vile_presence: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda748",
+            "cardUrl": "https://trello.com/c/ThIlrurA",
+            "sectionId": "69214b9731723704c1eda748:section:3"
+        },
     },
     lord_frogg_chestplate: {
         id: "lord_frogg_chestplate",
@@ -1747,6 +2325,12 @@ export const Chestplate = {
             weighty_slam: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda74a",
+            "cardUrl": "https://trello.com/c/iavWv7xL",
+            "sectionId": "69214b9731723704c1eda74a:section:3"
+        },
     },
     mad_mage_cloak: {
         id: "mad_mage_cloak",
@@ -1764,6 +2348,12 @@ export const Chestplate = {
             mage_rage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabb2",
+            "cardUrl": "https://trello.com/c/2vlGjGFT",
+            "sectionId": "69214b9731723704c1edabb2:section:3"
+        },
     },
     mageling_cloak: {
         id: "mageling_cloak",
@@ -1779,6 +2369,12 @@ export const Chestplate = {
             caster: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda74c",
+            "cardUrl": "https://trello.com/c/NxcqAjO7",
+            "sectionId": "69214b9731723704c1eda74c:section:3"
+        },
     },
     mines_captain_shirt: {
         id: "mines_captain_shirt",
@@ -1795,6 +2391,12 @@ export const Chestplate = {
             inspiration: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacde",
+            "cardUrl": "https://trello.com/c/2SPdtuqz",
+            "sectionId": "69214b9831723704c1edacde:section:3"
+        },
     },
     muscles_of_the_wrestler: {
         id: "muscles_of_the_wrestler",
@@ -1809,6 +2411,12 @@ export const Chestplate = {
             pursuit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae74",
+            "cardUrl": "https://trello.com/c/NKzU3KPd",
+            "sectionId": "69214b9831723704c1edae74:section:2"
+        },
     },
     nectar_knight_chestplate: {
         id: "nectar_knight_chestplate",
@@ -1829,6 +2437,12 @@ export const Chestplate = {
             sickly_sweetness: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda750",
+            "cardUrl": "https://trello.com/c/FJrhc2HT",
+            "sectionId": "69214b9731723704c1eda750:section:3"
+        },
     },
     ninja_garb: {
         id: "ninja_garb",
@@ -1846,6 +2460,12 @@ export const Chestplate = {
             stealth: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda21e",
+            "cardUrl": "https://trello.com/c/YNsjmoDS",
+            "sectionId": "69214b9731723704c1eda21e:section:3"
+        },
     },
     nomad_shirt: {
         id: "nomad_shirt",
@@ -1863,6 +2483,12 @@ export const Chestplate = {
             runic_winds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda298",
+            "cardUrl": "https://trello.com/c/gomv63ry",
+            "sectionId": "69214b9731723704c1eda298:section:3"
+        },
     },
     northern_innovator_chestplate: {
         id: "northern_innovator_chestplate",
@@ -1881,6 +2507,12 @@ export const Chestplate = {
             adaptive_plate: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edace4",
+            "cardUrl": "https://trello.com/c/4G2lhwcp",
+            "sectionId": "69214b9831723704c1edace4:section:3"
+        },
     },
     northern_miner_shirt: {
         id: "northern_miner_shirt",
@@ -1899,6 +2531,12 @@ export const Chestplate = {
             quarry: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacd4",
+            "cardUrl": "https://trello.com/c/ezZKJYBw",
+            "sectionId": "69214b9831723704c1edacd4:section:3"
+        },
     },
     ocean_guardian_chestplate: {
         id: "ocean_guardian_chestplate",
@@ -1916,6 +2554,12 @@ export const Chestplate = {
             warding_tides: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda752",
+            "cardUrl": "https://trello.com/c/NpBLVCgR",
+            "sectionId": "69214b9731723704c1eda752:section:3"
+        },
     },
     old_knight_chestplate: {
         id: "old_knight_chestplate",
@@ -1937,6 +2581,12 @@ export const Chestplate = {
             forgotten_chivalry: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad08",
+            "cardUrl": "https://trello.com/c/drhSmPnO",
+            "sectionId": "69214b9831723704c1edad08:section:3"
+        },
     },
     omen_bearer_cloak: {
         id: "omen_bearer_cloak",
@@ -1955,6 +2605,12 @@ export const Chestplate = {
             darkening_hex: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda202",
+            "cardUrl": "https://trello.com/c/dlL5bnPz",
+            "sectionId": "69214b9731723704c1eda202:section:3"
+        },
     },
     plains_woof_cloak: {
         id: "plains_woof_cloak",
@@ -1971,6 +2627,12 @@ export const Chestplate = {
             sharp_claws: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2ca",
+            "cardUrl": "https://trello.com/c/rDcdPtEa",
+            "sectionId": "69214b9731723704c1eda2ca:section:3"
+        },
     },
     prisoner_shirt: {
         id: "prisoner_shirt",
@@ -1990,6 +2652,12 @@ export const Chestplate = {
             righted_wrongs: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda204",
+            "cardUrl": "https://trello.com/c/ixc48un3",
+            "sectionId": "69214b9731723704c1eda204:section:3"
+        },
     },
     profane_robes: {
         id: "profane_robes",
@@ -2007,6 +2675,12 @@ export const Chestplate = {
             gorecast: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab9a",
+            "cardUrl": "https://trello.com/c/7gJXALQA",
+            "sectionId": "69214b9731723704c1edab9a:section:3"
+        },
     },
     puffball_shirt: {
         id: "puffball_shirt",
@@ -2024,6 +2698,12 @@ export const Chestplate = {
             gnawing_poison: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad30",
+            "cardUrl": "https://trello.com/c/I9g0VyTd",
+            "sectionId": "69214b9831723704c1edad30:section:3"
+        },
     },
     pyre_druid_cloak: {
         id: "pyre_druid_cloak",
@@ -2043,6 +2723,12 @@ export const Chestplate = {
             pyre_bloom: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae30",
+            "cardUrl": "https://trello.com/c/zMO5WfeK",
+            "sectionId": "69214b9831723704c1edae30:section:3"
+        },
     },
     queen_bumblz_chestplate: {
         id: "queen_bumblz_chestplate",
@@ -2061,6 +2747,12 @@ export const Chestplate = {
             sticky_summons: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda69e",
+            "cardUrl": "https://trello.com/c/IQy36BeG",
+            "sectionId": "69214b9731723704c1eda69e:section:3"
+        },
     },
     redsky_saint_robes: {
         id: "redsky_saint_robes",
@@ -2079,6 +2771,12 @@ export const Chestplate = {
             vital_mist: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacb4",
+            "cardUrl": "https://trello.com/c/Cvnq7F25",
+            "sectionId": "69214b9831723704c1edacb4:section:3"
+        },
     },
     revved_chestplate: {
         id: "revved_chestplate",
@@ -2097,6 +2795,12 @@ export const Chestplate = {
             engine: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda756",
+            "cardUrl": "https://trello.com/c/TytwaUDZ",
+            "sectionId": "69214b9731723704c1eda756:section:3"
+        },
     },
     riptide_shirt: {
         id: "riptide_shirt",
@@ -2115,6 +2819,12 @@ export const Chestplate = {
             ocean_song: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda20e",
+            "cardUrl": "https://trello.com/c/ph33c9ZS",
+            "sectionId": "69214b9731723704c1eda20e:section:3"
+        },
     },
     rock_hare_chestplate: {
         id: "rock_hare_chestplate",
@@ -2128,9 +2838,15 @@ export const Chestplate = {
             SpeedBoost: -2,
         },
         perks: {
-            immovable: 1,
+            "immoveable": 1
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda758",
+            "cardUrl": "https://trello.com/c/60JzHO2H",
+            "sectionId": "69214b9731723704c1eda758:section:3"
+        },
     },
     ronin_chestplate: {
         id: "ronin_chestplate",
@@ -2150,6 +2866,12 @@ export const Chestplate = {
             heightened_reflexes: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaaf4",
+            "cardUrl": "https://trello.com/c/M5Xt9wcX",
+            "sectionId": "69214b9731723704c1edaaf4:section:3"
+        },
     },
     royal_clerics_chestplate: {
         id: "royal_clerics_chestplate",
@@ -2167,6 +2889,12 @@ export const Chestplate = {
             critical_healing: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda75e",
+            "cardUrl": "https://trello.com/c/9HiIjhtw",
+            "sectionId": "69214b9731723704c1eda75e:section:3"
+        },
     },
     saur_body: {
         id: "saur_body",
@@ -2184,6 +2912,12 @@ export const Chestplate = {
             primal: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda9e0",
+            "cardUrl": "https://trello.com/c/TFisqUmQ",
+            "sectionId": "69214b9731723704c1eda9e0:section:3"
+        },
     },
     scow_marauder_chestplate: {
         id: "scow_marauder_chestplate",
@@ -2204,6 +2938,12 @@ export const Chestplate = {
             frozen_heart: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda760",
+            "cardUrl": "https://trello.com/c/qw16KvFQ",
+            "sectionId": "69214b9731723704c1eda760:section:3"
+        },
     },
     scow_shaman_chestplate: {
         id: "scow_shaman_chestplate",
@@ -2223,6 +2963,12 @@ export const Chestplate = {
             shamanic_flow: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda60c",
+            "cardUrl": "https://trello.com/c/A0fjZOMk",
+            "sectionId": "69214b9731723704c1eda60c:section:3"
+        },
     },
     shadow_dweller_shirt: {
         id: "shadow_dweller_shirt",
@@ -2240,6 +2986,12 @@ export const Chestplate = {
             dark_harvest: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa16",
+            "cardUrl": "https://trello.com/c/RxlFPGk6",
+            "sectionId": "69214b9731723704c1edaa16:section:3"
+        },
     },
     skull_mage_cloak: {
         id: "skull_mage_cloak",
@@ -2258,6 +3010,12 @@ export const Chestplate = {
             pain_distribution: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda762",
+            "cardUrl": "https://trello.com/c/nEVx4Huw",
+            "sectionId": "69214b9731723704c1eda762:section:3"
+        },
     },
     slizard_chestplate: {
         id: "slizard_chestplate",
@@ -2277,6 +3035,12 @@ export const Chestplate = {
             carapace: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda764",
+            "cardUrl": "https://trello.com/c/GLYMHHA1",
+            "sectionId": "69214b9731723704c1eda764:section:3"
+        },
     },
     snoeman_cloak: {
         id: "snoeman_cloak",
@@ -2296,6 +3060,12 @@ export const Chestplate = {
             icestorm: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda768",
+            "cardUrl": "https://trello.com/c/GmbFmEke",
+            "sectionId": "69214b9731723704c1eda768:section:3"
+        },
     },
     sol_warrior_chestplate: {
         id: "sol_warrior_chestplate",
@@ -2313,6 +3083,12 @@ export const Chestplate = {
             sunburn: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda76a",
+            "cardUrl": "https://trello.com/c/MgGDt4Kw",
+            "sectionId": "69214b9731723704c1eda76a:section:3"
+        },
     },
     spell_slinger_cloak: {
         id: "spell_slinger_cloak",
@@ -2330,6 +3106,12 @@ export const Chestplate = {
             spell_slinger: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda76c",
+            "cardUrl": "https://trello.com/c/2XxZIxNF",
+            "sectionId": "69214b9731723704c1eda76c:section:3"
+        },
     },
     spore_boss_man_shirt: {
         id: "spore_boss_man_shirt",
@@ -2347,6 +3129,12 @@ export const Chestplate = {
             spore_trooper: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda76e",
+            "cardUrl": "https://trello.com/c/dEsqYYvR",
+            "sectionId": "69214b9731723704c1eda76e:section:3"
+        },
     },
     sporeling_shirt: {
         id: "sporeling_shirt",
@@ -2364,6 +3152,12 @@ export const Chestplate = {
             spore_burst: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda206",
+            "cardUrl": "https://trello.com/c/mhnRhn2L",
+            "sectionId": "69214b9731723704c1eda206:section:3"
+        },
     },
     stacked_plate_chestplate: {
         id: "stacked_plate_chestplate",
@@ -2384,6 +3178,12 @@ export const Chestplate = {
             extra_layers: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda770",
+            "cardUrl": "https://trello.com/c/8W8Dg4d3",
+            "sectionId": "69214b9731723704c1eda770:section:3"
+        },
     },
     stagroot_chestplate: {
         id: "stagroot_chestplate",
@@ -2404,6 +3204,12 @@ export const Chestplate = {
             vapor_aegis: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda772",
+            "cardUrl": "https://trello.com/c/IuHcpSTR",
+            "sectionId": "69214b9731723704c1eda772:section:3"
+        },
     },
     stalker_shirt: {
         id: "stalker_shirt",
@@ -2423,6 +3229,12 @@ export const Chestplate = {
             wild_bolt: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacf2",
+            "cardUrl": "https://trello.com/c/pvBKQQaw",
+            "sectionId": "69214b9831723704c1edacf2:section:3"
+        },
     },
     stardust_shirt: {
         id: "stardust_shirt",
@@ -2441,6 +3253,12 @@ export const Chestplate = {
             star_barrage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda778",
+            "cardUrl": "https://trello.com/c/NVuQStcf",
+            "sectionId": "69214b9731723704c1eda778:section:3"
+        },
     },
     star_guardian_chestplate: {
         id: "star_guardian_chestplate",
@@ -2458,6 +3276,12 @@ export const Chestplate = {
             star_friendship: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda774",
+            "cardUrl": "https://trello.com/c/mNwc3CZL",
+            "sectionId": "69214b9731723704c1eda774:section:3"
+        },
     },
     steam_golem_chestplate: {
         id: "steam_golem_chestplate",
@@ -2477,6 +3301,12 @@ export const Chestplate = {
             steam_powered: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda77a",
+            "cardUrl": "https://trello.com/c/6jkhMmum",
+            "sectionId": "69214b9731723704c1eda77a:section:3"
+        },
     },
     steel_legion_chestplate: {
         id: "steel_legion_chestplate",
@@ -2497,6 +3327,12 @@ export const Chestplate = {
             juggernaut: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda97c",
+            "cardUrl": "https://trello.com/c/vTADfuNG",
+            "sectionId": "69214b9731723704c1eda97c:section:3"
+        },
     },
     steel_sentry_chestplate: {
         id: "steel_sentry_chestplate",
@@ -2515,6 +3351,12 @@ export const Chestplate = {
             bulwark: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda77c",
+            "cardUrl": "https://trello.com/c/VymLlFFH",
+            "sectionId": "69214b9731723704c1eda77c:section:3"
+        },
     },
     sticky_robes: {
         id: "sticky_robes",
@@ -2531,6 +3373,12 @@ export const Chestplate = {
             honey_arts: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6a0",
+            "cardUrl": "https://trello.com/c/treGnAhu",
+            "sectionId": "69214b9731723704c1eda6a0:section:3"
+        },
     },
     stone_archer_body: {
         id: "stone_archer_body",
@@ -2549,6 +3397,12 @@ export const Chestplate = {
             bastion_ballista: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab72",
+            "cardUrl": "https://trello.com/c/9C9wlNIH",
+            "sectionId": "69214b9731723704c1edab72:section:3"
+        },
     },
     stone_cleric_body: {
         id: "stone_cleric_body",
@@ -2567,6 +3421,12 @@ export const Chestplate = {
             lithic_veil: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab70",
+            "cardUrl": "https://trello.com/c/PasoYcv9",
+            "sectionId": "69214b9731723704c1edab70:section:3"
+        },
     },
     stone_knight_body: {
         id: "stone_knight_body",
@@ -2587,6 +3447,12 @@ export const Chestplate = {
             heavy_slate: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab6c",
+            "cardUrl": "https://trello.com/c/OTkN7Lxv",
+            "sectionId": "69214b9731723704c1edab6c:section:3"
+        },
     },
     stratos_chestplate: {
         id: "stratos_chestplate",
@@ -2607,6 +3473,12 @@ export const Chestplate = {
             air_pressure: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda978",
+            "cardUrl": "https://trello.com/c/v7FjcMPx",
+            "sectionId": "69214b9731723704c1eda978:section:3"
+        },
     },
     sunken_mage_cloak: {
         id: "sunken_mage_cloak",
@@ -2625,6 +3497,12 @@ export const Chestplate = {
             channeled_depths: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda210",
+            "cardUrl": "https://trello.com/c/CzKGOnV8",
+            "sectionId": "69214b9731723704c1eda210:section:3"
+        },
     },
     swamp_brawler_shirt: {
         id: "swamp_brawler_shirt",
@@ -2643,6 +3521,12 @@ export const Chestplate = {
             marsh_flow: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda77e",
+            "cardUrl": "https://trello.com/c/ayAux5xd",
+            "sectionId": "69214b9731723704c1eda77e:section:3"
+        },
     },
     swamp_marauder_shirt: {
         id: "swamp_marauder_shirt",
@@ -2660,6 +3544,12 @@ export const Chestplate = {
             swift_guard: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda776",
+            "cardUrl": "https://trello.com/c/QBlSGfJW",
+            "sectionId": "69214b9731723704c1eda776:section:3"
+        },
     },
     thieves_cloak: {
         id: "thieves_cloak",
@@ -2676,6 +3566,12 @@ export const Chestplate = {
             critical_master: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda306",
+            "cardUrl": "https://trello.com/c/n2H8syje",
+            "sectionId": "69214b9731723704c1eda306:section:3"
+        },
     },
     toadzerker_chestplate: {
         id: "toadzerker_chestplate",
@@ -2693,6 +3589,12 @@ export const Chestplate = {
             raging_bounce: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda626",
+            "cardUrl": "https://trello.com/c/c8Y0A2cR",
+            "sectionId": "69214b9731723704c1eda626:section:3"
+        },
     },
     tundra_explorer_cloak: {
         id: "tundra_explorer_cloak",
@@ -2707,6 +3609,13 @@ export const Chestplate = {
             ColdResistance: 150,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda784",
+            "cardUrl": "https://trello.com/c/XsFanANr",
+            "sectionId": "69214b9731723704c1eda784:section:3"
+        },
     },
     void_root_chestplate: {
         id: "void_root_chestplate",
@@ -2727,6 +3636,12 @@ export const Chestplate = {
             cursed_bark: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda788",
+            "cardUrl": "https://trello.com/c/X0tFjdyJ",
+            "sectionId": "69214b9731723704c1eda788:section:3"
+        },
     },
     whirlray_dancer_shirt: {
         id: "whirlray_dancer_shirt",
@@ -2745,6 +3660,12 @@ export const Chestplate = {
             whirl_foot: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae94",
+            "cardUrl": "https://trello.com/c/MkNrU4rp",
+            "sectionId": "69214b9831723704c1edae94:section:3"
+        },
     },
     whistle_warrior_chestplate: {
         id: "whistle_warrior_chestplate",
@@ -2762,6 +3683,12 @@ export const Chestplate = {
             screeching_sound: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa0e",
+            "cardUrl": "https://trello.com/c/MZ23WQbb",
+            "sectionId": "69214b9731723704c1edaa0e:section:3"
+        },
     },
     wind_champion_shirt: {
         id: "wind_champion_shirt",
@@ -2780,6 +3707,12 @@ export const Chestplate = {
             wind_walker: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda254",
+            "cardUrl": "https://trello.com/c/xlhF3LD8",
+            "sectionId": "69214b9731723704c1eda254:section:4"
+        },
     },
     wind_spirit_cloak: {
         id: "wind_spirit_cloak",
@@ -2798,6 +3731,12 @@ export const Chestplate = {
             spirit_winds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda240",
+            "cardUrl": "https://trello.com/c/rHG6YrKm",
+            "sectionId": "69214b9731723704c1eda240:section:3"
+        },
     },
     // egg_scientist_suit: {
     //   id: "egg_scientist_suit",
@@ -2911,4 +3850,109 @@ export const Chestplate = {
     //   description: "Cozy deer body Obtainable during the 2025 Voxlmas Event",
     //   img: "",
     // },
+    "astro_pajama_robes": {
+        "id": "astro_pajama_robes",
+        "name": "Astro-Pajama Robes",
+        "stats": {
+            "AirBoost": -15,
+            "MagicBoost": 14,
+            "WaterBoost": 14,
+            "MagicDefense": 5
+        },
+        "perks": {
+            "counting_sheep": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda176",
+            "cardUrl": "https://trello.com/c/8twxqyme",
+            "sectionId": "69214b9731723704c1eda176:section:3"
+        },
+        "category": "Armor",
+        "type": "Chestplate"
+    },
+    "bowling_knight_chestplate": {
+        "id": "bowling_knight_chestplate",
+        "name": "Bowling Knight Chestplate",
+        "stats": {
+            "Tenacity": 1,
+            "PhysicalDefense": 15,
+            "Protection": 0.3,
+            "MagicDefense": 15
+        },
+        "perks": {
+            "bowlers_roll": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6fe",
+            "cardUrl": "https://trello.com/c/QSthSf2F",
+            "sectionId": "69214b9731723704c1eda6fe:section:3"
+        },
+        "category": "Armor",
+        "type": "Chestplate"
+    },
+    "dragon_soul_jacket": {
+        "id": "dragon_soul_jacket",
+        "name": "Dragon Soul Jacket",
+        "stats": {
+            "MagicBoost": 10,
+            "PhysicalDefense": 5,
+            "MagicDefense": 5
+        },
+        "perks": {
+            "mark_of_the_dragon": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda730",
+            "cardUrl": "https://trello.com/c/5xNf0gAq",
+            "sectionId": "69214b9731723704c1eda730:section:3"
+        },
+        "category": "Armor",
+        "type": "Chestplate"
+    },
+    "sea_demon_body": {
+        "id": "sea_demon_body",
+        "name": "Sea Demon Body",
+        "stats": {
+            "WaterDefense": 10,
+            "WaterBoost": 19,
+            "Protection": -4,
+            "Tenacity": -0.1
+        },
+        "perks": {
+            "oceans_rage": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae26",
+            "cardUrl": "https://trello.com/c/eBcem3UO",
+            "sectionId": "69214b9831723704c1edae26:section:3"
+        },
+        "category": "Armor",
+        "type": "Chestplate"
+    },
+    "tundra_warlord_chestplate": {
+        "id": "tundra_warlord_chestplate",
+        "name": "Tundra Warlord Chestplate",
+        "stats": {
+            "Protection": 0.1,
+            "PhysicalDefense": 7,
+            "ColdResistance": 150,
+            "MagicDefense": -7,
+            "PhysicalBoost": 15
+        },
+        "perks": {
+            "conquerer": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda786",
+            "cardUrl": "https://trello.com/c/QCxAjLNS",
+            "sectionId": "69214b9731723704c1eda786:section:3"
+        },
+        "category": "Armor",
+        "type": "Chestplate"
+    },
 };

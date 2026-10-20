@@ -23,6 +23,12 @@ export const Gloves = {
             marsh_flow: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda650",
+            "cardUrl": "https://trello.com/c/vkEjaIyR",
+            "sectionId": "69214b9731723704c1eda650"
+        },
     },
     woof_fang_fist: {
         id: "woof_fang_fist",
@@ -47,6 +53,12 @@ export const Gloves = {
             sharp_claws: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda658",
+            "cardUrl": "https://trello.com/c/W1cQLshk",
+            "sectionId": "69214b9731723704c1eda658"
+        },
     },
     mageling_gloves: {
         id: "mageling_gloves",
@@ -71,6 +83,12 @@ export const Gloves = {
             caster: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda65a",
+            "cardUrl": "https://trello.com/c/EeUiMKEN",
+            "sectionId": "69214b9731723704c1eda65a"
+        },
     },
     buni_gloves: {
         id: "buni_gloves",
@@ -80,8 +98,9 @@ export const Gloves = {
         type: "Gloves",
         attackSpeed: 1,
         stats: {
-            DexterityBoost: 10,
-            JumpBoost: 3,
+            "DexterityBoost": 10,
+            "JumpBoost": 3,
+            "SpeedBoost": 15
         },
         damageScalings: {
             Dexterity: 0.4,
@@ -94,6 +113,12 @@ export const Gloves = {
             buni_spirit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda65c",
+            "cardUrl": "https://trello.com/c/hgfEnL41",
+            "sectionId": "69214b9731723704c1eda65c"
+        },
     },
     toadzerker_gloves: {
         id: "toadzerker_gloves",
@@ -119,6 +144,12 @@ export const Gloves = {
             spring_step: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda65e",
+            "cardUrl": "https://trello.com/c/lnJY7pLH",
+            "sectionId": "69214b9731723704c1eda65e"
+        },
     },
     winter_woof_gloves: {
         id: "winter_woof_gloves",
@@ -145,6 +176,12 @@ export const Gloves = {
             winter_woof_spirit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda660",
+            "cardUrl": "https://trello.com/c/uqntvNKS",
+            "sectionId": "69214b9731723704c1eda660"
+        },
     },
     bumblz_gloves: {
         id: "bumblz_gloves",
@@ -154,8 +191,9 @@ export const Gloves = {
         type: "Gloves",
         attackSpeed: 1,
         stats: {
-            MagicBoost: 10,
-            JumpBoost: 5,
+            "MagicBoost": 10,
+            "SummonBoost": 10,
+            "JumpBoost": 5
         },
         damageScalings: {
             Magic: 0.5,
@@ -170,6 +208,12 @@ export const Gloves = {
             bumblz_spirit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda696",
+            "cardUrl": "https://trello.com/c/ETt2nfSw",
+            "sectionId": "69214b9731723704c1eda696"
+        },
     },
     bulfrogg_gloves: {
         id: "bulfrogg_gloves",
@@ -197,6 +241,12 @@ export const Gloves = {
             bounce_momentum: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda698",
+            "cardUrl": "https://trello.com/c/xTwMcnoT",
+            "sectionId": "69214b9731723704c1eda698"
+        },
     },
     dire_buni_gloves: {
         id: "dire_buni_gloves",
@@ -206,7 +256,8 @@ export const Gloves = {
         type: "Gloves",
         attackSpeed: 1,
         stats: {
-            DexterityBoost: 15,
+            "SpeedBoost": 15,
+            "DexterityBoost": 15
         },
         damageScalings: {
             Dexterity: 0.5,
@@ -220,6 +271,12 @@ export const Gloves = {
             dire_buni_spirit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda674",
+            "cardUrl": "https://trello.com/c/Vhq8XwNV",
+            "sectionId": "69214b9731723704c1eda674"
+        },
     },
     caci_gloves: {
         id: "caci_gloves",
@@ -245,6 +302,12 @@ export const Gloves = {
             thorns: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda672",
+            "cardUrl": "https://trello.com/c/mHf22hk7",
+            "sectionId": "69214b9731723704c1eda672"
+        },
     },
     croakernaut_shield: {
         id: "croakernaut_shield",
@@ -273,6 +336,12 @@ export const Gloves = {
             croakernaut_spirit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda62c",
+            "cardUrl": "https://trello.com/c/1ResqrYd",
+            "sectionId": "69214b9731723704c1eda62c"
+        },
     },
     dragigator_gloves: {
         id: "dragigator_gloves",
@@ -301,6 +370,12 @@ export const Gloves = {
             dragigator_spirit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda662",
+            "cardUrl": "https://trello.com/c/9AB73ESZ",
+            "sectionId": "69214b9731723704c1eda662"
+        },
     },
     bowldur_gloves: {
         id: "bowldur_gloves",
@@ -326,6 +401,12 @@ export const Gloves = {
             bowldur_spirit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7d2",
+            "cardUrl": "https://trello.com/c/VdPY3cvH",
+            "sectionId": "69214b9731723704c1eda7d2"
+        },
     },
     iron_slayer_gloves: {
         id: "iron_slayer_gloves",
@@ -351,6 +432,12 @@ export const Gloves = {
             fury: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7d0",
+            "cardUrl": "https://trello.com/c/nJQGZK6O",
+            "sectionId": "69214b9731723704c1eda7d0"
+        },
     },
     bomber_gloves: {
         id: "bomber_gloves",
@@ -379,6 +466,12 @@ export const Gloves = {
             bomber_spirit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7d8",
+            "cardUrl": "https://trello.com/c/OFNIuXAk",
+            "sectionId": "69214b9731723704c1eda7d8"
+        },
     },
     queen_bumblz_gloves: {
         id: "queen_bumblz_gloves",
@@ -388,8 +481,9 @@ export const Gloves = {
         type: "Gloves",
         attackSpeed: 1,
         stats: {
-            HolyBoost: 15,
-            MagicBoost: 15,
+            "HolyBoost": 15,
+            "MagicBoost": 15,
+            "SummonBoost": 15
         },
         damageScalings: {
             Magic: 0.5,
@@ -401,11 +495,17 @@ export const Gloves = {
             Holy: 0.5,
         },
         perks: {
-            sticky_summons: 1,
-            queens_power: 1,
-            queen_bumblz_spirit: 1,
+            "sticky_summons": 1,
+            "queen_s_power": 1,
+            "queen_bumblz_spirit": 1
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda69a",
+            "cardUrl": "https://trello.com/c/6ZmSIErH",
+            "sectionId": "69214b9731723704c1eda69a"
+        },
     },
     snoeman_gloves: {
         id: "snoeman_gloves",
@@ -435,6 +535,12 @@ export const Gloves = {
             snoeman_spirit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7d6",
+            "cardUrl": "https://trello.com/c/A6hlnqdC",
+            "sectionId": "69214b9731723704c1eda7d6"
+        },
     },
     void_root_gloves: {
         id: "void_root_gloves",
@@ -463,6 +569,12 @@ export const Gloves = {
             void_root_spirit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda69c",
+            "cardUrl": "https://trello.com/c/ZQ4ySzZ4",
+            "sectionId": "69214b9731723704c1eda69c"
+        },
     },
     roguent_gloves: {
         id: "roguent_gloves",
@@ -485,6 +597,12 @@ export const Gloves = {
             roguent_spirit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda676",
+            "cardUrl": "https://trello.com/c/0w4AQgKQ",
+            "sectionId": "69214b9731723704c1eda676"
+        },
     },
     deep_spider_gloves: {
         id: "deep_spider_gloves",
@@ -494,8 +612,9 @@ export const Gloves = {
         type: "Gloves",
         attackSpeed: 1.2,
         stats: {
-            DexterityBoost: 15,
-            HexDefense: 25,
+            "DexterityBoost": 15,
+            "SpeedBoost": 15,
+            "HexDefense": 25
         },
         damageScalings: {
             Dexterity: 0.7,
@@ -508,6 +627,12 @@ export const Gloves = {
             deep_spider_spirit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda678",
+            "cardUrl": "https://trello.com/c/ULJcIjnq",
+            "sectionId": "69214b9731723704c1eda678"
+        },
     },
     caci_king_gloves: {
         id: "caci_king_gloves",
@@ -517,7 +642,8 @@ export const Gloves = {
         type: "Gloves",
         attackSpeed: 1,
         stats: {
-            EarthBoost: 15,
+            "EarthBoost": 15,
+            "AirBoost": 15
         },
         damageScalings: {
             Air: 0.55,
@@ -532,6 +658,12 @@ export const Gloves = {
             caci_king_spirit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7d4",
+            "cardUrl": "https://trello.com/c/7VU02hbJ",
+            "sectionId": "69214b9731723704c1eda7d4"
+        },
     },
     gremlin_gloves: {
         id: "gremlin_gloves",
@@ -541,9 +673,10 @@ export const Gloves = {
         type: "Gloves",
         attackSpeed: 1.3,
         stats: {
-            DexterityBoost: 10,
-            Warding: 20,
-            PhysicalBoost: 10,
+            "SpeedBoost": 10,
+            "DexterityBoost": 10,
+            "Warding": 20,
+            "PhysicalBoost": 10
         },
         damageScalings: {
             Dexterity: 0.55,
@@ -558,5 +691,11 @@ export const Gloves = {
             slow_leak: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7ce",
+            "cardUrl": "https://trello.com/c/9Ln2gqTa",
+            "sectionId": "69214b9731723704c1eda7ce"
+        },
     },
 };

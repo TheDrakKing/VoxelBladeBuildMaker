@@ -35,6 +35,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       quick_witted: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7c0",
+      "cardUrl": "https://trello.com/c/YRpJ7zry",
+      "sectionId": "69214b9731723704c1eda7c0"
+    },
   },
   bastion_ring: {
     id: "bastion_ring",
@@ -48,6 +55,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       protector_spirit: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1edab78",
+      "cardUrl": "https://trello.com/c/LV94A7oN",
+      "sectionId": "69214b9731723704c1edab78"
+    },
   },
   blaster_ring: {
     id: "blaster_ring",
@@ -62,6 +76,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       locked_and_loaded: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7c6",
+      "cardUrl": "https://trello.com/c/fPVUNXzq",
+      "sectionId": "69214b9731723704c1eda7c6"
+    },
   },
   boglord_ring: {
     id: "boglord_ring",
@@ -75,6 +96,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       vassals_croak: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edaf22",
+      "cardUrl": "https://trello.com/c/RPTyyuat",
+      "sectionId": "69214b9831723704c1edaf22"
+    },
   },
   bumblz_honey_ring: {
     id: "bumblz_honey_ring",
@@ -88,6 +116,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       drone: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda886",
+      "cardUrl": "https://trello.com/c/QubXpWg2",
+      "sectionId": "69214b9731723704c1eda886"
+    },
   },
   buni_ring: {
     id: "buni_ring",
@@ -103,6 +138,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       rabbits_foot: 2,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda2c0",
+      "cardUrl": "https://trello.com/c/k2EyhbtW",
+      "sectionId": "69214b9731723704c1eda2c0"
+    },
   },
   caster_ring: {
     id: "caster_ring",
@@ -116,6 +158,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       caster: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda218",
+      "cardUrl": "https://trello.com/c/ZlrMef0r",
+      "sectionId": "69214b9731723704c1eda218"
+    },
   },
   compressor_ring: {
     id: "compressor_ring",
@@ -126,6 +175,14 @@ export const Rings: import("../models/Item").ItemDataTable = {
       minature: 1,
     },
     img: "",
+
+    "stats": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edad94",
+      "cardUrl": "https://trello.com/c/C8ohAkBR",
+      "sectionId": "69214b9831723704c1edad94"
+    },
   },
   concussive_ring: {
     id: "concussive_ring",
@@ -139,6 +196,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       concussion: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edae70",
+      "cardUrl": "https://trello.com/c/1zHHsHUN",
+      "sectionId": "69214b9831723704c1edae70"
+    },
   },
   drill_bit_ring: {
     id: "drill_bit_ring",
@@ -153,6 +217,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       deltabit: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edaf14",
+      "cardUrl": "https://trello.com/c/FR2hh0ne",
+      "sectionId": "69214b9831723704c1edaf14"
+    },
   },
   earthen_ring: {
     id: "earthen_ring",
@@ -166,6 +237,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       erosion: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7bc",
+      "cardUrl": "https://trello.com/c/sGcWSJtR",
+      "sectionId": "69214b9731723704c1eda7bc"
+    },
   },
   escape_ring: {
     id: "escape_ring",
@@ -180,6 +258,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       emergency_exit: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edaece",
+      "cardUrl": "https://trello.com/c/mPtl2Ni5",
+      "sectionId": "69214b9831723704c1edaece"
+    },
   },
   eyering: {
     id: "eyering",
@@ -195,6 +280,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       future_sight: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edaee2",
+      "cardUrl": "https://trello.com/c/DqT9zMze",
+      "sectionId": "69214b9831723704c1edaee2"
+    },
   },
   fire_ring: {
     id: "fire_ring",
@@ -208,6 +300,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       ignition: 1,
     },
     img: "../image/rings/firering.png",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7be",
+      "cardUrl": "https://trello.com/c/ckO7ZJp9",
+      "sectionId": "69214b9731723704c1eda7be"
+    },
   },
   froggy_ring: {
     id: "froggy_ring",
@@ -224,6 +323,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       bounce_momentum: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edaef8",
+      "cardUrl": "https://trello.com/c/BCryIddl",
+      "sectionId": "69214b9831723704c1edaef8"
+    },
   },
   fungal_ring: {
     id: "fungal_ring",
@@ -239,6 +345,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       mycotic_bloom: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda888",
+      "cardUrl": "https://trello.com/c/ZuPyp9rk",
+      "sectionId": "69214b9731723704c1eda888"
+    },
   },
   gemstone_ring: {
     id: "gemstone_ring",
@@ -253,6 +366,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       healing_arts: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7a8",
+      "cardUrl": "https://trello.com/c/mlfGpF4b",
+      "sectionId": "69214b9731723704c1eda7a8"
+    },
   },
   hex_ring: {
     id: "hex_ring",
@@ -266,6 +386,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       weakening: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda79e",
+      "cardUrl": "https://trello.com/c/hKnayBtM",
+      "sectionId": "69214b9731723704c1eda79e"
+    },
   },
   holy_ring: {
     id: "holy_ring",
@@ -279,6 +406,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       blessing: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7b2",
+      "cardUrl": "https://trello.com/c/glc3yPqD",
+      "sectionId": "69214b9731723704c1eda7b2"
+    },
   },
   infectious_ring: {
     id: "infectious_ring",
@@ -293,6 +427,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       infection: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edaf1e",
+      "cardUrl": "https://trello.com/c/mTDWLvXO",
+      "sectionId": "69214b9831723704c1edaf1e"
+    },
   },
   lucky_ring: {
     id: "lucky_ring",
@@ -303,6 +444,14 @@ export const Rings: import("../models/Item").ItemDataTable = {
       lucky: 1,
     },
     img: "",
+
+    "stats": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7ba",
+      "cardUrl": "https://trello.com/c/u7vT6j3j",
+      "sectionId": "69214b9731723704c1eda7ba"
+    },
   },
   parrying_ring: {
     id: "parrying_ring",
@@ -316,6 +465,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       buckler: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edaeec",
+      "cardUrl": "https://trello.com/c/as1xOtO7",
+      "sectionId": "69214b9831723704c1edaeec"
+    },
   },
   phalanx_ring: {
     id: "phalanx_ring",
@@ -330,6 +486,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       phalanx_stab: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edae9a",
+      "cardUrl": "https://trello.com/c/Hgwsp5sn",
+      "sectionId": "69214b9831723704c1edae9a"
+    },
   },
   quickstep_ring: {
     id: "quickstep_ring",
@@ -343,6 +506,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       untethered: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edae6c",
+      "cardUrl": "https://trello.com/c/HmOp68tl",
+      "sectionId": "69214b9831723704c1edae6c"
+    },
   },
   raging_slayer_ring: {
     id: "raging_slayer_ring",
@@ -357,6 +527,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       slayer_rage: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edaef0",
+      "cardUrl": "https://trello.com/c/wEoGJets",
+      "sectionId": "69214b9831723704c1edaef0"
+    },
   },
   scalar_ring: {
     id: "scalar_ring",
@@ -367,6 +544,14 @@ export const Rings: import("../models/Item").ItemDataTable = {
       scalar: 1,
     },
     img: "",
+
+    "stats": {},
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edadaa",
+      "cardUrl": "https://trello.com/c/ADgIZfWw",
+      "sectionId": "69214b9831723704c1edadaa"
+    },
   },
   sharp_ring: {
     id: "sharp_ring",
@@ -380,6 +565,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       sharp_claws: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7a6",
+      "cardUrl": "https://trello.com/c/sSvbMFT0",
+      "sectionId": "69214b9731723704c1eda7a6"
+    },
   },
   sharpshooter_ring: {
     id: "sharpshooter_ring",
@@ -394,6 +586,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       sharpshooter: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edae9e",
+      "cardUrl": "https://trello.com/c/Sjhz1YnT",
+      "sectionId": "69214b9831723704c1edae9e"
+    },
   },
   steampunk_ring_unobtainable: {
     id: "steampunk_ring_unobtainable",
@@ -401,14 +600,20 @@ export const Rings: import("../models/Item").ItemDataTable = {
     category: "Ring",
     description: "A strong, mechancal ring made of cogs. It is very sturdy!",
     stats: {
-      PhysicalDefense: 10,
-      MagicDefense: 10,
-      AirBoost: -5,
+      "SpeedBoost": -5,
+      "PhysicalDefense": 10,
+      "MagicDefense": 10,
+      "AirBoost": -5
     },
-    perks: {
-      speed: -5,
-    },
+    perks: {},
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7a0",
+      "cardUrl": "https://trello.com/c/p9dbIpHt",
+      "sectionId": "69214b9731723704c1eda7a0"
+    },
   },
   sticky_ring: {
     id: "sticky_ring",
@@ -422,6 +627,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       honey_arts: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7b8",
+      "cardUrl": "https://trello.com/c/SMDWhXrE",
+      "sectionId": "69214b9731723704c1eda7b8"
+    },
   },
   stone_giant_ring: {
     id: "stone_giant_ring",
@@ -436,6 +648,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       colossus: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edacfc",
+      "cardUrl": "https://trello.com/c/GfzDumxQ",
+      "sectionId": "69214b9831723704c1edacfc"
+    },
   },
   sweet_ring: {
     id: "sweet_ring",
@@ -450,6 +669,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       honey_gather: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edaf10",
+      "cardUrl": "https://trello.com/c/neTgZVzR",
+      "sectionId": "69214b9831723704c1edaf10"
+    },
   },
   vampiric_ring_unobtainable: {
     id: "vampiric_ring_unobtainable",
@@ -463,6 +689,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       life_steal: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7b4",
+      "cardUrl": "https://trello.com/c/poMjwa3R",
+      "sectionId": "69214b9731723704c1eda7b4"
+    },
   },
   void_contract_ring: {
     id: "void_contract_ring",
@@ -477,6 +710,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       void_contract: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edac62",
+      "cardUrl": "https://trello.com/c/UoQRx2sR",
+      "sectionId": "69214b9831723704c1edac62"
+    },
   },
   void_ring: {
     id: "void_ring",
@@ -492,6 +732,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       void_rage: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7a2",
+      "cardUrl": "https://trello.com/c/XgqjYnZR",
+      "sectionId": "69214b9731723704c1eda7a2"
+    },
   },
   warden_ring: {
     id: "warden_ring",
@@ -506,6 +753,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       warden_of_many: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edad00",
+      "cardUrl": "https://trello.com/c/u1P5eaZU",
+      "sectionId": "69214b9831723704c1edad00"
+    },
   },
   water_ring: {
     id: "water_ring",
@@ -519,6 +773,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       extinguish: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7b0",
+      "cardUrl": "https://trello.com/c/NFUsi3Mc",
+      "sectionId": "69214b9731723704c1eda7b0"
+    },
   },
   whirl_inhale_ring: {
     id: "whirl_inhale_ring",
@@ -532,6 +793,13 @@ export const Rings: import("../models/Item").ItemDataTable = {
       power_inhale: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9831723704c1edaec0",
+      "cardUrl": "https://trello.com/c/c82TLVeJ",
+      "sectionId": "69214b9831723704c1edaec0"
+    },
   },
   wind_ring: {
     id: "wind_ring",
@@ -545,5 +813,12 @@ export const Rings: import("../models/Item").ItemDataTable = {
       tailwind: 1,
     },
     img: "",
+
+    "potencies": {},
+    "source": {
+      "cardId": "69214b9731723704c1eda7b6",
+      "cardUrl": "https://trello.com/c/VfedUaaY",
+      "sectionId": "69214b9731723704c1eda7b6"
+    },
   },
 };

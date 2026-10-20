@@ -22,6 +22,12 @@ export const Leggings = {
             potion_chugger: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda624",
+            "cardUrl": "https://trello.com/c/sIlzLrfW",
+            "sectionId": "69214b9731723704c1eda624:section:4"
+        },
     },
     animal_tamer_pants: {
         id: "animal_tamer_pants",
@@ -41,6 +47,12 @@ export const Leggings = {
             rider: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edac10",
+            "cardUrl": "https://trello.com/c/IoFcdMXX",
+            "sectionId": "69214b9731723704c1edac10:section:4"
+        },
     },
     berserking_leggings: {
         id: "berserking_leggings",
@@ -59,6 +71,12 @@ export const Leggings = {
             berserkingstrength: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6fc",
+            "cardUrl": "https://trello.com/c/jurO41m0",
+            "sectionId": "69214b9731723704c1eda6fc:section:4"
+        },
     },
     croakernaut_legging: {
         id: "croakernaut_legging",
@@ -96,6 +114,12 @@ export const Leggings = {
             barbskin: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda780",
+            "cardUrl": "https://trello.com/c/p0WZdgre",
+            "sectionId": "69214b9731723704c1eda780:section:4"
+        },
     },
     dunefang_legging: {
         id: "dunefang_legging",
@@ -115,6 +139,12 @@ export const Leggings = {
             pulverizing_rush: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab4e",
+            "cardUrl": "https://trello.com/c/hQNbbeV4",
+            "sectionId": "69214b9731723704c1edab4e:section:4"
+        },
     },
     gladiator_legging: {
         id: "gladiator_legging",
@@ -134,6 +164,12 @@ export const Leggings = {
             fury: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda294",
+            "cardUrl": "https://trello.com/c/FQmTbRNS",
+            "sectionId": "69214b9731723704c1eda294:section:4"
+        },
     },
     ironslayer_legging: {
         id: "ironslayer_legging",
@@ -152,6 +188,12 @@ export const Leggings = {
             void_rage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda20a",
+            "cardUrl": "https://trello.com/c/g3L3tCKL",
+            "sectionId": "69214b9731723704c1eda20a:section:4"
+        },
     },
     omegabatty_legging: {
         id: "omegabatty_legging",
@@ -171,6 +213,12 @@ export const Leggings = {
             echo_incineration: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edace6",
+            "cardUrl": "https://trello.com/c/Ah3U29HJ",
+            "sectionId": "69214b9831723704c1edace6:section:4"
+        },
     },
     sunkenpirate_pants: {
         id: "sunkenpirate_pants",
@@ -188,6 +236,12 @@ export const Leggings = {
             strong_tides: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda556",
+            "cardUrl": "https://trello.com/c/Ih8XHqv0",
+            "sectionId": "69214b9731723704c1eda556:section:4"
+        },
     },
     reaperninja_pants: {
         id: "reaperninja_pants",
@@ -205,6 +259,12 @@ export const Leggings = {
             reaper: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda212",
+            "cardUrl": "https://trello.com/c/DOoMAP82",
+            "sectionId": "69214b9731723704c1eda212:section:4"
+        },
     },
     proto_mungus_leggings: {
         id: "proto_mungus_leggings",
@@ -224,6 +284,12 @@ export const Leggings = {
             fungal_prototype: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad2c",
+            "cardUrl": "https://trello.com/c/91FyozNY",
+            "sectionId": "69214b9831723704c1edad2c:section:4"
+        },
     },
     rot_wood_mage_pants: {
         id: "rot_wood_mage_pants",
@@ -243,6 +309,12 @@ export const Leggings = {
             siphoning_rot: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda75c",
+            "cardUrl": "https://trello.com/c/t8tsLHvS",
+            "sectionId": "69214b9731723704c1eda75c:section:4"
+        },
     },
     rot_wood_fighter_pants: {
         id: "rot_wood_fighter_pants",
@@ -261,6 +333,12 @@ export const Leggings = {
             undying_rot: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda75a",
+            "cardUrl": "https://trello.com/c/8zpxQnj3",
+            "sectionId": "69214b9731723704c1eda75a:section:4"
+        },
     },
     true_moon_worshipper_pants: {
         id: "true_moon_worshipper_pants",
@@ -279,6 +357,12 @@ export const Leggings = {
             true_moon: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad0c",
+            "cardUrl": "https://trello.com/c/m8rVu3xD",
+            "sectionId": "69214b9831723704c1edad0c:section:4"
+        },
     },
     thunder_gallant_leggings: {
         id: "thunder_gallant_leggings",
@@ -297,6 +381,12 @@ export const Leggings = {
             voltaic_body: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda28a",
+            "cardUrl": "https://trello.com/c/fjwAjqHz",
+            "sectionId": "69214b9731723704c1eda28a:section:4"
+        },
     },
     lodestone_monk_pants: {
         id: "lodestone_monk_pants",
@@ -314,6 +404,12 @@ export const Leggings = {
             lodestone_barrage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda746",
+            "cardUrl": "https://trello.com/c/GyjQ79lP",
+            "sectionId": "69214b9731723704c1eda746:section:4"
+        },
     },
     steam_mage_leggings: {
         id: "steam_mage_leggings",
@@ -332,6 +428,12 @@ export const Leggings = {
             magic_circuit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa42",
+            "cardUrl": "https://trello.com/c/9r0wJBmp",
+            "sectionId": "69214b9731723704c1edaa42:section:4"
+        },
     },
     altolodon_pants: {
         id: "altolodon_pants",
@@ -349,6 +451,12 @@ export const Leggings = {
             wind_drill: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae90",
+            "cardUrl": "https://trello.com/c/W8NgSR8b",
+            "sectionId": "69214b9831723704c1edae90:section:4"
+        },
     },
     arachnid_pants: {
         id: "arachnid_pants",
@@ -368,6 +476,12 @@ export const Leggings = {
             venom_eater: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6a2",
+            "cardUrl": "https://trello.com/c/RYSHBAFF",
+            "sectionId": "69214b9731723704c1eda6a2:section:4"
+        },
     },
     armored_mage_pants: {
         id: "armored_mage_pants",
@@ -385,6 +499,12 @@ export const Leggings = {
             spellshield: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda1b0",
+            "cardUrl": "https://trello.com/c/ZchdWe25",
+            "sectionId": "69214b9731723704c1eda1b0:section:4"
+        },
     },
     astro_iris_leggings: {
         id: "astro_iris_leggings",
@@ -403,6 +523,12 @@ export const Leggings = {
             apollo_boost: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6f8",
+            "cardUrl": "https://trello.com/c/MnUUGHw1",
+            "sectionId": "69214b9731723704c1eda6f8:section:4"
+        },
     },
     atonement_leggings: {
         id: "atonement_leggings",
@@ -421,6 +547,12 @@ export const Leggings = {
             penance: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabae",
+            "cardUrl": "https://trello.com/c/dNoQ2PMF",
+            "sectionId": "69214b9731723704c1edabae:section:4"
+        },
     },
     aviator_pants: {
         id: "aviator_pants",
@@ -436,9 +568,15 @@ export const Leggings = {
             AirBoost: 7,
         },
         perks: {
-            frequent_flyer: 1,
+            "frequent_flier": 1
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6fa",
+            "cardUrl": "https://trello.com/c/tKBru1L0",
+            "sectionId": "69214b9731723704c1eda6fa:section:4"
+        },
     },
     backpack_berserker_leggings: {
         id: "backpack_berserker_leggings",
@@ -455,6 +593,12 @@ export const Leggings = {
             packaged_power: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda200",
+            "cardUrl": "https://trello.com/c/H1U3LW9J",
+            "sectionId": "69214b9731723704c1eda200:section:4"
+        },
     },
     banker_pants: {
         id: "banker_pants",
@@ -473,6 +617,12 @@ export const Leggings = {
             money_smart: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edac70",
+            "cardUrl": "https://trello.com/c/yVq00inw",
+            "sectionId": "69214b9831723704c1edac70:section:4"
+        },
     },
     bastion_guardian_legs: {
         id: "bastion_guardian_legs",
@@ -492,6 +642,12 @@ export const Leggings = {
             guardian_spin: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaba4",
+            "cardUrl": "https://trello.com/c/LXhYalcR",
+            "sectionId": "69214b9731723704c1edaba4:section:4"
+        },
     },
     batty_leggings: {
         id: "batty_leggings",
@@ -509,6 +665,12 @@ export const Leggings = {
             echo_blast: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda9fc",
+            "cardUrl": "https://trello.com/c/CyYReY0B",
+            "sectionId": "69214b9731723704c1eda9fc:section:4"
+        },
     },
     blood_bumblz_leggings: {
         id: "blood_bumblz_leggings",
@@ -528,6 +690,12 @@ export const Leggings = {
             blood_rush: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda620",
+            "cardUrl": "https://trello.com/c/TggC7k4G",
+            "sectionId": "69214b9731723704c1eda620:section:4"
+        },
     },
     brain_burner_legs: {
         id: "brain_burner_legs",
@@ -548,24 +716,12 @@ export const Leggings = {
             melting_slime: 1,
         },
         img: "",
-    },
-    bowldur_helmet: {
-        id: "bowldur_helmet",
-        name: "Bowldur Helmet",
-        category: "Armor",
-        type: "Chestplate",
-        description: "Leggings made from the hard outer rock of Bowldurs.",
-        stats: {
-            DexterityBoost: -12,
-            EarthBoost: 12,
-            PhysicalBoost: 10,
-            PhysicalDefense: 5,
-            HeatResistance: 150,
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacee",
+            "cardUrl": "https://trello.com/c/sNF7QA0o",
+            "sectionId": "69214b9831723704c1edacee:section:4"
         },
-        perks: {
-            seismic_momentum: 1,
-        },
-        img: "",
     },
     bumblz_pants: {
         id: "bumblz_pants",
@@ -582,6 +738,12 @@ export const Leggings = {
             swarm: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda700",
+            "cardUrl": "https://trello.com/c/iWCiczD0",
+            "sectionId": "69214b9731723704c1eda700:section:4"
+        },
     },
     buni_pants: {
         id: "buni_pants",
@@ -597,6 +759,12 @@ export const Leggings = {
             rabbits_foot: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda15a",
+            "cardUrl": "https://trello.com/c/hN1U0YiC",
+            "sectionId": "69214b9731723704c1eda15a:section:4"
+        },
     },
     buni_prince_pants: {
         id: "buni_prince_pants",
@@ -614,6 +782,12 @@ export const Leggings = {
             cannonball: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa00",
+            "cardUrl": "https://trello.com/c/TbfEr3GM",
+            "sectionId": "69214b9731723704c1edaa00:section:4"
+        },
     },
     caci_pants: {
         id: "caci_pants",
@@ -631,6 +805,12 @@ export const Leggings = {
             thorns: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda702",
+            "cardUrl": "https://trello.com/c/fKS95Ele",
+            "sectionId": "69214b9731723704c1eda702:section:4"
+        },
     },
     caci_king_pants: {
         id: "caci_king_pants",
@@ -648,6 +828,12 @@ export const Leggings = {
             ruler_of_the_sands: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6a4",
+            "cardUrl": "https://trello.com/c/7r9cucia",
+            "sectionId": "69214b9731723704c1eda6a4:section:4"
+        },
     },
     cindersoul_pants: {
         id: "cindersoul_pants",
@@ -665,6 +851,13 @@ export const Leggings = {
             cinder_soul: 1,
         },
         img: "",
+        "source": {
+            "cardId": "69214b9731723704c1eda722",
+            "cardUrl": "https://trello.com/c/cnk2FImL"
+        },
+        "dataWarnings": [
+            "Armor slot needs review; the original item definition is retained."
+        ],
     },
     civilian_pants: {
         id: "civilian_pants",
@@ -681,6 +874,12 @@ export const Leggings = {
             civilian: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda9f0",
+            "cardUrl": "https://trello.com/c/7mRMzJHR",
+            "sectionId": "69214b9731723704c1eda9f0:section:4"
+        },
     },
     coral_templar_leggings: {
         id: "coral_templar_leggings",
@@ -700,6 +899,12 @@ export const Leggings = {
             cleansed_blade: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae2c",
+            "cardUrl": "https://trello.com/c/zm793BRP",
+            "sectionId": "69214b9831723704c1edae2c:section:4"
+        },
     },
     cragstone_leggings: {
         id: "cragstone_leggings",
@@ -717,6 +922,12 @@ export const Leggings = {
             smoldering: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda724",
+            "cardUrl": "https://trello.com/c/SUBysNLe",
+            "sectionId": "69214b9731723704c1eda724:section:4"
+        },
     },
     crimson_rogue_pants: {
         id: "crimson_rogue_pants",
@@ -734,6 +945,12 @@ export const Leggings = {
             fiery_pursuit: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda60e",
+            "cardUrl": "https://trello.com/c/OEpy9F0R",
+            "sectionId": "69214b9731723704c1eda60e:section:4"
+        },
     },
     croakernaut_leggings: {
         id: "croakernaut_leggings",
@@ -754,10 +971,16 @@ export const Leggings = {
             shielding_gong: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edadbe",
+            "cardUrl": "https://trello.com/c/ml8eDUX2",
+            "sectionId": "69214b9831723704c1edadbe:section:4"
+        },
     },
     cryosteel_leggings: {
         id: "cryosteel_leggings",
-        name: "Cryosteel leggings",
+        name: "Cryosteel Leggings",
         category: "Armor",
         type: "Legging",
         description: "Highly technical chestplate designed to use and manipulate icy chemicals",
@@ -772,6 +995,12 @@ export const Leggings = {
             cryo_engine: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda726",
+            "cardUrl": "https://trello.com/c/rgTaTDSy",
+            "sectionId": "69214b9731723704c1eda726:section:4"
+        },
     },
     curse_flame_pants: {
         id: "curse_flame_pants",
@@ -790,6 +1019,12 @@ export const Leggings = {
             cursed_flames: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda728",
+            "cardUrl": "https://trello.com/c/9VOoxFVj",
+            "sectionId": "69214b9731723704c1eda728:section:4"
+        },
     },
     dandelion_knight_leggings: {
         id: "dandelion_knight_leggings",
@@ -808,6 +1043,12 @@ export const Leggings = {
             carrying_winds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda72a",
+            "cardUrl": "https://trello.com/c/eana461M",
+            "sectionId": "69214b9731723704c1eda72a:section:4"
+        },
     },
     deathmist_knight_leggings: {
         id: "deathmist_knight_leggings",
@@ -826,6 +1067,12 @@ export const Leggings = {
             deathmist_slash: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edac3e",
+            "cardUrl": "https://trello.com/c/dlmI9uI4",
+            "sectionId": "69214b9831723704c1edac3e:section:4"
+        },
     },
     deep_spider_pants: {
         id: "deep_spider_pants",
@@ -847,6 +1094,12 @@ export const Leggings = {
             toxin_transfer: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacf6",
+            "cardUrl": "https://trello.com/c/RcvJzIJ2",
+            "sectionId": "69214b9831723704c1edacf6:section:4"
+        },
     },
     deepsteel_leggings: {
         id: "deepsteel_leggings",
@@ -866,6 +1119,12 @@ export const Leggings = {
             crushing_pressure: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa12",
+            "cardUrl": "https://trello.com/c/XeboFgDj",
+            "sectionId": "69214b9731723704c1edaa12:section:4"
+        },
     },
     delta_spider_leggings: {
         id: "delta_spider_leggings",
@@ -885,6 +1144,12 @@ export const Leggings = {
             delta_drill: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacf8",
+            "cardUrl": "https://trello.com/c/OiFvqzP2",
+            "sectionId": "69214b9831723704c1edacf8:section:4"
+        },
     },
     desert_battle_mage_pants: {
         id: "desert_battle_mage_pants",
@@ -903,6 +1168,12 @@ export const Leggings = {
             blastshield: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda72c",
+            "cardUrl": "https://trello.com/c/pLN4aQLZ",
+            "sectionId": "69214b9731723704c1eda72c:section:4"
+        },
     },
     desert_champion_leggings: {
         id: "desert_champion_leggings",
@@ -921,6 +1192,12 @@ export const Leggings = {
             wrathful_crits: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda72e",
+            "cardUrl": "https://trello.com/c/TIgjoM2l",
+            "sectionId": "69214b9731723704c1eda72e:section:4"
+        },
     },
     desert_explorer_pants: {
         id: "desert_explorer_pants",
@@ -935,6 +1212,13 @@ export const Leggings = {
             HeatResistance: 150,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda208",
+            "cardUrl": "https://trello.com/c/yvR6hMEC",
+            "sectionId": "69214b9731723704c1eda208:section:4"
+        },
     },
     dire_buni_pants: {
         id: "dire_buni_pants",
@@ -953,6 +1237,12 @@ export const Leggings = {
             quick_witted: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda174",
+            "cardUrl": "https://trello.com/c/Y01kWJN4",
+            "sectionId": "69214b9731723704c1eda174:section:4"
+        },
     },
     divine_infantry_leggings: {
         id: "divine_infantry_leggings",
@@ -971,6 +1261,12 @@ export const Leggings = {
             mortal_will: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda214",
+            "cardUrl": "https://trello.com/c/1a2XN4F3",
+            "sectionId": "69214b9731723704c1eda214:section:4"
+        },
     },
     dragon_spirit_pants: {
         id: "dragon_spirit_pants",
@@ -988,6 +1284,12 @@ export const Leggings = {
             dragon_state: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda9ec",
+            "cardUrl": "https://trello.com/c/kX2pSRc5",
+            "sectionId": "69214b9731723704c1eda9ec:section:4"
+        },
     },
     dreadful_lift_leggings: {
         id: "dreadful_lift_leggings",
@@ -1007,6 +1309,12 @@ export const Leggings = {
             grounded_despair: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad04",
+            "cardUrl": "https://trello.com/c/pV14KQdh",
+            "sectionId": "69214b9831723704c1edad04:section:4"
+        },
     },
     drone_leggings: {
         id: "drone_leggings",
@@ -1024,6 +1332,12 @@ export const Leggings = {
             drone: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda732",
+            "cardUrl": "https://trello.com/c/87NazquU",
+            "sectionId": "69214b9731723704c1eda732:section:4"
+        },
     },
     ember_guardian_leggings: {
         id: "ember_guardian_leggings",
@@ -1044,6 +1358,12 @@ export const Leggings = {
             rejuvenating_flame: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda288",
+            "cardUrl": "https://trello.com/c/EqzrrfQy",
+            "sectionId": "69214b9731723704c1eda288:section:4"
+        },
     },
     ember_mage_pants: {
         id: "ember_mage_pants",
@@ -1060,6 +1380,12 @@ export const Leggings = {
             ignition: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda734",
+            "cardUrl": "https://trello.com/c/4PEijkrq",
+            "sectionId": "69214b9731723704c1eda734:section:4"
+        },
     },
     experimental_froggmail_leggings: {
         id: "experimental_froggmail_leggings",
@@ -1078,6 +1404,12 @@ export const Leggings = {
             cursed_experiment: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda736",
+            "cardUrl": "https://trello.com/c/gAlCdJ8G",
+            "sectionId": "69214b9731723704c1eda736:section:4"
+        },
     },
     fallen_seraph_leggings: {
         id: "fallen_seraph_leggings",
@@ -1096,6 +1428,12 @@ export const Leggings = {
             fell_rush: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacb8",
+            "cardUrl": "https://trello.com/c/WGaVk19R",
+            "sectionId": "69214b9831723704c1edacb8:section:4"
+        },
     },
     false_idol_leggings: {
         id: "false_idol_leggings",
@@ -1114,6 +1452,12 @@ export const Leggings = {
             fractured_energy: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabb6",
+            "cardUrl": "https://trello.com/c/bd2jIGrD",
+            "sectionId": "69214b9731723704c1edabb6:section:4"
+        },
     },
     floral_duelist_pants: {
         id: "floral_duelist_pants",
@@ -1134,6 +1478,12 @@ export const Leggings = {
             guiding_winds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacea",
+            "cardUrl": "https://trello.com/c/PGVbPl1z",
+            "sectionId": "69214b9831723704c1edacea:section:4"
+        },
     },
     flower_scout_pants: {
         id: "flower_scout_pants",
@@ -1150,6 +1500,12 @@ export const Leggings = {
             photosynthesis: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda20c",
+            "cardUrl": "https://trello.com/c/HeJpMntf",
+            "sectionId": "69214b9731723704c1eda20c:section:4"
+        },
     },
     flowering_cowboy_pants: {
         id: "flowering_cowboy_pants",
@@ -1169,6 +1525,12 @@ export const Leggings = {
             standoff: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edade4",
+            "cardUrl": "https://trello.com/c/G5L2GTFL",
+            "sectionId": "69214b9831723704c1edade4:section:4"
+        },
     },
     frogg_pants: {
         id: "frogg_pants",
@@ -1186,6 +1548,12 @@ export const Leggings = {
             spring_step: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda526",
+            "cardUrl": "https://trello.com/c/HpJFQGh5",
+            "sectionId": "69214b9731723704c1eda526:section:4"
+        },
     },
     fungus_mage_pants: {
         id: "fungus_mage_pants",
@@ -1203,6 +1571,12 @@ export const Leggings = {
             toxin_caster: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda1a0",
+            "cardUrl": "https://trello.com/c/ASynukBN",
+            "sectionId": "69214b9731723704c1eda1a0:section:4"
+        },
     },
     fusillade_diver_leggings: {
         id: "fusillade_diver_leggings",
@@ -1220,6 +1594,12 @@ export const Leggings = {
             torpedo_barrage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacda",
+            "cardUrl": "https://trello.com/c/hKpuh4mz",
+            "sectionId": "69214b9831723704c1edacda:section:4"
+        },
     },
     galactic_graviturgy_leggings: {
         id: "galactic_graviturgy_leggings",
@@ -1237,6 +1617,12 @@ export const Leggings = {
             heavy_gravitate: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae34",
+            "cardUrl": "https://trello.com/c/vfQNfby3",
+            "sectionId": "69214b9831723704c1edae34:section:4"
+        },
     },
     gale_wanderer_pants: {
         id: "gale_wanderer_pants",
@@ -1255,6 +1641,12 @@ export const Leggings = {
             flowing_crits: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda308",
+            "cardUrl": "https://trello.com/c/DHhPhgmU",
+            "sectionId": "69214b9731723704c1eda308:section:4"
+        },
     },
     gemstone_pants: {
         id: "gemstone_pants",
@@ -1271,6 +1663,12 @@ export const Leggings = {
             healing_arts: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda738",
+            "cardUrl": "https://trello.com/c/v4L2bSVy",
+            "sectionId": "69214b9731723704c1eda738:section:4"
+        },
     },
     goodguy_pants: {
         id: "goodguy_pants",
@@ -1287,6 +1685,12 @@ export const Leggings = {
             blazing_finisher: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda73c",
+            "cardUrl": "https://trello.com/c/WabSBqle",
+            "sectionId": "69214b9731723704c1eda73c:section:4"
+        },
     },
     gremlin_leggings: {
         id: "gremlin_leggings",
@@ -1305,6 +1709,12 @@ export const Leggings = {
             slow_leak: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda28c",
+            "cardUrl": "https://trello.com/c/f8nQ3vtm",
+            "sectionId": "69214b9731723704c1eda28c:section:4"
+        },
     },
     gremlinancer_pants: {
         id: "gremlinancer_pants",
@@ -1322,6 +1732,12 @@ export const Leggings = {
             dark_magic: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda28e",
+            "cardUrl": "https://trello.com/c/wleVtlSu",
+            "sectionId": "69214b9731723704c1eda28e:section:4"
+        },
     },
     gunslinger_pants: {
         id: "gunslinger_pants",
@@ -1340,6 +1756,12 @@ export const Leggings = {
             quickdraw: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda73e",
+            "cardUrl": "https://trello.com/c/x4Jx00pw",
+            "sectionId": "69214b9731723704c1eda73e:section:4"
+        },
     },
     heavy_boots: {
         id: "heavy_boots",
@@ -1357,6 +1779,12 @@ export const Leggings = {
             unmoving: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edaefc",
+            "cardUrl": "https://trello.com/c/L90OqWdF",
+            "sectionId": "69214b9831723704c1edaefc:section:2"
+        },
     },
     hex_magician_pants: {
         id: "hex_magician_pants",
@@ -1373,6 +1801,12 @@ export const Leggings = {
             final_act: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda740",
+            "cardUrl": "https://trello.com/c/Jya4t8A1",
+            "sectionId": "69214b9731723704c1eda740:section:4"
+        },
     },
     holy_robe_pants: {
         id: "holy_robe_pants",
@@ -1390,6 +1824,12 @@ export const Leggings = {
             blessing: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda17c",
+            "cardUrl": "https://trello.com/c/OQQaaluc",
+            "sectionId": "69214b9731723704c1eda17c:section:4"
+        },
     },
     honeysteel_leggings: {
         id: "honeysteel_leggings",
@@ -1409,6 +1849,12 @@ export const Leggings = {
             sticky_guard: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda742",
+            "cardUrl": "https://trello.com/c/ZETsQdyx",
+            "sectionId": "69214b9731723704c1eda742:section:4"
+        },
     },
     infused_knight_leggings: {
         id: "infused_knight_leggings",
@@ -1426,6 +1872,12 @@ export const Leggings = {
             true_balance: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda744",
+            "cardUrl": "https://trello.com/c/r7wayI7M",
+            "sectionId": "69214b9731723704c1eda744:section:4"
+        },
     },
     investigator_pants: {
         id: "investigator_pants",
@@ -1442,6 +1894,12 @@ export const Leggings = {
             investigator: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda1e2",
+            "cardUrl": "https://trello.com/c/LhY5lCXd",
+            "sectionId": "69214b9731723704c1eda1e2:section:4"
+        },
     },
     king_carp_leggings: {
         id: "king_carp_leggings",
@@ -1460,6 +1918,12 @@ export const Leggings = {
             blub_blub: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edac38",
+            "cardUrl": "https://trello.com/c/YZD20aqt",
+            "sectionId": "69214b9831723704c1edac38:section:4"
+        },
     },
     knight_leggings: {
         id: "knight_leggings",
@@ -1479,6 +1943,12 @@ export const Leggings = {
             hardened_will: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2a0",
+            "cardUrl": "https://trello.com/c/EckIEPm2",
+            "sectionId": "69214b9731723704c1eda2a0:section:4"
+        },
     },
     last_seraph_leggings: {
         id: "last_seraph_leggings",
@@ -1497,6 +1967,12 @@ export const Leggings = {
             divine_crash: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda97a",
+            "cardUrl": "https://trello.com/c/moyuMrpz",
+            "sectionId": "69214b9731723704c1eda97a:section:4"
+        },
     },
     lilimonster_legs: {
         id: "lilimonster_legs",
@@ -1515,6 +1991,12 @@ export const Leggings = {
             fragrant_flesh: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab90",
+            "cardUrl": "https://trello.com/c/aQ66jBW7",
+            "sectionId": "69214b9731723704c1edab90:section:4"
+        },
     },
     lone_samurai_pants: {
         id: "lone_samurai_pants",
@@ -1532,6 +2014,12 @@ export const Leggings = {
             cut_down: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda29a",
+            "cardUrl": "https://trello.com/c/Vx35ZHwG",
+            "sectionId": "69214b9731723704c1eda29a:section:4"
+        },
     },
     looters_pants: {
         id: "looters_pants",
@@ -1549,6 +2037,12 @@ export const Leggings = {
             trophy_hunter: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda256",
+            "cardUrl": "https://trello.com/c/sjlYkjr8",
+            "sectionId": "69214b9731723704c1eda256:section:4"
+        },
     },
     lord_dung_leggings: {
         id: "lord_dung_leggings",
@@ -1568,6 +2062,12 @@ export const Leggings = {
             vile_presence: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda748",
+            "cardUrl": "https://trello.com/c/ThIlrurA",
+            "sectionId": "69214b9731723704c1eda748:section:4"
+        },
     },
     mad_mage_pants: {
         id: "mad_mage_pants",
@@ -1585,6 +2085,12 @@ export const Leggings = {
             mage_rage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabb2",
+            "cardUrl": "https://trello.com/c/2vlGjGFT",
+            "sectionId": "69214b9731723704c1edabb2:section:4"
+        },
     },
     mageling_pants: {
         id: "mageling_pants",
@@ -1600,6 +2106,12 @@ export const Leggings = {
             caster: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda74c",
+            "cardUrl": "https://trello.com/c/NxcqAjO7",
+            "sectionId": "69214b9731723704c1eda74c:section:4"
+        },
     },
     mines_captain_pants: {
         id: "mines_captain_pants",
@@ -1616,6 +2128,12 @@ export const Leggings = {
             inspiration: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacde",
+            "cardUrl": "https://trello.com/c/2SPdtuqz",
+            "sectionId": "69214b9831723704c1edacde:section:4"
+        },
     },
     nectar_knight_leggings: {
         id: "nectar_knight_leggings",
@@ -1636,6 +2154,12 @@ export const Leggings = {
             sickly_sweetness: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda750",
+            "cardUrl": "https://trello.com/c/FJrhc2HT",
+            "sectionId": "69214b9731723704c1eda750:section:4"
+        },
     },
     ninja_pants: {
         id: "ninja_pants",
@@ -1653,6 +2177,12 @@ export const Leggings = {
             stealth: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda21e",
+            "cardUrl": "https://trello.com/c/YNsjmoDS",
+            "sectionId": "69214b9731723704c1eda21e:section:4"
+        },
     },
     nomad_pants: {
         id: "nomad_pants",
@@ -1670,6 +2200,12 @@ export const Leggings = {
             runic_winds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda298",
+            "cardUrl": "https://trello.com/c/gomv63ry",
+            "sectionId": "69214b9731723704c1eda298:section:4"
+        },
     },
     northern_innovator_leggings: {
         id: "northern_innovator_leggings",
@@ -1688,6 +2224,12 @@ export const Leggings = {
             adaptive_plate: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edace4",
+            "cardUrl": "https://trello.com/c/4G2lhwcp",
+            "sectionId": "69214b9831723704c1edace4:section:4"
+        },
     },
     northern_miner_pants: {
         id: "northern_miner_pants",
@@ -1706,6 +2248,12 @@ export const Leggings = {
             quarry: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacd4",
+            "cardUrl": "https://trello.com/c/ezZKJYBw",
+            "sectionId": "69214b9831723704c1edacd4:section:4"
+        },
     },
     ocean_guardian_leggings: {
         id: "ocean_guardian_leggings",
@@ -1723,6 +2271,12 @@ export const Leggings = {
             warding_tides: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda752",
+            "cardUrl": "https://trello.com/c/NpBLVCgR",
+            "sectionId": "69214b9731723704c1eda752:section:4"
+        },
     },
     old_knight_leggings: {
         id: "old_knight_leggings",
@@ -1744,6 +2298,12 @@ export const Leggings = {
             forgotten_chivalry: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad08",
+            "cardUrl": "https://trello.com/c/drhSmPnO",
+            "sectionId": "69214b9831723704c1edad08:section:4"
+        },
     },
     omen_bearer_pants: {
         id: "omen_bearer_pants",
@@ -1762,6 +2322,12 @@ export const Leggings = {
             darkening_hex: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda202",
+            "cardUrl": "https://trello.com/c/dlL5bnPz",
+            "sectionId": "69214b9731723704c1eda202:section:4"
+        },
     },
     plains_woof_pants: {
         id: "plains_woof_pants",
@@ -1778,6 +2344,12 @@ export const Leggings = {
             sharp_claws: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2ca",
+            "cardUrl": "https://trello.com/c/rDcdPtEa",
+            "sectionId": "69214b9731723704c1eda2ca:section:4"
+        },
     },
     prisoner_pants: {
         id: "prisoner_pants",
@@ -1797,6 +2369,12 @@ export const Leggings = {
             righted_wrongs: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda204",
+            "cardUrl": "https://trello.com/c/ixc48un3",
+            "sectionId": "69214b9731723704c1eda204:section:4"
+        },
     },
     profane_pants: {
         id: "profane_pants",
@@ -1814,6 +2392,12 @@ export const Leggings = {
             gorecast: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab9a",
+            "cardUrl": "https://trello.com/c/7gJXALQA",
+            "sectionId": "69214b9731723704c1edab9a:section:4"
+        },
     },
     puffball_pants: {
         id: "puffball_pants",
@@ -1831,6 +2415,12 @@ export const Leggings = {
             gnawing_poison: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad30",
+            "cardUrl": "https://trello.com/c/I9g0VyTd",
+            "sectionId": "69214b9831723704c1edad30:section:4"
+        },
     },
     pyre_druid_pants: {
         id: "pyre_druid_pants",
@@ -1850,6 +2440,12 @@ export const Leggings = {
             pyre_bloom: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae30",
+            "cardUrl": "https://trello.com/c/zMO5WfeK",
+            "sectionId": "69214b9831723704c1edae30:section:4"
+        },
     },
     redsky_saint_pants: {
         id: "redsky_saint_pants",
@@ -1868,6 +2464,12 @@ export const Leggings = {
             vital_mist: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacb4",
+            "cardUrl": "https://trello.com/c/Cvnq7F25",
+            "sectionId": "69214b9831723704c1edacb4:section:4"
+        },
     },
     revved_leggings: {
         id: "revved_leggings",
@@ -1886,6 +2488,12 @@ export const Leggings = {
             engine: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda756",
+            "cardUrl": "https://trello.com/c/TytwaUDZ",
+            "sectionId": "69214b9731723704c1eda756:section:4"
+        },
     },
     riptide_pants: {
         id: "riptide_pants",
@@ -1904,6 +2512,12 @@ export const Leggings = {
             ocean_song: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda20e",
+            "cardUrl": "https://trello.com/c/ph33c9ZS",
+            "sectionId": "69214b9731723704c1eda20e:section:4"
+        },
     },
     ronin_leggings: {
         id: "ronin_leggings",
@@ -1923,6 +2537,12 @@ export const Leggings = {
             heightened_reflexes: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaaf4",
+            "cardUrl": "https://trello.com/c/M5Xt9wcX",
+            "sectionId": "69214b9731723704c1edaaf4:section:4"
+        },
     },
     royal_clerics_pants: {
         id: "royal_clerics_pants",
@@ -1940,6 +2560,12 @@ export const Leggings = {
             critical_healing: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda75e",
+            "cardUrl": "https://trello.com/c/9HiIjhtw",
+            "sectionId": "69214b9731723704c1eda75e:section:4"
+        },
     },
     saur_legs: {
         id: "saur_legs",
@@ -1957,6 +2583,12 @@ export const Leggings = {
             primal: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda9e0",
+            "cardUrl": "https://trello.com/c/TFisqUmQ",
+            "sectionId": "69214b9731723704c1eda9e0:section:4"
+        },
     },
     scow_marauder_leggings: {
         id: "scow_marauder_leggings",
@@ -1977,6 +2609,12 @@ export const Leggings = {
             frozen_heart: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda760",
+            "cardUrl": "https://trello.com/c/qw16KvFQ",
+            "sectionId": "69214b9731723704c1eda760:section:4"
+        },
     },
     scow_shaman_pants: {
         id: "scow_shaman_pants",
@@ -1996,6 +2634,12 @@ export const Leggings = {
             shamanic_flow: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda60c",
+            "cardUrl": "https://trello.com/c/A0fjZOMk",
+            "sectionId": "69214b9731723704c1eda60c:section:4"
+        },
     },
     shadow_dweller_pants: {
         id: "shadow_dweller_pants",
@@ -2013,6 +2657,12 @@ export const Leggings = {
             dark_harvest: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa16",
+            "cardUrl": "https://trello.com/c/RxlFPGk6",
+            "sectionId": "69214b9731723704c1edaa16:section:4"
+        },
     },
     skull_mage_pants: {
         id: "skull_mage_pants",
@@ -2031,6 +2681,12 @@ export const Leggings = {
             pain_distribution: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda762",
+            "cardUrl": "https://trello.com/c/nEVx4Huw",
+            "sectionId": "69214b9731723704c1eda762:section:4"
+        },
     },
     snoeman_pants: {
         id: "snoeman_pants",
@@ -2050,6 +2706,12 @@ export const Leggings = {
             icestorm: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda768",
+            "cardUrl": "https://trello.com/c/GmbFmEke",
+            "sectionId": "69214b9731723704c1eda768:section:4"
+        },
     },
     sol_warrior_leggings: {
         id: "sol_warrior_leggings",
@@ -2067,6 +2729,12 @@ export const Leggings = {
             sunburn: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda76a",
+            "cardUrl": "https://trello.com/c/MgGDt4Kw",
+            "sectionId": "69214b9731723704c1eda76a:section:4"
+        },
     },
     spore_boss_man_pants: {
         id: "spore_boss_man_pants",
@@ -2084,6 +2752,12 @@ export const Leggings = {
             spore_trooper: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda76e",
+            "cardUrl": "https://trello.com/c/dEsqYYvR",
+            "sectionId": "69214b9731723704c1eda76e:section:4"
+        },
     },
     sporeling_pants: {
         id: "sporeling_pants",
@@ -2101,6 +2775,12 @@ export const Leggings = {
             spore_burst: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda206",
+            "cardUrl": "https://trello.com/c/mhnRhn2L",
+            "sectionId": "69214b9731723704c1eda206:section:4"
+        },
     },
     stacked_plate_leggings: {
         id: "stacked_plate_leggings",
@@ -2121,6 +2801,12 @@ export const Leggings = {
             extra_layers: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda770",
+            "cardUrl": "https://trello.com/c/8W8Dg4d3",
+            "sectionId": "69214b9731723704c1eda770:section:4"
+        },
     },
     stagroot_leggings: {
         id: "stagroot_leggings",
@@ -2141,6 +2827,12 @@ export const Leggings = {
             vapor_aegis: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda772",
+            "cardUrl": "https://trello.com/c/IuHcpSTR",
+            "sectionId": "69214b9731723704c1eda772:section:4"
+        },
     },
     stalker_pants: {
         id: "stalker_pants",
@@ -2160,6 +2852,12 @@ export const Leggings = {
             wild_bolt: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacf2",
+            "cardUrl": "https://trello.com/c/pvBKQQaw",
+            "sectionId": "69214b9831723704c1edacf2:section:4"
+        },
     },
     stardust_pants: {
         id: "stardust_pants",
@@ -2178,6 +2876,12 @@ export const Leggings = {
             star_barrage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda778",
+            "cardUrl": "https://trello.com/c/NVuQStcf",
+            "sectionId": "69214b9731723704c1eda778:section:4"
+        },
     },
     star_guardian_leggings: {
         id: "star_guardian_leggings",
@@ -2195,6 +2899,12 @@ export const Leggings = {
             star_friendship: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda774",
+            "cardUrl": "https://trello.com/c/mNwc3CZL",
+            "sectionId": "69214b9731723704c1eda774:section:4"
+        },
     },
     steel_legion_leggings: {
         id: "steel_legion_leggings",
@@ -2215,6 +2925,12 @@ export const Leggings = {
             juggernaut: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda97c",
+            "cardUrl": "https://trello.com/c/vTADfuNG",
+            "sectionId": "69214b9731723704c1eda97c:section:4"
+        },
     },
     steel_sentry_leggings: {
         id: "steel_sentry_leggings",
@@ -2233,6 +2949,12 @@ export const Leggings = {
             bulwark: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda77c",
+            "cardUrl": "https://trello.com/c/VymLlFFH",
+            "sectionId": "69214b9731723704c1eda77c:section:4"
+        },
     },
     sticky_pants: {
         id: "sticky_pants",
@@ -2249,6 +2971,12 @@ export const Leggings = {
             honey_arts: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6a0",
+            "cardUrl": "https://trello.com/c/treGnAhu",
+            "sectionId": "69214b9731723704c1eda6a0:section:4"
+        },
     },
     stone_archer_legs: {
         id: "stone_archer_legs",
@@ -2267,6 +2995,12 @@ export const Leggings = {
             bastion_ballista: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab72",
+            "cardUrl": "https://trello.com/c/9C9wlNIH",
+            "sectionId": "69214b9731723704c1edab72:section:4"
+        },
     },
     stone_cleric_legs: {
         id: "stone_cleric_legs",
@@ -2285,6 +3019,12 @@ export const Leggings = {
             lithic_veil: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab70",
+            "cardUrl": "https://trello.com/c/PasoYcv9",
+            "sectionId": "69214b9731723704c1edab70:section:4"
+        },
     },
     stone_knight_legs: {
         id: "stone_knight_legs",
@@ -2305,6 +3045,12 @@ export const Leggings = {
             heavy_slate: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab6c",
+            "cardUrl": "https://trello.com/c/OTkN7Lxv",
+            "sectionId": "69214b9731723704c1edab6c:section:4"
+        },
     },
     stratos_leggings: {
         id: "stratos_leggings",
@@ -2325,6 +3071,12 @@ export const Leggings = {
             air_pressure: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda978",
+            "cardUrl": "https://trello.com/c/v7FjcMPx",
+            "sectionId": "69214b9731723704c1eda978:section:4"
+        },
     },
     sunken_mage_pants: {
         id: "sunken_mage_pants",
@@ -2343,6 +3095,12 @@ export const Leggings = {
             channeled_depths: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda210",
+            "cardUrl": "https://trello.com/c/CzKGOnV8",
+            "sectionId": "69214b9731723704c1eda210:section:4"
+        },
     },
     swamp_brawler_pants: {
         id: "swamp_brawler_pants",
@@ -2361,6 +3119,12 @@ export const Leggings = {
             marsh_flow: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda77e",
+            "cardUrl": "https://trello.com/c/ayAux5xd",
+            "sectionId": "69214b9731723704c1eda77e:section:4"
+        },
     },
     swamp_marauder_pants: {
         id: "swamp_marauder_pants",
@@ -2378,6 +3142,12 @@ export const Leggings = {
             swift_guard: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda776",
+            "cardUrl": "https://trello.com/c/QBlSGfJW",
+            "sectionId": "69214b9731723704c1eda776:section:4"
+        },
     },
     thieves_pants: {
         id: "thieves_pants",
@@ -2394,6 +3164,12 @@ export const Leggings = {
             critical_master: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda306",
+            "cardUrl": "https://trello.com/c/n2H8syje",
+            "sectionId": "69214b9731723704c1eda306:section:4"
+        },
     },
     toadzerker_leggings: {
         id: "toadzerker_leggings",
@@ -2411,6 +3187,12 @@ export const Leggings = {
             raging_bounce: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda626",
+            "cardUrl": "https://trello.com/c/c8Y0A2cR",
+            "sectionId": "69214b9731723704c1eda626:section:4"
+        },
     },
     tundra_explorer_pants: {
         id: "tundra_explorer_pants",
@@ -2425,6 +3207,13 @@ export const Leggings = {
             ColdResistance: 150,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda784",
+            "cardUrl": "https://trello.com/c/XsFanANr",
+            "sectionId": "69214b9731723704c1eda784:section:4"
+        },
     },
     void_root_leggings: {
         id: "void_root_leggings",
@@ -2445,6 +3234,12 @@ export const Leggings = {
             cursed_bark: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda788",
+            "cardUrl": "https://trello.com/c/X0tFjdyJ",
+            "sectionId": "69214b9731723704c1eda788:section:4"
+        },
     },
     whirlray_dancer_pants: {
         id: "whirlray_dancer_pants",
@@ -2463,6 +3258,12 @@ export const Leggings = {
             whirl_foot: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae94",
+            "cardUrl": "https://trello.com/c/MkNrU4rp",
+            "sectionId": "69214b9831723704c1edae94:section:4"
+        },
     },
     whistle_warrior_leggings: {
         id: "whistle_warrior_leggings",
@@ -2480,6 +3281,12 @@ export const Leggings = {
             screeching_sound: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa0e",
+            "cardUrl": "https://trello.com/c/MZ23WQbb",
+            "sectionId": "69214b9731723704c1edaa0e:section:4"
+        },
     },
     wind_champion_pants: {
         id: "wind_champion_pants",
@@ -2498,6 +3305,12 @@ export const Leggings = {
             wind_walker: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda254",
+            "cardUrl": "https://trello.com/c/xlhF3LD8",
+            "sectionId": "69214b9731723704c1eda254:section:5"
+        },
     },
     wind_spirit_pants: {
         id: "wind_spirit_pants",
@@ -2516,6 +3329,12 @@ export const Leggings = {
             spirit_winds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda240",
+            "cardUrl": "https://trello.com/c/rHG6YrKm",
+            "sectionId": "69214b9731723704c1eda240:section:4"
+        },
     },
     winter_woof_pants: {
         id: "winter_woof_pants",
@@ -2534,6 +3353,12 @@ export const Leggings = {
             blood_thirsty: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda60a",
+            "cardUrl": "https://trello.com/c/DjednJwL",
+            "sectionId": "69214b9731723704c1eda60a:section:4"
+        },
     },
     // egg_scientist_leggings: {
     //   id: "egg_scientist_leggings",
@@ -2631,4 +3456,416 @@ export const Leggings = {
     //   description: "Cozy deer pants Obtainable during the 2025 Voxlmas Event",
     //   img: "",
     // },
+    "astro_pajama_pants": {
+        "id": "astro_pajama_pants",
+        "name": "Astro-Pajama Pants",
+        "stats": {
+            "AirBoost": -15,
+            "MagicBoost": 14,
+            "WaterBoost": 14,
+            "MagicDefense": 5
+        },
+        "perks": {
+            "counting_sheep": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda176",
+            "cardUrl": "https://trello.com/c/8twxqyme",
+            "sectionId": "69214b9731723704c1eda176:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "bowldur_leggings": {
+        "id": "bowldur_leggings",
+        "name": "Bowldur Leggings",
+        "stats": {
+            "DexterityBoost": -12,
+            "EarthBoost": 12,
+            "PhysicalBoost": 10,
+            "PhysicalDefense": 5,
+            "HeatResistance": 150
+        },
+        "perks": {
+            "seismic_momentum": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda290",
+            "cardUrl": "https://trello.com/c/sIXr9dIH",
+            "sectionId": "69214b9731723704c1eda290:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "bowling_knight_leggings": {
+        "id": "bowling_knight_leggings",
+        "name": "Bowling Knight Leggings",
+        "stats": {
+            "Tenacity": 1,
+            "PhysicalDefense": 15,
+            "Protection": 0.3,
+            "MagicDefense": 15
+        },
+        "perks": {
+            "bowlers_roll": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6fe",
+            "cardUrl": "https://trello.com/c/QSthSf2F",
+            "sectionId": "69214b9731723704c1eda6fe:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "crazy_hare_pants": {
+        "id": "crazy_hare_pants",
+        "name": "Crazy Hare Pants",
+        "stats": {
+            "SpeedBoost": 5,
+            "HexBoost": 15,
+            "EarthBoost": 15,
+            "HexDefense": -15,
+            "Warding": 20
+        },
+        "perks": {
+            "sickness": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaad6",
+            "cardUrl": "https://trello.com/c/ssRsseHC",
+            "sectionId": "69214b9731723704c1edaad6:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "deepcrystal_pants": {
+        "id": "deepcrystal_pants",
+        "name": "Deepcrystal Pants",
+        "stats": {
+            "MagicDefense": -10,
+            "PhysicalDefense": 10,
+            "WaterBoost": 18
+        },
+        "perks": {
+            "deepcrystal_calling": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edac42",
+            "cardUrl": "https://trello.com/c/4b4PHB7W",
+            "sectionId": "69214b9831723704c1edac42:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "dragigator_leggings": {
+        "id": "dragigator_leggings",
+        "name": "Dragigator Leggings",
+        "stats": {
+            "FireBoost": 12,
+            "WaterBoost": -15,
+            "PhysicalBoost": 10,
+            "FireDefense": 20
+        },
+        "perks": {
+            "bellowing_ember": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda524",
+            "cardUrl": "https://trello.com/c/0Zy8r1gj",
+            "sectionId": "69214b9731723704c1eda524:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "dragon_soul_pants": {
+        "id": "dragon_soul_pants",
+        "name": "Dragon Soul Pants",
+        "stats": {
+            "MagicBoost": 10,
+            "PhysicalDefense": 5,
+            "MagicDefense": 5
+        },
+        "perks": {
+            "mark_of_the_dragon": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda730",
+            "cardUrl": "https://trello.com/c/5xNf0gAq",
+            "sectionId": "69214b9731723704c1eda730:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "glacial_snapper_leggings": {
+        "id": "glacial_snapper_leggings",
+        "name": "Glacial Snapper Leggings",
+        "stats": {
+            "WaterBoost": 5,
+            "PhysicalDefense": 10,
+            "PhysicalBoost": 5,
+            "HeatResistance": 150,
+            "Protection": 7,
+            "MagicDefense": 10,
+            "ColdResistance": 100,
+            "Tenacity": 0.22
+        },
+        "perks": {
+            "ice_barge": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda73a",
+            "cardUrl": "https://trello.com/c/LXvVZovD",
+            "sectionId": "69214b9731723704c1eda73a:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "hypnotist_pants": {
+        "id": "hypnotist_pants",
+        "name": "Hypnotist Pants",
+        "stats": {
+            "HexBoost": 10,
+            "PhysicalBoost": -17,
+            "HexDefense": 20,
+            "SummonBoost": 15,
+            "Warding": 10
+        },
+        "perks": {
+            "hypnotist": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edab52",
+            "cardUrl": "https://trello.com/c/g23k1g4s",
+            "sectionId": "69214b9731723704c1edab52:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "lich_king_pants": {
+        "id": "lich_king_pants",
+        "name": "Lich King Pants",
+        "stats": {
+            "HexBoost": 13,
+            "HexDefense": 20,
+            "SummonBoost": 13,
+            "HolyDefense": -20,
+            "Warding": 30
+        },
+        "perks": {
+            "sacrificial_summoning": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda27e",
+            "cardUrl": "https://trello.com/c/Jzivijtx",
+            "sectionId": "69214b9731723704c1eda27e:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "lord_frogg_leggings": {
+        "id": "lord_frogg_leggings",
+        "name": "Lord Frogg Leggings",
+        "stats": {
+            "SpeedBoost": -2,
+            "Tenacity": 0.15,
+            "PhysicalDefense": 15,
+            "PhysicalBoost": 16,
+            "JumpBoost": 1,
+            "Protection": 5
+        },
+        "perks": {
+            "weighty_slam": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda74a",
+            "cardUrl": "https://trello.com/c/iavWv7xL",
+            "sectionId": "69214b9731723704c1eda74a:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "queen_bumblz_leggings": {
+        "id": "queen_bumblz_leggings",
+        "name": "Queen Bumblz Leggings",
+        "stats": {
+            "MagicBoost": 10,
+            "MagicDefense": 10,
+            "HolyBoost": 10,
+            "SummonBoost": 13,
+            "PhysicalDefense": -10
+        },
+        "perks": {
+            "sticky_summons": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda69e",
+            "cardUrl": "https://trello.com/c/IQy36BeG",
+            "sectionId": "69214b9731723704c1eda69e:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "rock_hare_leggings": {
+        "id": "rock_hare_leggings",
+        "name": "Rock Hare Leggings",
+        "stats": {
+            "SpeedBoost": -2,
+            "Tenacity": 0.2,
+            "Protection": 2
+        },
+        "perks": {
+            "immoveable": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda758",
+            "cardUrl": "https://trello.com/c/60JzHO2H",
+            "sectionId": "69214b9731723704c1eda758:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "sea_demon_legs": {
+        "id": "sea_demon_legs",
+        "name": "Sea Demon Legs",
+        "stats": {
+            "WaterDefense": 10,
+            "WaterBoost": 19,
+            "Protection": -4,
+            "Tenacity": -0.1
+        },
+        "perks": {
+            "oceans_rage": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edae26",
+            "cardUrl": "https://trello.com/c/eBcem3UO",
+            "sectionId": "69214b9831723704c1edae26:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "slizard_leggings": {
+        "id": "slizard_leggings",
+        "name": "Slizard Leggings",
+        "stats": {
+            "PhysicalDefense": 15,
+            "SpeedBoost": -5,
+            "HeatResistance": 50,
+            "EarthBoost": 15,
+            "WaterDefense": -40,
+            "Protection": 8
+        },
+        "perks": {
+            "carapace": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda764",
+            "cardUrl": "https://trello.com/c/GLYMHHA1",
+            "sectionId": "69214b9731723704c1eda764:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "spell_slinger_pants": {
+        "id": "spell_slinger_pants",
+        "name": "Spell Slinger Pants",
+        "stats": {
+            "SpeedBoost": 5,
+            "MagicBoost": 13,
+            "DexterityBoost": 13,
+            "Warding": 20
+        },
+        "perks": {
+            "spell_slinger": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda76c",
+            "cardUrl": "https://trello.com/c/2XxZIxNF",
+            "sectionId": "69214b9731723704c1eda76c:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "steam_golem_leggings": {
+        "id": "steam_golem_leggings",
+        "name": "Steam Golem Leggings",
+        "stats": {
+            "FireBoost": 6,
+            "AirBoost": 17,
+            "PhysicalDefense": 10,
+            "ColdResistance": 200,
+            "Warding": 20,
+            "SpeedBoost": -5
+        },
+        "perks": {
+            "steam_powered": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda77a",
+            "cardUrl": "https://trello.com/c/6jkhMmum",
+            "sectionId": "69214b9731723704c1eda77a:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "time_travelers_pants": {
+        "id": "time_travelers_pants",
+        "name": "Time Travelers Pants",
+        "stats": {
+            "MagicBoost": 10,
+            "HolyDefense": -15,
+            "HexDefense": -15,
+            "PhysicalBoost": 10
+        },
+        "perks": {
+            "roll_back": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda782",
+            "cardUrl": "https://trello.com/c/6V9TclZ8",
+            "sectionId": "69214b9731723704c1eda782:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
+    "tundra_warlord_leggings": {
+        "id": "tundra_warlord_leggings",
+        "name": "Tundra Warlord Leggings",
+        "stats": {
+            "Protection": 0.1,
+            "PhysicalDefense": 7,
+            "ColdResistance": 150,
+            "MagicDefense": -7,
+            "PhysicalBoost": 15
+        },
+        "perks": {
+            "conquerer": 1
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda786",
+            "cardUrl": "https://trello.com/c/QCxAjLNS",
+            "sectionId": "69214b9731723704c1eda786:section:4"
+        },
+        "category": "Armor",
+        "type": "Legging"
+    },
 };

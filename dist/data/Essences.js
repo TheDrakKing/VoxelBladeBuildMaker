@@ -12,6 +12,14 @@ export const Essences = {
             Dexterity: 0.15,
         },
         img: "",
+        "stats": {},
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda6a6",
+            "cardUrl": "https://trello.com/c/pkUctg0L",
+            "sectionId": "69214b9731723704c1eda6a6"
+        },
     },
     greatsword_essence: {
         id: "greatsword_essence",
@@ -27,6 +35,13 @@ export const Essences = {
             Physical: 0.4,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda70e",
+            "cardUrl": "https://trello.com/c/ogUKR0IQ",
+            "sectionId": "69214b9731723704c1eda70e"
+        },
     },
     sharp_essence: {
         id: "sharp_essence",
@@ -43,6 +58,13 @@ export const Essences = {
             Dexterity: 0.3,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda710",
+            "cardUrl": "https://trello.com/c/jGnRjP86",
+            "sectionId": "69214b9731723704c1eda710"
+        },
     },
     agile_essence: {
         id: "agile_essence",
@@ -59,6 +81,13 @@ export const Essences = {
             Dexterity: 0.3,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda712",
+            "cardUrl": "https://trello.com/c/UBAbQ2BO",
+            "sectionId": "69214b9731723704c1eda712"
+        },
     },
     mage_essence: {
         id: "mage_essence",
@@ -74,6 +103,13 @@ export const Essences = {
             Magic: 0.4,
         },
         img: "",
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda714",
+            "cardUrl": "https://trello.com/c/4DTPKGAg",
+            "sectionId": "69214b9731723704c1eda714"
+        },
     },
     holy_essence: {
         id: "holy_essence",
@@ -94,6 +130,12 @@ export const Essences = {
             blessing: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda71a",
+            "cardUrl": "https://trello.com/c/JKITSarA",
+            "sectionId": "69214b9731723704c1eda71a"
+        },
     },
     cursed_essence: {
         id: "cursed_essence",
@@ -114,6 +156,12 @@ export const Essences = {
             weakening: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda718",
+            "cardUrl": "https://trello.com/c/oYdrvpHS",
+            "sectionId": "69214b9731723704c1eda718"
+        },
     },
     wind_essence: {
         id: "wind_essence",
@@ -123,7 +171,8 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            DexterityBoost: 5,
+            "AirBoost": 5,
+            "DexterityBoost": 5
         },
         damageScalings: {
             Dexterity: 0.3,
@@ -133,6 +182,12 @@ export const Essences = {
             tailwind: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda71c",
+            "cardUrl": "https://trello.com/c/JYSjfUwE",
+            "sectionId": "69214b9731723704c1eda71c"
+        },
     },
     blaze_essence: {
         id: "blaze_essence",
@@ -153,6 +208,12 @@ export const Essences = {
             ignition: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda716",
+            "cardUrl": "https://trello.com/c/t7F14HSm",
+            "sectionId": "69214b9731723704c1eda716"
+        },
     },
     water_essence: {
         id: "water_essence",
@@ -173,6 +234,12 @@ export const Essences = {
             extinguish: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda71e",
+            "cardUrl": "https://trello.com/c/evgih1Xj",
+            "sectionId": "69214b9731723704c1eda71e"
+        },
     },
     earth_essence: {
         id: "earth_essence",
@@ -193,6 +260,12 @@ export const Essences = {
             quake: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda720",
+            "cardUrl": "https://trello.com/c/X1267obj",
+            "sectionId": "69214b9731723704c1eda720"
+        },
     },
     executioners_essence: {
         id: "executioners_essence",
@@ -215,6 +288,12 @@ export const Essences = {
             executioner: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7da",
+            "cardUrl": "https://trello.com/c/WKoi9Gsp",
+            "sectionId": "69214b9731723704c1eda7da"
+        },
     },
     hammer_essence: {
         id: "hammer_essence",
@@ -234,6 +313,12 @@ export const Essences = {
             shattering_justice: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7dc",
+            "cardUrl": "https://trello.com/c/mrgGPKNM",
+            "sectionId": "69214b9731723704c1eda7dc"
+        },
     },
     katana_essence: {
         id: "katana_essence",
@@ -255,6 +340,12 @@ export const Essences = {
             flash_strike: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7de",
+            "cardUrl": "https://trello.com/c/YghqDyNB",
+            "sectionId": "69214b9731723704c1eda7de"
+        },
     },
     jagged_essence: {
         id: "jagged_essence",
@@ -273,10 +364,17 @@ export const Essences = {
             Physical: 0.1,
         },
         perks: {
-            serrated_edge: 1,
-            bleed_potency: 4,
+            "serrated_edge": 1
         },
         img: "",
+        "potencies": {
+            "bleedpotency": 4
+        },
+        "source": {
+            "cardId": "69214b9731723704c1eda7e0",
+            "cardUrl": "https://trello.com/c/VCeCMTFr",
+            "sectionId": "69214b9731723704c1eda7e0"
+        },
     },
     noble_essence: {
         id: "noble_essence",
@@ -286,7 +384,8 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            DexterityBoost: 10,
+            "DexterityBoost": 10,
+            "SpeedBoost": 5
         },
         damageScalings: {
             Dexterity: 0.5,
@@ -295,6 +394,12 @@ export const Essences = {
             vital_strikes: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7e2",
+            "cardUrl": "https://trello.com/c/KHwCPvmz",
+            "sectionId": "69214b9731723704c1eda7e2"
+        },
     },
     graceful_essence: {
         id: "graceful_essence",
@@ -315,6 +420,12 @@ export const Essences = {
             sharp_crits: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7e4",
+            "cardUrl": "https://trello.com/c/fpSqY7dv",
+            "sectionId": "69214b9731723704c1eda7e4"
+        },
     },
     greatmage_essence: {
         id: "greatmage_essence",
@@ -334,6 +445,12 @@ export const Essences = {
             magic_guard: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7e6",
+            "cardUrl": "https://trello.com/c/cBeI4hmi",
+            "sectionId": "69214b9731723704c1eda7e6"
+        },
     },
     enchanted_essence: {
         id: "enchanted_essence",
@@ -355,6 +472,12 @@ export const Essences = {
             royal_finisher: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7e8",
+            "cardUrl": "https://trello.com/c/UmUvC6vX",
+            "sectionId": "69214b9731723704c1eda7e8"
+        },
     },
     radiant_essence: {
         id: "radiant_essence",
@@ -364,8 +487,9 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1,
         stats: {
-            HolyBoost: 6,
-            DexterityBoost: 6,
+            "SummonBoost": 5,
+            "HolyBoost": 6,
+            "DexterityBoost": 6
         },
         damageScalings: {
             Holy: 0.4,
@@ -375,6 +499,12 @@ export const Essences = {
             radiance: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7ea",
+            "cardUrl": "https://trello.com/c/rlobiDrR",
+            "sectionId": "69214b9731723704c1eda7ea"
+        },
     },
     pure_essence: {
         id: "pure_essence",
@@ -394,6 +524,12 @@ export const Essences = {
             blessing: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7ec",
+            "cardUrl": "https://trello.com/c/cFORH2tQ",
+            "sectionId": "69214b9731723704c1eda7ec"
+        },
     },
     summoning_essence: {
         id: "summoning_essence",
@@ -403,8 +539,9 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1,
         stats: {
-            PhysicalDefense: 4,
-            HexBoost: 8,
+            "SummonBoost": 10,
+            "PhysicalDefense": 4,
+            "HexBoost": 8
         },
         damageScalings: {
             Hex: 0.35,
@@ -415,6 +552,12 @@ export const Essences = {
             revel_in_death: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2ce",
+            "cardUrl": "https://trello.com/c/E2kPAbmv",
+            "sectionId": "69214b9731723704c1eda2ce"
+        },
     },
     hex_cleaver_essence: {
         id: "hex_cleaver_essence",
@@ -438,6 +581,12 @@ export const Essences = {
             weakening: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2d0",
+            "cardUrl": "https://trello.com/c/JuAY9Uco",
+            "sectionId": "69214b9731723704c1eda2d0"
+        },
     },
     refined_wind_essence: {
         id: "refined_wind_essence",
@@ -447,7 +596,9 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            DexterityBoost: 7,
+            "DexterityBoost": 7,
+            "SpeedBoost": 5,
+            "AirBoost": 7
         },
         damageScalings: {
             Air: 0.4,
@@ -457,6 +608,12 @@ export const Essences = {
             tailwind: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7f0",
+            "cardUrl": "https://trello.com/c/mv7TcAjh",
+            "sectionId": "69214b9731723704c1eda7f0"
+        },
     },
     stormwood_essence: {
         id: "stormwood_essence",
@@ -466,8 +623,9 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            MagicBoost: 4,
-            DexterityBoost: 4,
+            "MagicBoost": 4,
+            "DexterityBoost": 4,
+            "AirBoost": 4
         },
         damageScalings: {
             Air: 0.35,
@@ -478,6 +636,12 @@ export const Essences = {
             stormcaller: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7ee",
+            "cardUrl": "https://trello.com/c/cZuU2mkM",
+            "sectionId": "69214b9731723704c1eda7ee"
+        },
     },
     kindlewood_essence: {
         id: "kindlewood_essence",
@@ -498,6 +662,12 @@ export const Essences = {
             kindling: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7f2",
+            "cardUrl": "https://trello.com/c/eIzX8Arf",
+            "sectionId": "69214b9731723704c1eda7f2"
+        },
     },
     greatflame_essence: {
         id: "greatflame_essence",
@@ -519,6 +689,12 @@ export const Essences = {
             ignition: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7f4",
+            "cardUrl": "https://trello.com/c/u1sP0wvJ",
+            "sectionId": "69214b9731723704c1eda7f4"
+        },
     },
     sunken_essence: {
         id: "sunken_essence",
@@ -539,6 +715,12 @@ export const Essences = {
             extinguish: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7f6",
+            "cardUrl": "https://trello.com/c/tzj0HLn1",
+            "sectionId": "69214b9731723704c1eda7f6"
+        },
     },
     frozen_essence: {
         id: "frozen_essence",
@@ -560,6 +742,12 @@ export const Essences = {
             frostbite: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7f8",
+            "cardUrl": "https://trello.com/c/zu6V44TF",
+            "sectionId": "69214b9731723704c1eda7f8"
+        },
     },
     gravity_mallet_essence: {
         id: "gravity_mallet_essence",
@@ -580,6 +768,12 @@ export const Essences = {
             gravity_well: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7fc",
+            "cardUrl": "https://trello.com/c/n4NP0UzB",
+            "sectionId": "69214b9731723704c1eda7fc"
+        },
     },
     bedrock_essence: {
         id: "bedrock_essence",
@@ -601,6 +795,12 @@ export const Essences = {
             quake: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7fa",
+            "cardUrl": "https://trello.com/c/u21FiTs9",
+            "sectionId": "69214b9731723704c1eda7fa"
+        },
     },
     scourgers_essence: {
         id: "scourgers_essence",
@@ -624,6 +824,12 @@ export const Essences = {
             scourge: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda800",
+            "cardUrl": "https://trello.com/c/r7FHjEk0",
+            "sectionId": "69214b9731723704c1eda800"
+        },
     },
     zweihander_essence: {
         id: "zweihander_essence",
@@ -633,9 +839,10 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1,
         stats: {
-            PhysicalBoost: 10,
-            PhysicalDefense: 3,
-            Protection: 5,
+            "PhysicalBoost": 10,
+            "PhysicalDefense": 3,
+            "SpeedBoost": 2,
+            "Protection": 5
         },
         damageScalings: {
             Physical: 0.55,
@@ -645,6 +852,12 @@ export const Essences = {
             highlander: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda7fe",
+            "cardUrl": "https://trello.com/c/udDw8MoO",
+            "sectionId": "69214b9731723704c1eda7fe"
+        },
     },
     gilded_essence: {
         id: "gilded_essence",
@@ -665,6 +878,12 @@ export const Essences = {
             reinforced_block: 3,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda804",
+            "cardUrl": "https://trello.com/c/KenYJVZV",
+            "sectionId": "69214b9731723704c1eda804"
+        },
     },
     dark_steel_essence: {
         id: "dark_steel_essence",
@@ -683,10 +902,17 @@ export const Essences = {
             Physical: 0.55,
         },
         perks: {
-            hemorrhage: 1,
-            bleed_potency: 3,
+            "hemorrhage": 1
         },
         img: "",
+        "potencies": {
+            "bleedpotency": 3
+        },
+        "source": {
+            "cardId": "69214b9731723704c1eda806",
+            "cardUrl": "https://trello.com/c/mwxU5IBI",
+            "sectionId": "69214b9731723704c1eda806"
+        },
     },
     serrated_essence: {
         id: "serrated_essence",
@@ -704,10 +930,17 @@ export const Essences = {
             Physical: 0.7,
         },
         perks: {
-            vicious_edge: 1,
-            bleed_potency: 3,
+            "vicious_edge": 1
         },
         img: "",
+        "potencies": {
+            "bleedpotency": 3
+        },
+        "source": {
+            "cardId": "69214b9731723704c1eda630",
+            "cardUrl": "https://trello.com/c/u9NUyRde",
+            "sectionId": "69214b9731723704c1eda630"
+        },
     },
     bloodied_essence: {
         id: "bloodied_essence",
@@ -727,10 +960,17 @@ export const Essences = {
             Magic: 0.45,
         },
         perks: {
-            blood_lust: 1,
-            bleed_potency: 3,
+            "blood_lust": 1
         },
         img: "",
+        "potencies": {
+            "bleedpotency": 3
+        },
+        "source": {
+            "cardId": "69214b9731723704c1eda802",
+            "cardUrl": "https://trello.com/c/MWG0fTXN",
+            "sectionId": "69214b9731723704c1eda802"
+        },
     },
     bejeweled_essence: {
         id: "bejeweled_essence",
@@ -752,6 +992,12 @@ export const Essences = {
             parry: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda58a",
+            "cardUrl": "https://trello.com/c/Kh3VLXLi",
+            "sectionId": "69214b9731723704c1eda58a"
+        },
     },
     shadow_essence: {
         id: "shadow_essence",
@@ -772,6 +1018,12 @@ export const Essences = {
             phantom_pain: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda808",
+            "cardUrl": "https://trello.com/c/yWHpfjuh",
+            "sectionId": "69214b9731723704c1eda808"
+        },
     },
     kings_essence: {
         id: "kings_essence",
@@ -781,7 +1033,8 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            DexterityBoost: 15,
+            "DexterityBoost": 15,
+            "SpeedBoost": 5
         },
         damageScalings: {
             Dexterity: 0.7,
@@ -790,6 +1043,12 @@ export const Essences = {
             golden_crits: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda80a",
+            "cardUrl": "https://trello.com/c/3oI6D9OD",
+            "sectionId": "69214b9731723704c1eda80a"
+        },
     },
     beastial_essence: {
         id: "beastial_essence",
@@ -799,8 +1058,9 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            DexterityBoost: 10,
-            JumpBoost: 2,
+            "DexterityBoost": 10,
+            "JumpBoost": 2,
+            "SpeedBoost": 7
         },
         damageScalings: {
             Dexterity: 0.55,
@@ -810,6 +1070,12 @@ export const Essences = {
             beastial_rage: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda80c",
+            "cardUrl": "https://trello.com/c/vSJqkxIs",
+            "sectionId": "69214b9731723704c1eda80c"
+        },
     },
     duelist_essence: {
         id: "duelist_essence",
@@ -819,7 +1085,8 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1,
         stats: {
-            DexterityBoost: 15,
+            "DexterityBoost": 15,
+            "SpeedBoost": 5
         },
         damageScalings: {
             Dexterity: 0.7,
@@ -828,6 +1095,12 @@ export const Essences = {
             piercer: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda80e",
+            "cardUrl": "https://trello.com/c/eq7OhQJJ",
+            "sectionId": "69214b9731723704c1eda80e"
+        },
     },
     crude_essence: {
         id: "crude_essence",
@@ -848,6 +1121,12 @@ export const Essences = {
             savage_combo: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda810",
+            "cardUrl": "https://trello.com/c/8nBNXUwS",
+            "sectionId": "69214b9731723704c1eda810"
+        },
     },
     grandmagic_great_essence: {
         id: "grandmagic_great_essence",
@@ -868,6 +1147,12 @@ export const Essences = {
             grandmagic_guard: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda814",
+            "cardUrl": "https://trello.com/c/geLMVvrc",
+            "sectionId": "69214b9731723704c1eda814"
+        },
     },
     mage_core_essence: {
         id: "mage_core_essence",
@@ -877,16 +1162,23 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            MagicBoost: 15,
+            "MagicBoost": 15,
+            "SpeedBoost": 2
         },
         damageScalings: {
             Magic: 0.7,
         },
         perks: {
-            artillery_mage: 1,
-            glyth_conduit: 1,
+            "artillery_mage": 1,
+            "glyph_conduit": 1
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda812",
+            "cardUrl": "https://trello.com/c/sinRDTme",
+            "sectionId": "69214b9731723704c1eda812"
+        },
     },
     spellbinder_essence: {
         id: "spellbinder_essence",
@@ -907,6 +1199,12 @@ export const Essences = {
             spell_piercer: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda816",
+            "cardUrl": "https://trello.com/c/ByVwpVnV",
+            "sectionId": "69214b9731723704c1eda816"
+        },
     },
     dual_magic_essence: {
         id: "dual_magic_essence",
@@ -926,6 +1224,12 @@ export const Essences = {
             runic_blades: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda818",
+            "cardUrl": "https://trello.com/c/13knFxng",
+            "sectionId": "69214b9731723704c1eda818"
+        },
     },
     divine_essence: {
         id: "divine_essence",
@@ -947,6 +1251,12 @@ export const Essences = {
             divinity: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda81a",
+            "cardUrl": "https://trello.com/c/YFxUiUbw",
+            "sectionId": "69214b9731723704c1eda81a"
+        },
     },
     radiant_hammer_essence: {
         id: "radiant_hammer_essence",
@@ -956,8 +1266,9 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 0.9,
         stats: {
-            HolyBoost: 10,
-            Warding: 20,
+            "SummonBoost": 10,
+            "HolyBoost": 10,
+            "Warding": 20
         },
         damageScalings: {
             Physical: 0.5,
@@ -968,6 +1279,12 @@ export const Essences = {
             divine_intervention: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda81c",
+            "cardUrl": "https://trello.com/c/eliukXLc",
+            "sectionId": "69214b9731723704c1eda81c"
+        },
     },
     hallowed_essence: {
         id: "hallowed_essence",
@@ -988,6 +1305,12 @@ export const Essences = {
             light_bearer: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda81e",
+            "cardUrl": "https://trello.com/c/dNiQoeEl",
+            "sectionId": "69214b9731723704c1eda81e"
+        },
     },
     angels_essence: {
         id: "angels_essence",
@@ -1008,6 +1331,12 @@ export const Essences = {
             sacred_grounds: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda820",
+            "cardUrl": "https://trello.com/c/XnrY1M2x",
+            "sectionId": "69214b9731723704c1eda820"
+        },
     },
     skull_essence: {
         id: "skull_essence",
@@ -1017,8 +1346,9 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1,
         stats: {
-            HexBoost: 10,
-            PhysicalDefense: 10,
+            "SummonBoost": 15,
+            "HexBoost": 10,
+            "PhysicalDefense": 10
         },
         damageScalings: {
             Hex: 0.5,
@@ -1029,6 +1359,12 @@ export const Essences = {
             trusty_servant: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda2d2",
+            "cardUrl": "https://trello.com/c/BbOOgoKI",
+            "sectionId": "69214b9731723704c1eda2d2"
+        },
     },
     possessed_essence: {
         id: "possessed_essence",
@@ -1038,7 +1374,8 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1,
         stats: {
-            HexBoost: 12,
+            "SummonBoost": 12,
+            "HexBoost": 12
         },
         damageScalings: {
             Hex: 0.5,
@@ -1049,6 +1386,12 @@ export const Essences = {
             possession: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda822",
+            "cardUrl": "https://trello.com/c/CHVlzCFk",
+            "sectionId": "69214b9731723704c1eda822"
+        },
     },
     cursed_greatsword_essence: {
         id: "cursed_greatsword_essence",
@@ -1068,6 +1411,12 @@ export const Essences = {
             endless_despair: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda824",
+            "cardUrl": "https://trello.com/c/ljsIcWz5",
+            "sectionId": "69214b9731723704c1eda824"
+        },
     },
     cursed_dagger_essence: {
         id: "cursed_dagger_essence",
@@ -1088,6 +1437,12 @@ export const Essences = {
             curse_rip: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda826",
+            "cardUrl": "https://trello.com/c/BAdEJMFE",
+            "sectionId": "69214b9731723704c1eda826"
+        },
     },
     gale_essence: {
         id: "gale_essence",
@@ -1097,7 +1452,8 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            DexterityBoost: 7,
+            "DexterityBoost": 7,
+            "AirBoost": 7
         },
         damageScalings: {
             Air: 0.55,
@@ -1108,6 +1464,12 @@ export const Essences = {
             tailwind: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda828",
+            "cardUrl": "https://trello.com/c/2NtxuKnp",
+            "sectionId": "69214b9731723704c1eda828"
+        },
     },
     windiron_needle_essence: {
         id: "windiron_needle_essence",
@@ -1117,7 +1479,8 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.2,
         stats: {
-            DexterityBoost: 7,
+            "DexterityBoost": 7,
+            "AirBoost": 7
         },
         damageScalings: {
             Air: 0.55,
@@ -1128,6 +1491,12 @@ export const Essences = {
             tailwind: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda82a",
+            "cardUrl": "https://trello.com/c/r54jtlxP",
+            "sectionId": "69214b9731723704c1eda82a"
+        },
     },
     storm_splitter_essence: {
         id: "storm_splitter_essence",
@@ -1137,8 +1506,9 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            MagicBoost: 8,
-            DexterityBoost: 12,
+            "MagicBoost": 8,
+            "DexterityBoost": 12,
+            "AirBoost": 8
         },
         damageScalings: {
             Air: 0.45,
@@ -1149,6 +1519,12 @@ export const Essences = {
             storm_rend: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda82c",
+            "cardUrl": "https://trello.com/c/8vRsnpuj",
+            "sectionId": "69214b9731723704c1eda82c"
+        },
     },
     lightning_essence: {
         id: "lightning_essence",
@@ -1158,8 +1534,9 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            MagicBoost: 6,
-            PhysicalDefense: 5,
+            "MagicBoost": 6,
+            "PhysicalDefense": 5,
+            "AirBoost": 6
         },
         damageScalings: {
             Air: 0.55,
@@ -1169,6 +1546,12 @@ export const Essences = {
             static_buildup: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda82e",
+            "cardUrl": "https://trello.com/c/hmCc06GE",
+            "sectionId": "69214b9731723704c1eda82e"
+        },
     },
     steel_flame_dagger_essence: {
         id: "steel_flame_dagger_essence",
@@ -1189,6 +1572,12 @@ export const Essences = {
             spark: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda836",
+            "cardUrl": "https://trello.com/c/xcgnHeMn",
+            "sectionId": "69214b9731723704c1eda836"
+        },
     },
     dragon_flame_essence: {
         id: "dragon_flame_essence",
@@ -1206,10 +1595,17 @@ export const Essences = {
             Fire: 0.55,
         },
         perks: {
-            dragon_breath: 1,
-            burn_potency: 2,
+            "dragon_breath": 1
         },
         img: "",
+        "potencies": {
+            "burnpotency": 2
+        },
+        "source": {
+            "cardId": "69214b9731723704c1eda834",
+            "cardUrl": "https://trello.com/c/P0nxkB5r",
+            "sectionId": "69214b9731723704c1eda834"
+        },
     },
     blue_flame_essence: {
         id: "blue_flame_essence",
@@ -1226,10 +1622,17 @@ export const Essences = {
             Fire: 0.7,
         },
         perks: {
-            cauterize: 1,
-            burn_potency: 3,
+            "cauterize": 1
         },
         img: "",
+        "potencies": {
+            "burnpotency": 3
+        },
+        "source": {
+            "cardId": "69214b9731723704c1eda830",
+            "cardUrl": "https://trello.com/c/rtclQ4NP",
+            "sectionId": "69214b9731723704c1eda830"
+        },
     },
     cragstone_essence: {
         id: "cragstone_essence",
@@ -1253,6 +1656,12 @@ export const Essences = {
             tectonic_heat: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda832",
+            "cardUrl": "https://trello.com/c/QBorpOvo",
+            "sectionId": "69214b9731723704c1eda832"
+        },
     },
     wave_essence: {
         id: "wave_essence",
@@ -1273,6 +1682,12 @@ export const Essences = {
             wave_rider: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda838",
+            "cardUrl": "https://trello.com/c/OqDHJEOh",
+            "sectionId": "69214b9731723704c1eda838"
+        },
     },
     golden_trident_essence: {
         id: "golden_trident_essence",
@@ -1293,6 +1708,12 @@ export const Essences = {
             holy_tides: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda83a",
+            "cardUrl": "https://trello.com/c/aO1PbZ5a",
+            "sectionId": "69214b9731723704c1eda83a"
+        },
     },
     icicle_essence: {
         id: "icicle_essence",
@@ -1311,11 +1732,18 @@ export const Essences = {
             Dexterity: 0.55,
         },
         perks: {
-            frostbite: 1,
-            gelid_lance: 1,
-            bleed_potency: 3,
+            "frostbite": 1,
+            "gelid_lance": 1
         },
         img: "",
+        "potencies": {
+            "bleedpotency": 3
+        },
+        "source": {
+            "cardId": "69214b9731723704c1eda83c",
+            "cardUrl": "https://trello.com/c/hKKxBmYY",
+            "sectionId": "69214b9731723704c1eda83c"
+        },
     },
     sculpted_essence: {
         id: "sculpted_essence",
@@ -1338,6 +1766,12 @@ export const Essences = {
             frostbite: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda83e",
+            "cardUrl": "https://trello.com/c/coOgDUNf",
+            "sectionId": "69214b9731723704c1eda83e"
+        },
     },
     gravity_greatsword_essence: {
         id: "gravity_greatsword_essence",
@@ -1359,6 +1793,12 @@ export const Essences = {
             gravitational_enforcer: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda840",
+            "cardUrl": "https://trello.com/c/pGlS3V2S",
+            "sectionId": "69214b9731723704c1eda840"
+        },
     },
     gravity_staff_essence: {
         id: "gravity_staff_essence",
@@ -1380,6 +1820,12 @@ export const Essences = {
             cosmic_ray: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda842",
+            "cardUrl": "https://trello.com/c/seqXNNEw",
+            "sectionId": "69214b9731723704c1eda842"
+        },
     },
     earth_spirit_essence: {
         id: "earth_spirit_essence",
@@ -1403,6 +1849,12 @@ export const Essences = {
             stoneskin: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda844",
+            "cardUrl": "https://trello.com/c/LwfWihoO",
+            "sectionId": "69214b9731723704c1eda844"
+        },
     },
     sand_essence: {
         id: "sand_essence",
@@ -1412,7 +1864,8 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            EarthBoost: 5,
+            "AirBoost": 5,
+            "EarthBoost": 5
         },
         damageScalings: {
             Air: 0.55,
@@ -1422,6 +1875,12 @@ export const Essences = {
             quicksand: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda846",
+            "cardUrl": "https://trello.com/c/vXJJ8Mk8",
+            "sectionId": "69214b9731723704c1eda846"
+        },
     },
     prism_essence: {
         id: "prism_essence",
@@ -1438,6 +1897,14 @@ export const Essences = {
             True: 0.1,
         },
         img: "",
+        "stats": {},
+        "perks": {},
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda848",
+            "cardUrl": "https://trello.com/c/urpylJoP",
+            "sectionId": "69214b9731723704c1eda848"
+        },
     },
     starlight_essence: {
         id: "starlight_essence",
@@ -1447,11 +1914,12 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1,
         stats: {
-            HolyBoost: 5,
-            HexBoost: 5,
-            MagicBoost: 5,
-            FireBoost: 5,
-            WaterBoost: 5,
+            "HolyBoost": 5,
+            "HexBoost": 5,
+            "MagicBoost": 5,
+            "FireBoost": 5,
+            "WaterBoost": 5,
+            "AirBoost": 5
         },
         damageScalings: {
             Holy: 0.4,
@@ -1468,6 +1936,12 @@ export const Essences = {
             star_struck: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda84a",
+            "cardUrl": "https://trello.com/c/SbIgSptZ",
+            "sectionId": "69214b9731723704c1eda84a"
+        },
     },
     swaxe_essence: {
         id: "swaxe_essence",
@@ -1486,6 +1960,12 @@ export const Essences = {
             cleave: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda9b2",
+            "cardUrl": "https://trello.com/c/xGfumios",
+            "sectionId": "69214b9731723704c1eda9b2"
+        },
     },
     sawblade_essence: {
         id: "sawblade_essence",
@@ -1495,16 +1975,24 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1,
         stats: {
-            PhysicalBoost: 5,
+            "SpeedBoost": 5,
+            "PhysicalBoost": 5
         },
         damageScalings: {
             Physical: 0.7,
         },
         perks: {
-            saw_heart: 1,
-            bleed_potency: 3,
+            "saw_heart": 1
         },
         img: "",
+        "potencies": {
+            "bleedpotency": 3
+        },
+        "source": {
+            "cardId": "69214b9831723704c1edac52",
+            "cardUrl": "https://trello.com/c/UeusZcXX",
+            "sectionId": "69214b9831723704c1edac52"
+        },
     },
     dragonslayer_essence: {
         id: "dragonslayer_essence",
@@ -1525,6 +2013,12 @@ export const Essences = {
             weight_distribution: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda84c",
+            "cardUrl": "https://trello.com/c/hadq5qwn",
+            "sectionId": "69214b9731723704c1eda84c"
+        },
     },
     murkwater_essence: {
         id: "murkwater_essence",
@@ -1544,10 +2038,17 @@ export const Essences = {
             Hex: 0.35,
         },
         perks: {
-            pure_rot: 1,
-            poison_potency: 2,
+            "pure_rot": 1
         },
         img: "",
+        "potencies": {
+            "poisonpotency": 2
+        },
+        "source": {
+            "cardId": "69214b9731723704c1eda850",
+            "cardUrl": "https://trello.com/c/OpCGUzru",
+            "sectionId": "69214b9731723704c1eda850"
+        },
     },
     spectral_essence: {
         id: "spectral_essence",
@@ -1567,10 +2068,17 @@ export const Essences = {
             Hex: 0.45,
         },
         perks: {
-            ghastly_rot: 1,
-            poison_potency: 2,
+            "ghastly_rot": 1
         },
         img: "",
+        "potencies": {
+            "poisonpotency": 2
+        },
+        "source": {
+            "cardId": "69214b9731723704c1eda852",
+            "cardUrl": "https://trello.com/c/1mIG4m8v",
+            "sectionId": "69214b9731723704c1eda852"
+        },
     },
     rot_essence: {
         id: "rot_essence",
@@ -1590,10 +2098,17 @@ export const Essences = {
             Hex: 0.35,
         },
         perks: {
-            poisonous: 1,
-            poison_potency: 3,
+            "poisonous": 1
         },
         img: "",
+        "potencies": {
+            "poisonpotency": 3
+        },
+        "source": {
+            "cardId": "69214b9731723704c1eda854",
+            "cardUrl": "https://trello.com/c/Q6rOGscD",
+            "sectionId": "69214b9731723704c1eda854"
+        },
     },
     venomous_essence: {
         id: "venomous_essence",
@@ -1613,10 +2128,17 @@ export const Essences = {
             Hex: 0.45,
         },
         perks: {
-            venom_spitter: 1,
-            poison_potency: 2,
+            "venom_spitter": 1
         },
         img: "",
+        "potencies": {
+            "poisonpotency": 2
+        },
+        "source": {
+            "cardId": "69214b9731723704c1eda856",
+            "cardUrl": "https://trello.com/c/D6JBQaAX",
+            "sectionId": "69214b9731723704c1eda856"
+        },
     },
     honeycomb_essence: {
         id: "honeycomb_essence",
@@ -1639,6 +2161,12 @@ export const Essences = {
             sticky_swings: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda85e",
+            "cardUrl": "https://trello.com/c/y0X1GHK1",
+            "sectionId": "69214b9731723704c1eda85e"
+        },
     },
     honeysteel_essence: {
         id: "honeysteel_essence",
@@ -1661,6 +2189,12 @@ export const Essences = {
             explosive_honey: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda85a",
+            "cardUrl": "https://trello.com/c/CEjCvV9w",
+            "sectionId": "69214b9731723704c1eda85a"
+        },
     },
     honey_bumblz_essence: {
         id: "honey_bumblz_essence",
@@ -1670,8 +2204,9 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1,
         stats: {
-            MagicBoost: 4,
-            PhysicalBoost: 4,
+            "MagicBoost": 4,
+            "SummonBoost": 10,
+            "PhysicalBoost": 4
         },
         damageScalings: {
             Magic: 0.35,
@@ -1679,9 +2214,15 @@ export const Essences = {
             Summon: 0.1,
         },
         perks: {
-            queens_guard: 1,
+            "queen_s_guard": 1
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda85c",
+            "cardUrl": "https://trello.com/c/v8ahny9U",
+            "sectionId": "69214b9731723704c1eda85c"
+        },
     },
     queen_bumblz_essence: {
         id: "queen_bumblz_essence",
@@ -1691,9 +2232,10 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1,
         stats: {
-            MagicBoost: 5,
-            HolyBoost: 5,
-            PhysicalBoost: 5,
+            "MagicBoost": 5,
+            "SummonBoost": 10,
+            "HolyBoost": 5,
+            "PhysicalBoost": 5
         },
         damageScalings: {
             Magic: 0.4,
@@ -1702,9 +2244,15 @@ export const Essences = {
             Summon: 0.2,
         },
         perks: {
-            queens_power: 1,
+            "queen_s_power": 1
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda858",
+            "cardUrl": "https://trello.com/c/cJfBV9W6",
+            "sectionId": "69214b9731723704c1eda858"
+        },
     },
     magic_great_hammer_essence: {
         id: "magic_great_hammer_essence",
@@ -1728,6 +2276,12 @@ export const Essences = {
             energize: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda84e",
+            "cardUrl": "https://trello.com/c/RsmbdJdV",
+            "sectionId": "69214b9731723704c1eda84e"
+        },
     },
     dynamite_stick_essence: {
         id: "dynamite_stick_essence",
@@ -1748,6 +2302,12 @@ export const Essences = {
             explosive_charge: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda99a",
+            "cardUrl": "https://trello.com/c/aTZgw5EE",
+            "sectionId": "69214b9731723704c1eda99a"
+        },
     },
     dynamite_bundle_essence: {
         id: "dynamite_bundle_essence",
@@ -1768,6 +2328,12 @@ export const Essences = {
             explosive_charge: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda99c",
+            "cardUrl": "https://trello.com/c/G9YIWEsO",
+            "sectionId": "69214b9731723704c1eda99c"
+        },
     },
     timed_dynamite_bundle_essence: {
         id: "timed_dynamite_bundle_essence",
@@ -1788,6 +2354,12 @@ export const Essences = {
             explosive_charge: 3,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda99e",
+            "cardUrl": "https://trello.com/c/AEqlH6GL",
+            "sectionId": "69214b9731723704c1eda99e"
+        },
     },
     stratos_essence: {
         id: "stratos_essence",
@@ -1803,6 +2375,15 @@ export const Essences = {
             stratos_winds: 1,
         },
         img: "",
+        "stats": {
+            "AirBoost": 10
+        },
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda922",
+            "cardUrl": "https://trello.com/c/8BR08E83",
+            "sectionId": "69214b9731723704c1eda922"
+        },
     },
     lightning_stratos_essence: {
         id: "lightning_stratos_essence",
@@ -1812,7 +2393,8 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1,
         stats: {
-            MagicBoost: 10,
+            "AirBoost": 13,
+            "MagicBoost": 10
         },
         damageScalings: {
             Air: 0.55,
@@ -1823,6 +2405,12 @@ export const Essences = {
             power_surge: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda92c",
+            "cardUrl": "https://trello.com/c/JkRuZZ5e",
+            "sectionId": "69214b9731723704c1eda92c"
+        },
     },
     caci_essence: {
         id: "caci_essence",
@@ -1844,6 +2432,12 @@ export const Essences = {
             thorns: 2,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1eda970",
+            "cardUrl": "https://trello.com/c/JTwi391u",
+            "sectionId": "69214b9731723704c1eda970"
+        },
     },
     caci_kings_essence: {
         id: "caci_kings_essence",
@@ -1853,9 +2447,10 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            DexterityBoost: 5,
-            PhysicalBoost: 5,
-            EarthBoost: 3,
+            "DexterityBoost": 5,
+            "PhysicalBoost": 5,
+            "EarthBoost": 3,
+            "AirBoost": 3
         },
         damageScalings: {
             Dexterity: 0.45,
@@ -1864,10 +2459,17 @@ export const Essences = {
             Air: 0.45,
         },
         perks: {
-            sandy_wounds: 1,
-            bleed_potency: 2,
+            "sandy_wounds": 1
         },
         img: "",
+        "potencies": {
+            "bleedpotency": 2
+        },
+        "source": {
+            "cardId": "69214b9731723704c1eda97e",
+            "cardUrl": "https://trello.com/c/kOZf5ukW",
+            "sectionId": "69214b9731723704c1eda97e"
+        },
     },
     buni_prince_essence: {
         id: "buni_prince_essence",
@@ -1887,6 +2489,12 @@ export const Essences = {
             iron_bounce: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa08",
+            "cardUrl": "https://trello.com/c/kiAg0eah",
+            "sectionId": "69214b9731723704c1edaa08"
+        },
     },
     buni_prince_cannon_essence: {
         id: "buni_prince_cannon_essence",
@@ -1906,6 +2514,12 @@ export const Essences = {
             springblast: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edaa04",
+            "cardUrl": "https://trello.com/c/x1iyQF7m",
+            "sectionId": "69214b9731723704c1edaa04"
+        },
     },
     ancient_mallet_essence: {
         id: "ancient_mallet_essence",
@@ -1925,6 +2539,12 @@ export const Essences = {
             rocky_body: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabbc",
+            "cardUrl": "https://trello.com/c/b3AXK16z",
+            "sectionId": "69214b9731723704c1edabbc"
+        },
     },
     bastion_greatswaxe_essence: {
         id: "bastion_greatswaxe_essence",
@@ -1934,7 +2554,8 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            EarthBoost: 8,
+            "EarthBoost": 8,
+            "SpeedBoost": 5
         },
         damageScalings: {
             Earth: 0.8,
@@ -1943,6 +2564,12 @@ export const Essences = {
             golem_guillotine: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabf4",
+            "cardUrl": "https://trello.com/c/5lyfTyU8",
+            "sectionId": "69214b9731723704c1edabf4"
+        },
     },
     relic_dagger_essence: {
         id: "relic_dagger_essence",
@@ -1963,6 +2590,12 @@ export const Essences = {
             bastion_bless: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabf0",
+            "cardUrl": "https://trello.com/c/Rgsipm6Z",
+            "sectionId": "69214b9731723704c1edabf0"
+        },
     },
     bastion_relic_essence: {
         id: "bastion_relic_essence",
@@ -1983,6 +2616,12 @@ export const Essences = {
             essence_totem: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9731723704c1edabf6",
+            "cardUrl": "https://trello.com/c/hhXouCNX",
+            "sectionId": "69214b9731723704c1edabf6"
+        },
     },
     vaen_kama_essence: {
         id: "vaen_kama_essence",
@@ -1992,7 +2631,8 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            PhysicalBoost: 5,
+            "AirBoost": 5,
+            "PhysicalBoost": 5
         },
         damageScalings: {
             Air: 0.4,
@@ -2002,6 +2642,12 @@ export const Essences = {
             crimson_tithe: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edacca",
+            "cardUrl": "https://trello.com/c/BAeXOwDr",
+            "sectionId": "69214b9831723704c1edacca"
+        },
     },
     lord_vaen_scythe_essence: {
         id: "lord_vaen_scythe_essence",
@@ -2011,17 +2657,25 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1.1,
         stats: {
-            PhysicalBoost: 10,
+            "AirBoost": 10,
+            "PhysicalBoost": 10
         },
         damageScalings: {
             Air: 0.55,
             Physical: 0.55,
         },
         perks: {
-            ichor_spark: 1,
-            bleed_potency: 3,
+            "ichor_spark": 1
         },
         img: "",
+        "potencies": {
+            "bleedpotency": 3
+        },
+        "source": {
+            "cardId": "69214b9831723704c1edaccc",
+            "cardUrl": "https://trello.com/c/vyx1Deou",
+            "sectionId": "69214b9831723704c1edaccc"
+        },
     },
     mungal_essence: {
         id: "mungal_essence",
@@ -2041,10 +2695,17 @@ export const Essences = {
             Earth: 0.35,
         },
         perks: {
-            gaseous_smash: 1,
-            poison_potency: 3,
+            "gaseous_smash": 1
         },
         img: "",
+        "potencies": {
+            "poisonpotency": 3
+        },
+        "source": {
+            "cardId": "69214b9831723704c1edad3e",
+            "cardUrl": "https://trello.com/c/5KKWyfYk",
+            "sectionId": "69214b9831723704c1edad3e"
+        },
     },
     proto_essence: {
         id: "proto_essence",
@@ -2054,9 +2715,10 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1,
         stats: {
-            EarthBoost: 5,
-            MagicBoost: 5,
-            HexBoost: 5,
+            "EarthBoost": 5,
+            "SpeedBoost": 2,
+            "MagicBoost": 5,
+            "HexBoost": 5
         },
         damageScalings: {
             Earth: 0.45,
@@ -2068,6 +2730,12 @@ export const Essences = {
             proto_tech: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad68",
+            "cardUrl": "https://trello.com/c/Maks7mC4",
+            "sectionId": "69214b9831723704c1edad68"
+        },
     },
     spider_essence: {
         id: "spider_essence",
@@ -2084,10 +2752,17 @@ export const Essences = {
             Dexterity: 0.5,
         },
         perks: {
-            poison_acceleration: 1,
-            poison_potency: 2,
+            "poison_acceleration": 1
         },
         img: "",
+        "potencies": {
+            "poisonpotency": 2
+        },
+        "source": {
+            "cardId": "69214b9831723704c1edad4a",
+            "cardUrl": "https://trello.com/c/mSFAU9kr",
+            "sectionId": "69214b9831723704c1edad4a"
+        },
     },
     omega_lance_essence: {
         id: "omega_lance_essence",
@@ -2097,9 +2772,10 @@ export const Essences = {
         type: "Essence",
         attackSpeed: 1,
         stats: {
-            DexterityBoost: 5,
-            PhysicalBoost: 5,
-            FireBoost: 5,
+            "DexterityBoost": 5,
+            "PhysicalBoost": 5,
+            "FireBoost": 5,
+            "AirBoost": 5
         },
         damageScalings: {
             Dexterity: 0.45,
@@ -2111,6 +2787,12 @@ export const Essences = {
             heat_drill: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad48",
+            "cardUrl": "https://trello.com/c/lW6kW9jz",
+            "sectionId": "69214b9831723704c1edad48"
+        },
     },
     freezing_bronze_essence: {
         id: "freezing_bronze_essence",
@@ -2132,6 +2814,12 @@ export const Essences = {
             glacial_buildup: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad40",
+            "cardUrl": "https://trello.com/c/MREuuMLH",
+            "sectionId": "69214b9831723704c1edad40"
+        },
     },
     pickaxe_essence: {
         id: "pickaxe_essence",
@@ -2153,5 +2841,11 @@ export const Essences = {
             ice_burst: 1,
         },
         img: "",
+        "potencies": {},
+        "source": {
+            "cardId": "69214b9831723704c1edad42",
+            "cardUrl": "https://trello.com/c/sfTBd5s1",
+            "sectionId": "69214b9831723704c1edad42"
+        },
     },
 };

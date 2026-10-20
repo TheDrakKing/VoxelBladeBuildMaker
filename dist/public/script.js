@@ -167,14 +167,8 @@ function getSelectorTitle(currentBuild, source, category) {
     }
     return `Select a ${category}`;
 }
-function getOpposingBuild(currentBuild) {
-    return currentBuild.target || (currentBuild === build ? target : build);
-}
 function getBuffSourceBuild(currentBuild, buff) {
-    if (buff.category === "Debuff") {
-        return getOpposingBuild(currentBuild);
-    }
-    return currentBuild;
+    return buff.getSourceBuild(currentBuild);
 }
 function createTabId() {
     return `tab_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
@@ -504,7 +498,7 @@ function createNonWeaponDamageCard(entry, containerDiv) {
     const normalHeader = document.createElement("span");
     normalHeader.textContent = "No Crit";
     const critHeader = document.createElement("span");
-    critHeader.textContent = "Crit";
+    critHeader.textContent = "Crit (expected)";
     const averageHeader = document.createElement("span");
     averageHeader.textContent = "Avg";
     headerRow.appendChild(typeHeader);
@@ -616,7 +610,7 @@ function createItemBox(item) {
     itemBoxImg.src = item.img ? resolveAssetPath(item.img) : "";
     itemBoxImg.alt = item.name ? item.name : "";
     var itemBoxspan = clonedDiv.children[0].children[0].children[1];
-    itemBoxspan.innerHTML = item.name ? item.name : "";
+    itemBoxspan.textContent = item.name ? item.name : "";
     if (!item.img) {
         itemBoxImg.style.display = "none";
     }
@@ -752,6 +746,8 @@ function createBuffBox(buff, ContainerDiv, source) {
     const inputs = clonedDiv.querySelectorAll("input");
     inputs.forEach((input) => (input.value = ""));
     clonedDiv.style.display = "flex";
+    if (buff.potencyId || buff.stacks !== undefined)
+        clonedDiv.classList.add("status-scenario");
     var itemBoxImg = clonedDiv.children[0].children[0].children[0];
     itemBoxImg.src = buff.img ? resolveAssetPath(buff.img) : "";
     itemBoxImg.alt = buff.name ? buff.name : "";
@@ -782,6 +778,73 @@ function createBuffBox(buff, ContainerDiv, source) {
     itemButton?.addEventListener("mouseleave", () => {
         mouseLeave();
     });
+    if (buff.potencyId) {
+        const ownerLabel = document.createElement("label");
+        ownerLabel.textContent = "Applied by ";
+        ownerLabel.title = "Auto potency uses the applying build's bonuses. A manual potency value overrides them.";
+        const ownerSelect = document.createElement("select");
+        ownerSelect.setAttribute("aria-label", `${buff.name} applied by`);
+        for (const [value, text] of [["self", "Self"], ["opponent", "Opponent"]]) {
+            const option = document.createElement("option");
+            option.value = value;
+            option.textContent = text;
+            ownerSelect.appendChild(option);
+        }
+        ownerSelect.value = buff.getAppliedBy();
+        ownerSelect.addEventListener("change", () => {
+            buff.appliedBy = ownerSelect.value === "opponent" ? "opponent" : "self";
+            // An applicant change invalidates the old applicant's selected source.
+            buff.setSourceData();
+            const holder = source || build;
+            const applicant = getBuffSourceBuild(holder, buff);
+            const sources = applicant.getSourcesForBuff(buff.potencyId);
+            if (Object.keys(sources).length)
+                showBuffSourceSelector(buff, sources, holder);
+            resetPage();
+        });
+        ownerLabel.appendChild(ownerSelect);
+        clonedDiv.appendChild(ownerLabel);
+        const label = document.createElement("label");
+        label.textContent = "Potency ";
+        label.title = "Effective potency in game units. Leave blank for the selected source and build bonuses.";
+        const input = document.createElement("input");
+        input.type = "number";
+        input.min = "0";
+        input.step = "0.1";
+        input.placeholder = "Auto";
+        input.setAttribute("aria-label", `${buff.name} effective potency`);
+        input.value = buff.effectivePotencyOverride?.toString() ?? "";
+        input.style.width = "5rem";
+        input.addEventListener("change", () => {
+            const value = input.value === "" ? undefined : Number(input.value);
+            if (value !== undefined && (!Number.isFinite(value) || value < 0))
+                return;
+            buff.effectivePotencyOverride = value;
+            resetPage();
+        });
+        label.appendChild(input);
+        clonedDiv.appendChild(label);
+    }
+    if (buff.stacks !== undefined) {
+        const label = document.createElement("label");
+        label.textContent = "Hit count ";
+        const input = document.createElement("input");
+        input.type = "number";
+        input.min = "1";
+        input.step = "1";
+        input.value = String(buff.stacks);
+        input.style.width = "5rem";
+        input.setAttribute("aria-label", `${buff.name} hit count`);
+        input.addEventListener("change", () => {
+            const value = Number(input.value);
+            if (!Number.isSafeInteger(value) || value < 1)
+                return;
+            buff.stacks = value;
+            resetPage();
+        });
+        label.appendChild(input);
+        clonedDiv.appendChild(label);
+    }
     // Create a clickable link for each game
     ContainerDiv?.appendChild(clonedDiv);
     return clonedDiv;
@@ -863,6 +926,14 @@ function renderHoverInfo(options) {
     if (options.description) {
         itemHoverInfoDiv.appendChild(createHoverInfoText("item_hoverinfo_description", options.description));
     }
+    if (options.sourceUrl && /^https:\/\/trello\.com\/c\//.test(options.sourceUrl)) {
+        const source = document.createElement("a");
+        source.href = options.sourceUrl;
+        source.target = "_blank";
+        source.rel = "noopener noreferrer";
+        source.textContent = "Trello source";
+        itemHoverInfoDiv.appendChild(source);
+    }
     options.sections?.forEach((section) => {
         if (!section.rows.length)
             return;
@@ -882,7 +953,9 @@ function mouseHover(item) {
     renderHoverInfo({
         name: item.name || "",
         description: item.description || "",
+        sourceUrl: item.source?.cardUrl,
         sections: [
+            { title: "Data review", rows: (item.dataWarnings || []).map(value => ({ label: "Review", value })) },
             { title: "Damage Scale", rows: getHoverRows(item.damageScalings) },
             { title: "Damage Type", rows: getHoverRows(item.damageTypes) },
             { title: "Stats", rows: statRows },
@@ -904,12 +977,16 @@ function mouseHover(item) {
 }
 function perkHover(perk, value) {
     const statRows = [];
+    const support = Perk.getPerkSupport(perk);
+    statRows.push({ label: "Support", value: support.status });
+    statRows.push({ label: "Calculated effects", value: support.details });
     if (value !== undefined) {
         statRows.push({ label: "Perk Level", value });
     }
     renderHoverInfo({
         name: perk.name || "",
         description: perk.description || "",
+        sourceUrl: perk.source?.cardUrl,
         sections: [
             { title: "Stats", rows: statRows },
         ],
@@ -930,6 +1007,10 @@ function buffHover(buff) {
     if (typeof buff.potency === "number") {
         statRows.push({ label: "Potency", value: buff.potency });
     }
+    if (buff.potencyId)
+        sourceRows.push({ label: "Applied by", value: buff.getAppliedBy() === "self" ? "Self" : "Opponent" });
+    if (buff.id === "scourge_proc")
+        statRows.push({ label: "Scenario", value: "Scourge bonus applies to the selected hit; no automatic roll." });
     if (buff.sourceData) {
         sourceRows.push({ label: "Source", value: buff.sourceData.source });
         sourceRows.push({ label: "Source Type", value: buff.sourceData.sourceType });
@@ -1038,7 +1119,8 @@ function displayStats() {
             continue;
         let perk = Perk.PerkStore.getByID(key);
         let name = perk?.name || key;
-        let perkHolder = createStatHolder(name, value, perksContainerDiv);
+        const support = Perk.getPerkSupport(perk);
+        let perkHolder = createStatHolder(`${name} [${support.status}]`, value, perksContainerDiv);
         perkHolder?.addEventListener("mouseenter", () => {
             perkHover(perk, value);
         });
@@ -1224,7 +1306,7 @@ function resetPage(item) {
         }
         element.src = resolveAssetPath(img);
         element.alt = name;
-        spanElement.innerHTML = name;
+        spanElement.textContent = name;
         if (!img) {
             element.style.display = "none";
             spanElement.style.display = "block";
@@ -1251,7 +1333,7 @@ function resetPage(item) {
         }
         element.src = resolveAssetPath(img);
         element.alt = name;
-        spanElement.innerHTML = name;
+        spanElement.textContent = name;
         if (!img) {
             element.style.display = "none";
             spanElement.style.display = "block";
@@ -1317,24 +1399,15 @@ function resetPage(item) {
             category: "Perk",
         });
     }
-    //Status damages
-    for (const [status, debuff] of Object.entries(target.deBuffs || [])) {
+    // Status damage uses the selected applicant for potency and offensive stats.
+    for (const debuff of target.deBuffs || []) {
         if (!debuff)
             continue;
-        let StatusData = debuff;
-        let callBack = StatusData.getDamageInfo;
-        if (!callBack)
+        const results = helper.resolveStatusDamage(debuff, target);
+        if (!results)
             continue;
-        const baseDamageInfo = helper.normalizeBaseDamagePacket(callBack.apply(target, [getBuffEffectivePotency(target, StatusData)]));
-        if (!baseDamageInfo)
-            continue;
-        const attackerBuild = {
-            damageScalings: StatusData.damageScalings,
-            damageTypes: StatusData.damageTypes,
-        };
-        const results = helper.runNonWeaponDamageCalculation(baseDamageInfo, build, target, attackerBuild);
         nonWeaponDamages.push({
-            source: StatusData.name || baseDamageInfo.source || status,
+            source: `${debuff.name || debuff.id}${debuff.getAppliedBy() === "self" ? " (self-inflicted)" : ""}`,
             outputs: results.outputs,
             total: results.total,
             category: "Debuff",

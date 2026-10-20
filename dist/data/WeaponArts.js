@@ -13,6 +13,7 @@ export const WeaponArts = {
         coolDown: 10,
         baseDamage: 27,
         totalHits: 6,
+        damageBasis: "cast",
         weaponTypeRequirements: [
             "TwoHanded sword",
             "Greatsword",
@@ -25,6 +26,8 @@ export const WeaponArts = {
         description: "Preform three fast stabs that deal low damage and reset your M1 combo.!",
         coolDown: 10,
         baseDamage: 8.75,
+        totalHits: 3,
+        attackTags: ["WeaponArt", "Finisher"],
         weaponTypeRequirements: [
             "Dagger",
             "OneHanded sword",
@@ -567,6 +570,7 @@ export const WeaponArts = {
         coolDown: 30,
         baseDamage: 75,
         totalHits: 31,
+        damageBasis: "cast",
         damageTypes: {
             Earth: 1,
         },
@@ -611,6 +615,7 @@ export const WeaponArts = {
         coolDown: 25,
         baseDamage: 360,
         totalHits: 75,
+        damageBasis: "cast",
         damageScalings: {
             Air: 1.0,
             Dexterity: 1.0,

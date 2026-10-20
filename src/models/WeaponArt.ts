@@ -13,6 +13,9 @@ export class WeaponArt {
   coolDown?: number;
   baseDamage?: number;
   totalHits?: number;
+  /** Existing catalog totals are explicitly marked; otherwise baseDamage is per hit. */
+  damageBasis?: "hit" | "cast";
+  attackTags?: attackTag[];
   /**
    * For addtive potecny that get applied to the over build, and can be added to soruce potency
    */
@@ -64,6 +67,8 @@ export class WeaponArt {
     this.coolDown = data?.coolDown || 1;
     this.baseDamage = data?.baseDamage || undefined;
     this.totalHits = data?.totalHits || undefined;
+    this.damageBasis = data?.damageBasis;
+    this.attackTags = data?.attackTags;
     this.potencies = data?.potencies || undefined;
     this.sourcepotencies = data?.sourcepotencies || undefined;
     this.scalingRequirements = data?.scalingRequirements || undefined;

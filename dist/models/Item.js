@@ -89,6 +89,10 @@ export class Item extends events {
 export function toID(name) {
     return name.toLowerCase().replace(" ", "_");
 }
+// Compatibility for saves made before the mislabeled leg-slot item was corrected.
+const legacyCategoryAliases = {
+    legging: { bowldur_helmet: "bowldur_leggings" },
+};
 export class ItemStore {
     constructor() { }
     static get(name) {
@@ -98,16 +102,22 @@ export class ItemStore {
         const id = toID(name);
         return this.getByID(id);
     }
-    static getByID(id) {
+    static getByID(id, requestedCategory) {
+        const scopedCategory = requestedCategory?.toLowerCase();
+        if (scopedCategory)
+            id = legacyCategoryAliases[scopedCategory]?.[id] || id;
+        const cacheKey = `${scopedCategory || ""}:${id}`;
         // Check cache first
-        if (this.itemCache.has(id)) {
-            return Object.assign(new Item(), this.itemCache.get(id));
+        if (this.itemCache.has(cacheKey)) {
+            return Object.assign(new Item(), this.itemCache.get(cacheKey));
         }
         // Find item in category tables
         for (const [category, table] of this.categoryMap) {
+            if (scopedCategory && category !== scopedCategory)
+                continue;
             if (id in table) {
                 const item = Object.freeze(new Item({ ...table[id], category }));
-                this.itemCache.set(id, item);
+                this.itemCache.set(cacheKey, item);
                 return Object.assign(new Item(), item);
             }
         }
@@ -121,7 +131,16 @@ export class ItemStore {
         const table = this.categoryMap.get(category.toLowerCase());
         if (!table)
             return [];
-        const items = Object.keys(table).map(id => this.getByID(id));
+        const seenSources = new Set();
+        const items = Object.keys(table).map(id => this.getByID(id, category)).filter((item) => {
+            const sourceKey = item.source?.sectionId;
+            if (!sourceKey)
+                return true;
+            if (seenSources.has(sourceKey))
+                return false;
+            seenSources.add(sourceKey);
+            return true;
+        });
         this.categoryCache.set(category, items);
         return items;
     }
