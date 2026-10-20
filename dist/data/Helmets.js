@@ -748,7 +748,7 @@ export const Helmets = {
         name: "Cryosteel Helmet",
         category: "Armor",
         type: "Helmet",
-        description: "(Previously unobtainable)",
+        description: "Highly technical chestplate designed to use and manipulate icy chemicals",
         stats: {
             PhysicalDefense: 6,
             WaterBoost: 14,

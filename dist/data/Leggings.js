@@ -755,6 +755,24 @@ export const Leggings = {
         },
         img: "",
     },
+    cryosteel_leggings: {
+        id: "cryosteel_leggings",
+        name: "Cryosteel leggings",
+        category: "Armor",
+        type: "Legging",
+        description: "Highly technical chestplate designed to use and manipulate icy chemicals",
+        stats: {
+            PhysicalDefense: 6,
+            WaterBoost: 14,
+            ColdResistance: 125,
+            SpeedBoost: -2,
+            AirBoost: 14,
+        },
+        perks: {
+            cryo_engine: 1,
+        },
+        img: "",
+    },
     curse_flame_pants: {
         id: "curse_flame_pants",
         name: "Curse Flame Pants",
