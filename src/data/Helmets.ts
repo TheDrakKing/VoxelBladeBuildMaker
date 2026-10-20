@@ -102,7 +102,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Winter Woof Hood",
     category: "Armor",
     type: "Helmet",
-    description: "A hood made out of winter woof fur. perfect for exploring the Tundra!",
+    description:
+      "A hood made out of winter woof fur. perfect for exploring the Tundra!",
     stats: {
       DexterityBoost: 10,
       MagicDefense: 7,
@@ -140,7 +141,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Thorn Maiden Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A crimson red helmet made by combining Blood Iron and Caci, very sharp.",
+    description:
+      "A crimson red helmet made by combining Blood Iron and Caci, very sharp.",
     stats: {
       PhysicalDefense: 10,
       PhysicalBoost: 10,
@@ -157,7 +159,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Dunefang Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "The unwavering resolve of the Dunefang resides within this helmet!",
+    description:
+      "The unwavering resolve of the Dunefang resides within this helmet!",
     stats: {
       SpeedBoost: 11,
       Tenacity: -0.1,
@@ -195,7 +198,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Omega-Batty Helemt",
     category: "Armor",
     type: "Helmet",
-    description: "A warm tempestuous energy courses though your mind while wearing this helmet.",
+    description:
+      "A warm tempestuous energy courses though your mind while wearing this helmet.",
     stats: {
       FireBoost: 15,
       AirBoost: 15,
@@ -248,7 +252,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Proto-Mungus Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A fungal presence takes over your mind...MuuuUUuuUUshroooooom",
+    description:
+      "A fungal presence takes over your mind...MuuuUUuuUUshroooooom",
     stats: {
       HexBoost: 15,
       PhysicalDefense: 15,
@@ -376,7 +381,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Steam Mage Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A helmet that defines the brilliant combination of magic and tech!",
+    description:
+      "A helmet that defines the brilliant combination of magic and tech!",
     stats: {
       SpeedBoost: -5,
       FireBoost: -10,
@@ -429,7 +435,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Atonement Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "The helmet of a knight who sought atonement through a bloody penance.",
+    description:
+      "The helmet of a knight who sought atonement through a bloody penance.",
     stats: {
       DexterityBoost: 12,
       PhysicalBoost: 12,
@@ -465,7 +472,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Backpack Berserker Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A helmet created for warriors, who also need to store things... Like, you could probably stab something onto the spike on the top?",
+    description:
+      "A helmet created for warriors, who also need to store things... Like, you could probably stab something onto the spike on the top?",
     stats: {
       DexterityBoost: 5,
       PhysicalDefense: 10,
@@ -499,7 +507,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Bastion Guardian Head",
     category: "Armor",
     type: "Helmet",
-    description: "The head of a legendary bastion guardian. A last beacon of hope shining in the deadlands.",
+    description:
+      "The head of a legendary bastion guardian. A last beacon of hope shining in the deadlands.",
     stats: {
       EarthDefense: 10,
       PhysicalBoost: 10,
@@ -518,7 +527,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Batty Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A helmet that obscures the eyes to increase focus of the user.",
+    description:
+      "A helmet that obscures the eyes to increase focus of the user.",
     stats: {
       HolyBoost: -20,
       SummonBoost: 13,
@@ -621,7 +631,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Buni Prince Hood",
     category: "Armor",
     type: "Helmet",
-    description: "An armored hood made out of the fur of the Bunis Prince! It is topped with a cool crown!.",
+    description:
+      "An armored hood made out of the fur of the Bunis Prince! It is topped with a cool crown!.",
     stats: {
       DexterityBoost: -15,
       PhysicalDefense: 10,
@@ -688,7 +699,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Coral Templar Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "Somewhat eldritch mask that grants you the fury of the depths!",
+    description:
+      "Somewhat eldritch mask that grants you the fury of the depths!",
     stats: {
       WaterBoost: 15,
       PhysicalDefense: 10,
@@ -749,7 +761,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Cryosteel Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "(Previously unobtainable)",
+    description:
+      "Highly technical chestplate designed to use and manipulate icy chemicals",
     stats: {
       PhysicalDefense: 6,
       WaterBoost: 14,
@@ -842,7 +855,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Deepcrystal Gaze",
     category: "Armor",
     type: "Helmet",
-    description: "An obsession turned to madness But controlled madness cannot be contained in flesh",
+    description:
+      "An obsession turned to madness But controlled madness cannot be contained in flesh",
     img: "",
   },
   deepsteel_helmet: {
@@ -850,7 +864,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Deepsteel Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A helmet made of a special metal that can withstand the crushing force of the deep seas",
+    description:
+      "A helmet made of a special metal that can withstand the crushing force of the deep seas",
     stats: {
       WaterDefense: 20,
       WaterBoost: -20,
@@ -869,7 +884,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Delta Spider Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A arachnid helmet that grants the wearer nightvision for mining in dark caves.",
+    description:
+      "A arachnid helmet that grants the wearer nightvision for mining in dark caves.",
     stats: {
       PhysicalDefense: 10,
       PhysicalBoost: 9,
@@ -1032,7 +1048,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Ember Guardian Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A fiery, bulky helmet associated with the Embers of the Void, whatever that is.",
+    description:
+      "A fiery, bulky helmet associated with the Embers of the Void, whatever that is.",
     stats: {
       FireBoost: 10,
       Tenacity: 0.2,
@@ -1052,7 +1069,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Ember Mage Hood",
     category: "Armor",
     type: "Helmet",
-    description: "A fiery hood associated with the Embers of the Void, whatever that is.",
+    description:
+      "A fiery hood associated with the Embers of the Void, whatever that is.",
     stats: {
       MagicBoost: 12,
       MagicDefense: 5,
@@ -1068,7 +1086,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Experimental Froggmail Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A highly experimental helmet created by the corrupted Froggs.",
+    description:
+      "A highly experimental helmet created by the corrupted Froggs.",
     stats: {
       Tenacity: 0.1,
       PhysicalDefense: 5,
@@ -1104,7 +1123,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "False Idol Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "This helmet, if you can call it that, looks very uncomfortable",
+    description:
+      "This helmet, if you can call it that, looks very uncomfortable",
     stats: {
       DexterityBoost: 15,
       Protection: 5,
@@ -1142,7 +1162,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Flower Scout Hat",
     category: "Armor",
     type: "Helmet",
-    description: "A hat used to absorb sunlight to power high tech scouting gear",
+    description:
+      "A hat used to absorb sunlight to power high tech scouting gear",
     stats: {
       MagicDefense: 10,
       HolyBoost: 12,
@@ -1177,7 +1198,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Fragrant Piercings",
     category: "Armor",
     type: "Helmet",
-    description: "Wearing these piercings let out a lingering scent that makes everything taste better!",
+    description:
+      "Wearing these piercings let out a lingering scent that makes everything taste better!",
     stats: {
       WaterBoost: 15,
       HexBoost: 15,
@@ -1245,7 +1267,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Galactic Graviturgy Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "This high tech gear allows you to crush your opponents with the immense strength of gravity!",
+    description:
+      "This high tech gear allows you to crush your opponents with the immense strength of gravity!",
     stats: {
       MagicBoost: 15,
       JumpBoost: 3,
@@ -1339,7 +1362,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Gremlin Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A helmet used by soldiers of the void, the chin strap provides EXCELLENT protection!",
+    description:
+      "A helmet used by soldiers of the void, the chin strap provides EXCELLENT protection!",
     stats: {
       HexDefense: 15,
       DexterityBoost: 10,
@@ -1357,7 +1381,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Gremlinancer Hat",
     category: "Armor",
     type: "Helmet",
-    description: "A hat used by mages of the void it's suprisingly comfortable!",
+    description:
+      "A hat used by mages of the void it's suprisingly comfortable!",
     stats: {
       MagicBoost: 16,
       MagicDefense: 15,
@@ -1392,7 +1417,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Hex Magician Hat",
     category: "Armor",
     type: "Helmet",
-    description: "With a furry friend, the magician can properly perform his tricks! Concept by u Volt.",
+    description:
+      "With a furry friend, the magician can properly perform his tricks! Concept by u Volt.",
     stats: {
       MagicBoost: 5,
       HexBoost: 5,
@@ -1425,7 +1451,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Honeysteel Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A hardy helmet made out of honeysteel. If it protects Bumblz it should protect you, right?",
+    description:
+      "A hardy helmet made out of honeysteel. If it protects Bumblz it should protect you, right?",
     stats: {
       MagicBoost: 6,
       PhysicalDefense: 5,
@@ -1492,7 +1519,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Iron Slayer Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A helmet corrupted by the void. Fits oddly snug on your head.",
+    description:
+      "A helmet corrupted by the void. Fits oddly snug on your head.",
     stats: {
       PhysicalDefense: 15,
       PhysicalBoost: 25,
@@ -1735,7 +1763,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Nectar Knight Visor",
     category: "Armor",
     type: "Helmet",
-    description: "It smells so sweet...sickeningly sweet...you're not going to wear this right?",
+    description:
+      "It smells so sweet...sickeningly sweet...you're not going to wear this right?",
     stats: {
       MagicBoost: 15,
       Tenacity: 0.2,
@@ -1789,7 +1818,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Northern Innovator Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "Masterful helmet made by a true innovator designed to mine without risk of damage to the wearer.",
+    description:
+      "Masterful helmet made by a true innovator designed to mine without risk of damage to the wearer.",
     stats: {
       EarthDefense: 20,
       MagicBoost: -10,
@@ -1807,7 +1837,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Northern Miner Hat",
     category: "Armor",
     type: "Helmet",
-    description: "A warm hat that is used by the mining corp of the Northern Kingdom!",
+    description:
+      "A warm hat that is used by the mining corp of the Northern Kingdom!",
     stats: {
       MagicBoost: -20,
       PhysicalBoost: 17,
@@ -1825,7 +1856,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Ocean Guardian Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A helmet infused with the power of water, capable of withstanding any magical foe",
+    description:
+      "A helmet infused with the power of water, capable of withstanding any magical foe",
     stats: {
       MagicBoost: 4,
       Protection: 2,
@@ -1842,7 +1874,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Old Knight Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A helmet that used to be the standard issue for the northern kingdom knights from many many ages ago.",
+    description:
+      "A helmet that used to be the standard issue for the northern kingdom knights from many many ages ago.",
     stats: {
       PhysicalBoost: 10,
       HolyBoost: 10,
@@ -1863,7 +1896,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Omega-Batty Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A warm tempestuous energy courses though your mind while wearing this helmet.",
+    description:
+      "A warm tempestuous energy courses though your mind while wearing this helmet.",
     stats: {
       FireBoost: 15,
       PhysicalDefense: 5,
@@ -1882,7 +1916,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Omen Bearer Hat",
     category: "Armor",
     type: "Helmet",
-    description: "''When you start having bad luck, there ain't no end to it.''",
+    description:
+      "''When you start having bad luck, there ain't no end to it.''",
     stats: {
       MagicBoost: 7,
       HexBoost: 16,
@@ -1916,7 +1951,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Prisoner Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "An extremely heavy helmet with a prison tag on the back. Not sure why you would wear this...",
+    description:
+      "An extremely heavy helmet with a prison tag on the back. Not sure why you would wear this...",
     stats: {
       HeatResistance: 50,
       MagicDefense: -10,
@@ -1952,7 +1988,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Puffball Hat",
     category: "Armor",
     type: "Helmet",
-    description: "Wearing this hat stings slightly like the wraps are eating your body.",
+    description:
+      "Wearing this hat stings slightly like the wraps are eating your body.",
     stats: {
       HexBoost: 16,
       PhysicalBoost: 16,
@@ -2029,7 +2066,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Redsky Saint Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "Vaen the Blood Hand usually doesn t look towards the sky But when he does his loyal servants will be there",
+    description:
+      "Vaen the Blood Hand usually doesn t look towards the sky But when he does his loyal servants will be there",
     stats: {
       HolyBoost: -14,
       HolyDefense: -15,
@@ -2047,7 +2085,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Relic Jewel",
     category: "Armor",
     type: "Helmet",
-    description: "Powerful relic energy courses through these gems allowing you to release powerful blasts.",
+    description:
+      "Powerful relic energy courses through these gems allowing you to release powerful blasts.",
     stats: {
       MagicBoost: 20,
       EarthBoost: 20,
@@ -2109,7 +2148,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Ronin Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "Helmet that resembles a frightening beast used to instill fear into the hearts of those who appose you!",
+    description:
+      "Helmet that resembles a frightening beast used to instill fear into the hearts of those who appose you!",
     stats: {
       DexterityBoost: 10,
       MagicBoost: -15,
@@ -2128,7 +2168,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Royal Clerics Crown",
     category: "Armor",
     type: "Helmet",
-    description: "A mighty cleric crown created for noblemen and elite healers.",
+    description:
+      "A mighty cleric crown created for noblemen and elite healers.",
     stats: {
       PhysicalDefense: 8,
       HolyBoost: 15,
@@ -2145,7 +2186,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Saur Head",
     category: "Armor",
     type: "Helmet",
-    description: "The maw of a once great reptile that roamed the land many millenia ago",
+    description:
+      "The maw of a once great reptile that roamed the land many millenia ago",
     stats: {
       DexterityBoost: 12,
       JumpBoost: 5,
@@ -2162,7 +2204,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Scow Marauder Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A frosty helmet made out of scow hide and metal, it protects your noggin quite well.",
+    description:
+      "A frosty helmet made out of scow hide and metal, it protects your noggin quite well.",
     stats: {
       PhysicalDefense: 5,
       PhysicalBoost: 9,
@@ -2404,7 +2447,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Stalker Hat",
     category: "Armor",
     type: "Helmet",
-    description: "A hat made out of a stalker, mushrooms that harness powerful and unpredictable magic.",
+    description:
+      "A hat made out of a stalker, mushrooms that harness powerful and unpredictable magic.",
     stats: {
       MagicBoost: 18,
       PhysicalDefense: -12,
@@ -2458,7 +2502,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Steam Energy Prosthesis",
     category: "Armor",
     type: "Helmet",
-    description: "A unstable modified version of a Steam Golem arm that allows you to blast fire and steam.",
+    description:
+      "A unstable modified version of a Steam Golem arm that allows you to blast fire and steam.",
     stats: {
       FireBoost: 13,
       PhysicalDefense: 10,
@@ -2503,7 +2548,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Steel Sentry Helmet",
     category: "Armor",
     type: "Helmet",
-    description: "A helmet that used to be owned by a sentry who left his post.",
+    description:
+      "A helmet that used to be owned by a sentry who left his post.",
     stats: {
       FireBoost: -20,
       PhysicalDefense: 15,
@@ -2521,7 +2567,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Sticky Hat",
     category: "Armor",
     type: "Helmet",
-    description: "Ugh... It's so sticky and weird... But also very powerful. How odd",
+    description:
+      "Ugh... It's so sticky and weird... But also very powerful. How odd",
     stats: {
       MagicBoost: 12,
       MagicDefense: 5,
@@ -2631,7 +2678,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Swamp Brawler Mask",
     category: "Armor",
     type: "Helmet",
-    description: "A mask worn by monks, people who delve into their inner self to gain strength.",
+    description:
+      "A mask worn by monks, people who delve into their inner self to gain strength.",
     stats: {
       DexterityBoost: 16,
       Protection: 5,
@@ -2803,7 +2851,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Whispering Heads",
     category: "Armor",
     type: "Helmet",
-    description: "They whisper useless nonsense in your ear, constantly contradicting eachother.",
+    description:
+      "They whisper useless nonsense in your ear, constantly contradicting eachother.",
     stats: {
       HexBoost: 20,
       HolyBoost: -15,
@@ -2836,7 +2885,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Wind Champion Band",
     category: "Armor",
     type: "Helmet",
-    description: "Comfortable and stylish band once worn by the champion of the winds.",
+    description:
+      "Comfortable and stylish band once worn by the champion of the winds.",
     stats: {
       MagicDefense: 5,
       DexterityBoost: 14,
@@ -2872,7 +2922,8 @@ export const Helmets: import("../models/Item").ItemDataTable = {
     name: "Woof Scarf",
     category: "Armor",
     type: "Helmet",
-    description: "A living woof scarf that contains powerful hex energy that is able to blast with weakening energy.",
+    description:
+      "A living woof scarf that contains powerful hex energy that is able to blast with weakening energy.",
     stats: {
       HexBoost: 20,
       PhysicalDefense: 10,

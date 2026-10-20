@@ -86,7 +86,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Thorn Maiden Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Crimson red Leggings made by combining Blood Iron and Caci, very sharp.",
+    description:
+      "Crimson red Leggings made by combining Blood Iron and Caci, very sharp.",
     stats: {
       PhysicalDefense: 10,
       PhysicalBoost: 10,
@@ -103,7 +104,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Dunefang Leggings",
     category: "Armor",
     type: "Legging",
-    description: "The quick movements and power of the Dunefang resides within these Leggings!",
+    description:
+      "The quick movements and power of the Dunefang resides within these Leggings!",
     stats: {
       SpeedBoost: 11,
       Tenacity: -0.1,
@@ -122,7 +124,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Gladiator Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Leggings worn by triumphant warriors who stand their ground in the arena!",
+    description:
+      "Leggings worn by triumphant warriors who stand their ground in the arena!",
     stats: {
       EarthDefense: -10,
       SpeedBoost: 9,
@@ -159,7 +162,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Omega-Batty Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Boots equipped with jets that release jets of hot air to boost yourself into battle.",
+    description:
+      "Boots equipped with jets that release jets of hot air to boost yourself into battle.",
     stats: {
       FireBoost: 15,
       AirBoost: 15,
@@ -212,7 +216,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Proto-Mungus Leggings",
     category: "Armor",
     type: "Legging",
-    description: "A fungal presence takes over your legs...MuuuUUuuUUshroooooom",
+    description:
+      "A fungal presence takes over your legs...MuuuUUuuUUshroooooom",
     stats: {
       HexBoost: 15,
       PhysicalDefense: 15,
@@ -321,7 +326,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Steam Mage Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Leggings that define the brilliant combination of magic and tech!",
+    description:
+      "Leggings that define the brilliant combination of magic and tech!",
     stats: {
       SpeedBoost: -5,
       FireBoost: -10,
@@ -410,7 +416,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Atonement Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Boots shielding your feet from these blasphemous lands. Tread steady, through pain.",
+    description:
+      "Boots shielding your feet from these blasphemous lands. Tread steady, through pain.",
     stats: {
       DexterityBoost: 12,
       PhysicalBoost: 12,
@@ -446,7 +453,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Backpack Berserker Leggings",
     category: "Armor",
     type: "Legging",
-    description: "A pair of pants created for warriors, who also need to store things.., Got a nice pocket on the side for knick knacks.",
+    description:
+      "A pair of pants created for warriors, who also need to store things.., Got a nice pocket on the side for knick knacks.",
     stats: {
       DexterityBoost: 5,
       PhysicalDefense: 10,
@@ -480,7 +488,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Bastion Guardian Legs",
     category: "Armor",
     type: "Legging",
-    description: "The legs of a legendary bastion guardian. A last beacon of hope shining in the deadlands.",
+    description:
+      "The legs of a legendary bastion guardian. A last beacon of hope shining in the deadlands.",
     stats: {
       EarthDefense: 10,
       PhysicalBoost: 10,
@@ -604,7 +613,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Buni Prince Pants",
     category: "Armor",
     type: "Legging",
-    description: "Armored Pants made out of the fur of bunis. Adorning a fancy waist cape!",
+    description:
+      "Armored Pants made out of the fur of bunis. Adorning a fancy waist cape!",
     stats: {
       DexterityBoost: -15,
       PhysicalDefense: 10,
@@ -655,7 +665,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Cindersoul Pants",
     category: "Armor",
     type: "Legging",
-    description: "A reliable pair of pants to go with your flaming determination!",
+    description:
+      "A reliable pair of pants to go with your flaming determination!",
     stats: {
       FireBoost: 17,
       WaterDefense: -15,
@@ -688,7 +699,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Coral Templar Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Somewhat eldritch leggings that grants you the fury of the depths!",
+    description:
+      "Somewhat eldritch leggings that grants you the fury of the depths!",
     stats: {
       WaterBoost: 15,
       PhysicalDefense: 10,
@@ -753,6 +765,25 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     },
     perks: {
       shielding_gong: 1,
+    },
+    img: "",
+  },
+  cryosteel_leggings: {
+    id: "cryosteel_leggings",
+    name: "Cryosteel leggings",
+    category: "Armor",
+    type: "Legging",
+    description:
+      "Highly technical chestplate designed to use and manipulate icy chemicals",
+    stats: {
+      PhysicalDefense: 6,
+      WaterBoost: 14,
+      ColdResistance: 125,
+      SpeedBoost: -2,
+      AirBoost: 14,
+    },
+    perks: {
+      cryo_engine: 1,
     },
     img: "",
   },
@@ -836,7 +867,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Deepsteel Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Leggings made of a special metal that can withstand the crushing force of the deep seas",
+    description:
+      "Leggings made of a special metal that can withstand the crushing force of the deep seas",
     stats: {
       WaterDefense: 20,
       WaterBoost: -20,
@@ -855,7 +887,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Delta Spider Leggings",
     category: "Armor",
     type: "Legging",
-    description: "A pair of arachnid leggings that has solid metal boosts to help ground the wearer.",
+    description:
+      "A pair of arachnid leggings that has solid metal boosts to help ground the wearer.",
     stats: {
       PhysicalDefense: 10,
       PhysicalBoost: 9,
@@ -977,7 +1010,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Dreadful Lift Leggings",
     category: "Armor",
     type: "Legging",
-    description: "life sure has its 'ups and downs ' sorry didnt mean to let you down..",
+    description:
+      "life sure has its 'ups and downs ' sorry didnt mean to let you down..",
     stats: {
       MagicBoost: 12,
       PhysicalDefense: 5,
@@ -1013,7 +1047,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Ember Guardian Leggings",
     category: "Armor",
     type: "Legging",
-    description: "A fiery, bulky pair of leggings associated with the Embers of the Void, whatever that is.",
+    description:
+      "A fiery, bulky pair of leggings associated with the Embers of the Void, whatever that is.",
     stats: {
       FireBoost: 10,
       Tenacity: 0.2,
@@ -1033,7 +1068,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Ember Mage Pants",
     category: "Armor",
     type: "Legging",
-    description: "A fiery pair of pants associated with the Embers of the Void, whatever that is.",
+    description:
+      "A fiery pair of pants associated with the Embers of the Void, whatever that is.",
     stats: {
       MagicBoost: 12,
       MagicDefense: 5,
@@ -1049,7 +1085,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Experimental Froggmail Leggings",
     category: "Armor",
     type: "Legging",
-    description: "A highly experimental leggings created by the corrupted Froggs.",
+    description:
+      "A highly experimental leggings created by the corrupted Froggs.",
     stats: {
       Tenacity: 0.1,
       PhysicalDefense: 5,
@@ -1209,7 +1246,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Galactic Graviturgy Leggings",
     category: "Armor",
     type: "Legging",
-    description: "This high tech gear allows you to crush your opponents with the immense strength of gravity!",
+    description:
+      "This high tech gear allows you to crush your opponents with the immense strength of gravity!",
     stats: {
       MagicBoost: 15,
       JumpBoost: 3,
@@ -1276,7 +1314,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Gremlin Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Leggings used by soldiers of the void, the boots are a tad bit uncomfotable but are very durable!",
+    description:
+      "Leggings used by soldiers of the void, the boots are a tad bit uncomfotable but are very durable!",
     stats: {
       HexDefense: 15,
       DexterityBoost: 10,
@@ -1294,7 +1333,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Gremlinancer Pants",
     category: "Armor",
     type: "Legging",
-    description: "Pants with nice anklets used by mages of the void, the boots make you feel tall and powerful!",
+    description:
+      "Pants with nice anklets used by mages of the void, the boots make you feel tall and powerful!",
     stats: {
       MagicBoost: 16,
       MagicDefense: 15,
@@ -1329,7 +1369,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Heavy Boots",
     category: "Armor",
     type: "Legging",
-    description: "Yeah, whoever made these boots probably didn't like to move. At all...",
+    description:
+      "Yeah, whoever made these boots probably didn't like to move. At all...",
     stats: {
       DexterityBoost: -15,
       Tenacity: 0.3,
@@ -1346,7 +1387,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Hex Magician Pants",
     category: "Armor",
     type: "Legging",
-    description: "Sleek black pants allow the magician to put on an amazing show! Concept by u Volt.",
+    description:
+      "Sleek black pants allow the magician to put on an amazing show! Concept by u Volt.",
     stats: {
       MagicBoost: 5,
       HexBoost: 5,
@@ -1379,7 +1421,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Honeysteel Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Protective Leggings made out of honeysteel. If it protects Bumblz it should protect you, right?",
+    description:
+      "Protective Leggings made out of honeysteel. If it protects Bumblz it should protect you, right?",
     stats: {
       MagicBoost: 6,
       PhysicalDefense: 5,
@@ -1431,7 +1474,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "King Carp Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Leggings forged from the finest metal truely fit for a carp king.",
+    description:
+      "Leggings forged from the finest metal truely fit for a carp king.",
     stats: {
       EarthDefense: 10,
       AttackSpeed: 4,
@@ -1521,7 +1565,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Looters Pants",
     category: "Armor",
     type: "Legging",
-    description: "Speedy and hefty pants used to collect all your crafting needs.",
+    description:
+      "Speedy and hefty pants used to collect all your crafting needs.",
     stats: {
       JumpBoost: 0.5,
       ColdResistance: 50,
@@ -1605,7 +1650,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Nectar Knight Leggings",
     category: "Armor",
     type: "Legging",
-    description: "It smells so sweet...sickeningly sweet...you will not like the outcome of wearing this.",
+    description:
+      "It smells so sweet...sickeningly sweet...you will not like the outcome of wearing this.",
     stats: {
       MagicBoost: 15,
       Tenacity: 0.2,
@@ -1625,7 +1671,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Ninja Pants",
     category: "Armor",
     type: "Legging",
-    description: "Tightly wrapped stealth-assuring pants that make your footsteps as silent as the night.",
+    description:
+      "Tightly wrapped stealth-assuring pants that make your footsteps as silent as the night.",
     stats: {
       DexterityBoost: 15,
       Tenacity: 0.2,
@@ -1659,7 +1706,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Northern Innovator Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Masterful leggings made by a true innovator designed to mine without risk of damage to the wearer.",
+    description:
+      "Masterful leggings made by a true innovator designed to mine without risk of damage to the wearer.",
     stats: {
       EarthDefense: 20,
       MagicBoost: -10,
@@ -1677,7 +1725,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Northern Miner Pants",
     category: "Armor",
     type: "Legging",
-    description: "Warm pants that are used by the mining corp of the Northern Kingdom!",
+    description:
+      "Warm pants that are used by the mining corp of the Northern Kingdom!",
     stats: {
       MagicBoost: -20,
       PhysicalBoost: 17,
@@ -1695,7 +1744,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Ocean Guardian Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Leggings infused with the power of water, capable of withstanding any magical foe",
+    description:
+      "Leggings infused with the power of water, capable of withstanding any magical foe",
     stats: {
       MagicBoost: 4,
       Protection: 2,
@@ -1712,7 +1762,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Old Knight Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Leggings that used to be the standard issue for the northern kingdom knights from many many ages ago.",
+    description:
+      "Leggings that used to be the standard issue for the northern kingdom knights from many many ages ago.",
     stats: {
       PhysicalBoost: 10,
       HolyBoost: 10,
@@ -1733,7 +1784,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Omen Bearer Pants",
     category: "Armor",
     type: "Legging",
-    description: "''When you start having bad luck, there ain't no end to it.''",
+    description:
+      "''When you start having bad luck, there ain't no end to it.''",
     stats: {
       MagicBoost: 7,
       HexBoost: 16,
@@ -1767,7 +1819,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Prisoner Pants",
     category: "Armor",
     type: "Legging",
-    description: "Shackled and torn pants, extremely uncomfortable. Maybe you could still run in them?",
+    description:
+      "Shackled and torn pants, extremely uncomfortable. Maybe you could still run in them?",
     stats: {
       HeatResistance: 50,
       MagicDefense: -10,
@@ -1803,7 +1856,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Puffball Pants",
     category: "Armor",
     type: "Legging",
-    description: "Wearing these pants stings slightly like the wraps are eating your body.",
+    description:
+      "Wearing these pants stings slightly like the wraps are eating your body.",
     stats: {
       HexBoost: 16,
       PhysicalBoost: 16,
@@ -1839,7 +1893,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Redsky Saint Pants",
     category: "Armor",
     type: "Legging",
-    description: "We must travel sky and ground to build the stitches for this world",
+    description:
+      "We must travel sky and ground to build the stitches for this world",
     stats: {
       HolyBoost: -14,
       HolyDefense: -15,
@@ -1929,7 +1984,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Saur Legs",
     category: "Armor",
     type: "Legging",
-    description: "Legs of a once great reptile that roamed the land many millenia ago",
+    description:
+      "Legs of a once great reptile that roamed the land many millenia ago",
     stats: {
       DexterityBoost: 12,
       JumpBoost: 5,
@@ -1946,7 +2002,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Scow Marauder Leggings",
     category: "Armor",
     type: "Legging",
-    description: "A frosty leggings made out of scow hide and metal, has comfortable boots and feels like it'll keep you safe.",
+    description:
+      "A frosty leggings made out of scow hide and metal, has comfortable boots and feels like it'll keep you safe.",
     stats: {
       PhysicalDefense: 5,
       PhysicalBoost: 9,
@@ -1966,7 +2023,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Scow Shaman Pants",
     category: "Armor",
     type: "Legging",
-    description: "Pants made of out Scow hide. They release an interesting smell.",
+    description:
+      "Pants made of out Scow hide. They release an interesting smell.",
     stats: {
       DexterityBoost: 6,
       MagicBoost: 14,
@@ -2130,7 +2188,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Stalker Pants",
     category: "Armor",
     type: "Legging",
-    description: "Pants made out of a stalker, mushrooms that harness powerful and unpredictable magic.",
+    description:
+      "Pants made out of a stalker, mushrooms that harness powerful and unpredictable magic.",
     stats: {
       MagicBoost: 18,
       PhysicalDefense: -12,
@@ -2184,7 +2243,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Steel Legion Leggings",
     category: "Armor",
     type: "Legging",
-    description: "A pair of invincible leggings made to make the wearer unstoppable!",
+    description:
+      "A pair of invincible leggings made to make the wearer unstoppable!",
     stats: {
       PhysicalDefense: 18,
       PhysicalBoost: 10,
@@ -2204,7 +2264,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Steel Sentry Leggings",
     category: "Armor",
     type: "Legging",
-    description: "A leggings that used to be owned by a sentry who left his post.",
+    description:
+      "A leggings that used to be owned by a sentry who left his post.",
     stats: {
       FireBoost: -20,
       PhysicalDefense: 15,
@@ -2222,7 +2283,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Sticky Pants",
     category: "Armor",
     type: "Legging",
-    description: "Ugh... It's so sticky and weird... But also very powerful. How odd",
+    description:
+      "Ugh... It's so sticky and weird... But also very powerful. How odd",
     stats: {
       MagicBoost: 12,
       MagicDefense: 5,
@@ -2274,7 +2336,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Stone Knight Legs",
     category: "Armor",
     type: "Legging",
-    description: "The legs of an stone knight animated by the bastion guardian.",
+    description:
+      "The legs of an stone knight animated by the bastion guardian.",
     stats: {
       EarthDefense: 20,
       Tenacity: 0.2,
@@ -2294,7 +2357,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Stratos Leggings",
     category: "Armor",
     type: "Legging",
-    description: "Leggings that represents the true majesty of Lord Stratos. Very wispy!",
+    description:
+      "Leggings that represents the true majesty of Lord Stratos. Very wispy!",
     stats: {
       Tenacity: 0.2,
       PhysicalDefense: 5,
@@ -2332,7 +2396,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Swamp Brawler Pants",
     category: "Armor",
     type: "Legging",
-    description: "Pants worn by monks, people who delve into their inner self to gain strength.",
+    description:
+      "Pants worn by monks, people who delve into their inner self to gain strength.",
     stats: {
       DexterityBoost: 16,
       Protection: 5,
@@ -2434,7 +2499,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Whirlray Dancer Pants",
     category: "Armor",
     type: "Legging",
-    description: "The material these dancer pants are made of almost weightless!",
+    description:
+      "The material these dancer pants are made of almost weightless!",
     stats: {
       MagicDefense: 15,
       FireDefense: -20,
@@ -2469,7 +2535,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Wind Champion Pants",
     category: "Armor",
     type: "Legging",
-    description: "Comfortable and stylish pants once worn by the champion of the winds.",
+    description:
+      "Comfortable and stylish pants once worn by the champion of the winds.",
     stats: {
       MagicDefense: 5,
       DexterityBoost: 14,
@@ -2505,7 +2572,8 @@ export const Leggings: import("../models/Item").ItemDataTable = {
     name: "Winter Woof Pants",
     category: "Armor",
     type: "Legging",
-    description: "A pair of pants made out of winter woof fur. perfect for exploring the Tundra!",
+    description:
+      "A pair of pants made out of winter woof fur. perfect for exploring the Tundra!",
     stats: {
       DexterityBoost: 10,
       MagicDefense: 7,
