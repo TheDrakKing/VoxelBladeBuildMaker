@@ -7,7 +7,7 @@ export class WeaponArt {
         this.name = data?.name || "";
         this.category = data?.category || "WeaponArt";
         this.description = data?.description || "";
-        this.coolDown = data?.coolDown || 1;
+        this.coolDown = data?.coolDown ?? undefined;
         this.baseDamage = data?.baseDamage || undefined;
         this.totalHits = data?.totalHits || undefined;
         this.damageBasis = data?.damageBasis;

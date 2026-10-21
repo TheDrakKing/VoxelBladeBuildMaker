@@ -13,13 +13,14 @@ export interface CriticalEffect {
   bypassArmor?: boolean;
   sources?: sourceType[];
   targetDebuff?: string;
+  replacesDexterityChance?: boolean;
 }
 
 export function collectCriticalEffects(holder: CombatContext, packet: baseDamageData) {
-  const result = { chance: 0, damage: 0, armorPen: 0, hitMultiplier: 1, bypassArmor: false };
+  const result = { chance: 0, damage: 0, armorPen: 0, hitMultiplier: 1, bypassArmor: false, replacesDexterityChance: false };
   if (packet.canCrit === false) return result;
   for (const [id, amount] of Object.entries(holder.perks)) {
-    if (!amount || !Number.isFinite(amount)) continue;
+    if (!amount || amount < 0 || !Number.isFinite(amount)) continue;
     const perk = PerkStore.getByID(id);
     const effect = perk.critical;
     if (!effect || (effect.sources && !effect.sources.includes(packet.sourceType))) continue;
@@ -32,6 +33,7 @@ export function collectCriticalEffects(holder: CombatContext, packet: baseDamage
       damage += (holder.stats[statId] || 0) * coefficient * amount;
     }
     result.chance += chance;
+    result.replacesDexterityChance ||= !!effect.replacesDexterityChance;
     result.damage += damage;
     result.armorPen += (effect.armorPenPerPerk || 0) * amount;
     result.hitMultiplier *= Math.max(0, 1 + (effect.hitDamagePerPerk || 0) * amount);

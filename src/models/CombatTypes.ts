@@ -11,6 +11,8 @@ export interface CombatContext {
   damageScalings: Build.damageScalings;
   damageTypes: Build.damageTypes;
   perks: Build.perks;
+  /** Selected proc activations for this hit, resolved on cloned state. */
+  activeProcs?: string[];
   buff: Buff[];
   deBuffs: Buff[];
   target?: CombatContext;
@@ -30,7 +32,10 @@ export type CombatEventName =
   | "onDecreaseSpecificDmgBonusMultiplier" | "onDecreaseDmgBonusMultiplier"
   | "onFinalDamageTakenMultiplier";
 
+export interface StatusConsumption { statusId: string; perkId: string; hit: number; }
+
 export interface CombatResult {
+  statusConsumptions?: StatusConsumption[];
   outputs: Build.outputDamage;
   total: Build.damageBreakdown;
   perHit: Build.damageBreakdown;

@@ -1,8 +1,17 @@
+import { selected, lighting, mount, disposition } from "../models/Conditions.js";
+import { Races } from "./Races.js";
 function hasDebuff(build, debuffId) {
     return !!build?.deBuffs?.find((debuff) => debuff?.id === debuffId);
 }
 function getDebuffCount(build) {
     return new Set((build?.deBuffs || []).filter(Boolean).map((status) => status.id).filter(Boolean)).size;
+}
+function isProcHit(args) {
+    const packet = args?.baseDamageData;
+    return !!packet && packet.sourceType !== "Status" && !packet.tags?.includes("DoT") && packet.procCoefficient !== 0;
+}
+function activeBuffCount(build) {
+    return new Set((build.buff || []).filter(status => status && status.category === "Buff" && status.countsAsBuff !== false).map(status => status.id)).size;
 }
 function hasBuff(build, id) {
     return !!build?.buff?.some((status) => status?.id === id);
@@ -17,7 +26,7 @@ function addStat(build, statId, amount) {
     if (!amount)
         return;
     const previousValue = build.stats[statId] || 0;
-    build.stats[statId] = Math.trunc((previousValue + amount) * 100) / 100;
+    build.stats[statId] = Math.round((previousValue + amount + Number.EPSILON) * 10000) / 10000;
 }
 function getNegativeStatValue(value) {
     if (!value || value >= 0)
@@ -125,13 +134,32 @@ function mutatePotencyAmounts(build, perkAmount, ignore) {
             Math.round((totalAmount + eligibleAmount * multiplier) * 10000) / 10000;
     }
 }
+const offensiveBoostStats = ["MagicBoost", "EarthBoost", "FireBoost", "WaterBoost", "HolyBoost", "HexBoost", "AirBoost", "DexterityBoost", "SummonBoost"];
+function positivePerk(amount) {
+    return typeof amount === "number" && Number.isFinite(amount) && amount > 0;
+}
+function roundPerkValue(value) { return Math.round((value + Number.EPSILON) * 10000) / 10000; }
+function healthRatio(build) {
+    return build && Number.isFinite(build.hp) && Number.isFinite(build.maxHp) && build.maxHp > 0
+        ? Math.max(0, Math.min(1, build.hp / build.maxHp)) : undefined;
+}
+function selectedBuffPotency(build, id) {
+    const status = build.buff?.find(buff => buff?.id === id);
+    return status ? Math.max(0, status.getEffectivePotency(status.getSourceBuild(build)) / 10) : 0;
+}
+function isDirectPacket(args) {
+    return !!args?.baseDamageData && args.baseDamageData.sourceType !== "Status" && !args.baseDamageData.tags?.includes("DoT");
+}
+function addOutput(holder, type, amount) {
+    holder.damageTypes[type] = roundPerkValue((holder.damageTypes[type] || 0) + amount);
+}
 export const Perks = {
     /** Race Perks Here */
     human: {
         id: "human",
         name: "Human",
         category: "Race",
-        description: "Gain 20% damage reduction and damage boost when below 50% HP..",
+        description: Races.human.racepassive,
         onDmgBonusMultiplier(perkAmount) {
             if (!perkAmount || this.maxHp <= 0 || this.hp / this.maxHp >= 0.5)
                 return null;
@@ -142,60 +170,90 @@ export const Perks = {
                 return null;
             return 0.8;
         },
+        support: { "status": "Implemented", "details": "Below 50% HP, outgoing damage gains 20% and incoming damage gets a direct x0.8 multiplier. The boundary itself does not qualify." },
+        source: { "cardId": "69214b9731723704c1eda160", "cardUrl": "https://trello.com/c/K6A7nUIn" },
     },
     half_ork: {
         id: "half_ork",
         name: "Half-Ork",
         category: "",
-        description: "Gain 10 armor penetration on all attacks.",
+        description: Races.half_ork.racepassive,
+        support: { "status": "Implemented", "details": "Race stats grant a fixed 10 Armor Penetration; True damage does not benefit from penetration." },
+        source: { "cardId": "69214b9731723704c1eda162", "cardUrl": "https://trello.com/c/H21hd8fF" },
     },
     elf: {
         id: "elf",
         name: "Elf",
         category: "",
-        description: "Gain 25% lower Weapon Art cooldown.",
+        description: Races.elf.racepassive,
+        source: { "cardId": "69214b9731723704c1eda164", "cardUrl": "https://trello.com/c/k9Bk1WcF" },
+        support: { "status": "Implemented", "details": "Rune cooldown has a direct x0.6 race factor. The reviewed cooldown preview also includes explicitly reviewed perk modifiers; cast timing and triggered resets are not simulated." }
     },
     dark_elf: {
         id: "dark_elf",
         name: "Dark Elf",
         category: "",
-        description: "An 8% chance to apply a random debuff to the opponent when hitting them.",
+        description: Races.dark_elf.racepassive,
+        sourcepotencies: { shatterpotency: 0.2, bleedpotency: 0.2, burnpotency: 0.2, poisonpotency: 0.2 },
+        support: { "status": "Partial", "details": "Select the result manually after an 8% random-debuff proc. Armor Break and Bleed/Burn/Poison have documented 0.2 source potency; Weakness potency is unspecified. No random rolls or automatic applications." },
+        source: { "cardId": "69214b9731723704c1eda166", "cardUrl": "https://trello.com/c/W16ggAzA" },
     },
     dragon: {
         id: "dragon",
-        name: "Dragon",
+        name: "Dragon Blooded",
         category: "",
-        description: "Gain 50% Warding and 10 Protection alongside 100% Heat and Cold Resistance.",
+        description: Races.dragon.racepassive,
+        support: { "status": "Implemented", "details": "Race stats grant 50 Warding, 10 Protection, and 100 Heat/Cold Resistance. These are fixed race bonuses." },
+        source: { "cardId": "69214b9731723704c1eda168", "cardUrl": "https://trello.com/c/sv8XLjVw" },
     },
     ork: {
         id: "ork",
         name: "Ork",
         category: "",
-        description: "Weapon arts gain 10 armor penetration. +0.2 Tenacity and for each active buff you gain an additional +0.1 tenacity.",
+        description: Races.ork.racepassive,
+        statPriority: 110,
+        onStatCalculation(perkAmount) {
+            if (!perkAmount || perkAmount <= 0)
+                return;
+            this.stats.Tenacity = Math.round(((this.stats.Tenacity || 0) + 0.1 * activeBuffCount(this)) * 10000) / 10000;
+        },
+        onArmorPenCalculation(perkAmount, args) {
+            return perkAmount && perkAmount > 0 && args?.baseDamageData?.sourceType === "WeaponArt" ? 10 : null;
+        },
+        support: { "status": "Implemented", "details": "Fixed 10 WeaponArt-only penetration, 0.2 base Tenacity, and 0.1 Tenacity per distinct selected game buff. Manual proc selectors and the Static Charge counter do not count as buffs." },
+        source: { "cardId": "69214b9731723704c1eda16a", "cardUrl": "https://trello.com/c/ufhlTnQg" },
     },
     high_elf: {
         id: "high_elf",
         name: "High Elf",
         category: "",
-        description: "Gain 25% lower Weapon Art cooldown.",
+        description: Races.high_elf.racepassive,
+        source: { "cardId": "69214b9731723704c1eda16c", "cardUrl": "https://trello.com/c/VJuStVeo" },
+        support: { "status": "Implemented", "details": "Weapon Art cooldown has a direct x0.75 race factor. The reviewed cooldown preview also includes explicitly reviewed perk modifiers; cast timing and triggered resets are not simulated." }
     },
     arborian: {
         id: "arborian",
         name: "Arborian",
         category: "",
-        description: "The Arborians are druidic in nature. They are trees made of tough bark and use their power to protect all life.",
+        description: Races.arborian.racepassive,
+        support: { "status": "Partial", "details": "Race stats grant -50 Fire Defense and +15 Protection. Sunlight regeneration, Entangle chance/damage/poise, and guild interactions are not simulated." },
+        source: { "cardId": "69214b9731723704c1eda16e", "cardUrl": "https://trello.com/c/xd5qLFxt" },
     },
     kitsune: {
         id: "kitsune",
         name: "Kitsune",
         category: "",
-        description: "The Kitsune are a nomadic race travelling alone or in packs rarely staying in one place to long. They posess incredible speed and reflex and are not often caught by surprise",
+        description: Races.kitsune.racepassive,
+        support: { "status": "Implemented", "details": "Race stats grant +2 Jump Boost, +10 Movement Speed, and a flat +0.1 attack speed after converting percentage attack-speed points to their numeric bonus." },
+        source: { "cardId": "69214b9731723704c1eda170", "cardUrl": "https://trello.com/c/Nuv9nzVj" },
     },
     bunikin: {
         id: "bunikin",
         name: "Bunikin",
         category: "",
-        description: "The mysterious bunikin are being of mystical whimsy and are rarely seen anywhere in the world.",
+        description: Races.bunikin.racepassive,
+        support: { "status": "Partial", "details": "Race stats grant +5 Jump Boost. Select Guaranteed Crit to preview a post-dodge hit. The dodge-chance formula is unverified, and automatic dodging/status consumption are not simulated." },
+        source: { "cardId": "69214b9731723704c1edaa58", "cardUrl": "https://trello.com/c/WmcRb815" },
     },
     /** Guild only Perks here */
     /** Other Perks */
@@ -272,10 +330,14 @@ export const Perks = {
         name: "Rider",
         category: "",
         description: "Deal bonus damage when mounted and take reduced stun.",
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) && mount(this) !== undefined ? 0.2 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Select Mounted or Mounted: Glacial Snapper for 20% damage per perk. Stun resistance has no verified coefficient and is not inferred." },
         "source": {
             "cardId": "69214b9731723704c1edac12",
             "cardUrl": "https://trello.com/c/iEoLKdcK"
-        },
+        }
     },
     berserkingstrength: {
         id: "berserkingstrength",
@@ -293,10 +355,11 @@ export const Perks = {
         category: "Perk",
         description: "If you hit a bleeding opponent bleeding by you remove the bleed, deal bonus damage, and heal. Grants bleed potency.",
         onDmgBonusMultiplier(perkAmount) {
-            if (!perkAmount || !hasDebuff(this.target, "bleed"))
+            if (!perkAmount || perkAmount <= 0 || !this.activeProcs?.includes("blood_thirsty"))
                 return null;
-            return Math.trunc((0.2 * perkAmount) * 100) / 100;
+            return 0.2 * perkAmount;
         },
+        support: { "status": "Partial", "details": "Select Blood Thirsty Proc: consumes attacker-owned Bleed before other Bleed bonuses and grants 20% damage per perk. Curse Rip sees the remaining debuffs after consumption. Healing and automatic triggers are not calculated." },
         "source": {
             "cardId": "69214b9731723704c1eda402",
             "cardUrl": "https://trello.com/c/feVgtQT7"
@@ -307,10 +370,12 @@ export const Perks = {
         name: "Shielding Gong",
         category: "",
         description: "Using a finisher that hits a target while allies are nearby create a burst that grants reinforce to nearby allies. Additionally having reinforce grants knockback resistance.",
+        getSourcePotencies(amount) { return { reinforcepotency: 0.1 * amount }; },
+        support: { "status": "Partial", "details": "Offers 0.1 * perk amount Reinforce potency after a finisher with nearby allies. Ally range, automatic application, knockback resistance, and duration are not simulated." },
         "source": {
             "cardId": "69214b9831723704c1edadc2",
             "cardUrl": "https://trello.com/c/HwIUTqNd"
-        },
+        }
     },
     barbskin: {
         id: "barbskin",
@@ -351,10 +416,16 @@ export const Perks = {
         name: "Void Rage",
         category: "",
         description: "Convert rage into Void Rage, which gives stun resistance and bonus hex damage type.",
+        outputPriority: 100,
+        onOutputCalculation(amount) {
+            if (positivePerk(amount) && hasBuff(this, "rage"))
+                addOutput(this, "Hex", 0.1 * amount);
+        },
+        support: { "status": "Partial", "details": "Selected Rage adds 0.1 Hex output per perk, including DoT packets. It remains the existing Rage buff and is independent of Rage potency. Summon transfer and stun resistance are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda35a",
             "cardUrl": "https://trello.com/c/pKAeIvmZ"
-        },
+        }
     },
     echo_incineration: {
         id: "echo_incineration",
@@ -371,6 +442,7 @@ export const Perks = {
         name: "Strong Tides",
         category: "Perk",
         description: "Increases your water boost based on your physical boost",
+        statPriority: 90,
         onStatCalculation(perkAmount) {
             if (!perkAmount)
                 return;
@@ -427,34 +499,31 @@ export const Perks = {
         name: "Highlander",
         category: "Perk",
         description: "Your weapon arts and runes ignore some of the opponents armor and deals bonus damage.",
-        onDmgBonusMultiplier(perkAmount, args) {
-            if (!perkAmount || !isRuneOrWeaponArtHit(args))
-                return null;
-            return Math.trunc((0.2 * perkAmount) * 100) / 100;
+        onDmgBonusMultiplier(amount, args) {
+            return positivePerk(amount) && isRuneOrWeaponArtHit(args) ? 0.2 * amount : null;
         },
-        onArmorPenCalculation(perkAmount, args) {
-            if (!perkAmount || !isRuneOrWeaponArtHit(args))
-                return null;
-            return 10 * perkAmount;
+        onArmorPenCalculation(amount, args) {
+            return positivePerk(amount) && isRuneOrWeaponArtHit(args) ? 10 * amount : null;
         },
+        support: { "status": "Implemented", "details": "Rune and Weapon Art packets gain 20% damage and 10 penetration per perk, retaining fractional amounts. Weapon hits and status ticks do not qualify." },
         "source": {
             "cardId": "69214b9731723704c1eda454",
             "cardUrl": "https://trello.com/c/pSwngnkL"
-        },
+        }
     },
     hemorrhage: {
         id: "hemorrhage",
         name: "Hemorrhage",
         category: "Perk",
         description: "Hitting a Bleeding opponent adds bonus Damage, Stun, and a small amount of True Damage Type. Grants Bleed potency.",
-        onDmgBonusMultiplier(perkAmount) {
-            if (!perkAmount || !hasDebuff(this.target, "bleed"))
+        onDmgBonusMultiplier(perkAmount, args) {
+            if (!perkAmount || perkAmount <= 0 || !isProcHit(args) || !hasDebuff(this.target, "bleed"))
                 return null;
             const multiplier = (10 + 10 * perkAmount) / 100;
-            return Math.trunc(multiplier * 100) / 100;
+            return multiplier;
         },
-        onOutputCalculation(perkAmount) {
-            if (!perkAmount || !hasDebuff(this.target, "bleed"))
+        onOutputCalculation(perkAmount, args) {
+            if (!perkAmount || perkAmount <= 0 || !isProcHit(args) || !hasDebuff(this.target, "bleed"))
                 return null;
             const outputMultiplier = 0.1 * perkAmount;
             let previousValue = this.damageTypes["True"];
@@ -463,6 +532,7 @@ export const Perks = {
                 : outputMultiplier;
             return null;
         },
+        support: { "status": "Partial", "details": "Direct proc-capable hits against Bleed gain (10 + 10 * perkAmount)% damage and 0.1 True output per perk. Consumed Bleed no longer qualifies. Stun is not calculated; the source grants no Bleed potency." },
         "source": {
             "cardId": "69214b9731723704c1eda420",
             "cardUrl": "https://trello.com/c/WSK9ClTj"
@@ -490,6 +560,10 @@ export const Perks = {
         name: "Vicious Edge",
         category: "",
         description: "Gain a chance to inflict Bleed on hit. Gain a Damage Bonus against Bleeding enemies.",
+        onDmgBonusMultiplier(perkAmount, args) {
+            return perkAmount && perkAmount > 0 && isProcHit(args) && hasDebuff(this.target, "bleed") ? 0.2 * perkAmount : null;
+        },
+        support: { "status": "Partial", "details": "Direct proc-capable hits gain 20% damage per perk against existing Bleed. Automatic Bleed application is not simulated; DoT applicability remains unverified." },
         "source": {
             "cardId": "69214b9731723704c1eda412",
             "cardUrl": "https://trello.com/c/rmogzK5p"
@@ -520,8 +594,8 @@ export const Perks = {
             if (!perkAmount)
                 return;
             const multiplier = 1 + 0.2 * perkAmount;
-            this.stats.Warding = Math.trunc(((this.stats.Warding || 0) * multiplier) * 100) / 100;
-            this.stats.Protection = Math.trunc(((this.stats.Protection || 0) * multiplier) * 100) / 100;
+            this.stats.Warding = roundPerkValue((this.stats.Warding || 0) * multiplier);
+            this.stats.Protection = roundPerkValue((this.stats.Protection || 0) * multiplier);
         },
         "source": {
             "cardId": "69214b9731723704c1eda3f2",
@@ -573,73 +647,57 @@ export const Perks = {
         name: "Dark One",
         category: "Perk",
         description: "Debuffs last longer on you, but in turn you gain increased damage while afflicted with them.",
-        onDmgBonusMultiplier(perkAmount) {
-            if (!perkAmount)
-                return null;
-            const selfDebuffs = getDebuffCount(this);
-            if (!selfDebuffs)
-                return null;
-            return Math.trunc((0.0666 * selfDebuffs * perkAmount) * 10000) / 10000;
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) ? 0.0666 * getDebuffCount(this) * amount : null;
         },
+        support: { "status": "Partial", "details": "Adds 6.66% damage per distinct self debuff per perk, preserving fractional amounts. Debuff duration changes are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1edaa86",
             "cardUrl": "https://trello.com/c/QDz1amvn"
-        },
+        }
     },
     brawny: {
         id: "brawny",
         name: "Brawny",
         category: "Perk",
         description: "Converts a portion of all positive boosts to physical boost.",
-        statPriority: 1,
-        onStatCalculation(perkAmount) {
-            if (!perkAmount)
+        statPriority: 80,
+        onStatCalculation(amount) {
+            if (!positivePerk(amount))
                 return;
-            const conversionMultiplier = Math.min(1, 0.2 * perkAmount);
-            const offensiveStats = [
-                "MagicBoost",
-                "EarthBoost",
-                "FireBoost",
-                "WaterBoost",
-                "HolyBoost",
-                "HexBoost",
-                "AirBoost",
-                "DexterityBoost",
-                "SummonBoost",
-            ];
-            let convertedBoost = 0;
-            for (const statId of offensiveStats) {
-                const statValue = this.stats[statId] || 0;
-                if (statValue <= 0)
+            const fraction = Math.min(1, 0.2 * amount);
+            for (const stat of offensiveBoostStats) {
+                const value = this.stats[stat] || 0;
+                if (value <= 0)
                     continue;
-                convertedBoost += statValue * conversionMultiplier;
+                addStat(this, stat, -value * fraction);
+                addStat(this, "PhysicalBoost", value * fraction);
             }
-            addStat(this, "PhysicalBoost", convertedBoost);
         },
+        support: { "status": "Partial", "details": "Converts up to 100% of other positive offensive boosts into Physical Boost, removing the converted portion. Attack Speed and negative boosts are untouched. Conversion runs once before redistribution; cross-perk conversion order is a documented builder convention." },
         "source": {
             "cardId": "69214b9731723704c1edaa82",
             "cardUrl": "https://trello.com/c/kMRPcJza"
-        },
+        }
     },
     weight_distribution: {
         id: "weight_distribution",
         name: "Weight Distribution",
         category: "Perk",
         description: "Your dexterity and physical boost is added together and distributed evenly. Additionally makes M1/M2s slow less while attacking.",
-        onStatCalculation(perkAmount) {
-            if (!perkAmount)
+        statPriority: 60,
+        onStatCalculation(amount) {
+            if (!positivePerk(amount))
                 return;
-            const combinedBoost = (this.stats.PhysicalBoost || 0) + (this.stats.DexterityBoost || 0);
-            if (!combinedBoost)
-                return;
-            const distributedBoost = (combinedBoost / 2) * (1 + (0.1 * perkAmount));
-            this.stats.PhysicalBoost = Math.round(distributedBoost * 100) / 100;
-            this.stats.DexterityBoost = Math.round(distributedBoost * 100) / 100;
+            const distributed = roundPerkValue(((this.stats.PhysicalBoost || 0) + (this.stats.DexterityBoost || 0)) / 2 * (1 + 0.1 * amount));
+            this.stats.PhysicalBoost = distributed;
+            this.stats.DexterityBoost = distributed;
         },
+        support: { "status": "Partial", "details": "Averages Physical and Dexterity Boost, then multiplies both by 1 + 0.1 * perk amount, after Brawny. Movement penalties during attacks are not simulated; cross-perk conversion order remains a builder convention." },
         "source": {
             "cardId": "69214b9731723704c1eda3fc",
             "cardUrl": "https://trello.com/c/w0LwsFfF"
-        },
+        }
     },
     voltaic_body: {
         id: "voltaic_body",
@@ -676,6 +734,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3d8",
             "cardUrl": "https://trello.com/c/aMxLHAtO"
         },
+        cooldown: { "sources": ["Rune"], "directBase": 1.2 },
+        support: { "status": "Partial", "details": "Charged-hit damage preview uses the selected Static Charge hit count. Rune cooldown is multiplied by 1.2 independently of perk amount. Activation and charge timing are manual." }
     },
     duelist_stance: {
         id: "duelist_stance",
@@ -698,10 +758,12 @@ export const Perks = {
         name: "Beastial Rage",
         category: "",
         description: "On Kill, gain Rage, cleanse all Debuffs, and slightly heal. Rage now increases your movement speed.",
+        getSourcePotencies(amount) { return { ragepotency: 0.3 * amount }; },
+        support: { "status": "Partial", "details": "Offers 0.3 * perk amount Rage potency after a kill. Kill healing, cleansing, automatic application, and the unspecified movement-speed bonus are not calculated." },
         "source": {
             "cardId": "69214b9731723704c1eda458",
             "cardUrl": "https://trello.com/c/8LBFjFic"
-        },
+        }
     },
     heat_drill: {
         id: "heat_drill",
@@ -731,66 +793,43 @@ export const Perks = {
         name: "Righted Wrongs",
         category: "Perk",
         description: "Gain bonus Dexterity and Speed Boost scaling off of all of your negative stats combined.",
-        onStatCalculation(perkAmount) {
-            if (!perkAmount)
+        statPriority: 100,
+        onStatCalculation(amount) {
+            if (!positivePerk(amount))
                 return;
             const stats = this.stats;
-            const d = getNegativeStatValue(stats.EarthDefense) +
-                getNegativeStatValue(stats.FireDefense) +
-                getNegativeStatValue(stats.WaterDefense) +
-                getNegativeStatValue(stats.HolyDefense) +
-                getNegativeStatValue(stats.HexDefense) +
-                getNegativeStatValue(stats.AirDefense) +
-                getNegativeStatValue(stats.Warding);
-            const p = getNegativeStatValue(stats.Protection);
-            const t = getNegativeStatValue(stats.Tenacity);
-            const o = getNegativeStatValue(stats.MagicBoost) +
-                getNegativeStatValue(stats.PhysicalBoost) +
-                getNegativeStatValue(stats.EarthBoost) +
-                getNegativeStatValue(stats.FireBoost) +
-                getNegativeStatValue(stats.WaterBoost) +
-                getNegativeStatValue(stats.HolyBoost) +
-                getNegativeStatValue(stats.HexBoost) +
-                getNegativeStatValue(stats.AirBoost) +
-                getNegativeStatValue(stats.JumpBoost) +
-                getNegativeStatValue(stats.DexterityBoost) +
-                getNegativeStatValue(stats.SpeedBoost) +
-                getNegativeStatValue(stats.SummonBoost) +
-                getNegativeStatValue(stats.AttackSpeed) +
-                getNegativeStatValue(stats.CritRate) +
-                getNegativeStatValue(stats.CritDamage) +
-                getNegativeStatValue(stats.HeatResistance) +
-                getNegativeStatValue(stats.ColdResistance) +
-                getNegativeStatValue(stats.ArmorPenetration) +
-                (stats.PhysicalDefense || 0) +
-                (stats.MagicDefense || 0);
-            const dexterityBoost = (2 * perkAmount / 21) * (d + ((2 * p / 10) + t) / 5 + (2 * o));
-            const speedBoost = dexterityBoost / 10;
-            addStat(this, "DexterityBoost", dexterityBoost);
-            addStat(this, "SpeedBoost", speedBoost);
+            const defenses = ["EarthDefense", "FireDefense", "WaterDefense", "HolyDefense", "HexDefense", "AirDefense", "Warding"];
+            const excluded = new Set([...defenses, "Protection", "Tenacity", "PhysicalDefense", "MagicDefense"]);
+            const d = defenses.reduce((sum, stat) => sum + getNegativeStatValue(stats[stat]), 0);
+            const p = getNegativeStatValue(stats.Protection), t = getNegativeStatValue(stats.Tenacity);
+            const other = Object.entries(stats).reduce((sum, [stat, value]) => sum + (excluded.has(stat) ? 0 : getNegativeStatValue(value)), 0);
+            // The card lists signed Physical/Magic Defense separately from negative other stats.
+            const o = other + (stats.PhysicalDefense || 0) + (stats.MagicDefense || 0);
+            const dex = 2 * amount / 21 * (d + (2 * p / 10 + t) / 5 + 2 * o);
+            addStat(this, "DexterityBoost", dex);
+            addStat(this, "SpeedBoost", dex / 10);
         },
+        support: { "status": "Partial", "details": "Uses the card formula before derived-stat perks: 2c/21 * (d + (2p/10 + t)/5 + 2o), with Speed equal to 10% of gained Dexterity. Physical/Magic Defense are signed terms exactly as written on the card; that unusual rule and cross-perk order still need in-game confirmation." },
         "source": {
             "cardId": "69214b9731723704c1eda4c2",
             "cardUrl": "https://trello.com/c/AIF47yPZ"
-        },
+        }
     },
     immoveable: {
         id: "immoveable",
         name: "Immovable",
         category: "Perk",
         description: "Reduce knockback and increase physical defense based on your tenacity stat.",
-        onStatCalculation(perkAmount) {
-            if (!perkAmount)
-                return;
-            const tenacity = this.stats.Tenacity || 0;
-            if (!tenacity)
-                return;
-            addStat(this, "PhysicalDefense", 30 * tenacity * perkAmount);
+        statPriority: 40,
+        onStatCalculation(amount) {
+            if (positivePerk(amount))
+                addStat(this, "PhysicalDefense", 30 * (this.stats.Tenacity || 0) * amount);
         },
+        support: { "status": "Partial", "details": "Adds 30 * Tenacity * perk amount Physical Defense after Ork adds conditional Tenacity. Knockback is not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda4b2",
             "cardUrl": "https://trello.com/c/ji6sl9DN"
-        },
+        }
     },
     adaptive_plate: {
         id: "adaptive_plate",
@@ -887,20 +926,29 @@ export const Perks = {
         name: "Bastion Bless",
         category: "Perk",
         description: "Healing grants regeneration or reinforce on a low chance. Additionally gives slight potency to all buffs.",
+        sourcepotencies: { regenpotency: 0.5, reinforcepotency: 0.5 },
+        support: { "status": "Partial", "details": "Offers fixed 0.5 Regen/Reinforce sources and increases effective potency of actual potency-bearing buffs applied by this build by 10% per perk. Final manual potency overrides bypass this multiplier. Unknown potency formulas for other buffs, healing rolls, and automatic application remain manual." },
         "source": {
             "cardId": "69214b9731723704c1edabc4",
             "cardUrl": "https://trello.com/c/QHl1kv28"
-        },
+        }
     },
     bellowing_ember: {
         id: "bellowing_ember",
         name: "Bellowing Ember",
         category: "Perk",
         description: "Grant a chance to light the opponent on fire with fire damage and deal extra damage to opponents and additional if you hit them with fire damage at low hp",
+        onDmgBonusMultiplier(amount) {
+            const ratio = healthRatio(this);
+            if (!positivePerk(amount) || ratio === undefined || ratio > Math.min(1, 0.4 + 0.05 * amount))
+                return null;
+            return ((this.damageTypes.Fire || 0) > 0 ? 0.23 : 0.1) * amount;
+        },
+        support: { "status": "Partial", "details": "At or below (40 + 5 * perk amount)% self HP, grants 10% damage per perk, or 23% to the whole packet when it contains Fire. Struck-through burn chance/potency values are unverified and not implemented." },
         "source": {
             "cardId": "69214b9731723704c1eda372",
             "cardUrl": "https://trello.com/c/7FkUd60a"
-        },
+        }
     },
     blastshield: {
         id: "blastshield",
@@ -943,10 +991,17 @@ export const Perks = {
         name: "Blood Lust",
         category: "Perk",
         description: "Hitting a bleeding opponent gives a buff that grants ramping attack speed on hit.",
+        statPriority: -10,
+        onStatCalculation(amount) {
+            if (positivePerk(amount))
+                addStat(this, "AttackSpeed", 20 * selectedBuffPotency(this, "blood_lust"));
+        },
+        sourcepotencies: { bloodlustpotency: 0 },
+        support: { "status": "Partial", "details": "Select Blood Lust and enter its current effective potency: Attack Speed gains 20 * potency percentage points. Source starts at zero charge. Automatic weapon-hit buildup, cap scaling beyond the documented 2.5 at one perk, expiration, and proc-coefficient reduction are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda416",
             "cardUrl": "https://trello.com/c/zBPM5Pnx"
-        },
+        }
     },
     blood_rush: {
         id: "blood_rush",
@@ -1123,10 +1178,19 @@ export const Perks = {
         name: "Carapace",
         category: "Perk",
         description: "Gain low Protection scaling off of your Earth Boost. Additionally, gain sizable Damage and Stun Reduction if you have remaining Shield.",
+        statPriority: 40,
+        onStatCalculation(amount) {
+            if (positivePerk(amount))
+                addStat(this, "Protection", 0.05 * (this.stats.EarthBoost || 0) * amount);
+        },
+        onDmgReducedMultiplier(amount) {
+            return positivePerk(amount) && hasBuff(this, "protection_shield_active") ? 0.15 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Adds 0.05 * Earth Boost * perk amount Protection. Select Protection Shield Active while shield remains for 15% diminishing-return damage reduction per perk. Shield depletion and stun immunity are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda358",
             "cardUrl": "https://trello.com/c/YF2qDXA9"
-        },
+        }
     },
     carrying_winds: {
         id: "carrying_winds",
@@ -1143,10 +1207,12 @@ export const Perks = {
         name: "Caster",
         category: "Perk",
         description: "Gain rune and weapon art cooldown reduction",
+        cooldown: { sources: ["Rune", "WeaponArt"], ratePerPerk: 0.15 },
+        support: { "status": "Implemented", "details": "Adds 15% diminishing-return Rune/Weapon Art CDR per perk. Preview divides by 1 plus the summed reviewed CDR rates, then applies direct race/perk factors. Grouped stacking order is a documented builder convention." },
         "source": {
             "cardId": "69214b9731723704c1eda344",
             "cardUrl": "https://trello.com/c/bNACVMcB"
-        },
+        }
     },
     caustic_slow: {
         id: "caustic_slow",
@@ -1183,10 +1249,17 @@ export const Perks = {
         name: "Channeled Weapon",
         category: "Perk",
         description: "Adds slight magic damage type to all attacks and reduces weapon art cooldown.",
+        outputPriority: 100,
+        onOutputCalculation(amount, args) {
+            if (positivePerk(amount) && isDirectPacket(args))
+                addOutput(this, "Magic", 0.05 * amount);
+        },
+        cooldown: { sources: ["WeaponArt"], directBase: 0.8, directPerPerk: -0.05 },
+        support: { "status": "Partial", "details": "Direct packets gain 0.05 Magic output per perk. Weapon Art cooldown gets the direct multiplier max(0, 0.8 - 0.05 * perk amount), after grouped diminishing-return CDR. DoT applicability and cross-conversion order are not verified." },
         "source": {
             "cardId": "69214b9731723704c1eda3b6",
             "cardUrl": "https://trello.com/c/Cu6Kzi1Z"
-        },
+        }
     },
     cinder_soul: {
         id: "cinder_soul",
@@ -1203,10 +1276,14 @@ export const Perks = {
         name: "Civilian",
         category: "Perk",
         description: "Not having your weapon out for more than 3 seconds heavily boosts rune damage and allows you to block without a weapon out.",
+        onDmgBonusMultiplier(amount, args) {
+            return positivePerk(amount) && selected(this, "civilian_ready") && args?.baseDamageData?.sourceType === "Rune" ? 0.4 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Select Civilian Ready once the weapon has been stowed for more than three seconds: Rune damage gains 40% per perk. Weapon/blocking state and automatic activation are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda9f2",
             "cardUrl": "https://trello.com/c/llhxquuy"
-        },
+        }
     },
     cleansed_blade: {
         id: "cleansed_blade",
@@ -1223,10 +1300,15 @@ export const Perks = {
         name: "Cleave",
         category: "Perk",
         description: "Widen the Hitbox of all your Finishers. Additionally, Finishers inflict Armor Break.",
+        sourcepotencies: { shatterpotency: 0.1 },
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) && hasDebuff(this.target, "shatter") ? 0.2 : null;
+        },
+        support: { "status": "Partial", "details": "Selected target Shatter grants a fixed 20% damage bonus regardless of perk amount. Offers its fixed 0.1 Shatter source; finisher application and hitboxes are manual." },
         "source": {
             "cardId": "69214b9731723704c1eda406",
             "cardUrl": "https://trello.com/c/bKFIKrFD"
-        },
+        }
     },
     colossus: {
         id: "colossus",
@@ -1243,10 +1325,16 @@ export const Perks = {
         name: "Concealed Edge",
         category: "Perk",
         description: "Standing in shadows grants bonus Hex Damage Type to all Damage tied to you, as well as increasing the range of your LMB's and RMB's.",
+        outputPriority: 100,
+        onOutputCalculation(amount) {
+            if (positivePerk(amount) && lighting(this) === "shadow")
+                addOutput(this, "Hex", 0.25 * amount);
+        },
+        support: { "status": "Partial", "details": "In Shadows adds 0.25 Hex output per perk to the current packet, explicitly including DoTs. Does not change the saved damage profile; weapon range is not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda45e",
             "cardUrl": "https://trello.com/c/nGoxB9AM"
-        },
+        }
     },
     concussion: {
         id: "concussion",
@@ -1324,50 +1412,70 @@ export const Perks = {
         name: "Croakernaut Spirit",
         category: "Perk",
         description: "Upon reaching max stacks of spiritual energy right clicking causes you to summon croakernauts that give reinforce.",
+        sourcepotencies: { reinforcepotency: 0.5 },
+        support: { "status": "Partial", "details": "Offers fixed 0.5 Reinforce potency from the spirit Croakernauts. Spirit summoning, spiritual energy, and duration are not simulated." },
         "source": {
             "cardId": "69214b9831723704c1edac9a",
             "cardUrl": "https://trello.com/c/wczMlNo3"
-        },
+        }
     },
     crushing_pressure: {
         id: "crushing_pressure",
         name: "Crushing Pressure",
         category: "Perk",
         description: "Gain corresponding Armor Penetration scaling off of said specific Defenses of the enemy.",
+        onArmorPenCalculation(amount, args) {
+            if (!positivePerk(amount) || !args?.outputType || args.outputType === "True")
+                return null;
+            const defense = this.target?.stats[(args.outputType + "Defense")] || 0;
+            return defense > 0 ? (0.15 * defense + 10) * amount : null;
+        },
+        support: { "status": "Implemented", "details": "For each non-True output with positive matching target Defense, adds (15% of that Defense + 10) penetration per perk. Zero or negative matching Defense does not activate it; never changes the global penetration stat." },
         "source": {
             "cardId": "69214b9731723704c1edaa14",
             "cardUrl": "https://trello.com/c/G7uxNYkI"
-        },
+        }
     },
     cryo_engine: {
         id: "cryo_engine",
         name: "Cryo Engine",
         category: "Perk",
         description: "Gain a chance to inflict frostbite on hits as well as converting all your slows to it. Frostbite slows the opponent but additionally increases Air and Water Damage taken by a flat amount. Applying Frostbite grants you Tailwind.",
+        getSourcePotencies(amount) { return { tailwindpotency: 0.2 + 0.1 * amount }; },
+        support: { "status": "Partial", "details": "Offers 0.2 + 0.1 * perk amount Tailwind after Frostbite application. Select Frostbite on the target for its existing fixed 10% Air/Water vulnerability. Slow conversion, rolls, and durations are manual." },
         "source": {
             "cardId": "69214b9731723704c1eda494",
             "cardUrl": "https://trello.com/c/gcnekmwY"
-        },
+        }
     },
     curse_rip: {
         id: "curse_rip",
         name: "Curse Rip",
         category: "Perk",
         description: "Hits against a Debuffed opponent gains Lifesteal as well as a Damage Boost that scales on the amount of unique ones on them.",
+        onDmgBonusMultiplier(amount, args) {
+            return positivePerk(amount) && isProcHit(args) ? 0.05 * getDebuffCount(this.target) * amount : null;
+        },
+        support: { "status": "Partial", "details": "Direct proc-capable hits gain 5% damage per distinct target debuff per perk. Consumed statuses no longer count. Healing coefficients are unknown and are not inferred." },
         "source": {
             "cardId": "69214b9731723704c1eda448",
             "cardUrl": "https://trello.com/c/J5kPDe3y"
-        },
+        }
     },
     cursed_bark: {
         id: "cursed_bark",
         name: "Cursed Bark",
         category: "Perk",
         description: "Gain a small chance to inflict a random, unmodified Debuff against said enemy when hit. Gain Damage Reduction against Enemies with Debuffs that scales on the amount of unique ones on them.",
+        onDmgReducedMultiplier(amount) {
+            return positivePerk(amount) ? 0.05 * getDebuffCount(this.target) * amount : null;
+        },
+        sourcepotencies: { shatterpotency: 0.2, weakeningpotency: 0.5 },
+        support: { "status": "Partial", "details": "Incoming damage is reduced with diminishing returns by 5% per distinct debuff on the attacker per perk. Offers documented fixed Shatter/Weakness sources; random application and unspecified DoT source potencies are not inferred." },
         "source": {
             "cardId": "69214b9731723704c1eda48e",
             "cardUrl": "https://trello.com/c/R9Ua8FaJ"
-        },
+        }
     },
     cursed_experiment: {
         id: "cursed_experiment",
@@ -1408,10 +1516,16 @@ export const Perks = {
         name: "Dark Magic",
         category: "Perk",
         description: "you take some self damage when you hit people with magic damage. Additionally all attacks that deal magic damage deal bonus hex damage.",
+        outputPriority: 50,
+        onOutputCalculation(amount, args) {
+            if (positivePerk(amount) && isDirectPacket(args) && (this.damageTypes.Magic || 0) > 0)
+                addOutput(this, "Hex", 0.2 * amount);
+        },
+        support: { "status": "Partial", "details": "Direct packets containing Magic gain 0.2 Hex output per perk. Runs before Spirit Winds converts Air, so Magic introduced only by Spirit Winds cannot trigger it. Self damage and DoT applicability are not calculated." },
         "source": {
             "cardId": "69214b9731723704c1eda4aa",
             "cardUrl": "https://trello.com/c/mgNRFUsc"
-        },
+        }
     },
     darkening_hex: {
         id: "darkening_hex",
@@ -1590,10 +1704,14 @@ export const Perks = {
         name: "Dragon Breath",
         category: "Perk",
         description: "Finishers releases a blast of fire that deals minor Damage and applies Burn.",
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) && hasDebuff(this.target, "burn") ? 0.1 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Adds 10% damage per perk against selected Burn. Finisher projectiles, their hit decay, proc timing, and Burn application are outside this calculation." },
         "source": {
             "cardId": "69214b9731723704c1eda41c",
             "cardUrl": "https://trello.com/c/KkTA2Oq0"
-        },
+        }
     },
     dragon_state: {
         id: "dragon_state",
@@ -1653,10 +1771,27 @@ export const Perks = {
         name: "Emotional",
         category: "Perk",
         description: "Having only buffs lowers your weapon art cooldown and makes your weapon art deal bonus hex damage, having only debuffs gives bonus fire damage and attack speed. But having both debuffs and buffs gives bonus healing.",
+        statPriority: -10,
+        outputPriority: 100,
+        onStatCalculation(amount) {
+            if (positivePerk(amount) && disposition(this).debuffsOnly)
+                addStat(this, "AttackSpeed", 20 * amount);
+        },
+        onOutputCalculation(amount, args) {
+            if (!positivePerk(amount) || !isDirectPacket(args))
+                return;
+            const state = disposition(this);
+            if (state.debuffsOnly)
+                addOutput(this, "Fire", 0.2 * amount);
+            if (state.buffsOnly && args?.baseDamageData?.sourceType === "WeaponArt")
+                addOutput(this, "Hex", 0.2 * amount);
+        },
+        cooldown: { sources: ["WeaponArt"], ratePerPerk: 0.5, requiresBuffsOnly: true },
+        support: { "status": "Partial", "details": "Only real buffs: Weapon Arts gain 0.2 Hex output and 50% diminishing-return CDR per perk. Only debuffs: direct packets gain 0.2 Fire output and +20 Attack Speed points per perk. Neutral/scenario controls do not count. Mixed-state healing and DoT output applicability are not calculated." },
         "source": {
             "cardId": "69214b9731723704c1eda4b8",
             "cardUrl": "https://trello.com/c/qzmBIYkD"
-        },
+        }
     },
     endless_despair: {
         id: "endless_despair",
@@ -1673,20 +1808,31 @@ export const Perks = {
         name: "Energize",
         category: "Perk",
         description: "Hitting enemies visibly builds up energy on your Weapon, with an indicator at max. At max, heavily boost Weapon Art Damage once, consuming all charges.",
+        onDmgBonusMultiplier(amount, args) {
+            return positivePerk(amount) && selected(this, "energize_charged") && args?.baseDamageData?.sourceType === "WeaponArt" ? 0.5 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Select Energize Charged to preview 50% bonus Weapon Art damage per perk. This previews a charged packet; buildup, charge consumption, and the cast timeline are manual." },
         "source": {
             "cardId": "69214b9731723704c1eda44e",
             "cardUrl": "https://trello.com/c/tknW6gsB"
-        },
+        }
     },
     engine: {
         id: "engine",
         name: "Engine",
         category: "Perk",
         description: "Your Speed Boost stat as well as the Tailwind Buff increases your Attack Speed.",
+        statPriority: -10,
+        onStatCalculation(amount) {
+            if (!positivePerk(amount))
+                return;
+            addStat(this, "AttackSpeed", (0.25 * (this.stats.SpeedBoost || 0) + 30 * selectedBuffPotency(this, "tailwind")) * amount);
+        },
+        support: { "status": "Implemented", "details": "Adds (0.25 * Speed Boost + 30 * effective Tailwind potency) * perk amount to the Attack Speed stat. Uses the Tailwind applicant and explicit potency override; stacks additively with static attack-speed bonuses." },
         "source": {
             "cardId": "69214b9731723704c1eda4b6",
             "cardUrl": "https://trello.com/c/kNRHFv5d"
-        },
+        }
     },
     equipment_farmer: {
         id: "equipment_farmer",
@@ -1703,10 +1849,12 @@ export const Perks = {
         name: "Erosion",
         category: "Perk",
         description: "Dealing earth damage has a chance to apply armor break.",
+        getSourcePotencies(amount) { return { shatterpotency: 0.1 + 0.1 * amount }; },
+        support: { "status": "Partial", "details": "Offers 0.1 + 0.1 * perk amount Shatter potency after an Earth-damage proc. Chance rolls and hit application are manual." },
         "source": {
             "cardId": "69214b9731723704c1edab4c",
             "cardUrl": "https://trello.com/c/iCWTWoVH"
-        },
+        }
     },
     essence_ray: {
         id: "essence_ray",
@@ -1733,10 +1881,15 @@ export const Perks = {
         name: "Executioner",
         category: "Perk",
         description: "Gain a Damage Boost scaling on how much % of HP the enemy has lost.",
+        onDmgBonusMultiplier(amount) {
+            const ratio = healthRatio(this.target);
+            return positivePerk(amount) && ratio !== undefined ? 0.5 * (1 - ratio) * amount : null;
+        },
+        support: { "status": "Implemented", "details": "Scales from 0% bonus at full target HP to 50% per perk at zero target HP, clamping the selected health ratio to 0–1." },
         "source": {
             "cardId": "69214b9731723704c1eda394",
             "cardUrl": "https://trello.com/c/vrmvJPnI"
-        },
+        }
     },
     exhaust: {
         id: "exhaust",
@@ -1763,10 +1916,14 @@ export const Perks = {
         name: "Explosive Honey",
         category: "Perk",
         description: "Finishers that hit cause a ring of honey to burst out, which applies Sticky and deals a small amount of Damage.",
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) && hasDebuff(this.target, "sticky") ? 0.1 : null;
+        },
+        support: { "status": "Partial", "details": "Adds the documented 10% damage against selected Sticky; no perk-amount scaling is specified for this bonus. Finisher honey burst and application are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda484",
             "cardUrl": "https://trello.com/c/DzUd6F24"
-        },
+        }
     },
     extinguish: {
         id: "extinguish",
@@ -1813,10 +1970,16 @@ export const Perks = {
         name: "Flash Strike",
         category: "Perk",
         description: "Parrying an attack grants a buff called Flash Strike granting extreme attack speed momentarily.",
+        statPriority: -10,
+        onStatCalculation(amount) {
+            if (positivePerk(amount) && hasBuff(this, "flash_strike"))
+                addStat(this, "AttackSpeed", 75 * amount);
+        },
+        support: { "status": "Partial", "details": "Select Flash Strike after a parry to add 75 Attack Speed percentage points per equipped perk. Activation, duration, and transferred buffs are manual." },
         "source": {
             "cardId": "69214b9831723704c1edae6a",
             "cardUrl": "https://trello.com/c/ge4rmWRD"
-        },
+        }
     },
     flowing_crits: {
         id: "flowing_crits",
@@ -1854,10 +2017,12 @@ export const Perks = {
         name: "Fragrance Aura",
         category: "Perk",
         description: "Whenever you heal yourself with a heal that can proc effects or use a healing consumable, you gain the Fragrant Aura Buff. Enemies inside the aura are inflicted with the Poison Debuff and take water damage over time. Allies inside gain a Regen Buff.",
+        getSourcePotencies(amount) { return { regenpotency: 0.2 * amount }; },
+        support: { "status": "Partial", "details": "Offers 0.2 * perk amount Regen potency for the aura's allies. Fragrance buildup, Poison application, Water pulses, healing, and duration are not simulated." },
         "source": {
             "cardId": "69214b9831723704c1edaeaa",
             "cardUrl": "https://trello.com/c/pcFpdK1s"
-        },
+        }
     },
     fragrant_flesh: {
         id: "fragrant_flesh",
@@ -1878,10 +2043,14 @@ export const Perks = {
         name: "Frequent Flier",
         category: "Perk",
         description: "Deal bonus damage when in the air. Additionally you can now hold space while in the air to activate a slow fall.",
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) && selected(this, "scenario_airborne") ? 0.2 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Select Airborne for 20% damage per perk, including while mounted. Slow-fall movement is not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda4c4",
             "cardUrl": "https://trello.com/c/AYAygnuB"
-        },
+        }
     },
     frostbite: {
         id: "frostbite",
@@ -1902,10 +2071,19 @@ export const Perks = {
         name: "Frozen Heart",
         category: "Perk",
         description: "Increases Physical and Magic Defense as well as Warding scaling on your Cold Resistance.",
+        statPriority: 40,
+        onStatCalculation(amount) {
+            if (!positivePerk(amount))
+                return;
+            const value = (0.022222 + 0.022222 * amount) * (this.stats.ColdResistance || 0);
+            for (const stat of ["PhysicalDefense", "MagicDefense", "Warding"])
+                addStat(this, stat, value);
+        },
+        support: { "status": "Implemented", "details": "Adds (0.022222 + 0.022222 * perk amount) * Cold Resistance to Physical Defense, Magic Defense, and Warding. Extra Layers applies afterwards." },
         "source": {
             "cardId": "69214b9731723704c1eda452",
             "cardUrl": "https://trello.com/c/QGlNl7Tp"
-        },
+        }
     },
     frozen_waste: {
         id: "frozen_waste",
@@ -1962,10 +2140,14 @@ export const Perks = {
         name: "Gelid Lance",
         category: "Perk",
         description: "When you apply Slow, also apply Bleed, Grants Water Scaling to bleed,   and deal increased damage to opponents with the Bleed Debuff. Grants Bleed potency.",
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) && hasDebuff(this.target, "bleed") ? 0.1 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Adds 10% damage per perk against selected Bleed. Slow-to-Bleed application and the undocumented Water-scaling coefficient are not inferred; the card says it grants no additive Bleed potency." },
         "source": {
             "cardId": "69214b9731723704c1eda918",
             "cardUrl": "https://trello.com/c/g2VKZtET"
-        },
+        }
     },
     ghastly_rot: {
         id: "ghastly_rot",
@@ -1995,11 +2177,12 @@ export const Perks = {
         onStatCalculation(perkAmount) {
             addRagePotency(this, perkAmount);
         },
-        support: { "status": "Partial", "details": "Adds 0.1 Rage potency per perk to statuses this build applies. Cooldown, duration on kill, and highest-boost penetration are not calculated." },
         "source": {
             "cardId": "69214b9731723704c1eda428",
             "cardUrl": "https://trello.com/c/7vMRpUp1"
         },
+        cooldown: { "sources": ["Rune"], "directBase": 0.5, "abilityId": "rage_rune" },
+        support: { "status": "Partial", "details": "Adds 0.1 Rage potency per perk and halves Rage Rune cooldown with a direct factor. Duration on kill and highest-boost penetration remain outside the calculation." }
     },
     glyph_conduit: {
         id: "glyph_conduit",
@@ -2097,10 +2280,12 @@ export const Perks = {
         name: "Grounded Despair",
         category: "Perk",
         description: "Jumping and landing causes you to create a small shockwave and get a debuff called despair. Despair increases damage dealt.",
+        getSourcePotencies(amount) { return { despairpotency: 0.1 * amount }; },
+        support: { "status": "Partial", "details": "Offers 0.1 * perk amount Despair potency. Select Despair with Applied by Self for its shared +8.5% damage per 0.1 effective potency. Jump/landing shockwave and timing are not simulated." },
         "source": {
             "cardId": "69214b9831723704c1edad06",
             "cardUrl": "https://trello.com/c/KfRmwoqr"
-        },
+        }
     },
     guardian_spin: {
         id: "guardian_spin",
@@ -2237,10 +2422,14 @@ export const Perks = {
         name: "Ice Barge",
         category: "Perk",
         description: "Speed reductions from Slowing effects and Stuns are reduced, and gain Damage Reduction whilst inflicted with them. Additionally, your run is not cancelled by Stuns.",
+        onDmgReducedMultiplier(amount) {
+            return positivePerk(amount) && hasDebuff(this, "slow") ? 0.15 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Selected Slow grants 15% diminishing-return damage reduction per perk. Stun/movement behavior and automatic block-triggered Slow are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda496",
             "cardUrl": "https://trello.com/c/3mFguLrj"
-        },
+        }
     },
     ice_burst: {
         id: "ice_burst",
@@ -2307,10 +2496,14 @@ export const Perks = {
         name: "Inspiration",
         category: "Perk",
         description: "Landing m1s/m2s releases pulses that slightly heal and give a damage boost to yourself and nearby allies. The heal is more effective on summons.",
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) && hasBuff(this, "inspired") ? 0.075 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Select Inspired for 7.5% self damage per equipped perk. Healing pulses, ally application, and duration are manual; an unknown Inspired potency formula is not invented." },
         "source": {
             "cardId": "69214b9831723704c1edace0",
             "cardUrl": "https://trello.com/c/DLCdQ0RQ"
-        },
+        }
     },
     investigator: {
         id: "investigator",
@@ -2327,10 +2520,12 @@ export const Perks = {
         name: "Iron Bounce",
         category: "Perk",
         description: "Have a chance to gain Bounce on LMB's and RMB's. Additionally, gain Reinforce when gaining Bounce.",
+        getSourcePotencies(amount) { return { bouncepotency: 0.3 * amount, reinforcepotency: 0.2 * amount }; },
+        support: { "status": "Partial", "details": "Offers 0.3 * perk amount Bounce and 0.2 * perk amount Reinforce sources for manual selection. Weapon-hit chance, Bounce-to-Reinforce activation, and duration are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1edaa06",
             "cardUrl": "https://trello.com/c/iarJ7Tf6"
-        },
+        }
     },
     iron_slayer_spirit: {
         id: "iron_slayer_spirit",
@@ -2347,10 +2542,14 @@ export const Perks = {
         name: "Juggernaut",
         category: "Perk",
         description: "Gain stun resistance, damage boost, and knockback resistance based on your negative speed stats.",
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) ? (getNegativeStatValue(this.stats.SpeedBoost) + getNegativeStatValue(this.stats.AttackSpeed)) * amount / 200 : null;
+        },
+        support: { "status": "Partial", "details": "Adds damage equal to half the magnitude of negative Speed Boost and Attack Speed stats per perk. Positive speed never penalizes damage. Stun and knockback resistance are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda998",
             "cardUrl": "https://trello.com/c/rqrxBBeH"
-        },
+        }
     },
     kama_blades: {
         id: "kama_blades",
@@ -2367,10 +2566,14 @@ export const Perks = {
         name: "Kindling",
         category: "Perk",
         description: "Your Burn potency is multiplied by 50%, but has a much shorter duration.",
+        onDmgBonusMultiplier(amount, args) {
+            return positivePerk(amount) && args?.baseDamageData?.sourceType === "Status" && args.baseDamageData.source === "burn" ? 0.5 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Burn status packets are multiplied by 1 + 0.5 * perk amount; direct Fire hits and other DoTs are unaffected. This changes damage rather than the shared additive potency stat. Duration shortening is not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda3be",
             "cardUrl": "https://trello.com/c/biuQhgpJ"
-        },
+        }
     },
     lance: {
         id: "lance",
@@ -2447,10 +2650,19 @@ export const Perks = {
         name: "Lucky",
         category: "Perk",
         description: "Dramatically increase the chance of many chance based combat effects but add negative warding, protection, and tenacity to your character.",
+        statPriority: 120,
+        onStatCalculation(amount) {
+            if (!positivePerk(amount))
+                return;
+            addStat(this, "Warding", -25 * amount);
+            addStat(this, "Protection", -6 * amount);
+            addStat(this, "Tenacity", -0.1 * amount);
+        },
+        support: { "status": "Partial", "details": "Adds -25 Warding, -6 Protection, and -0.1 Tenacity per perk before Righted Wrongs and derived stats. Rerolls and chance-based activations are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda4b0",
             "cardUrl": "https://trello.com/c/ElHijWTj"
-        },
+        }
     },
     luminescent_fervor: {
         id: "luminescent_fervor",
@@ -2470,11 +2682,12 @@ export const Perks = {
         onStatCalculation(perkAmount) {
             addRagePotency(this, perkAmount);
         },
-        support: { "status": "Partial", "details": "Rage gains Magic output eligibility; self-applied Rage potency scales with the caster. Rune cooldown reduction is not calculated." },
         "source": {
             "cardId": "69214b9731723704c1edabb4",
             "cardUrl": "https://trello.com/c/HRZEyoIi"
         },
+        cooldown: { "sources": ["Rune"], "ratePerPerk": 0.1, "requiredBuff": "rage" },
+        support: { "status": "Partial", "details": "Rage gains Magic output eligibility; caster Rage potency scales with perk amount. Selected Rage grants 10% diminishing-return Rune CDR per perk in the reviewed cooldown preview. Application and duration are manual." }
     },
     mageling_spirit: {
         id: "mageling_spirit",
@@ -2521,13 +2734,15 @@ export const Perks = {
         name: "Marsh Flow",
         category: "Perk",
         description: "Each individual hit of a Finisher has a chance to grant Regeneration. Additionally, Being under the effects of Regeneration grants a Damage Buff.",
-        sourcepotencies: {
-            regenpotency: 1,
+        sourcepotencies: { regenpotency: 1 },
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) && hasBuff(this, "regen") ? 0.2 * amount : null;
         },
+        support: { "status": "Partial", "details": "Selected Regen grants 20% damage per perk. Offers its fixed 1-potency Regen source; finisher rolls and duration are manual." },
         "source": {
             "cardId": "69214b9731723704c1eda49c",
             "cardUrl": "https://trello.com/c/e6lgq8HQ"
-        },
+        }
     },
     melting_shred: {
         id: "melting_shred",
@@ -2584,20 +2799,29 @@ export const Perks = {
         name: "Mounted Defense",
         category: "Perk",
         description: "While mounted on the Glacial Snapper specifically, you gain Damage Reduction.",
+        onDmgReducedMultiplier(amount) {
+            return positivePerk(amount) && mount(this) === "glacial_snapper" ? 0.2 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Only Mounted: Glacial Snapper enables 20% diminishing-return damage reduction per perk. Other mounts do not qualify." },
         "source": {
             "cardId": "69214b9831723704c1edadfa",
             "cardUrl": "https://trello.com/c/nNcCVWEa"
-        },
+        }
     },
     mycotic_bloom: {
         id: "mycotic_bloom",
         name: "Mycotic Bloom",
         category: "Perk",
         description: "Enemies you have Poisoned are inflicted with Slow over 50%. Enemies below 50% take more Poison damage.",
+        onDmgBonusMultiplier(amount, args) {
+            const ratio = healthRatio(this.target), packet = args?.baseDamageData;
+            return positivePerk(amount) && ratio !== undefined && ratio < 0.5 && packet?.sourceType === "Status" && packet.source === "poison" ? 0.25 * amount : null;
+        },
+        support: { "status": "Partial", "details": "This applicant's Poison ticks gain 25% damage per perk when the recipient is strictly below 50% HP. Exactly 50% does not qualify. Above-half Slow application is manual and its unspecified potency is not inferred." },
         "source": {
             "cardId": "69214b9831723704c1edadc0",
             "cardUrl": "https://trello.com/c/9nA8O7Im"
-        },
+        }
     },
     oceans_rage: {
         id: "oceans_rage",
@@ -2698,10 +2922,14 @@ export const Perks = {
         name: "Photosynthesis",
         category: "Perk",
         description: "Gain a boost to your Holy Damage and Healing whilst standing in sunlight.",
+        onSpecificDmgBonusMultiplier(amount, args) {
+            return positivePerk(amount) && lighting(this) === "sunlight" && (args?.outputType === "Holy" || args?.outputType === "Earth") ? 0.2 * amount : null;
+        },
+        support: { "status": "Partial", "details": "In Sunlight grants 20% damage per perk to Holy and Earth portions only. Healing is not calculated." },
         "source": {
             "cardId": "69214b9731723704c1eda3ea",
             "cardUrl": "https://trello.com/c/XCDTt8fa"
-        },
+        }
     },
     piercer: {
         id: "piercer",
@@ -2718,20 +2946,29 @@ export const Perks = {
         name: "Poison Acceleration",
         category: "Perk",
         description: "Being Poisoned grants a hefty Attack Speed Boost alongside a Weapon Art and Rune Cooldown Reduction.",
+        statPriority: -10,
+        onStatCalculation(amount) {
+            if (positivePerk(amount) && hasDebuff(this, "poison"))
+                addStat(this, "AttackSpeed", 20 * amount);
+        },
         "source": {
             "cardId": "69214b9831723704c1edad16",
             "cardUrl": "https://trello.com/c/rsFKJevO"
         },
+        cooldown: { "sources": ["Rune", "WeaponArt"], "ratePerPerk": 0.2, "requiredDebuff": "poison" },
+        support: { "status": "Partial", "details": "Selected self Poison grants 20 Attack Speed points and 20% diminishing-return Rune/Weapon Art CDR per perk. The movement-speed magnitude is unspecified and remains unimplemented." }
     },
     poisonous: {
         id: "poisonous",
         name: "Poisonous",
         category: "Perk",
         description: "Gain a small chance to inflict Poison and deal bonus Hex Damage on hit.",
+        getSourcePotencies(amount) { return { poisonpotency: 0.3 * amount }; },
+        support: { "status": "Partial", "details": "Offers 0.3 innate Poison potency per perk for the shared Poison DoT calculation. Random application, bonus Hex hit, and duration scaling are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda3d0",
             "cardUrl": "https://trello.com/c/uPlSBhdo"
-        },
+        }
     },
     possession: {
         id: "possession",
@@ -2868,10 +3105,12 @@ export const Perks = {
         name: "Queen's Guard",
         category: "Perk",
         description: "Increase HP and speed of summons and when you summon gain reinforce.",
+        getSourcePotencies(amount) { return { reinforcepotency: 0.5 + 0.1 * amount }; },
+        support: { "status": "Partial", "details": "Offers 0.5 + 0.1 * perk amount Reinforce potency after summoning. Summon HP/speed bonuses, automatic activation, and duration are not calculated." },
         "source": {
             "cardId": "69214b9731723704c1eda47c",
             "cardUrl": "https://trello.com/c/L6QUW33j"
-        },
+        }
     },
     queen_s_power: {
         id: "queen_s_power",
@@ -2888,10 +3127,16 @@ export const Perks = {
         name: "Quick Witted",
         category: "Perk",
         description: "Increases your Dexterity Boost scaling off of your Speed Boost.",
+        statPriority: 45,
+        onStatCalculation(amount) {
+            if (positivePerk(amount))
+                addStat(this, "DexterityBoost", 0.25 * (this.stats.SpeedBoost || 0) * amount);
+        },
+        support: { "status": "Implemented", "details": "Adds 25% of Speed Boost per perk to Dexterity Boost, after Whirl Foot and before Swift Guard. Derived-stat ordering is explicit and does not repeat to create a feedback loop." },
         "source": {
             "cardId": "69214b9731723704c1eda470",
             "cardUrl": "https://trello.com/c/73dSCsCt"
-        },
+        }
     },
     quickcast: {
         id: "quickcast",
@@ -2908,10 +3153,14 @@ export const Perks = {
         name: "Quickdraw",
         category: "Perk",
         description: "Upon equipping your weapon gain a high damage boost for weapon arts and runes for a short period of time.",
+        onDmgBonusMultiplier(amount, args) {
+            return positivePerk(amount) && selected(this, "quickdraw") && isRuneOrWeaponArtHit(args) ? 0.3 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Select the neutral Quickdraw state for 30% Rune/Weapon Art damage per perk. It does not count as a game buff. Weapon-equipping detection and five-second expiration are manual." },
         "source": {
             "cardId": "69214b9731723704c1eda3d6",
             "cardUrl": "https://trello.com/c/hWCUSZTd"
-        },
+        }
     },
     quicksand: {
         id: "quicksand",
@@ -2948,10 +3197,14 @@ export const Perks = {
         name: "Raging Bounce",
         category: "Perk",
         description: "Gain a universal Damage Boost when under the effects of Bounce, scaling off of its potency.",
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) ? 0.7 * amount * selectedBuffPotency(this, "bounce") : null;
+        },
+        support: { "status": "Implemented", "details": "All damage gains a multiplier of 1 + 0.7 * perk amount * effective selected Bounce potency, using the status applicant and override." },
         "source": {
             "cardId": "69214b9731723704c1eda370",
             "cardUrl": "https://trello.com/c/CSv4bCK2"
-        },
+        }
     },
     reinforced_block: {
         id: "reinforced_block",
@@ -2998,10 +3251,14 @@ export const Perks = {
         name: "Rocky Body",
         category: "Perk",
         description: "Increases your Physical Defense scaling off of your Earth Boost.",
+        statPriority: 40,
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addStat(this, "PhysicalDefense", 0.5 * (this.stats.EarthBoost || 0) * amount); },
+        support: { "status": "Partial", "details": "Adds 0.5 * Earth Boost * perk amount Physical Defense after conversion. The card itself labels the formula as probable; it remains flagged for in-game confirmation." },
         "source": {
             "cardId": "69214b9731723704c1edabbe",
             "cardUrl": "https://trello.com/c/o0OgPMRa"
-        },
+        }
     },
     roguent_spirit: {
         id: "roguent_spirit",
@@ -3078,20 +3335,25 @@ export const Perks = {
         name: "Runic Winds",
         category: "Perk",
         description: "Using a Rune grants you Tailwind.",
+        getSourcePotencies(amount) { return { tailwindpotency: 0.1 * amount }; },
+        cooldown: { sources: ["Rune"], ratePerPerk: 0.1, requiredBuff: "tailwind" },
+        support: { "status": "Partial", "details": "Offers 0.1 * perk amount Tailwind as a manual source. Selected Tailwind grants 10% diminishing-return Rune CDR per perk, independent of potency. Rune activation and duration are manual." },
         "source": {
             "cardId": "69214b9731723704c1eda362",
             "cardUrl": "https://trello.com/c/xvseWOc5"
-        },
+        }
     },
     sacred_grounds: {
         id: "sacred_grounds",
         name: "Sacred Grounds",
         category: "Perk",
         description: "Using a Rune causes a holy cross to fall after a short delay, which slightly heals and grants Reinforce.",
+        getSourcePotencies(amount) { return { reinforcepotency: 0.2 * amount }; },
+        support: { "status": "Partial", "details": "Offers 0.2 * perk amount Reinforce potency after a Rune. The holy cross, delayed activation, healing, and duration are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda438",
             "cardUrl": "https://trello.com/c/hiETbRAL"
-        },
+        }
     },
     sacrificial_summoning: {
         id: "sacrificial_summoning",
@@ -3158,10 +3420,12 @@ export const Perks = {
         name: "Seismic Momentum",
         category: "Perk",
         description: "Your crit chance scales on your earth boost instead of dex boost.",
+        critical: { chancePerBoost: { EarthBoost: 0.00075 }, damagePerBoost: { EarthBoost: 0.00075 }, replacesDexterityChance: true },
+        support: { "status": "Partial", "details": "Replaces the default Dexterity crit-chance contribution with 0.075% per Earth Boost per perk and adds equal crit damage. Other crit sources still stack. Dexterity's separate damage bonus is retained because the card only replaces chance; that distinction needs in-game confirmation." },
         "source": {
             "cardId": "69214b9731723704c1eda48c",
             "cardUrl": "https://trello.com/c/yJt9lFvu"
-        },
+        }
     },
     serrated_edge: {
         id: "serrated_edge",
@@ -3282,10 +3546,14 @@ export const Perks = {
         name: "Smoldering",
         category: "Perk",
         description: "When you use your weapon art light on fire. While on fire gain bonus damage.",
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) && hasDebuff(this, "burn") ? 0.2 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Selected self Burn grants 20% damage per perk. Weapon Art self-application, duration, and unspecified innate Burn potency are manual." },
         "source": {
             "cardId": "69214b9731723704c1eda498",
             "cardUrl": "https://trello.com/c/GY9cpb7j"
-        },
+        }
     },
     snoeman_spirit: {
         id: "snoeman_spirit",
@@ -3344,10 +3612,22 @@ export const Perks = {
         name: "Spirit Winds",
         category: "Perk",
         description: "During tailwind convert a portion of wind damage to magic damage and boost damage based on the strength of the tailwind.",
+        outputPriority: -100,
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) && hasBuff(this, "tailwind") ? 0.2 / 3 * (5 * selectedBuffPotency(this, "tailwind") + 2 * amount) : null;
+        },
+        onOutputCalculation(amount) {
+            if (!positivePerk(amount) || !hasBuff(this, "tailwind"))
+                return;
+            const converted = Math.max(0, this.damageTypes.Air || 0) * Math.min(1, 0.1 * amount);
+            addOutput(this, "Air", -converted);
+            addOutput(this, "Magic", converted);
+        },
+        support: { "status": "Partial", "details": "Selected Tailwind grants the separate (0.2/3)*(5*effective Tailwind potency + 2*perk amount) damage fraction and converts up to 100% of Air output to Magic at 10% per perk. Conversion runs after additive outputs and Dark Magic; cross-perk conversion order is an explicit builder convention." },
         "source": {
             "cardId": "69214b9731723704c1eda37c",
             "cardUrl": "https://trello.com/c/Cs2JybzB"
-        },
+        }
     },
     splinter: {
         id: "splinter",
@@ -3384,23 +3664,27 @@ export const Perks = {
         name: "Spring Powered",
         category: "Perk",
         description: "Grants increased damage based on your jump boost. Additionally using your roll gives you bounce.",
-        sourcepotencies: {
-            bouncepotency: 0.1,
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) ? 0.005 * (this.stats.JumpBoost || 0) * amount : null;
         },
+        getSourcePotencies(amount) { return { bouncepotency: 0.1 * amount }; },
+        support: { "status": "Partial", "details": "Adds 0.5% damage per Jump Boost per perk and offers a 0.1 * perk amount Bounce source. Roll activation and duration are manual." },
         "source": {
             "cardId": "69214b9831723704c1edaedc",
             "cardUrl": "https://trello.com/c/4uEh794y"
-        },
+        }
     },
     spring_step: {
         id: "spring_step",
         name: "Spring Step",
         category: "Perk",
         description: "Increases jump height after using a weapon art.",
+        getSourcePotencies(amount) { return { bouncepotency: amount / 5 }; },
+        support: { "status": "Partial", "details": "Offers perk amount / 5 Bounce potency for manual selection after a Weapon Art. Automatic cast activation and duration are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda36e",
             "cardUrl": "https://trello.com/c/wpTVMn3G"
-        },
+        }
     },
     springblast: {
         id: "springblast",
@@ -3430,10 +3714,16 @@ export const Perks = {
         name: "Star Barrage",
         category: "Perk",
         description: "Using a weapon art increases your attack speed for a short period of time",
+        statPriority: -10,
+        onStatCalculation(amount) {
+            if (positivePerk(amount) && hasBuff(this, "star_barrage"))
+                addStat(this, "AttackSpeed", 20 + 25 * amount);
+        },
+        support: { "status": "Partial", "details": "Select Star Barrage to add 20 + 25 * perk amount Attack Speed percentage points. Uses the equipped perk for a self-buff preview; activation, duration, and transferred buffs are manual." },
         "source": {
             "cardId": "69214b9731723704c1eda3ec",
             "cardUrl": "https://trello.com/c/xrX4I7k4"
-        },
+        }
     },
     star_friendship: {
         id: "star_friendship",
@@ -3490,10 +3780,15 @@ export const Perks = {
         name: "Steam Powered",
         category: "Perk",
         description: "Gain a universal Damage Boost scaling off of your Air Boost, but in turn gain a chance to take minor Fire Damage and set yourself on fire upon dealing any.",
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) ? (2 / 15) * (this.stats.AirBoost || 0) * amount / 100 : null;
+        },
+        sourcepotencies: { burnpotency: 1 },
+        support: { "status": "Partial", "details": "Applies the separate universal (2/15 * Air Boost * perk amount)% damage bonus. Offers the documented fixed 1-potency self-Burn source. Chance, self-hit damage, and automatic application are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda4ae",
             "cardUrl": "https://trello.com/c/xkEv6XS5"
-        },
+        }
     },
     sticky_guard: {
         id: "sticky_guard",
@@ -3520,10 +3815,14 @@ export const Perks = {
         name: "Sticky Swings",
         category: "Perk",
         description: "A chance to apply sticky on hit which increases pure magic damage taken and slows the opponent. Deal additional damage to opponents with sticky. Also makes all slows become sticky instead.",
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) && hasDebuff(this.target, "sticky") ? 0.15 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Adds 15% damage per perk against selected Sticky, separately from Sticky's own Magic vulnerability. Random application and Slow conversion are manual." },
         "source": {
             "cardId": "69214b9731723704c1eda47a",
             "cardUrl": "https://trello.com/c/Vau2WfCJ"
-        },
+        }
     },
     stoneskin: {
         id: "stoneskin",
@@ -3627,13 +3926,17 @@ export const Perks = {
         name: "Swift Guard",
         category: "Perk",
         description: "Gain Reinforce when you Dodge an Attack. Additionally, increases your Physical Defense scaling off of your Dexterity Boost.",
-        sourcepotencies: {
-            reinforcepotency: 0.2,
+        statPriority: 40,
+        onStatCalculation(amount) {
+            if (positivePerk(amount))
+                addStat(this, "PhysicalDefense", 0.1 * (this.stats.DexterityBoost || 0) * amount);
         },
+        getSourcePotencies(amount) { return { reinforcepotency: 0.2 * amount }; },
+        support: { "status": "Partial", "details": "Adds 10% of Dexterity Boost per perk to Physical Defense after redistribution and Quick Witted. Select its 0.2 * perk amount Reinforce source after a successful dodge; automatic dodges are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda368",
             "cardUrl": "https://trello.com/c/IM6fJaTL"
-        },
+        }
     },
     tailwind: {
         id: "tailwind",
@@ -3680,10 +3983,12 @@ export const Perks = {
         name: "Toadzerker Spirit",
         category: "Perk",
         description: "Release your Spiritual Energy with an RMB, which conjurers a Spiritual Toadzerker that leaps into the air before slamming down in a large AoE.",
+        sourcepotencies: { bouncepotency: 0.2, ragepotency: 0.2 },
+        support: { "status": "Partial", "details": "Offers fixed 0.2 Bounce and Rage sources after spirit activation. The summon/slam damage, spiritual energy, and duration are not simulated." },
         "source": {
             "cardId": "69214b9831723704c1edac8c",
             "cardUrl": "https://trello.com/c/JUK2ys4d"
-        },
+        }
     },
     torpedo_barrage: {
         id: "torpedo_barrage",
@@ -3700,20 +4005,32 @@ export const Perks = {
         name: "Toxin Caster",
         category: "Perk",
         description: "Magic Damage from Weapon Arts or Runes Poisons the enemy. Additionally, Weapon Arts and Runes gains a Damage Boost scaling off of your Poison potency.",
+        onDmgBonusMultiplier(amount, args) {
+            if (!positivePerk(amount) || !isRuneOrWeaponArtHit(args) || (this.damageTypes.Magic || 0) <= 0)
+                return null;
+            return 0.05 * (this.potencies.poisonpotency || 0) * amount;
+        },
+        support: { "status": "Partial", "details": "Rune/Weapon Art packets containing pure Magic gain 5% damage per additive Poison Potency point per perk, boosting the whole packet. Target Poison is not required. Poison application and unspecified innate potency remain manual." },
         "source": {
             "cardId": "69214b9731723704c1eda34c",
             "cardUrl": "https://trello.com/c/RuchhWoQ"
-        },
+        }
     },
     toxin_transfer: {
         id: "toxin_transfer",
         name: "Toxin Transfer",
         category: "Perk",
         description: "Hitting someone when poisoned does bonus hex damage and poisons them. Grants poison potency.",
+        outputPriority: 100,
+        onOutputCalculation(amount, args) {
+            if (positivePerk(amount) && hasDebuff(this, "poison") && isProcHit(args))
+                addOutput(this, "Hex", 0.05 * amount);
+        },
+        support: { "status": "Partial", "details": "Proc-capable direct hits while self-Poisoned gain 0.05 Hex output per perk and do not consume your Poison. Applying target Poison before Curse Rip remains manual; no unknown innate potency is invented." },
         "source": {
             "cardId": "69214b9731723704c1eda4a6",
             "cardUrl": "https://trello.com/c/KqD6pP2y"
-        },
+        }
     },
     trickster: {
         id: "trickster",
@@ -3740,10 +4057,25 @@ export const Perks = {
         name: "True Balance",
         category: "Perk",
         description: "Your Hex and Holy Boosts are averaged out and increased by 66%. All healing now has additional Hex Scaling, and all Damage has additional Holy Scaling. Additionally, applying a Debuff grants you a corresponding Buff at a low duration and potency.",
+        statPriority: 70,
+        onStatCalculation(amount) {
+            if (!positivePerk(amount))
+                return;
+            const value = roundPerkValue(((this.stats.HexBoost || 0) + (this.stats.HolyBoost || 0)) / 2 * 1.66);
+            this.stats.HexBoost = value;
+            this.stats.HolyBoost = value;
+        },
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) ? 3 / 25 * amount * (this.stats.HolyBoost || 0) / 100 : null;
+        },
+        getSourcePotencies(amount) {
+            return { ragepotency: 0.1 * amount, regenpotency: 0.1 * amount, reinforcepotency: 0.1 * amount, tailwindpotency: 0.1 * amount };
+        },
+        support: { "status": "Partial", "details": "Averages Hex/Holy Boost and increases both by the card's fixed 66%, then grants (3/25 * perk amount * Holy Boost)% separate damage. Offers manual Rage/Regen/Reinforce/Tailwind sources. Healing, Inspired, automatic debuff-to-buff mapping, and unverified cross-conversion order are outside this calculation." },
         "source": {
             "cardId": "69214b9731723704c1eda4b4",
             "cardUrl": "https://trello.com/c/vpNISefp"
-        },
+        }
     },
     true_moon: {
         id: "true_moon",
@@ -3800,20 +4132,32 @@ export const Perks = {
         name: "Valor",
         category: "Perk",
         description: "Gain a shield if you are using a one handed weapon which further reduces damage taken when blocking. Additionally weapon arts taunt enemies. Hitting taunted enemies causes you to deal bonus damage.",
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) && hasDebuff(this.target, "taunt") ? 0.0666 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Selected target Taunt grants 6.66% damage per perk. Weapon Art Taunt application and the one-handed shield/blocking behavior are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda95e",
             "cardUrl": "https://trello.com/c/WbuVXjxJ"
-        },
+        }
     },
     vampire: {
         id: "vampire",
         name: "Vampire",
         category: "Perk",
         description: "Gain bonus Damage and Defense in the shadows but lose them and deal even less in sunlight. Additionally, lose the ability to heal in inns and receive less healing overall, but gain the ability to heal on Kill and Posture Breaking.",
+        onDmgBonusMultiplier(amount) {
+            const light = lighting(this);
+            return positivePerk(amount) && light ? 0.0666 * amount * (light === "sunlight" ? 0.5 : 1) : null;
+        },
+        onDmgReducedMultiplier(amount) {
+            return positivePerk(amount) && lighting(this) === "shadow" ? 0.0333 * amount : null;
+        },
+        support: { "status": "Partial", "details": "In Shadows grants 6.66% damage and 3.33% diminishing-return reduction per perk. In Sunlight halves that damage bonus and removes reduction. Unknown lighting grants neither. Healing penalties, kill healing, and inn restrictions are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda3e0",
             "cardUrl": "https://trello.com/c/O7ET7Qs9"
-        },
+        }
     },
     vapor_aegis: {
         id: "vapor_aegis",
@@ -3849,6 +4193,17 @@ export const Perks = {
         name: "Venom Eater",
         category: "Perk",
         description: "If you hit a poisoned opponent that was poisoned by you remove the poison, crit, deal bonus damage, and heal slightly. But reduces crit damage at low amounts. Grants poison potency.",
+        onDmgBonusMultiplier(perkAmount) {
+            return perkAmount && perkAmount > 0 && this.activeProcs?.includes("venom_eater") ? 0.1 * perkAmount : null;
+        },
+        onCritRateCalculation() {
+            return this.activeProcs?.includes("venom_eater") ? 1 : null;
+        },
+        onCritDamageCalculation(perkAmount) {
+            // Replace the ordinary +50% base with +20%, then add +10% per perk.
+            return perkAmount && perkAmount > 0 ? -0.3 + 0.1 * perkAmount : null;
+        },
+        support: { "status": "Partial", "details": "Base crit damage is 1.2x + 0.1x per perk. Select Venom Eater Proc with attacker-owned Poison for guaranteed crit and 10% damage per perk. Poison ordering is a manual preview choice; healing and automatic triggers are not calculated." },
         "source": {
             "cardId": "69214b9731723704c1eda3f8",
             "cardUrl": "https://trello.com/c/jwcQQv1k"
@@ -3859,10 +4214,15 @@ export const Perks = {
         name: "Venom Spitter",
         category: "Perk",
         description: "Deal more damage to poisoned opponents additionally your finishers shoot out a blast of poisonous venom.",
+        onDmgBonusMultiplier(amount) {
+            return positivePerk(amount) && hasDebuff(this.target, "poison") ? 0.1 * amount : null;
+        },
+        getSourcePotencies(amount) { return { poisonpotency: 0.1 * amount }; },
+        support: { "status": "Partial", "details": "Adds 10% damage per perk against selected Poison and offers 0.1 innate Poison potency per perk. Finisher projectiles, hit decay, and automatic application are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda476",
             "cardUrl": "https://trello.com/c/4yuZf0wL"
-        },
+        }
     },
     vile_presence: {
         id: "vile_presence",
@@ -3939,10 +4299,12 @@ export const Perks = {
         name: "Warding Tides",
         category: "Perk",
         description: "Using an ability that can cleanse debuffs applies reinforce when used.",
+        getSourcePotencies(amount) { return { reinforcepotency: 0.2 * amount }; },
+        support: { "status": "Partial", "details": "Offers a 0.2 * perk amount Reinforce source for manual selection after a cleansing ability. Automatic ability detection/application is not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda396",
             "cardUrl": "https://trello.com/c/k5KWGJHo"
-        },
+        }
     },
     wave_rider: {
         id: "wave_rider",
@@ -3959,10 +4321,12 @@ export const Perks = {
         name: "Weakening",
         category: "Perk",
         description: "Small chance to apply weakness on hit.",
+        getSourcePotencies(amount) { return { weakeningpotency: amount / 5 }; },
+        support: { "status": "Partial", "details": "Offers perk amount / 5 innate Weakness potency. The selected status uses the shared 1/(1+potency) damage formula. Chance rolls and hit application are manual." },
         "source": {
             "cardId": "69214b9731723704c1eda356",
             "cardUrl": "https://trello.com/c/eh8FjtrX"
-        },
+        }
     },
     weighty_slam: {
         id: "weighty_slam",
@@ -3979,10 +4343,17 @@ export const Perks = {
         name: "Whirl Foot",
         category: "Perk",
         description: "Increases your Speed Boost scaling off your Air Boost. Additionally gain dodge chance based on your movement speed and when dodging gain tailwind.",
+        statPriority: 50,
+        onStatCalculation(amount) {
+            if (positivePerk(amount))
+                addStat(this, "SpeedBoost", 0.05 * (this.stats.AirBoost || 0) * amount);
+        },
+        getSourcePotencies(amount) { return { tailwindpotency: amount / 10 }; },
+        support: { "status": "Partial", "details": "Adds 5% of Air Boost per perk to Speed Boost. Offers perk amount / 10 Tailwind as a manually selected post-dodge source; dodge chance and automatic application are not simulated." },
         "source": {
             "cardId": "69214b9831723704c1edae96",
             "cardUrl": "https://trello.com/c/bvtL5MFR"
-        },
+        }
     },
     whirlwind: {
         id: "whirlwind",
@@ -4022,10 +4393,19 @@ export const Perks = {
         name: "Wind Walker",
         category: "Perk",
         description: "While under the effects of Tailwind, your Weapon Arts deal increased Knockback and gains Armor Penetration. Additionally, Tailwind lasts longer.",
+        outputPriority: 100,
+        onOutputCalculation(amount, args) {
+            if (positivePerk(amount) && hasBuff(this, "tailwind") && args?.baseDamageData?.sourceType === "WeaponArt")
+                addOutput(this, "Air", 0.15 * amount);
+        },
+        onArmorPenCalculation(amount, args) {
+            return positivePerk(amount) && hasBuff(this, "tailwind") && args?.baseDamageData?.sourceType === "WeaponArt" ? 10 * amount : null;
+        },
+        support: { "status": "Partial", "details": "With selected Tailwind, Weapon Arts gain 0.15 Air output and 10 penetration per perk, regardless of Tailwind potency. Knockback and Tailwind duration are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda46c",
             "cardUrl": "https://trello.com/c/2VtmfMab"
-        },
+        }
     },
     winter_woof_spirit: {
         id: "winter_woof_spirit",
@@ -4042,23 +4422,24 @@ export const Perks = {
         name: "Woof Spirit",
         category: "Perk",
         description: "Release your Spiritual Energy as a large howl on RMB., which inflicts Weaken.",
+        sourcepotencies: { weakeningpotency: 0.5 },
+        support: { "status": "Partial", "details": "Offers fixed 0.5 Weakness potency after the spirit howl. The howl attack, healing, spiritual energy, and duration are not simulated." },
         "source": {
             "cardId": "69214b9831723704c1edac84",
             "cardUrl": "https://trello.com/c/0AykNlOE"
-        },
+        }
     },
     wrathful_crits: {
         id: "wrathful_crits",
         name: "Wrathful Crits",
         category: "Perk",
         description: "When you Crit, gain Rage for a brief duration.",
-        sourcepotencies: {
-            ragepotency: 0.1,
-        },
+        getSourcePotencies(amount) { return { ragepotency: 0.1 * amount }; },
+        support: { "status": "Partial", "details": "Offers a 0.1 * perk amount Rage source after a crit. Select Rage manually; automatic critical-hit activation and duration are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1eda382",
             "cardUrl": "https://trello.com/c/WPLSJfQR"
-        },
+        }
     },
     ascended_enchant_perks: {
         id: "ascended_enchant_perks",
@@ -4185,10 +4566,14 @@ export const Perks = {
         name: "Undead Might",
         category: "Perk",
         description: "Weapon arts and runes gain bonus damage but you take self damage when hitting an opponent with a rune or weapon art.",
+        onDmgBonusMultiplier(amount, args) {
+            return positivePerk(amount) && isRuneOrWeaponArtHit(args) ? 0.25 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Rune and Weapon Art packets gain 25% damage per perk. Self-damage and multi-enemy self-damage reduction are not simulated." },
         "source": {
             "cardId": "69214b9731723704c1edaab0",
             "cardUrl": "https://trello.com/c/DiNCzYsD"
-        },
+        }
     },
     wall: {
         id: "wall",

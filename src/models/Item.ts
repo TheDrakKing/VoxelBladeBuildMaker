@@ -88,6 +88,9 @@ export type potency =
   | "shatterpotency"
   | "lightningcloakpotency"
   | "tauntpotency"
+  | "tailwindpotency"
+  | "bloodlustpotency"
+  | "despairpotency"
   | "weakeningpotency";
 
 export const potencyAliases: { [k in potency]: string } = {
@@ -102,6 +105,9 @@ export const potencyAliases: { [k in potency]: string } = {
   shatterpotency: "Shatter Potency",
   lightningcloakpotency: "Lightning Cloak Potency",
   tauntpotency: "Taunt Potency",
+  tailwindpotency: "Tailwind Potency",
+  bloodlustpotency: "Blood Lust Potency",
+  despairpotency: "Despair Potency",
   weakeningpotency: "Weakening Potency",
 };
 

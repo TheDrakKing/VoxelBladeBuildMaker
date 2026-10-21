@@ -8,6 +8,8 @@ export class Race {
         this.category = data?.category || "Race";
         this.description = data?.description || "";
         this.racepassive = data?.racepassive || "";
+        this.source = data?.source;
+        this.flatAttackSpeed = data?.flatAttackSpeed;
         this.stats = data?.stats || {};
         this.perks = data?.perks || {};
         this.img = data?.img || "";
@@ -19,8 +21,8 @@ export class RaceStore {
         if (name && typeof name !== "string")
             return name;
         name = (name || "").trim();
-        const id = Item.toID(name);
-        return this.getByID(id);
+        const match = Object.entries(racesTable).find(([id, race]) => id === name || race.name.toLowerCase() === name.toLowerCase());
+        return this.getByID(match?.[0] || Item.toID(name));
     }
     static getByID(id) {
         let race = this.raceCache.get(id);

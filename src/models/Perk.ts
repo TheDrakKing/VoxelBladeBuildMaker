@@ -8,6 +8,17 @@ export type perkDataTable = { [id: string]: Perk };
 const perksTable: perkDataTable = Perks;
 
 export type PerkEventName = "onPerkMod" | "onStatCalculation";
+type PerkCalculationEventName = PerkEventName | "onOutputCalculation";
+export interface CooldownEffect {
+  sources: ("Rune" | "WeaponArt")[];
+  ratePerPerk?: number;
+  directBase?: number;
+  directPerPerk?: number;
+  requiredBuff?: string;
+  requiredDebuff?: string;
+  requiresBuffsOnly?: boolean;
+  abilityId?: string;
+}
 export type SortedPerkEventEntry = {
   perkId: string;
   amount: number;
@@ -28,7 +39,7 @@ export function getPerkSupport(perk: Perk): PerkSupport {
   }
   if (perk.id === "voltaic_body") return { status: "Partial", details: "Charged-hit damage preview. Select Static Charge to choose hit count; activation and cooldown are not simulated." };
   const hasBehavior = Object.values(perk).some((value) => typeof value === "function") ||
-    !!(perk.stats || perk.sourcepotencies || perk.baseDamage || perk.critical);
+    !!(perk.stats || perk.sourcepotencies || perk.baseDamage || perk.critical || perk.cooldown);
   return hasBehavior
     ? { status: "Partial", details: "Some effects are calculated. Trigger timing and the complete interaction rules are not implemented." }
     : { status: "Unsupported", details: "Listed for reference; this perk's effects are not currently calculated." };
@@ -43,6 +54,8 @@ export class Perk extends Item.events {
   category?: string;
   description?: string;
   statPriority?: number;
+  outputPriority?: number;
+  cooldown?: CooldownEffect;
   baseDamage?: number;
   stats?: { [k in Item.stat]?: number };
   /**
@@ -61,6 +74,8 @@ export class Perk extends Item.events {
    * source potencies don't get added to the build, they are for exmaple rage run which has base 0.3 potency when actvited
    */
   sourcepotencies?: { [k in Item.potency]?: number };
+  /** Innate source potency at the equipped (possibly fractional) perk amount. */
+  getSourcePotencies?: (perkAmount: number) => Partial<Record<Item.potency, number>>;
   getPerkDamageInfo?:(this: Build, perkAmount?: number) => baseDamageData | null;
 
 
@@ -84,7 +99,7 @@ export class Perk extends Item.events {
 
 export function getSortedPerkEventEntries(
   perks: { [id: string]: number },
-  eventName: PerkEventName,
+  eventName: PerkCalculationEventName,
 ): SortedPerkEventEntry[] {
   const entries: SortedPerkEventEntry[] = [];
 
@@ -92,14 +107,15 @@ export function getSortedPerkEventEntries(
     if (amount === undefined) continue;
 
     const perk = PerkStore.getByID(perkId) as Perk &
-      Partial<Record<PerkEventName, Function>>;
+      Partial<Record<PerkCalculationEventName, Function>>;
     if (!perk[eventName]) continue;
 
     entries.push({ perkId, amount, perk });
   }
 
   entries.sort((left, right) => {
-    const priorityDiff = (right.perk.statPriority ?? 0) - (left.perk.statPriority ?? 0);
+    const priority = eventName === "onOutputCalculation" ? "outputPriority" : "statPriority";
+    const priorityDiff = (right.perk[priority] ?? 0) - (left.perk[priority] ?? 0);
     if (priorityDiff !== 0) return priorityDiff;
 
     return left.perk.name.localeCompare(right.perk.name);

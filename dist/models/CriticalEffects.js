@@ -1,10 +1,10 @@
 import { PerkStore } from "./Perk.js";
 export function collectCriticalEffects(holder, packet) {
-    const result = { chance: 0, damage: 0, armorPen: 0, hitMultiplier: 1, bypassArmor: false };
+    const result = { chance: 0, damage: 0, armorPen: 0, hitMultiplier: 1, bypassArmor: false, replacesDexterityChance: false };
     if (packet.canCrit === false)
         return result;
     for (const [id, amount] of Object.entries(holder.perks)) {
-        if (!amount || !Number.isFinite(amount))
+        if (!amount || amount < 0 || !Number.isFinite(amount))
             continue;
         const perk = PerkStore.getByID(id);
         const effect = perk.critical;
@@ -20,6 +20,7 @@ export function collectCriticalEffects(holder, packet) {
             damage += (holder.stats[statId] || 0) * coefficient * amount;
         }
         result.chance += chance;
+        result.replacesDexterityChance || (result.replacesDexterityChance = !!effect.replacesDexterityChance);
         result.damage += damage;
         result.armorPen += (effect.armorPenPerPerk || 0) * amount;
         result.hitMultiplier *= Math.max(0, 1 + (effect.hitDamagePerPerk || 0) * amount);

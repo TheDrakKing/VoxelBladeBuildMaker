@@ -239,6 +239,11 @@ function scheduleWorkspaceSave() {
         persistWorkspaceToStorage();
     }, 150);
 }
+// Preserve the latest selected condition even if the page exits before the debounce fires.
+window.addEventListener("pagehide", () => {
+    if (workspaceSaveTimer !== null)
+        persistWorkspaceToStorage();
+});
 function normalizeSavedWorkspace(value) {
     if (!value || typeof value !== "object")
         return null;
@@ -580,6 +585,19 @@ function renderDirectDamagePanel(item, damageResult, options) {
     createStatHolder(options.title, item.name || options.title, options.containerDiv);
     createStatHolder("Description", item.description || options.noDamageMessage, options.containerDiv);
 }
+function appendRaceCooldownPreview(container, base, source, abilityId) {
+    const preview = build.getCooldownPreview(base, source, abilityId);
+    if (!preview) {
+        createStatHolder("Cooldown", "Not documented", container);
+        return;
+    }
+    createStatHolder("Base cooldown", `${base}s`, container);
+    const row = createStatHolder("Cooldown (reviewed effects)", `${preview.value}s`, container);
+    const rates = Object.entries(preview.rates).map(([name, rate]) => `${name}: ${Math.round(rate * 10000) / 100}% CDR`);
+    const factors = Object.entries(preview.factors).map(([name, factor]) => `${name}: x${factor}`);
+    if (row)
+        row.title = [...rates, ...factors, "Reviewed CDR rates are summed; direct factors multiply. Triggered resets, elapsed cooldown, and unreviewed effects are not simulated."].join("; ");
+}
 function renderRunePanel(rune, damageResult) {
     renderDirectDamagePanel(rune, damageResult, {
         category: "Rune",
@@ -588,6 +606,8 @@ function renderRunePanel(rune, damageResult) {
         noDamageMessage: "This rune does not have direct damage data.",
         title: "Rune",
     });
+    if (rune)
+        appendRaceCooldownPreview(runeDamageContainerDiv, rune.cooldown, "Rune", rune.id);
 }
 function renderWeaponArtPanel(weaponArt, damageResult) {
     renderDirectDamagePanel(weaponArt, damageResult, {
@@ -597,6 +617,8 @@ function renderWeaponArtPanel(weaponArt, damageResult) {
         noDamageMessage: "This weapon art does not deal direct damage.",
         title: "Weapon Art",
     });
+    if (weaponArt)
+        appendRaceCooldownPreview(weaponArtDamageContainerDiv, weaponArt.coolDown, "WeaponArt", weaponArt.id);
 }
 function createItemBox(item) {
     if (selectItem_template == null)
@@ -746,7 +768,7 @@ function createBuffBox(buff, ContainerDiv, source) {
     const inputs = clonedDiv.querySelectorAll("input");
     inputs.forEach((input) => (input.value = ""));
     clonedDiv.style.display = "flex";
-    if (buff.potencyId || buff.stacks !== undefined)
+    if (buff.potencyId || buff.stacks !== undefined || buff.id === "blood_thirsty_proc" || buff.id === "venom_eater_proc")
         clonedDiv.classList.add("status-scenario");
     var itemBoxImg = clonedDiv.children[0].children[0].children[0];
     itemBoxImg.src = buff.img ? resolveAssetPath(buff.img) : "";
@@ -778,6 +800,35 @@ function createBuffBox(buff, ContainerDiv, source) {
     itemButton?.addEventListener("mouseleave", () => {
         mouseLeave();
     });
+    const consumingProc = buff.id === "blood_thirsty_proc" ? { perk: "blood_thirsty", status: "bleed", name: "Bleed" } :
+        buff.id === "venom_eater_proc" ? { perk: "venom_eater", status: "poison", name: "Poison" } : undefined;
+    if (consumingProc) {
+        const holder = source || build;
+        const recipient = holder.target;
+        const owned = recipient?.deBuffs?.some(status => status.id === consumingProc.status && status.getSourceBuild(recipient) === holder);
+        const note = document.createElement("span");
+        note.className = "proc-state";
+        note.textContent = !(holder.perks[consumingProc.perk] > 0) ? "Matching perk required" :
+            owned ? `Ready: consumes your ${consumingProc.name}` : `Needs your ${consumingProc.name} on target`;
+        clonedDiv.appendChild(note);
+    }
+    if (buff.id === "venom_eater_proc") {
+        const label = document.createElement("label");
+        label.textContent = "Consume ";
+        label.title = "Poison-dependent bonus ordering is not established by the source. Choose whether Poison remains for this hit's other bonuses.";
+        const select = document.createElement("select");
+        select.setAttribute("aria-label", "Venom Eater consumption timing");
+        for (const [value, text] of [["after", "After hit"], ["before", "Before hit"]]) {
+            const option = document.createElement("option");
+            option.value = value;
+            option.textContent = text;
+            select.appendChild(option);
+        }
+        select.value = buff.consumptionTiming || "after";
+        select.addEventListener("change", () => { buff.consumptionTiming = select.value === "before" ? "before" : "after"; resetPage(); });
+        label.appendChild(select);
+        clonedDiv.appendChild(label);
+    }
     if (buff.potencyId) {
         const ownerLabel = document.createElement("label");
         ownerLabel.textContent = "Applied by ";
@@ -805,8 +856,9 @@ function createBuffBox(buff, ContainerDiv, source) {
         ownerLabel.appendChild(ownerSelect);
         clonedDiv.appendChild(ownerLabel);
         const label = document.createElement("label");
-        label.textContent = "Potency ";
-        label.title = "Effective potency in game units. Leave blank for the selected source and build bonuses.";
+        label.textContent = buff.getDamageInfo ? "DoT potency " : "Potency ";
+        label.title = buff.getDamageInfo ? "Additive DoT potency in game units. Source potency stays separate. Leave blank for the applying build's bonuses." :
+            "Effective potency in game units. Leave blank for the selected source and build bonuses.";
         const input = document.createElement("input");
         input.type = "number";
         input.min = "0";
@@ -904,6 +956,11 @@ function createHoverInfoSection(title) {
     itemHoverInfoDiv.appendChild(sectionDiv);
     return bodyDiv;
 }
+function formatStatDisplay(value, key) {
+    if (typeof value !== "number")
+        return value;
+    return ["JumpBoost", "Protection", "Tenacity", "ArmorPenetration"].includes(key) ? value : `${value}%`;
+}
 function getHoverRows(values, options) {
     const rows = [];
     if (!values)
@@ -945,8 +1002,13 @@ function renderHoverInfo(options) {
 }
 function mouseHover(item) {
     const statRows = getHoverRows(item.stats, {
-        valueFormatter: (value) => typeof value === "number" ? `${value}%` : value,
+        valueFormatter: formatStatDisplay,
     });
+    if (item.category?.toLowerCase() === "rune") {
+        const cooldown = build.getCooldownPreview(item.cooldown, "Rune", item.id);
+        if (cooldown)
+            statRows.unshift({ label: "Base cooldown", value: `${item.cooldown}s` }, { label: "Cooldown (reviewed effects)", value: `${cooldown.value}s` });
+    }
     if (item.attackSpeed !== undefined) {
         statRows.unshift({ label: "AttackSpeed", value: item.attackSpeed });
     }
@@ -979,7 +1041,6 @@ function perkHover(perk, value) {
     const statRows = [];
     const support = Perk.getPerkSupport(perk);
     statRows.push({ label: "Support", value: support.status });
-    statRows.push({ label: "Calculated effects", value: support.details });
     if (value !== undefined) {
         statRows.push({ label: "Perk Level", value });
     }
@@ -989,8 +1050,14 @@ function perkHover(perk, value) {
         sourceUrl: perk.source?.cardUrl,
         sections: [
             { title: "Stats", rows: statRows },
+            { title: "Available innate sources", rows: getHoverRows(perk.getSourcePotencies?.(value ?? 1) ?? perk.sourcepotencies, {
+                    labelFormatter: key => ItemModule.potencyAliases[key] || key,
+                    valueFormatter: value => typeof value === "number" ? Math.round(value * 10000) / 10000 : value,
+                }) },
         ],
     });
+    const coverage = createHoverInfoSection("Calculated effects");
+    coverage.appendChild(createHoverInfoText("item_hoverinfo_description", support.details));
 }
 function buffHover(buff) {
     const statRows = [];
@@ -1009,6 +1076,12 @@ function buffHover(buff) {
     }
     if (buff.potencyId)
         sourceRows.push({ label: "Applied by", value: buff.getAppliedBy() === "self" ? "Self" : "Opponent" });
+    if (buff.id === "blood_thirsty_proc")
+        statRows.push({ label: "Scenario", value: "Consumes your Bleed before Bleed-related bonuses on the first eligible hit. Healing is not calculated." });
+    if (buff.id === "venom_eater_proc")
+        statRows.push({ label: "Scenario", value: "Consumes your Poison and guarantees a critical hit. Consumption order is selected manually; healing is not calculated." });
+    if (buff.getDamageInfo)
+        statRows.push({ label: "DoT potency", value: "Additive potency is separate from the source multiplier. Zero additive potency still deals base DoT damage." });
     if (buff.id === "scourge_proc")
         statRows.push({ label: "Scenario", value: "Scourge bonus applies to the selected hit; no automatic roll." });
     if (buff.sourceData) {
@@ -1026,6 +1099,14 @@ function buffHover(buff) {
             { title: "Source", rows: sourceRows },
         ],
     });
+    if (buff.id === "protection_shield_active") {
+        const scenario = createHoverInfoSection("Scenario");
+        scenario.appendChild(createHoverInfoText("item_hoverinfo_description", "Select while your Protection shield has capacity remaining. Enables Carapace damage reduction; shield depletion is manual. This control does not count as an extra active game buff."));
+    }
+    if (buff.scenarioDetails) {
+        const details = createHoverInfoSection(buff.countsAsBuff === false ? "Scenario" : "Calculated effects");
+        details.appendChild(createHoverInfoText("item_hoverinfo_description", buff.scenarioDetails));
+    }
 }
 function guildHover(guild) {
     const promotionStatRows = [];
@@ -1058,9 +1139,26 @@ function guildHover(guild) {
         ],
     });
 }
+function raceHover(race) {
+    const passive = Object.keys(race.perks || {})[0];
+    const support = passive ? Perk.getPerkSupport(Perk.PerkStore.getByID(passive)) : undefined;
+    const rows = getHoverRows(race.stats, { valueFormatter: formatStatDisplay });
+    if (race.flatAttackSpeed !== undefined)
+        rows.push({ label: "Flat Attack Speed", value: race.flatAttackSpeed });
+    renderHoverInfo({
+        name: race.name, description: race.racepassive || race.description, sourceUrl: race.source?.cardUrl,
+        sections: [{ title: "Race stats", rows }],
+    });
+    if (support) {
+        const body = createHoverInfoSection(`Coverage: ${support.status}`);
+        body.appendChild(createHoverInfoText("item_hoverinfo_description", support.details));
+    }
+}
 function weaponArtHover(weaponArt) {
-    const statRows = [
-        { label: "Cooldown", value: weaponArt.coolDown || 1 },
+    const cooldown = build.getCooldownPreview(weaponArt.coolDown, "WeaponArt", weaponArt.id);
+    const statRows = cooldown === undefined ? [{ label: "Cooldown", value: "Not documented" }] : [
+        { label: "Base cooldown", value: `${weaponArt.coolDown}s` },
+        { label: "Cooldown (reviewed effects)", value: `${cooldown.value}s` },
     ];
     const requirementRows = [];
     if (weaponArt.baseDamage !== undefined) {
@@ -1111,7 +1209,7 @@ function displayStats() {
     for (const [key, value] of Object.entries(build.stats)) {
         if (value === undefined)
             continue;
-        createStatHolder(key, value + "%", statsContainerDiv);
+        createStatHolder(key, formatStatDisplay(value, key), statsContainerDiv);
     }
     perksContainerDiv.innerHTML = "";
     for (const [key, value] of Object.entries(build.perks)) {
@@ -1692,6 +1790,9 @@ raceSelector.addEventListener("change", (event) => {
         return;
     addItemToPage(RaceModule.RaceStore.get(selectedValue), "race", "race");
 });
+raceSelector.addEventListener("mouseenter", () => { if (build.race)
+    raceHover(build.race); });
+raceSelector.addEventListener("mouseleave", mouseLeave);
 shrineBalanceToggle.addEventListener("change", () => {
     build.shrineOfBalance = shrineBalanceToggle.checked;
     resetPage();

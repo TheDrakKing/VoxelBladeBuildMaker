@@ -18,7 +18,7 @@ export function getPerkSupport(perk) {
     if (perk.id === "voltaic_body")
         return { status: "Partial", details: "Charged-hit damage preview. Select Static Charge to choose hit count; activation and cooldown are not simulated." };
     const hasBehavior = Object.values(perk).some((value) => typeof value === "function") ||
-        !!(perk.stats || perk.sourcepotencies || perk.baseDamage || perk.critical);
+        !!(perk.stats || perk.sourcepotencies || perk.baseDamage || perk.critical || perk.cooldown);
     return hasBehavior
         ? { status: "Partial", details: "Some effects are calculated. Trigger timing and the complete interaction rules are not implemented." }
         : { status: "Unsupported", details: "Listed for reference; this perk's effects are not currently calculated." };
@@ -51,7 +51,8 @@ export function getSortedPerkEventEntries(perks, eventName) {
         entries.push({ perkId, amount, perk });
     }
     entries.sort((left, right) => {
-        const priorityDiff = (right.perk.statPriority ?? 0) - (left.perk.statPriority ?? 0);
+        const priority = eventName === "onOutputCalculation" ? "outputPriority" : "statPriority";
+        const priorityDiff = (right.perk[priority] ?? 0) - (left.perk[priority] ?? 0);
         if (priorityDiff !== 0)
             return priorityDiff;
         return left.perk.name.localeCompare(right.perk.name);

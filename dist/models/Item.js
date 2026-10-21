@@ -23,6 +23,9 @@ export const potencyAliases = {
     shatterpotency: "Shatter Potency",
     lightningcloakpotency: "Lightning Cloak Potency",
     tauntpotency: "Taunt Potency",
+    tailwindpotency: "Tailwind Potency",
+    bloodlustpotency: "Blood Lust Potency",
+    despairpotency: "Despair Potency",
     weakeningpotency: "Weakening Potency",
 };
 function normalizePotencyKey(value) {

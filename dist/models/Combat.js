@@ -289,9 +289,11 @@ function getCritParameters(attacker, outputType, packet) {
     const dexterityBonus = (attacker.stats.DexterityBoost || 0) / 1000;
     const bonusRate = sumCollectedValues(...collectEventModifications("onCritRateCalculation", attacker, outputType, packet, attacker.damageModifications.crit_mods));
     const bonusDamage = sumCollectedValues(...collectEventModifications("onCritDamageCalculation", attacker, outputType, packet, attacker.damageModifications.crit_mods));
-    const rate = Math.max(0, Math.min(1, (attacker.stats.CritRate || 0) / 100 + dexterityBonus + effects.chance + bonusRate));
+    const dexterityChance = effects.replacesDexterityChance ? 0 : dexterityBonus;
+    const rate = Math.max(0, Math.min(1, (attacker.stats.CritRate || 0) / 100 + dexterityChance + effects.chance + bonusRate));
     const damageBonus = Math.max(0, 0.5 + (attacker.stats.CritDamage || 0) / 100 + dexterityBonus + effects.damage + bonusDamage);
-    attacker.damageModifications.crit_mods["Dexterity chance/damage"] = dexterityBonus;
+    attacker.damageModifications.crit_mods["Dexterity chance"] = dexterityChance;
+    attacker.damageModifications.crit_mods["Dexterity damage"] = dexterityBonus;
     attacker.damageModifications.crit_mods["Crit Rate"] = rate;
     attacker.damageModifications.crit_mods["Crit Damage"] = damageBonus;
     return { rate, damageBonus, armorPen: effects.armorPen, hitMultiplier: effects.hitMultiplier, bypassArmor: effects.bypassArmor };
@@ -374,8 +376,7 @@ function applyOutputCalculationEffects(holder, baseDamageData) {
     applyStatusOutputCalculationEffects(holder, args);
 }
 function applyPerkOutputCalculationEffects(holder, args) {
-    for (const [perk, amount] of Object.entries(holder.perks)) {
-        const perkData = Perks.PerkStore.getByID(perk);
+    for (const { perk: perkData, amount } of Perks.getSortedPerkEventEntries(holder.perks, "onOutputCalculation")) {
         const callback = perkData.onOutputCalculation;
         if (!callback)
             continue;
@@ -414,10 +415,31 @@ function collectNumericDiffs(beforeValues, afterValues, sourceLabel, previewMap)
         previewMap[`${sourceLabel}: ${key}`] = diff;
     }
 }
+function prepareStatusConsumptions(attacker, target, packet) {
+    const pending = [];
+    if (packet.sourceType === "Status" || packet.tags?.includes("DoT") || packet.procCoefficient === 0)
+        return pending;
+    for (const [perkId, statusId] of [["blood_thirsty", "bleed"], ["venom_eater", "poison"]]) {
+        if ((attacker.perks[perkId] || 0) <= 0 || (perkId === "venom_eater" && packet.canCrit === false))
+            continue;
+        const selection = attacker.buff.find(status => status.id === `${perkId}_proc`);
+        if (!selection)
+            continue;
+        const owned = target.deBuffs.filter(status => status.id === statusId && status.getSourceBuild(target) === attacker);
+        if (!owned.length)
+            continue;
+        (attacker.activeProcs || (attacker.activeProcs = [])).push(perkId);
+        for (const status of owned)
+            pending.push({ status, perkId, before: perkId === "blood_thirsty" || selection.consumptionTiming === "before" });
+    }
+    target.deBuffs = target.deBuffs.filter(status => !pending.some(entry => entry.before && entry.status === status));
+    return pending;
+}
 function collectPerkOutputPreviewForPacket(attacker, target, packet, preview) {
     const targetBuild = createSerializedBuild(target);
     const attackerBuild = createSerializedBuild(attacker, undefined, targetBuild);
     targetBuild.target = attackerBuild;
+    prepareStatusConsumptions(attackerBuild, targetBuild, packet);
     const beforeDamageScalings = cloneNumericMap(attackerBuild.damageScalings);
     const beforeDamageTypes = cloneNumericMap(attackerBuild.damageTypes);
     applyPerkOutputCalculationEffects(attackerBuild, { baseDamageData: packet });
@@ -448,7 +470,7 @@ export function getActivePerkOutputPreview(attacker, target) {
     return preview;
 }
 /** Resolve the selected snapshot without mutating either saved build or its statuses. */
-export function resolveDamage(packet, attacker, target, attackerOverrides, targetOverrides) {
+function resolveDamageSnapshot(packet, attacker, target, attackerOverrides, targetOverrides) {
     const baseDamage = normalizeBaseDamagePacket(packet);
     if (!baseDamage)
         throw new Error("Damage must be a finite, nonnegative number.");
@@ -461,6 +483,8 @@ export function resolveDamage(packet, attacker, target, attackerOverrides, targe
         attackerBuild.statusOpponent = opponent;
         targetBuild.statusOpponent = opponent;
     }
+    const consumptions = prepareStatusConsumptions(attackerBuild, targetBuild, baseDamage);
+    const resolvedHitCount = consumptions.length ? 1 : baseDamage.hitAmount;
     applyOutputCalculationEffects(attackerBuild, baseDamage);
     const outputDamages = {};
     let perHit = createDamageBreakdown();
@@ -470,23 +494,45 @@ export function resolveDamage(packet, attacker, target, attackerOverrides, targe
             continue;
         const damage = calculateDamage(outputType, coefficient, baseDamage, attackerBuild, targetBuild, preOutputDamage);
         perHit = addDamageBreakdowns(perHit, damage);
-        outputDamages[outputType] = roundDamageBreakdown(multiplyDamageBreakdown(damage, baseDamage.hitAmount));
+        outputDamages[outputType] = multiplyDamageBreakdown(damage, resolvedHitCount);
+    }
+    let total = multiplyDamageBreakdown(perHit, resolvedHitCount);
+    const statusConsumptions = consumptions.map(entry => ({ statusId: entry.status.id, perkId: entry.perkId, hit: 1 }));
+    if (consumptions.length && baseDamage.hitAmount > 1) {
+        // No new applications are simulated. Remaining equal hits see the consumed status removed.
+        const remainingStatuses = targetBuild.deBuffs.filter(status => !consumptions.some(entry => entry.status === status));
+        const remaining = resolveDamageSnapshot({ ...baseDamage, hitAmount: baseDamage.hitAmount - 1 }, attacker, target, attackerOverrides, { ...targetOverrides, deBuffs: remainingStatuses });
+        total = addDamageBreakdowns(total, remaining.total);
+        for (const [type, damage] of Object.entries(remaining.outputs)) {
+            outputDamages[type] = addDamageBreakdowns(outputDamages[type] || createDamageBreakdown(), damage);
+        }
+        perHit = multiplyDamageBreakdown(total, 1 / baseDamage.hitAmount);
+        for (const entry of remaining.statusConsumptions || [])
+            statusConsumptions.push({ ...entry, hit: entry.hit + 1 });
     }
     return {
         outputs: outputDamages,
-        total: roundDamageBreakdown(multiplyDamageBreakdown(perHit, baseDamage.hitAmount)),
-        perHit: roundDamageBreakdown(perHit), hitCount: baseDamage.hitAmount,
+        total,
+        perHit, hitCount: baseDamage.hitAmount,
+        ...(statusConsumptions.length ? { statusConsumptions } : {}),
         modifiers: attackerBuild.damageModifications,
         effectiveBoosts: attackerBuild.effectiveBoosts,
         totalEffectiveBoost: attackerBuild.totEffBoost,
     };
+}
+/** Resolve a snapshot without changing saved builds; round once after the whole packet. */
+export function resolveDamage(packet, attacker, target, attackerOverrides, targetOverrides) {
+    const result = resolveDamageSnapshot(packet, attacker, target, attackerOverrides, targetOverrides);
+    return { ...result, total: roundDamageBreakdown(result.total), perHit: roundDamageBreakdown(result.perHit),
+        outputs: Object.fromEntries(Object.entries(result.outputs).map(([type, damage]) => [type, roundDamageBreakdown(damage)])) };
 }
 /** Preview a selected DoT using its actual applicant for both potency and offensive stats. */
 export function resolveStatusDamage(status, recipient) {
     if (!status.getDamageInfo)
         return null;
     const source = status.getSourceBuild(recipient);
-    const packet = normalizeBaseDamagePacket(status.getDamageInfo.call(recipient, status.getEffectivePotency(source)));
+    const potency = status.getDotPotencies(source);
+    const packet = normalizeBaseDamagePacket(status.getDamageInfo.call(recipient, potency.additive, potency.source));
     if (!packet)
         return null;
     return resolveDamage(packet, source, recipient, {

@@ -24,6 +24,12 @@ export class Buff extends ItemModule.events {
   /** User-selected effective potency in game units (0.1 = one potency point internally). */
   effectivePotencyOverride?: number;
   stacks?: number;
+  /** Scenario selectors and counters do not create an additional active game buff. */
+  countsAsBuff?: boolean;
+  exclusiveGroup?: "lighting" | "mount";
+  scenarioDetails?: string;
+  /** Manual ordering for the Venom Eater preview; the source does not establish this priority. */
+  consumptionTiming?: "before" | "after";
   /** Relative to the build carrying this status. Legacy buffs are self-applied, debuffs opponent-applied. */
   appliedBy?: "self" | "opponent";
   /**
@@ -40,7 +46,7 @@ export class Buff extends ItemModule.events {
    * if no source can is determined, then sourceType is Default and sourceInatePotency is 0.1
    */
   sourceData?: {source : string, sourceType: "Rune" | "Perk" | "WeaponArt" | "Default", sourceInatePotency: number}
-  getDamageInfo?:(this: Build, perkAmount?: number) => baseDamageData | null;
+  getDamageInfo?:(this: Build, additivePotency?: number, sourcePotency?: number) => baseDamageData | null;
   img?: string;
 
   constructor(data?: any) {
@@ -75,7 +81,15 @@ export class Buff extends ItemModule.events {
     return this.getAppliedBy() === "opponent" ? holder.statusOpponent || holder.target || holder : holder;
   }
 
-  getEffectivePotency(sourceBuild?: Pick<Build, "potencies">) {
+  getDotPotencies(sourceBuild?: Pick<Build, "potencies">) {
+    const override = this.effectivePotencyOverride;
+    const additive = typeof override === "number" && Number.isFinite(override)
+      ? Math.max(0, override) * 10
+      : Math.max(0, (this.potencyId ? sourceBuild?.potencies[this.potencyId] || 0 : 0) + (this.potency || 0) * 10);
+    return { additive, source: Math.max(0, this.sourceData?.sourceInatePotency || 0) };
+  }
+
+  getEffectivePotency(sourceBuild?: Pick<Build, "potencies"> & Partial<Pick<Build, "perks">>) {
     if (typeof this.effectivePotencyOverride === "number" && Number.isFinite(this.effectivePotencyOverride)) {
       return Math.max(0, this.effectivePotencyOverride) * 10;
     }
@@ -85,7 +99,9 @@ export class Buff extends ItemModule.events {
       : 0;
     const directPotency = this.potency || 0;
 
-    return (sourcePotency + (additivePotency / 10) + directPotency) * 10;
+    const bastion = sourceBuild?.perks?.bastion_bless || 0;
+    const multiplier = this.category === "Buff" && this.countsAsBuff !== false && Number.isFinite(bastion) && bastion > 0 ? 1 + 0.1 * bastion : 1;
+    return (sourcePotency + (additivePotency / 10) + directPotency) * 10 * multiplier;
   }
 }
 

@@ -6,6 +6,7 @@ import * as WeaponTypes from "../models/WeaponTypes.js";
 import { GuildStore } from "./Guild.js";
 import { RaceStore } from "./Race.js";
 import { WeaponArtStore } from "./WeaponArt.js";
+import { calculateCooldown } from "./Cooldowns.js";
 let damageMultiplier = {
     // damageMultiplier is the total of damage modification of a type
     damage_bonus_multiplier: {},
@@ -68,8 +69,20 @@ export class Build {
         const bladeAtkSpe = this.blade?.attackSpeed || 0;
         const handleAtkSpe = this.handle?.attackSpeed || 0;
         const avgAtkSpe = (bladeAtkSpe + handleAtkSpe) / 2;
-        const boost = this.stats.AttackSpeed ? 1 + (this.stats.AttackSpeed / 100) : 1;
-        this.weapon.attackSpeed = avgAtkSpe * boost;
+        // Percentage attack-speed points convert to a flat numeric speed bonus.
+        const statBonus = (this.stats.AttackSpeed || 0) / 100;
+        this.weapon.attackSpeed = roundBuildValue(avgAtkSpe + statBonus + (this.race?.flatAttackSpeed || 0));
+    }
+    /** Isolated race modifier; other cooldown perks and a cast timeline are not included. */
+    getRaceAdjustedCooldown(baseCooldown, source) {
+        if (baseCooldown === undefined || !Number.isFinite(baseCooldown) || baseCooldown < 0)
+            return undefined;
+        const multiplier = source === "Rune" && this.race?.id === "elf" ? 0.6 :
+            source === "WeaponArt" && this.race?.id === "high_elf" ? 0.75 : 1;
+        return roundBuildValue(baseCooldown * multiplier);
+    }
+    getCooldownPreview(baseCooldown, source, abilityId) {
+        return calculateCooldown(this, baseCooldown, source, abilityId);
     }
     getWeaponConstructionData() {
         if (!this.handle || !this.blade)
@@ -227,7 +240,7 @@ export class Build {
                         amount = value / 2;
                     }
                     this.stats[key] = previousValue !== undefined ? previousValue + amount : amount;
-                    this.stats[key] = roundBuildValue(this.stats[key], 2);
+                    this.stats[key] = roundBuildValue(this.stats[key], 4);
                 }
             }
             if (item.perks) {
@@ -289,12 +302,15 @@ export class Build {
         //look Though perks
         for (const [perkId, amount] of Object.entries(this.perks)) {
             const perk = PerkModule.PerkStore.get(perkId);
-            if (!perk || !perk.sourcepotencies || !perk.sourcepotencies[inatePotency])
+            if (!Number.isFinite(amount) || amount <= 0)
+                continue;
+            const innate = (perk.getSourcePotencies?.(amount) ?? perk.sourcepotencies)?.[inatePotency];
+            if (innate === undefined || !Number.isFinite(innate) || innate < 0)
                 continue;
             sources[perkId] = {
                 sourceName: perk.name,
                 type: "Perk",
-                inatePotency: perk.sourcepotencies[inatePotency],
+                inatePotency: roundBuildValue(innate),
             };
         }
         //look at rune
@@ -342,6 +358,8 @@ export class Build {
         if (buff.category == "Buff") {
             if (!this.buff)
                 this.buff = [];
+            if (buff.exclusiveGroup)
+                this.buff = this.buff.filter(existing => existing?.exclusiveGroup !== buff.exclusiveGroup);
             this.buff.push(buff);
         }
         else {
@@ -629,6 +647,7 @@ export class Build {
             potency: status.potency,
             effectivePotencyOverride: status.effectivePotencyOverride,
             stacks: status.stacks,
+            consumptionTiming: status.consumptionTiming,
             appliedBy: status.appliedBy,
         };
     }
@@ -646,6 +665,8 @@ export class Build {
                 status.effectivePotencyOverride = saved.effectivePotencyOverride;
             if (typeof saved.stacks === "number")
                 status.stacks = saved.stacks;
+            if (saved.consumptionTiming === "before" || saved.consumptionTiming === "after")
+                status.consumptionTiming = saved.consumptionTiming;
             if (saved.appliedBy === "self" || saved.appliedBy === "opponent")
                 status.appliedBy = saved.appliedBy;
             return status;

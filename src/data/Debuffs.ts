@@ -1,16 +1,16 @@
-function getStatusDamageFromPotency(potency?: number) {
-  if (!potency || potency <= 0) return null;
-
-  const scaledPotency = potency / 10;
-
-  if (potency < 10) {
-    return Math.pow(scaledPotency, 1 + scaledPotency) * (1 + potency / 15);
-  }
-
-  return Math.pow(scaledPotency, 2) * (1 + potency / 15);
+/** Board DoT formula: source multiplier and additive item potency remain separate. */
+function getStatusDamageFromPotency(additivePotency = 0, sourcePotency = 0) {
+  if (!Number.isFinite(additivePotency) || !Number.isFinite(sourcePotency)) return null;
+  const potency = Math.max(0, additivePotency) / 10;
+  return (1 + Math.max(0, sourcePotency)) * (1 + potency) ** (potency < 1 ? 1 + potency : 2);
 }
 
 export const Debuffs: import("../models/Buffs").BuffDataTable = {
+  despair: {
+    id: "despair", name: "Despair", category: "Debuff", potencyId: "despairpotency",
+    scenarioDetails: "Despair grants +8.5% damage per 0.1 effective potency to its holder. For Grounded Despair, select its source and Applied by Self. Jump/landing application and shockwave are manual.",
+    onDmgBonusMultiplier(potency) { return potency ? 0.085 * potency : null; },
+  },
   shatter: {
     id: "shatter",
     name: "Shatter",
@@ -38,8 +38,8 @@ export const Debuffs: import("../models/Buffs").BuffDataTable = {
     damageTypes: {
       Physical: 1,
     },
-    getDamageInfo(perkAmount) {
-      const baseDamage = getStatusDamageFromPotency(perkAmount);
+    getDamageInfo(additivePotency, sourcePotency) {
+      const baseDamage = getStatusDamageFromPotency(additivePotency, sourcePotency);
       if (baseDamage === null) return null;
       return {
         damage: baseDamage,
@@ -64,8 +64,8 @@ export const Debuffs: import("../models/Buffs").BuffDataTable = {
     damageTypes: {
       Fire: 1,
     },
-    getDamageInfo(perkAmount) {
-      const baseDamage = getStatusDamageFromPotency(perkAmount);
+    getDamageInfo(additivePotency, sourcePotency) {
+      const baseDamage = getStatusDamageFromPotency(additivePotency, sourcePotency);
       if (baseDamage === null) return null;
       return {
         damage: baseDamage,
@@ -107,8 +107,8 @@ export const Debuffs: import("../models/Buffs").BuffDataTable = {
     damageTypes: {
       Hex: 1,
     },
-    getDamageInfo(perkAmount) {
-      const baseDamage = getStatusDamageFromPotency(perkAmount);
+    getDamageInfo(additivePotency, sourcePotency) {
+      const baseDamage = getStatusDamageFromPotency(additivePotency, sourcePotency);
       if (baseDamage === null) return null;
       return {
         damage: baseDamage,

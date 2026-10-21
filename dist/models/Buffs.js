@@ -31,6 +31,13 @@ export class Buff extends ItemModule.events {
     getSourceBuild(holder) {
         return this.getAppliedBy() === "opponent" ? holder.statusOpponent || holder.target || holder : holder;
     }
+    getDotPotencies(sourceBuild) {
+        const override = this.effectivePotencyOverride;
+        const additive = typeof override === "number" && Number.isFinite(override)
+            ? Math.max(0, override) * 10
+            : Math.max(0, (this.potencyId ? sourceBuild?.potencies[this.potencyId] || 0 : 0) + (this.potency || 0) * 10);
+        return { additive, source: Math.max(0, this.sourceData?.sourceInatePotency || 0) };
+    }
     getEffectivePotency(sourceBuild) {
         if (typeof this.effectivePotencyOverride === "number" && Number.isFinite(this.effectivePotencyOverride)) {
             return Math.max(0, this.effectivePotencyOverride) * 10;
@@ -40,7 +47,9 @@ export class Buff extends ItemModule.events {
             ? sourceBuild.potencies[this.potencyId] || 0
             : 0;
         const directPotency = this.potency || 0;
-        return (sourcePotency + (additivePotency / 10) + directPotency) * 10;
+        const bastion = sourceBuild?.perks?.bastion_bless || 0;
+        const multiplier = this.category === "Buff" && this.countsAsBuff !== false && Number.isFinite(bastion) && bastion > 0 ? 1 + 0.1 * bastion : 1;
+        return (sourcePotency + (additivePotency / 10) + directPotency) * 10 * multiplier;
     }
 }
 export class BuffStore {
