@@ -12,6 +12,7 @@ export type WeaponDataTable = {
 
 export type ConstructionData = {
   constructionType: string;
+  weaponFamily?: string;
   m1?: damageAmount;
   m2?: damageAmount;
 };

@@ -12,6 +12,11 @@ export function collectCriticalEffects(holder, packet) {
             continue;
         if (effect.targetDebuff && !holder.target?.deBuffs.some(status => status.id === effect.targetDebuff))
             continue;
+        if (effect.requiredBuff && !holder.buff.some(status => status.id === effect.requiredBuff))
+            continue;
+        result.hitMultiplier *= effect.fixedHitMultiplier ?? 1;
+        if (effect.fixedHitMultiplier)
+            holder.damageModifications.crit_mods[`${perk.name} critical multiplier`] = effect.fixedHitMultiplier;
         let chance = 0, damage = (effect.damagePerPerk || 0) * amount * (effect.procChance ?? 1);
         for (const [statId, coefficient] of Object.entries(effect.chancePerBoost || {})) {
             chance += (holder.stats[statId] || 0) * coefficient * amount;

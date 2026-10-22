@@ -3,6 +3,9 @@ import type { Buff } from "./Buffs.js";
 
 /** A selected combat situation, independent of the DOM and of a running fight. */
 export interface CombatContext {
+  race?: { id: string };
+  isSelfDamage?: boolean;
+  weaponFamily?: string;
   level: number;
   hp: number;
   maxHp: number;
@@ -30,9 +33,9 @@ export type CombatEventName =
   | "onCritRateCalculation" | "onCritDamageCalculation"
   | "onIncreaseSpecificDmgTaken" | "onIncreaseDmgTaken"
   | "onDecreaseSpecificDmgBonusMultiplier" | "onDecreaseDmgBonusMultiplier"
-  | "onFinalDamageTakenMultiplier";
+  | "onFinalDamageTakenMultiplier" | "onFlatDamageTakenReduction";
 
-export interface StatusConsumption { statusId: string; perkId: string; hit: number; }
+export interface StatusConsumption { statusId: string; perkId: string; hit: number; holder?: "attacker" | "target"; }
 
 export interface CombatResult {
   statusConsumptions?: StatusConsumption[];

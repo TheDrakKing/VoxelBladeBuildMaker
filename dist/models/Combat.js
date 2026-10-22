@@ -117,7 +117,7 @@ function getStatusSourceBuild(holder, status) {
     return status.getSourceBuild(holder);
 }
 function getStatusEffectivePotency(holder, status) {
-    return status.getEffectivePotency?.(getStatusSourceBuild(holder, status));
+    return status.getReceivedPotency(holder);
 }
 function getDebuffModifications(event, holder, outputType, baseDamageData, modifications) {
     const statusModifications = {};
@@ -208,9 +208,12 @@ export function normalizeBaseDamagePacket(packet) {
         tags: [...tags],
         canCrit: !isDot && packet.canCrit !== false,
         procCoefficient: isDot ? 0 : packet.procCoefficient,
+        ...(packet.comboStep !== undefined ? { comboStep: packet.comboStep } : {}),
         source: packet.source || "Unknown",
         sourceType: packet.sourceType || "normal",
         sourceDamageType: packet.sourceDamageType || packet.sourceType || "Unknown",
+        ...(packet.damageTypes ? { damageTypes: { ...packet.damageTypes } } : {}),
+        ...(packet.damageScalings ? { damageScalings: { ...packet.damageScalings } } : {}),
         outputDamages: packet.outputDamages,
         totalDamage: packet.totalDamage,
     };
@@ -240,10 +243,10 @@ export function getRuneBaseDamagePacket(rune) {
         sourceDamageType: "Rune",
     });
 }
-export function getWeaponArtBaseDamagePacket(weaponArt) {
+export function getWeaponArtBaseDamagePacket(weaponArt, holder) {
     if (!weaponArt || typeof weaponArt.baseDamage !== "number")
         return null;
-    return createBaseDamagePacket({
+    const packet = createBaseDamagePacket({
         damage: weaponArt.damageBasis === "cast" ? weaponArt.baseDamage / (weaponArt.totalHits || 1) : weaponArt.baseDamage,
         hitAmount: weaponArt.totalHits || 1,
         source: weaponArt.id || weaponArt.name || "WeaponArt",
@@ -251,6 +254,15 @@ export function getWeaponArtBaseDamagePacket(weaponArt) {
         sourceDamageType: "WeaponArt",
         tags: weaponArt.attackTags,
     });
+    if (holder) {
+        packet.damageTypes = weaponArt.damageTypes ? { ...weaponArt.damageTypes } : undefined;
+        packet.damageScalings = weaponArt.damageScalings ? { ...weaponArt.damageScalings } : undefined;
+        for (const [id, amount] of Object.entries(holder.perks)) {
+            if (Number.isFinite(amount) && amount > 0)
+                Perks.PerkStore.getByID(id).modifyWeaponArtPacket?.call(holder, amount, packet);
+        }
+    }
+    return packet;
 }
 // Damage pipeline
 function getTotEffBoost(build) {
@@ -258,7 +270,7 @@ function getTotEffBoost(build) {
     for (const [scale, value] of Object.entries(build.damageScalings)) {
         if (value === undefined)
             continue;
-        const statId = (scale + "Boost");
+        const statId = (scale === "Protection" ? "Protection" : scale + "Boost");
         const statBoost = build.stats[statId];
         if (!statBoost)
             continue;
@@ -290,13 +302,18 @@ function getCritParameters(attacker, outputType, packet) {
     const bonusRate = sumCollectedValues(...collectEventModifications("onCritRateCalculation", attacker, outputType, packet, attacker.damageModifications.crit_mods));
     const bonusDamage = sumCollectedValues(...collectEventModifications("onCritDamageCalculation", attacker, outputType, packet, attacker.damageModifications.crit_mods));
     const dexterityChance = effects.replacesDexterityChance ? 0 : dexterityBonus;
-    const rate = Math.max(0, Math.min(1, (attacker.stats.CritRate || 0) / 100 + dexterityChance + effects.chance + bonusRate));
-    const damageBonus = Math.max(0, 0.5 + (attacker.stats.CritDamage || 0) / 100 + dexterityBonus + effects.damage + bonusDamage);
+    let rate = Math.max(0, Math.min(1, (attacker.stats.CritRate || 0) / 100 + dexterityChance + effects.chance + bonusRate));
+    const fractureConvertsCrits = Number.isFinite(attacker.perks.fractured_energy) && attacker.perks.fractured_energy > 0;
+    if (fractureConvertsCrits) {
+        attacker.damageModifications.crit_mods["Fracture application chance"] = rate;
+        rate = 0;
+    }
+    const damageBonus = fractureConvertsCrits ? 0 : Math.max(0, 0.5 + (attacker.stats.CritDamage || 0) / 100 + dexterityBonus + effects.damage + bonusDamage);
     attacker.damageModifications.crit_mods["Dexterity chance"] = dexterityChance;
     attacker.damageModifications.crit_mods["Dexterity damage"] = dexterityBonus;
     attacker.damageModifications.crit_mods["Crit Rate"] = rate;
     attacker.damageModifications.crit_mods["Crit Damage"] = damageBonus;
-    return { rate, damageBonus, armorPen: effects.armorPen, hitMultiplier: effects.hitMultiplier, bypassArmor: effects.bypassArmor };
+    return { rate, damageBonus, armorPen: fractureConvertsCrits ? 0 : effects.armorPen, hitMultiplier: fractureConvertsCrits ? 1 : effects.hitMultiplier, bypassArmor: !fractureConvertsCrits && effects.bypassArmor };
 }
 function getModifiedDefenseValue(outputType, damageData, target, attacker) {
     const defenseStat = (outputType + "Defense");
@@ -316,9 +333,17 @@ function getSpecialDamageTakenMultiplier(outputType, damageData, target, attacke
     const generalTakenMultiplier = multiplyBonusCollections(...collectEventModifications("onIncreaseDmgTaken", target, outputType, damageData, attacker.damageModifications.special_mods));
     return specificTakenMultiplier * generalTakenMultiplier;
 }
-function applySpecialMultipliers(damage, outputType, damageData, target, attacker) {
-    return multiplyDamageBreakdown(damage, getSpecialDamageTakenMultiplier(outputType, damageData, target, attacker) *
+function applySpecialMultipliers(damage, outputType, damageData, target, attacker, critRate) {
+    const adjusted = multiplyDamageBreakdown(damage, getSpecialDamageTakenMultiplier(outputType, damageData, target, attacker) *
         totalMultiplier(Object.assign({}, ...collectEventModifications("onFinalDamageTakenMultiplier", target, outputType, damageData))));
+    const flatMods = {};
+    const flat = Math.max(0, sumCollectedValues(...collectEventModifications("onFlatDamageTakenReduction", target, outputType, damageData, flatMods)));
+    if (!flat)
+        return adjusted;
+    for (const [name, value] of Object.entries(flatMods))
+        attacker.damageModifications.special_mods[`[flat] ${name} (${outputType})`] = value;
+    const normal = Math.max(0, adjusted.normal - flat), critical = Math.max(0, adjusted.crit - flat);
+    return createDamageBreakdown(normal, critical, normal * (1 - critRate) + critical * critRate);
 }
 function calculatePostOutputDamage(outputDamage, outputType, damageData, attacker, target) {
     const attackerSpecificBonus = multiplyBonusCollections(...collectEventModifications("onSpecificDmgBonusMultiplier", attacker, outputType, damageData, attacker.damageModifications.specific_bonus_mods));
@@ -335,7 +360,7 @@ function calculatePostOutputDamage(outputDamage, outputType, damageData, attacke
     const criticalArmor = crit.bypassArmor ? 1 : penetrationArmorMultiplier(outputType, defense, penetration + crit.armorPen);
     const criticalDamage = typeAdjustedDamage * (1 + crit.damageBonus) * crit.hitMultiplier * criticalArmor;
     const armorAdjustedDamage = createDamageBreakdown(normalDamage, criticalDamage, normalDamage * (1 - crit.rate) + criticalDamage * crit.rate);
-    return applySpecialMultipliers(armorAdjustedDamage, outputType, damageData, target, attacker);
+    return applySpecialMultipliers(armorAdjustedDamage, outputType, damageData, target, attacker, crit.rate);
 }
 export function calculateDamage(outputType, outputTypeMultiplier, damageData, attacker, target, preOutputDamage) {
     if (!damageData.damage)
@@ -354,6 +379,8 @@ function cloneStatus(status) {
 }
 function createSerializedBuild(user, buildData, targetBuild) {
     return {
+        race: user.race ? { id: user.race.id } : undefined,
+        weaponFamily: buildData?.weaponFamily ?? user.getWeaponConstructionData()?.weaponFamily,
         level: buildData?.level ?? user.level,
         hp: buildData?.hp ?? user.hp,
         maxHp: buildData?.maxHp ?? user.maxHp,
@@ -374,6 +401,11 @@ function applyOutputCalculationEffects(holder, baseDamageData) {
     const args = { baseDamageData };
     applyPerkOutputCalculationEffects(holder, args);
     applyStatusOutputCalculationEffects(holder, args);
+    const recipient = holder.target;
+    if (recipient)
+        for (const status of [...(recipient.buff || []), ...(recipient.deBuffs || [])]) {
+            status.onIncomingOutputCalculation?.apply(recipient, [status.getReceivedPotency(recipient), args]);
+        }
 }
 function applyPerkOutputCalculationEffects(holder, args) {
     for (const { perk: perkData, amount } of Perks.getSortedPerkEventEntries(holder.perks, "onOutputCalculation")) {
@@ -417,10 +449,28 @@ function collectNumericDiffs(beforeValues, afterValues, sourceLabel, previewMap)
 }
 function prepareStatusConsumptions(attacker, target, packet) {
     const pending = [];
-    if (packet.sourceType === "Status" || packet.tags?.includes("DoT") || packet.procCoefficient === 0)
+    if (packet.damage <= 0 || packet.sourceType === "Status" || packet.tags?.includes("DoT"))
         return pending;
+    if ((attacker.perks.forgotten_chivalry || 0) > 0 && (packet.sourceType === "Rune" || packet.sourceType === "WeaponArt")) {
+        const reinforce = attacker.buff.filter(status => status.id === "reinforce");
+        if (reinforce.length) {
+            (attacker.activeProcs || (attacker.activeProcs = [])).push("forgotten_chivalry");
+            for (const status of reinforce)
+                pending.push({ status, perkId: "forgotten_chivalry", before: false, holder: "attacker" });
+        }
+    }
+    if (packet.procCoefficient === 0)
+        return pending;
+    if ((attacker.perks.extinguish || 0) > 0 && attacker.buff.some(status => status.id === "extinguish_proc") && (attacker.damageTypes.Water || 0) > 0) {
+        const burns = target.deBuffs.filter(status => status.id === "burn");
+        if (burns.length) {
+            (attacker.activeProcs || (attacker.activeProcs = [])).push("extinguish");
+            for (const status of burns)
+                pending.push({ status, perkId: "extinguish", before: true });
+        }
+    }
     for (const [perkId, statusId] of [["blood_thirsty", "bleed"], ["venom_eater", "poison"]]) {
-        if ((attacker.perks[perkId] || 0) <= 0 || (perkId === "venom_eater" && packet.canCrit === false))
+        if ((attacker.perks[perkId] || 0) <= 0 || (perkId === "venom_eater" && (packet.canCrit === false || attacker.perks.fractured_energy > 0)))
             continue;
         const selection = attacker.buff.find(status => status.id === `${perkId}_proc`);
         if (!selection)
@@ -437,12 +487,15 @@ function prepareStatusConsumptions(attacker, target, packet) {
 }
 function collectPerkOutputPreviewForPacket(attacker, target, packet, preview) {
     const targetBuild = createSerializedBuild(target);
-    const attackerBuild = createSerializedBuild(attacker, undefined, targetBuild);
+    const attackerBuild = createSerializedBuild(attacker, {
+        ...(packet.damageTypes ? { damageTypes: packet.damageTypes } : {}),
+        ...(packet.damageScalings ? { damageScalings: packet.damageScalings } : {}),
+    }, targetBuild);
     targetBuild.target = attackerBuild;
     prepareStatusConsumptions(attackerBuild, targetBuild, packet);
     const beforeDamageScalings = cloneNumericMap(attackerBuild.damageScalings);
     const beforeDamageTypes = cloneNumericMap(attackerBuild.damageTypes);
-    applyPerkOutputCalculationEffects(attackerBuild, { baseDamageData: packet });
+    applyOutputCalculationEffects(attackerBuild, packet);
     collectNumericDiffs(beforeDamageScalings, attackerBuild.damageScalings, packet.sourceDamageType, preview.damageScalings);
     collectNumericDiffs(beforeDamageTypes, attackerBuild.damageTypes, packet.sourceDamageType, preview.damageTypes);
 }
@@ -463,7 +516,7 @@ export function getActivePerkOutputPreview(attacker, target) {
     if (runePacket) {
         collectPerkOutputPreviewForPacket(attacker, target, runePacket, preview);
     }
-    const weaponArtPacket = getWeaponArtBaseDamagePacket(attacker.weaponart);
+    const weaponArtPacket = getWeaponArtBaseDamagePacket(attacker.weaponart, attacker);
     if (weaponArtPacket) {
         collectPerkOutputPreviewForPacket(attacker, target, weaponArtPacket, preview);
     }
@@ -475,8 +528,14 @@ function resolveDamageSnapshot(packet, attacker, target, attackerOverrides, targ
     if (!baseDamage)
         throw new Error("Damage must be a finite, nonnegative number.");
     const targetBuild = createSerializedBuild(target, targetOverrides);
-    const attackerBuild = createSerializedBuild(attacker, attackerOverrides, targetBuild);
+    const profile = { ...attackerOverrides };
+    if (baseDamage.damageTypes && profile.damageTypes === undefined)
+        profile.damageTypes = baseDamage.damageTypes;
+    if (baseDamage.damageScalings && profile.damageScalings === undefined)
+        profile.damageScalings = baseDamage.damageScalings;
+    const attackerBuild = createSerializedBuild(attacker, profile, targetBuild);
     targetBuild.target = attackerBuild;
+    targetBuild.isSelfDamage = attackerBuild.isSelfDamage = attacker === target;
     if (attacker === target && attacker.target && attacker.target !== attacker) {
         const opponent = createSerializedBuild(attacker.target);
         opponent.target = attackerBuild;
@@ -497,11 +556,12 @@ function resolveDamageSnapshot(packet, attacker, target, attackerOverrides, targ
         outputDamages[outputType] = multiplyDamageBreakdown(damage, resolvedHitCount);
     }
     let total = multiplyDamageBreakdown(perHit, resolvedHitCount);
-    const statusConsumptions = consumptions.map(entry => ({ statusId: entry.status.id, perkId: entry.perkId, hit: 1 }));
+    const statusConsumptions = consumptions.map(entry => ({ statusId: entry.status.id, perkId: entry.perkId, hit: 1, ...(entry.holder ? { holder: entry.holder } : {}) }));
     if (consumptions.length && baseDamage.hitAmount > 1) {
         // No new applications are simulated. Remaining equal hits see the consumed status removed.
         const remainingStatuses = targetBuild.deBuffs.filter(status => !consumptions.some(entry => entry.status === status));
-        const remaining = resolveDamageSnapshot({ ...baseDamage, hitAmount: baseDamage.hitAmount - 1 }, attacker, target, attackerOverrides, { ...targetOverrides, deBuffs: remainingStatuses });
+        const remainingBuffs = attackerBuild.buff.filter(status => !consumptions.some(entry => entry.holder === "attacker" && entry.status === status));
+        const remaining = resolveDamageSnapshot({ ...baseDamage, hitAmount: baseDamage.hitAmount - 1 }, attacker, target, { ...attackerOverrides, buff: remainingBuffs }, { ...targetOverrides, deBuffs: remainingStatuses });
         total = addDamageBreakdowns(total, remaining.total);
         for (const [type, damage] of Object.entries(remaining.outputs)) {
             outputDamages[type] = addDamageBreakdowns(outputDamages[type] || createDamageBreakdown(), damage);
@@ -535,8 +595,13 @@ export function resolveStatusDamage(status, recipient) {
     const packet = normalizeBaseDamagePacket(status.getDamageInfo.call(recipient, potency.additive, potency.source));
     if (!packet)
         return null;
+    if (["bleed", "burn", "poison"].includes(status.id)) {
+        packet.damage = BuffModule.estimateEndlessDespairDotDamage(packet.damage, status.getEndlessDespairAmount(source));
+    }
     return resolveDamage(packet, source, recipient, {
-        damageScalings: status.damageScalings || {}, damageTypes: status.damageTypes || {},
+        damageScalings: status.id === "bleed" && source.perks.sandy_wounds > 0
+            ? Object.fromEntries(Object.entries(status.damageScalings || {}).map(([id, value]) => [id === "Physical" ? "Earth" : id === "Dexterity" ? "Air" : id, value]))
+            : status.damageScalings || {}, damageTypes: status.damageTypes || {},
     });
 }
 /** Legacy display adapter. New consumers can use the side-effect-free resolveDamage. */
@@ -556,11 +621,21 @@ export function getWeaponBaseDamagePackets(build) {
         m1: [],
         m2: [],
     };
-    return {
+    const packets = {
         constructionType: weaponConstructionData.constructionType,
         m1: createDamagePackets(weaponConstructionData.m1, weaponConstructionData.constructionType, "Weapon", "M1"),
         m2: createDamagePackets(weaponConstructionData.m2, weaponConstructionData.constructionType, "Weapon", "M2"),
     };
+    const entries = Object.entries(build.perks).filter(([, amount]) => Number.isFinite(amount) && amount > 0)
+        .map(([id, amount]) => ({ perk: Perks.PerkStore.getByID(id), amount }))
+        .sort((a, b) => (a.perk.weaponPriority || 0) - (b.perk.weaponPriority || 0) || a.perk.id.localeCompare(b.perk.id));
+    if (build.buff?.some(status => status.id === "m1_finisher_confirmed") && packets.m1.length) {
+        const finisher = packets.m1[packets.m1.length - 1];
+        finisher.tags = [...new Set([...(finisher.tags || []), "Finisher"])];
+    }
+    for (const { perk, amount } of entries)
+        perk.modifyWeaponPackets?.call(build, amount, packets);
+    return packets;
 }
 export function getWeaponDamages(attacker, target) {
     const weaponBaseDamagePackets = getWeaponBaseDamagePackets(attacker);

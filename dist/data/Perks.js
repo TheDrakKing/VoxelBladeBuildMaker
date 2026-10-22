@@ -1,4 +1,5 @@
-import { selected, lighting, mount, disposition } from "../models/Conditions.js";
+import { selected, lighting, mount, disposition, isMagicDamageType } from "../models/Conditions.js";
+import { row, input, chance, healRows } from "../models/Mechanics.js";
 import { Races } from "./Races.js";
 function hasDebuff(build, debuffId) {
     return !!build?.deBuffs?.find((debuff) => debuff?.id === debuffId);
@@ -58,6 +59,8 @@ function getGuildProtectedPerkAmount(build, perkId) {
     return amount;
 }
 function getEnchantmentProtectedPerkAmount(build, perkId) {
+    if (build.enchantmentProtectedPerks)
+        return build.enchantmentProtectedPerks[perkId] || 0;
     let amount = 0;
     for (const enchantments of Object.values(build.enchantments || {})) {
         if (!enchantments)
@@ -117,7 +120,9 @@ function mutatePerkAmounts(build, perkAmount, ignore) {
     }
 }
 function mutatePotencyAmounts(build, perkAmount, ignore) {
-    const ignoredIds = new Set(ignore.map(normalizePotencyId));
+    // DoT potency source cards exclude direct gear points from Cursed/Perk Effectiveness.
+    // Source perk amounts are increased separately before their stat contributions run.
+    const ignoredIds = new Set([...ignore.map(normalizePotencyId), "bleedpotency", "burnpotency", "poisonpotency"]);
     const potencyEntries = Object.entries(build.potencies || {});
     const multiplier = 0.1 * perkAmount;
     for (const [rawPotencyId, totalAmount] of potencyEntries) {
@@ -153,6 +158,35 @@ function isDirectPacket(args) {
 function addOutput(holder, type, amount) {
     holder.damageTypes[type] = roundPerkValue((holder.damageTypes[type] || 0) + amount);
 }
+function addPotency(build, id, amount) {
+    build.potencies[id] = roundPerkValue((build.potencies[id] || 0) + amount);
+}
+function berserkingFamily(family) { return !!family && ["unbalanced_sword", "dual_unbalanced_swords", "great_spear"].includes(family); }
+function isWeaponSwing(args) { return args?.baseDamageData?.sourceType === "Weapon" && ["M1", "M2"].includes(args.baseDamageData.sourceDamageType); }
+function finisherProcNumber(build) { const value = build.buff?.find(status => status.id === "finisher_proc_number")?.stacks; return value !== undefined && Number.isFinite(value) ? Math.max(1, Math.floor(value)) : 1; }
+function isFinisher(args) { return !!args?.baseDamageData?.tags?.includes("Finisher"); }
+function activation(id, damage, type = "Perk", procCoefficient) {
+    return { source: id, damage, hitAmount: 1, sourceType: type, sourceDamageType: type, procCoefficient };
+}
+function diminishedTenacity(value) {
+    if (!Number.isFinite(value) || value <= 0)
+        return 0;
+    const whole = Math.floor(value);
+    // Euler-Maclaurin keeps extreme manually entered values bounded in work, without a stat cap.
+    let sum = whole > 1000 ? Math.log(whole) + 0.5772156649015329 + 1 / (2 * whole) - 1 / (12 * whole * whole) : 0;
+    if (whole <= 1000)
+        for (let k = 1; k <= whole; k++)
+            sum += 1 / k;
+    return sum + (value - whole) / (whole + 1);
+}
+function draconicColor(build) {
+    if (build.race?.id !== "dragon_blooded")
+        return "Physical";
+    const colors = ["Fire", "Water", "Holy", "Hex", "Earth", "Air", "Physical"];
+    const chosen = colors.filter(color => selected(build, "draconic_color_" + color.toLowerCase()));
+    return chosen.length === 1 ? chosen[0] : undefined;
+}
+function piercerFamily(family) { return !!family && ["onehand_sword", "spear", "dagger", "fist", "rapier"].includes(family); }
 export const Perks = {
     /** Race Perks Here */
     human: {
@@ -262,24 +296,7 @@ export const Perks = {
         name: "Ferocious",
         category: "",
         description: "Tenacity increases damage dealt.",
-        onDmgBonusMultiplier(perkAmount) {
-            if (!perkAmount)
-                return null;
-            let t = this.stats.Tenacity;
-            if (!t)
-                return null;
-            let floorT = Math.floor(t);
-            let summation = function () {
-                let sum = 0;
-                for (let k = 1; k <= t; k++) {
-                    sum += 1 / k;
-                }
-                return sum;
-            };
-            let diminishedTenacity = summation() + (t - Math.floor(t)) / Math.ceil(t);
-            let FerocityDmgBoost = diminishedTenacity * 1.55 * (perkAmount / 10);
-            return Math.trunc(FerocityDmgBoost * 100) / 100;
-        },
+        onDmgBonusMultiplier(amount) { return positivePerk(amount) ? 0.155 * amount * diminishedTenacity(this.stats.Tenacity || 0) : null; },
     },
     cursed: {
         id: "cursed",
@@ -289,7 +306,7 @@ export const Perks = {
         onPerkMod(perkAmount) {
             if (!perkAmount)
                 return;
-            const ignore = ["cursed", "perk_effectiveness"];
+            const ignore = ["cursed", "perk_effectiveness", "minion_absorption", "heal_boost", "lifesteal"];
             mutatePerkAmounts(this, perkAmount, ignore);
             mutatePotencyAmounts(this, perkAmount, ignore);
         },
@@ -306,7 +323,7 @@ export const Perks = {
         onPerkMod(perkAmount) {
             if (!perkAmount)
                 return;
-            const ignore = ["cursed", "perk_effectiveness"];
+            const ignore = ["cursed", "perk_effectiveness", "minion_absorption", "heal_boost", "lifesteal"];
             mutatePerkAmounts(this, perkAmount, ignore);
             mutatePotencyAmounts(this, perkAmount, ignore);
         },
@@ -316,6 +333,9 @@ export const Perks = {
         },
     },
     potion_chugger: {
+        previewInputs: ["baseHeal"],
+        getMechanicsPreview(amount) { const base = input(this, "baseHeal"); return [row("Potion effectiveness", 1 + .1 * amount, "x"), row("Entered potion healing before other modifiers", base === undefined ? undefined : base * (1 + .1 * amount)), row("Exclusion", "Does not affect Holy Substance; potion duration / drinking speed not quantified")]; },
+        support: { "status": "Partial", "details": "Displays +10% potion effectiveness per perk and transforms entered potion base healing by that factor. The same factor can be used for a potion's base buff/debuff potency; it is not incorrectly added to all gear potency. Holy Substance is excluded. Drinking-speed and duration formulas, consumable inventory, and automatic potion status application are held." },
         id: "potion_chugger",
         name: "Potion Chugger",
         category: "",
@@ -348,18 +368,24 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3dc",
             "cardUrl": "https://trello.com/c/rRhFyA3j"
         },
+        attackSpeedFactor(amount) { return positivePerk(amount) && berserkingFamily(this.getWeaponConstructionData()?.weaponFamily) ? 1 + Math.sqrt(amount / 10) / 1.58 : 1; },
+        onDmgBonusMultiplier(amount, args) { return positivePerk(amount) && berserkingFamily(this.weaponFamily) && isWeaponSwing(args) ? 0.1 * amount : null; },
+        support: { "status": "Partial", "details": "For resolved Unbalanced Sword, Dual Unbalanced Swords, or Great Spear only: attack speed x (1 + sqrt(perk amount / 10) / 1.58), and weapon M1/M2 damage +10% per perk. Speed factor follows percentage-to-flat conversion and Kitsune's +0.1 as a builder ordering convention; other packet families are excluded." }
     },
     blood_thirsty: {
         id: "blood_thirsty",
         name: "Blood Thirsty",
         category: "Perk",
         description: "If you hit a bleeding opponent bleeding by you remove the bleed, deal bonus damage, and heal. Grants bleed potency.",
+        // One stored potency point (+0.1 displayed) per perk, per the user's game value.
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "bleedpotency", amount); },
         onDmgBonusMultiplier(perkAmount) {
             if (!perkAmount || perkAmount <= 0 || !this.activeProcs?.includes("blood_thirsty"))
                 return null;
             return 0.2 * perkAmount;
         },
-        support: { "status": "Partial", "details": "Select Blood Thirsty Proc: consumes attacker-owned Bleed before other Bleed bonuses and grants 20% damage per perk. Curse Rip sees the remaining debuffs after consumption. Healing and automatic triggers are not calculated." },
+        support: { "status": "Partial", "details": "Adds one stored Bleed potency point (+0.1 displayed) per perk using the user's game value; Trello names the bonus without an amount. Select Blood Thirsty Proc: consumes attacker-owned Bleed before other Bleed bonuses and grants 20% damage per perk. Curse Rip sees the remaining debuffs after consumption. Healing and automatic triggers are not calculated." },
         "source": {
             "cardId": "69214b9731723704c1eda402",
             "cardUrl": "https://trello.com/c/feVgtQT7"
@@ -392,6 +418,10 @@ export const Perks = {
         },
     },
     pulverizing_rush: {
+        damageTypes: { Earth: 1 }, damageScalings: { Earth: 1, Air: 1 },
+        getPerkDamageInfo(amount) { return positivePerk(amount) && selected(this, "m1_finisher_confirmed") ? { ...activation("pulverizing_rush", 4 + amount, "Weapon"), sourceDamageType: "Pulverizing Rush" } : null; },
+        getMechanicsPreview(amount) { return [row("Stationary slam base damage", 4 + amount), row("Condition", "Hold LMB after a confirmed original M1 finisher; stationary preview only"), row("Moving damage", "Speed reduction and reduced proc coefficient unknown")]; },
+        support: { "status": "Partial", "details": "Separate stationary sustained slam preview has 4 + perk amount base, 1 Earth output and 1 Earth/Air scaling. Requires Last M1 Is a Finisher, is not tagged as a finisher, and does not replace the original combo. Moving damage reduction, repeated timing, disabled abilities, and reduced proc coefficient are held." },
         id: "pulverizing_rush",
         name: "Pulverizing Rush",
         category: "",
@@ -402,6 +432,8 @@ export const Perks = {
         },
     },
     fury: {
+        getMechanicsPreview(amount) { return [row("Rage duration factor", 1 + .5 * amount, "x")]; },
+        support: { "status": "Partial", "details": "Increases selected Rage duration previews by 50% per perk, including Mage Rage and other modifications that retain the Rage status. Duration modifiers multiply as an explicit builder convention; application and expiration remain manual." },
         id: "fury",
         name: "Fury",
         category: "",
@@ -428,6 +460,11 @@ export const Perks = {
         }
     },
     echo_incineration: {
+        outputPriority: -50,
+        onOutputCalculation(amount) { if (!positivePerk(amount))
+            return; const fire = this.damageTypes.Fire || 0, air = this.damageTypes.Air || 0; this.damageTypes.Fire = roundPerkValue((fire + air) / 2); this.damageTypes.Air = roundPerkValue((fire + air) / 2); },
+        getMechanicsPreview(amount) { return [row("Tornado base damage", 7 + 1.25 * amount), row("Base tornado proc chance", chance(10 + 2.5 * amount), "%"), row("Tornado damage preview", "Scaling / output split missing; full damage held")]; },
+        support: { "status": "Partial", "details": "Simultaneously transfers half of Fire output to Air and half of Air to Fire, retaining combined output and other damage types. Runs after additive outputs, before later conversions as a builder convention. Also displays tornado base damage 7+1.25p and base chance 10+2.5p percent. Missing tornado scaling/output split and Burn innate potency are not invented; no automatic proc chain." },
         id: "echo_incineration",
         name: "Echo Incineration",
         category: "",
@@ -766,6 +803,9 @@ export const Perks = {
         }
     },
     heat_drill: {
+        cooldown: { sources: ["WeaponArt"], abilityId: "lunge", overrideBase: 15 },
+        getMechanicsPreview() { return [row("Lunge base cooldown", 15, "s"), row("Damage", "Recent +50% buff is unspecified; replacement damage held. Lunge table remains legacy.")]; },
+        support: { "status": "Partial", "details": "Overrides Lunge base cooldown to 15 seconds before reviewed CDR. Barrage behavior is explicitly untested in the source and remains unchanged. Recent damage buff does not identify which coefficient changed, so replacement damage/output is held and the damage table remains labelled as legacy behavior; no guessed 50% multiplier." },
         id: "heat_drill",
         name: "Heat Drill",
         category: "",
@@ -850,6 +890,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda426",
             "cardUrl": "https://trello.com/c/pYAHsw6B"
         },
+        onDmgBonusMultiplier(amount, args) { return positivePerk(amount) && selected(this, "hammer_slam") && isFinisher(args) ? 0.25 * amount : null; },
+        support: { "status": "Partial", "details": "Select Hammer Slam for a qualifying tagged finisher to gain 25% damage per perk. Slam eligibility, M1 finisher classification, hitbox, and Taunt application/duration are manual." }
     },
     air_barrier: {
         id: "air_barrier",
@@ -860,6 +902,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda91c",
             "cardUrl": "https://trello.com/c/pokbRdbn"
         },
+        damageScalings: { "Air": 0.5 }, damageTypes: { "Air": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("air_barrier", 3 * amount); },
+        support: { "status": "Partial", "details": "One blocking shockwave, 3 * perk amount base damage and 0.5 Air scaling. Air output is inferred from the description. Separate activation preview; trigger rolls, cooldowns, area/target counts, and recursive procs are not simulated. Unspecified proc coefficients and crit eligibility use the existing direct-packet defaults." }
     },
     air_pressure: {
         id: "air_pressure",
@@ -870,6 +916,15 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda996",
             "cardUrl": "https://trello.com/c/TbdQ5OOI"
         },
+        getSourcePotencies() { return { airpressurepotency: 0 }; },
+        onDmgReducedMultiplier(amount) { return positivePerk(amount) && hasBuff(this, "air_pressure") ? Math.min(10 * amount, selectedBuffPotency(this, "air_pressure")) / 100 : null; },
+        damageScalings: { Air: 1 }, damageTypes: { Air: 1 },
+        getPerkDamageInfo(amount) {
+            if (!positivePerk(amount) || !hasBuff(this, "air_pressure"))
+                return null;
+            return activation("air_pressure", 0.75 * Math.min(10 * amount, selectedBuffPotency(this, "air_pressure")), "Rune");
+        },
+        support: { "status": "Partial", "details": "Select Air Pressure and enter its current potency, capped at 10 * perk amount. Defense divides by 1 + potency/100; the separate release preview deals 0.75 * potency base damage with 1 Air scaling/output and counts as Rune damage. Buildup, release consumption, and duration are manual." }
     },
     apollo_boost: {
         id: "apollo_boost",
@@ -880,6 +935,14 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3f0",
             "cardUrl": "https://trello.com/c/URitSpQK"
         },
+        cooldown: { sources: ["Rune"], additionalBase: 2 },
+        damageScalings: { Magic: 1 }, damageTypes: { Magic: 0.5, Physical: 0.5 },
+        getPerkDamageInfo(amount) {
+            if (!positivePerk(amount))
+                return null;
+            return { ...activation("apollo_boost", Math.max(0, 5 - (0.15 + 0.25 * amount)), "Rune"), hitAmount: Math.floor(1 + amount) };
+        },
+        support: { "status": "Partial", "details": "Adds a fixed 2 seconds to Rune base cooldown before reviewed CDR and race factors. A separate activation has floor(1 + perk amount) waves, each max(0, 5 - (0.15 + 0.25 * perk amount)) base, 1 Magic scaling, half Magic/Physical output, and Rune classification. Follows the card's literal decreasing-base formula; launch, Taunt, and cast delay are manual." }
     },
     artillery_mage: {
         id: "artillery_mage",
@@ -890,6 +953,13 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda460",
             "cardUrl": "https://trello.com/c/fYve18wA"
         },
+        weaponPriority: 10,
+        modifyWeaponConstruction(amount, data) { if (positivePerk(amount)) {
+            data.constructionType = "Artillery Mage (LMB preview)";
+            data.weaponFamily = "artillery_mage";
+            data.m1 = [[5.5, 1], [5.5, 1]];
+        } },
+        support: { "status": "Partial", "details": "Replaces the two LMB beams with the specific card's 5.5 base each. Leaves RMB unchanged because the general construction card disagrees with the specific LMB card and may be outdated. LMBs are not tagged Finisher. Construction is resolved after existing stances. Conflicts with other replacement perks use documented builder priority, pending in-game verification; animation, knockback, and automatic applications are not simulated." }
     },
     barbed_flurry: {
         id: "barbed_flurry",
@@ -900,6 +970,9 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda96e",
             "cardUrl": "https://trello.com/c/3Bg08Epj"
         },
+        damageScalings: { Physical: 1, Dexterity: 1 }, damageTypes: { Physical: 1 },
+        getPerkDamageInfo(amount) { return positivePerk(amount) && hasDebuff(this.target, "bleed") ? activation("barbed_flurry", 1.6 * amount, "Perk", 0) : null; },
+        support: { "status": "Partial", "details": "With target Bleed selected, previews one reapplication burst: 1.6 * perk amount base, Physical/Dexterity scaling, Physical output inferred from the description. Cannot proc other effects. Reapplication and duration are manual; crit eligibility is unverified." }
     },
     basic_spirit: {
         id: "basic_spirit",
@@ -912,6 +985,12 @@ export const Perks = {
         },
     },
     bastion_ballista: {
+        previewInputs: ["storedCount"],
+        getMechanicsPreview(amount) {
+            const arrows = input(this, "storedCount"), cap = Math.floor(50 * amount), count = arrows === undefined ? undefined : Math.min(cap, Math.floor(arrows));
+            return [row("Base damage per arrow", 1.25 + .75 * amount), row("Maximum arrows", cap), row("Selected arrows", count), row("Selected volley base damage", count === undefined ? undefined : count * (1.25 + .75 * amount)), row("Per-enemy firing cooldown", .1, "s"), row("Restoration delay", 9, "s")];
+        },
+        support: { "status": "Partial", "details": "Calculates per-arrow and selected-volley base damage, 50 arrows per perk, 0.1s per-enemy cooldown and 9s restoration delay. Dexterity/Earth coefficients, output, range-to-arrow count, and automatic firing are undocumented; scaled damage is held." },
         id: "bastion_ballista",
         name: "Bastion Ballista",
         category: "Perk",
@@ -951,6 +1030,8 @@ export const Perks = {
         }
     },
     blastshield: {
+        getMechanicsPreview(amount) { return [row("Shockwave base damage", 15 + 15 * amount), row("Shockwave poise damage", 25 + 25 * amount), row("Approximate cooldown", 12, "s")]; },
+        support: { "status": "Partial", "details": "Calculates Earth shockwave base damage and absolute poise damage separately, plus the approximate 12s cooldown. Missing damage-scaling and stun coefficients prevent a final damage or stun result; triggering is manual." },
         id: "blastshield",
         name: "Blastshield",
         category: "Perk",
@@ -961,6 +1042,9 @@ export const Perks = {
         },
     },
     blazing_finisher: {
+        previewInputs: ["preOutputHitDamage"],
+        getMechanicsPreview(amount) { const hit = input(this, "preOutputHitDamage"); return [row("Explosion base damage", hit === undefined ? undefined : 2 * amount + .2 * hit), row("Fire scaling", 1), row("Per-enemy cooldown", .2, "s"), row("Condition", "Finisher must consume your Burn; enter the triggering finisher damage")]; },
+        support: { "status": "Partial", "details": "Calculates 2 * perk amount + 20% of the entered triggering finisher damage, with 1 Fire scaling and 0.2s per-enemy cooldown. This is a separate pre-modifier explosion preview; no second application of the entered hit scaling, automatic Burn consumption, multi-target hit counts, or recursive procs." },
         id: "blazing_finisher",
         name: "Blazing Finisher",
         category: "Perk",
@@ -1012,8 +1096,13 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3f6",
             "cardUrl": "https://trello.com/c/qFgisICX"
         },
+        getSourcePotencies(amount) { return { ragepotency: 0.15 * amount }; },
+        support: { "status": "Partial", "details": "Offers 0.15 * perk amount innate Rage for the low-HP summon state. Use this source on a summon represented by a build actor; no buff is automatically granted to the player. Approximate activation HP thresholds, tenacity, summoning, and expiration are manual." }
     },
     blub_blub: {
+        previewInputs: ["preOutputHitDamage"],
+        getMechanicsPreview(amount) { const hit = input(this, "preOutputHitDamage"), each = hit === undefined ? undefined : .15 * amount * hit; return [row("Repeat chance", 50, "%"), row("Each Water repeat before its own modifiers", each), row("Two Water repeats", each === undefined ? undefined : 2 * each), row("Expected repeated damage before its own modifiers", each)]; },
+        support: { "status": "Partial", "details": "Calculates two Water repeats, each 15% per perk of the entered hit damage before post-output modifiers, at a fixed 50% chance. Expected repeat damage is shown separately. Repeats cannot proc effects. Delay, poise, and their own subsequent damage modifiers are not automatically resolved." },
         id: "blub_blub",
         name: "Blub Blub",
         category: "Perk",
@@ -1032,8 +1121,24 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda4a8",
             "cardUrl": "https://trello.com/c/eRKaaUsG"
         },
+        damageScalings: { "Holy": 1, "Magic": 1 }, damageTypes: { "Holy": 0.5, "Magic": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("bombardier", 10 + amount, "Perk"); },
+        support: { "status": "Partial", "details": "One explosion deals 10 + perk amount base with Holy/Magic scaling and split output. Self-damage is not added; the card labels its approximate percentage and proc-chance scaling as uncertain. This is an independent activation preview, not automatic DPS. Trigger rolls, cooldowns, area/target counts, and unspecified proc/crit rules are not simulated." }
     },
     bomber_charge: {
+        modifyWeaponArtPacket(amount, packet) {
+            if (packet.source !== "retaliate")
+                return;
+            const missing = Math.min(.5, 1 - (healthRatio(this) ?? 1));
+            packet.damage = 12.5 * (1 + .15 * amount) * (1 + 12.8 * missing);
+            packet.damageTypes = { Holy: .5, True: .5 };
+            packet.damageScalings = { ...(packet.damageScalings ?? this.damageScalings) };
+            for (const id of ["Holy", "Magic"])
+                packet.damageScalings[id] = (packet.damageScalings[id] || 0) + .4;
+        },
+        getMechanicsPreview(amount) { return [row("Retaliate base damage", 12.5 * (1 + .15 * amount) * (1 + 12.8 * Math.min(.5, 1 - (healthRatio(this) ?? 1)))), row("Holy / Magic added scaling", .4), row("Windup reduction", "Ambiguous source: defensive reduction not automatically applied")]; },
+        support: { "status": "Partial", "details": "Replaces selected Retaliate base damage using missing HP capped at 50%, adds fixed 0.4 Holy and Magic scaling, and converts its existing equal Physical/True split to equal Holy/True as an explicit builder convention. Works in the Weapon Art damage panel without mutating the ability. Stun immunity removal, windup reduction, area, and cast timeline are held." },
         id: "bomber_charge",
         name: "Bomber Charge",
         category: "Perk",
@@ -1044,6 +1149,9 @@ export const Perks = {
         },
     },
     bomber_satchel: {
+        previewInputs: ["storedCount"],
+        getMechanicsPreview() { const n = input(this, "storedCount"); return [row("Stored Beenade cap", 5), row("Stored Beenades selected", n === undefined ? undefined : Math.min(5, Math.floor(n))), row("Additional Beenades on next Beenade Rune", n === undefined ? undefined : Math.min(5, Math.floor(n)))]; },
+        support: { "status": "Partial", "details": "Clamps the selected Stored Beenades counter to five and shows the extra Beenades for the next Beenade Rune. One stack per Weapon Art hit; no automatic stack accrual, reset, or guessed Beenade damage." },
         id: "bomber_satchel",
         name: "Bomber Satchel",
         category: "Perk",
@@ -1062,6 +1170,9 @@ export const Perks = {
             "cardId": "69214b9831723704c1edac9e",
             "cardUrl": "https://trello.com/c/0aEoqDe8"
         },
+        damageScalings: { Holy: 1, Magic: 1 }, damageTypes: { Holy: 0.5, Magic: 0.5 },
+        getPerkDamageInfo(amount) { return positivePerk(amount) ? { ...activation("bomber_spirit", 9, "Weapon"), sourceDamageType: "M2", tags: ["Weapon", "M2", "Finisher"], hitAmount: 4 } : null; },
+        support: { "status": "Partial", "details": "Four 9-base projectiles with half Holy/Magic output and 1 Holy/Magic scaling, previewed as an RMB finisher activation. Treating the spiritual release as Weapon M2 is an explicit classification convention. Spiritual Energy, enhanced Bombardier proc chance, and multi-target hits are manual." }
     },
     bounce_momentum: {
         id: "bounce_momentum",
@@ -1072,6 +1183,11 @@ export const Perks = {
             "cardId": "69214b9831723704c1edaefa",
             "cardUrl": "https://trello.com/c/mp3UwOsc"
         },
+        damageScalings: { "Water": 1 }, damageTypes: { "Water": 0.5, "Physical": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; if (!selected(this, "tongue_shot_ready"))
+            return null; return activation("bounce_momentum", 5 + 5 * amount, "Perk"); },
+        support: { "status": "Partial", "details": "Select Tongue Shot Ready after jumping with Bounce to preview one finisher-triggered lash: 5 + 5 * perk amount base, 1 Water scaling, half Water/Physical output. The selector is not a game buff; root, guard break, and consumption are manual. This is an independent activation preview, not automatic DPS. Trigger rolls, cooldowns, area/target counts, and unspecified proc/crit rules are not simulated." }
     },
     bowldur_spirit: {
         id: "bowldur_spirit",
@@ -1082,6 +1198,10 @@ export const Perks = {
             "cardId": "69214b9831723704c1edac98",
             "cardUrl": "https://trello.com/c/oXnQwZCf"
         },
+        damageScalings: { "Earth": 1, "Physical": 1 }, damageTypes: { "Earth": 0.5, "Physical": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("bowldur_spirit", 5, "Perk"); },
+        support: { "status": "Partial", "details": "One active-spirit hit with 5 base, half Earth/Physical output, and 1 Earth/Physical scaling. Preview is separate from ordinary weapon rows; which swings are enhanced, duration, Spiritual Energy, and guardbreak are manual. No defense bonus is added because the card says it does not function. Independent activation preview; trigger rolls, timing, area/target counts, and automatic proc chains are not simulated." }
     },
     bowlers_roll: {
         id: "bowlers_roll",
@@ -1102,8 +1222,14 @@ export const Perks = {
             "cardId": "69214b9831723704c1edaeee",
             "cardUrl": "https://trello.com/c/3L9g2O2d"
         },
+        statusEffects: ["parry_hit"],
+        support: { "status": "Partial", "details": "Grants Parry equal to the perk amount per its linked card; the calculated portion is the shared Parried Hit control with fixed 90% direct-hit reduction. Visual buckler, one-handed visual qualification, missed-parry cooldown, and automatic detection are manual." }
     },
     bulfrogg_spirit: {
+        damageTypes: { Water: 1 }, damageScalings: { Water: 1 },
+        getPerkDamageInfo(amount) { return positivePerk(amount) ? activation("bulfrogg_spirit", 23) : null; },
+        getMechanicsPreview() { return [row("Stun", 4.5, "s"), row("Activation", "One tongue hit at full Spiritual Energy; multiple tongue counts are manual")]; },
+        support: { "status": "Partial", "details": "One manually selected tongue hit has fixed 23 base damage, 1 Water scaling/output, and documented 4.5s stun. Spiritual Energy, guardbreak, target/tongue counts, and automatic procs are not simulated." },
         id: "bulfrogg_spirit",
         name: "Bulfrogg Spirit",
         category: "Perk",
@@ -1122,8 +1248,12 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda38c",
             "cardUrl": "https://trello.com/c/TR3r3ZHO"
         },
+        onDmgReducedMultiplier(amount) { return positivePerk(amount) && selected(this, "bulwark_qualifies") ? 0.25 : null; },
+        support: { "status": "Partial", "details": "Select Bulwark Qualifies after checking the incoming stun threshold: fixed 25% diminishing-return damage reduction. Stun duration, Tenacity interaction, and threshold detection are manual." }
     },
     bumblz_spirit: {
+        getMechanicsPreview() { return [row("Extra summons per full-charge activation", 4), row("Total summons including triggering summon", 5)]; },
+        support: { "status": "Partial", "details": "Shows the fixed four extra summons plus the triggering summon. Perk stacks do not invent additional summons. Spiritual Energy, actual summon cap enforcement, individual summon stats, and attack simulation are held." },
         id: "bumblz_spirit",
         name: "Bumblz Spirit",
         category: "Perk",
@@ -1142,8 +1272,13 @@ export const Perks = {
             "cardId": "69214b9831723704c1edac88",
             "cardUrl": "https://trello.com/c/oPZnLHoU"
         },
+        getPerkDamageInfo(amount) { return positivePerk(amount) ? { ...activation("buni_spirit", 2, "Weapon"), sourceDamageType: "M2", tags: ["Weapon", "M2", "Finisher"], hitAmount: 20, damageScalings: { ...this.damageScalings }, damageTypes: { ...this.damageTypes } } : null; },
+        support: { "status": "Partial", "details": "Twenty 2-base hits sharing the selected weapon profile, every hit classified M2/Finisher per the card's corrected note. Assumes one target receives all hits; spreading across nearby enemies and Spiritual Energy consumption are manual. This is a separate activation, not a replacement of the normal RMB panel." }
     },
     caci_king_spirit: {
+        previewInputs: ["channelSeconds"],
+        getMechanicsPreview() { const seconds = input(this, "channelSeconds"); return [row("Initial aura duration", 20, "s"), row("Maximum additional dance", 30, "s"), row("Selected aura duration", seconds === undefined ? undefined : 20 + Math.min(30, seconds), "s"), row("Initial dodge window", 3, "s")]; },
+        support: { "status": "Partial", "details": "Shows 20s initial aura plus a manually entered additional channel capped at 30s, and the fixed 3s initial dodge window. Kings Luck application, potency, proc/crit/dodge rates, and Earth/Air healing lack coefficients and are not invented." },
         id: "caci_king_spirit",
         name: "Caci King Spirit",
         category: "Perk",
@@ -1162,6 +1297,17 @@ export const Perks = {
             "cardId": "69214b9831723704c1edac92",
             "cardUrl": "https://trello.com/c/BaNYOPmt"
         },
+        damageScalings: { Dexterity: 1 }, damageTypes: { Physical: 1 },
+        getPerkDamageInfo(amount) { return positivePerk(amount) ? { ...activation("caci_spirit", 5, "Weapon"), sourceDamageType: "M2", tags: ["Weapon", "M2", "Finisher"], hitAmount: 7 } : null; },
+        getPerkDamageStages(amount) {
+            if (!positivePerk(amount))
+                return [];
+            return [
+                { name: "Caci Spirit: Thorns", packet: { ...activation("caci_spirit", 5, "Weapon"), sourceDamageType: "M2", hitAmount: 7 } },
+                { name: "Caci Spirit: Slams", packet: { ...activation("caci_spirit", 6, "Weapon"), sourceDamageType: "M2", hitAmount: 3 } },
+            ];
+        },
+        support: { "status": "Partial", "details": "Previews seven 5-base thorn hits and three 6-base slams as separate segments, each Physical output with 1 Dexterity scaling. RMB/Finisher classification is an explicit convention. Separate segments preserve per-hit flat reductions; Bleed, Spiritual Energy, and slam guardbreak are manual." }
     },
     cannonball: {
         id: "cannonball",
@@ -1201,6 +1347,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda4ac",
             "cardUrl": "https://trello.com/c/fLKoazAe"
         },
+        onDmgBonusMultiplier(amount, args) { return positivePerk(amount) && selected(this, "high_knockback") && isDirectPacket(args) ? 0.1 * amount : null; },
+        support: { "status": "Partial", "details": "Select High Knockback for 10% damage per perk on qualifying direct packets. Qualification and knockback physics are manual. The card's tentative Air-based crit formula is not treated as verified and is not applied." }
     },
     caster: {
         id: "caster",
@@ -1223,6 +1371,9 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3e6",
             "cardUrl": "https://trello.com/c/ui2vFOBz"
         },
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "poisonpotency", amount); },
+        support: { "status": "Partial", "details": "Adds the verified additive Poison potency point per perk. The True-damage Slow tick formula is missing; no True DoT is invented and Sticky does not trigger one." }
     },
     cauterize: {
         id: "cauterize",
@@ -1233,6 +1384,9 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda40e",
             "cardUrl": "https://trello.com/c/LPSC2zXY"
         },
+        damageScalings: { Fire: 1.5 }, damageTypes: { Fire: 1 },
+        getPerkDamageInfo(amount) { return positivePerk(amount) ? activation("cauterize", 2 * (1 + 0.133333 * (this.potencies.burnpotency || 0))) : null; },
+        support: { "status": "Partial", "details": "Its applicant's Burn ticks on enemies become zero-damage Singed while retaining the Burn identity and other related effects. A separate first-application burst uses 2 base, 1.5 Fire scaling/output Fire, and +13.3333% per additive Burn potency point, following the linked potency-stat card. Burst trigger/reapplication and non-damage proc chains are manual." }
     },
     channeled_depths: {
         id: "channeled_depths",
@@ -1243,6 +1397,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda378",
             "cardUrl": "https://trello.com/c/bp27uuZ2"
         },
+        sourcepotencies: { channeleddepthspotency: 0 },
+        support: { "status": "Partial", "details": "Select Channeled Depths and enter accumulated potency: the shared state adds 5 * game potency Water output to a positive direct hit. Zero damage cannot activate it. Buildup, perk-dependent cap progression, hit consumption, and game-buff classification remain unverified/manual." }
     },
     channeled_weapon: {
         id: "channeled_weapon",
@@ -1270,6 +1426,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3de",
             "cardUrl": "https://trello.com/c/TMue1p2w"
         },
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "burnpotency", amount); },
+        onFinalDamageTakenMultiplier(amount, args) { return positivePerk(amount) && args?.baseDamageData?.sourceType === "Status" && args.baseDamageData.source === "burn" ? 0 : null; },
+        support: { "status": "Partial", "details": "Adds one additive Burn potency point per perk per the Burn Potency source card. Burn ticks on this holder cause zero damage, while Burn remains selected as a debuff. Its replacement healing and movement bonus have no verified formula and are not calculated. Direct Fire hits remain damaging." }
     },
     civilian: {
         id: "civilian",
@@ -1294,6 +1454,8 @@ export const Perks = {
             "cardId": "69214b9831723704c1edae2e",
             "cardUrl": "https://trello.com/c/KAChfnOD"
         },
+        getSourcePotencies(amount) { return { cleansedbladepotency: 0.1 * amount }; },
+        support: { "status": "Partial", "details": "Offers Cleansed Blade at 0.1 potency per perk. Its shared real buff supplies a separate damage fraction of 1.5 * effective game potency * holder Water Boost / 100, rather than modifying Water scaling. Transferred-buff scaling ownership needs verification; healing, Cleanse activation, and duration are manual." }
     },
     cleave: {
         id: "cleave",
@@ -1311,6 +1473,8 @@ export const Perks = {
         }
     },
     colossus: {
+        getMechanicsPreview(amount) { return [row("Additional stun resistance", .2 * amount, "s"), row("Mounts", "Disabled while Colossus is equipped")]; },
+        support: { "status": "Partial", "details": "Calculates 0.2s stun resistance per perk and disables shared mounted-scenario bonuses while equipped, including fractional amounts. Character/hitbox size, additional poise damage, and undocumented stun combination rules are held." },
         id: "colossus",
         name: "Colossus",
         category: "Perk",
@@ -1365,8 +1529,16 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda444",
             "cardUrl": "https://trello.com/c/ZS6gvenU"
         },
+        weaponPriority: 60,
+        modifyWeaponConstruction(amount, data) { if (positivePerk(amount)) {
+            data.constructionType += " + Cosmic Ray";
+            data.m2 = [[18.5, 1]];
+        } },
+        support: { "status": "Partial", "details": "Replaces RMB with one 18.5-base Cosmic Ray, favoring its specific card over the general construction card's older 14. Retains weapon output/scaling as an explicit inference. The linked exclusions and beam timing are not simulated. Construction is resolved after existing stances. Conflicts with other replacement perks use documented builder priority, pending in-game verification; animation, knockback, and automatic applications are not simulated." }
     },
     counting_sheep: {
+        poise: { bonusPerPerk: .1, requiredTargetDebuff: "slow" },
+        support: { "status": "Partial", "details": "Adds 10% poise damage per perk against target Slow in the separate Poise Damage panel, including M2. Does not change HP damage. Slow application chance/potency is unspecified and remains manually selected; base poise and stagger thresholds are unknown." },
         id: "counting_sheep",
         name: "Counting Sheep",
         category: "Perk",
@@ -1377,6 +1549,8 @@ export const Perks = {
         },
     },
     crimson_tithe: {
+        getMechanicsPreview(amount) { const base = 4 + 4 * amount; return [...healRows(this, "Burst healing", base, { Physical: .7, Air: .7 }), ...healRows(this, "Self healing", base * .2, { Physical: .7, Air: .7 }), ...healRows(this, "Tether tick", base / 15, { Physical: .7, Air: .7 }), row("Tether ticks / cooldown", "15 ticks / 15s")]; },
+        support: { "status": "Partial", "details": "Previews burst base healing 4+4p with 0.7 Physical/Air scaling, 20% self heal, and burst/15 for each of 15 tether ticks. Scoped Heal Boost/critical healing is shown separately. Fifteen-second cooldown is informational. HP consumption damage coefficient is missing, so no self damage, tether timeline, or automatic trigger is invented." },
         id: "crimson_tithe",
         name: "Crimson Tithe",
         category: "Perk",
@@ -1387,6 +1561,9 @@ export const Perks = {
         },
     },
     critical_healing: {
+        previewInputs: ["baseHeal"],
+        getMechanicsPreview(amount) { return [row("Critical heal chance", chance(20 + (this.stats.HolyBoost || 0) / 5), "%"), row("Critical heal bonus", 16.5 * amount, "%"), ...healRows(this, "Entered healing", input(this, "baseHeal"))]; },
+        support: { "status": "Partial", "details": "Healing previews gain 20 + HolyBoost/5 percent critical chance and 16.5% extra healing per perk on a critical heal. Chance is bounded to 0-100%; without this perk healing cannot crit. Displays normal, critical, and expected healing separately. No random heal rolls or undocumented per-source/recipient interactions are simulated." },
         id: "critical_healing",
         name: "Critical Healing",
         category: "Perk",
@@ -1500,6 +1677,16 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3b2",
             "cardUrl": "https://trello.com/c/9SLLJiPB"
         },
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "burnpotency", amount); },
+        outputPriority: 200,
+        onOutputCalculation(amount, args) {
+            if (!positivePerk(amount) || args?.baseDamageData?.sourceType !== "Status" || args.baseDamageData.source !== "burn")
+                return;
+            this.damageTypes = { Fire: 0.5, Hex: 0.5 };
+            this.damageScalings = { Fire: 1, Hex: 1 };
+        },
+        support: { "status": "Partial", "details": "Adds one additive Burn potency point per perk per the Burn Potency source card. This applicant's Burn uses half Fire/Hex output with 1 Fire and Hex scaling. Shared Burn weakens its holder by 0.1 + 0.1 * applicant additive Burn potency points, separate from Weakness. Eligible Endless Despair uses the documented alternate weakening formula 0.2 + 0.1 * applicant additive Burn potency points * Endless Despair amount. Its additional Burn-duration increase is unspecified and remains held; the general Endless Despair duration preview is available." }
     },
     dark_harvest: {
         id: "dark_harvest",
@@ -1510,6 +1697,11 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaa18",
             "cardUrl": "https://trello.com/c/0m1Y9ru4"
         },
+        damageScalings: { "Hex": 1 }, damageTypes: { "Hex": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; const hp = healthRatio(this.target); if (hp === undefined || hp >= 0.5)
+            return null; return activation("dark_harvest", 20 + 20 * amount, "Perk"); },
+        support: { "status": "Partial", "details": "One qualifying below-half-health burst has 20 + 20 * perk amount base and 1 Hex scaling/output. Selected target HP must be strictly below half; an initiating hit crossing that threshold is represented by updating HP manually. Healing/guard break are excluded. This is an independent activation preview, not automatic DPS. Trigger rolls, cooldowns, area/target counts, and unspecified proc/crit rules are not simulated." }
     },
     dark_magic: {
         id: "dark_magic",
@@ -1565,8 +1757,12 @@ export const Perks = {
             "cardId": "69214b9831723704c1edaca6",
             "cardUrl": "https://trello.com/c/epRyrAAG"
         },
+        statusEffects: ["anti_venom"],
+        support: { "status": "Partial", "details": "Select the shared neutral Anti-Venom status: fixed 90% direct Hex resistance and +20 Movement Speed points, independent of owning the perk. The neutral-status card corrects the quoted immunity description. Poison application/duration extension, Spiritual Energy, and expiration are manual." }
     },
     deepcrystal_calling: {
+        getMechanicsPreview(amount) { return [...healRows(this, "Crystal tick (known base only)", .5 + amount / 10), row("Nominal tick count", 4 * amount), row("Cooldown", 10, "s"), row("Limit", "Unspecified diminishing returns / fractional tick rounding held; requires cleansing another ally")]; },
+        support: { "status": "Partial", "details": "Previews base healing 0.5+p/10 per crystal tick, nominal 4p ticks, and 10s cooldown after cleansing another ally or summon. The source reports unspecified small diminishing returns; fractional tick rounding, unknown scaling/level factors, and exact total healing are not invented. No Radiance compatibility is assumed." },
         id: "deepcrystal_calling",
         name: "Deepcrystal Calling",
         category: "Perk",
@@ -1585,8 +1781,28 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda49e",
             "cardUrl": "https://trello.com/c/0PXUJlbQ"
         },
+        onDmgReducedMultiplier(amount) { return positivePerk(amount) && hasDebuff(this.target, "taunt") ? 0.33 : null; },
+        support: { "status": "Partial", "details": "Incoming attacks from a selected Taunted opponent gain a fixed 33% reduction bonus, independent of perk amount. Uses the builder's diminishing-return reduction convention; the card does not specify direct versus diminishing stacking. Guard-break behavior is not simulated." }
     },
     delta_drill: {
+        weaponPriority: 100,
+        modifyWeaponPackets(amount, packets) {
+            const repeats = Math.round(amount), result = [];
+            for (const packet of packets.m1) {
+                if (!packet.tags?.includes("Finisher")) {
+                    result.push(packet);
+                    continue;
+                }
+                const copies = repeats + 1, explicit = Math.min(copies, 3);
+                for (let i = 0; i < explicit; i++)
+                    result.push({ ...packet, damage: packet.damage * (1 - Math.min(.7, .4 + .1 * i)) });
+                if (copies > 3)
+                    result.push({ ...packet, damage: packet.damage * .3, hitAmount: packet.hitAmount * (copies - 3) });
+            }
+            packets.m1 = result;
+        },
+        getMechanicsPreview(amount) { return [row("Additional M1 finishers", Math.round(amount)), row("First / second / third / later damage", "60% / 50% / 40% / 30%"), row("Speed per next finisher", 1.25, "x"), row("Condition", "Select Last M1 Is a Finisher only for a qualifying weapon")]; },
+        support: { "status": "Partial", "details": "Repeats explicitly tagged M1 finishers using rounded perk amount, preserving all hits and original combo step. Damage falls 40/50/60/70% across the chain, capped at 70%; later equal repeats aggregate without a huge loop. Requires the Last M1 Is a Finisher scenario. M2 and unclassified M1 are unchanged. Attack timing, unknown reduced proc coefficient, and finisher-perk damage ordering remain held." },
         id: "delta_drill",
         name: "Delta Drill",
         category: "Perk",
@@ -1605,8 +1821,13 @@ export const Perks = {
             "cardId": "69214b9831723704c1edaf16",
             "cardUrl": "https://trello.com/c/HOIhXp9a"
         },
+        onDmgBonusMultiplier(amount, args) { return positivePerk(amount) && args?.baseDamageData?.sourceType === "Weapon" && args.baseDamageData.sourceDamageType === "M2" ? 0.1 * amount : null; },
+        support: { "status": "Partial", "details": "Weapon M2 packets gain the documented 10% damage per perk. M1-finisher replacement and whether its replacement inherits this bonus remain unverified and are not calculated." }
     },
     dire_buni_spirit: {
+        getPerkDamageInfo(amount) { return positivePerk(amount) ? { ...activation("dire_buni_spirit", 25, "Weapon"), sourceDamageType: "M2", damageScalings: { ...this.damageScalings }, damageTypes: { Physical: 1 } } : null; },
+        getMechanicsPreview() { return [row("Activation base damage", 25), row("Output", "Specific Stats entry says 1 Physical; contradictory prose about True is held")]; },
+        support: { "status": "Partial", "details": "Separate fixed-base-25 RMB finisher activation using weapon scaling and the specific 1 Physical output entry. The prose mentions partial True damage without an amount, so the explicit Stats entry takes priority. Full Spiritual Energy, teleport, proc-chance enhancement, and guardbreak are manual." },
         id: "dire_buni_spirit",
         name: "Dire Buni Spirit",
         category: "Perk",
@@ -1640,6 +1861,9 @@ export const Perks = {
         },
     },
     divine_intervention: {
+        previewInputs: ["healingReceived"],
+        getMechanicsPreview(amount) { const healing = input(this, "healingReceived"); return [row("Healing copied to each summon", healing === undefined ? undefined : healing * amount), row("Transfer", "100% per perk; direct summon healing stacks separately"), row("Buff copies", "Manual; compatible list in perk source; no automatic copied buff state")]; },
+        support: { "status": "Partial", "details": "Shows healing received by the player * perk amount as the extra healing each summon receives, stacking separately with directly healing that summon. Input is already received healing, so Heal Boost/critical healing is not applied twice. Compatible buff transfer remains manual; no invented summon actor state or unsupported buff copies." },
         id: "divine_intervention",
         name: "Divine Intervention",
         category: "Perk",
@@ -1650,6 +1874,9 @@ export const Perks = {
         },
     },
     divinity: {
+        previewInputs: ["remainingWeaponArt"],
+        getMechanicsPreview(amount) { const remaining = input(this, "remainingWeaponArt"); return [row("WA cooldown after one finisher", remaining === undefined ? undefined : remaining * Math.max(0, 1 - .1 * amount), "s"), row("Activation", "Once per finisher, not once per hit")]; },
+        support: { "status": "Partial", "details": "Separate current-cooldown snapshot reduces remaining Weapon Art cooldown by 10% per perk, floored at zero, once per finisher. Does not reduce the skill's base/static cooldown or multiply by hit count. Input represents current remaining seconds; event order, delays, and live countdown remain manual." },
         id: "divinity",
         name: "Divinity",
         category: "Perk",
@@ -1662,6 +1889,8 @@ export const Perks = {
     dominating: {
         id: "dominating",
         name: "Dominating",
+        poise: { bonusPerPerk: 0.2, requiredTargetDebuff: "taunt", placeholder: true },
+        support: { status: "Partial", details: "User-authorized placeholder: +20% poise damage per perk while the target has Taunt. Shown in the separate Poise Damage preview; does not increase HP damage. Underlying attack poise values, stagger thresholds, and the actual game coefficient are unknown. Taunt application is manual." },
         category: "Perk",
         description: "Enemies are more vulnerable to your poise damage afflicted with the Taunt Debuff.",
         "source": {
@@ -1670,6 +1899,19 @@ export const Perks = {
         },
     },
     draconic_blood: {
+        getSourcePotencies(amount) { return { draconicinfusionpotency: amount / 10 }; },
+        getPerkDamageStages(amount) {
+            if (!positivePerk(amount))
+                return [];
+            const color = draconicColor(this);
+            if (!color || this.race?.id !== "dragon_blooded")
+                return [];
+            const multiplier = color === "Earth" ? 1.5 : color === "Water" ? 1.1 : 1;
+            return [{ name: "Dragon Claw", packet: { ...activation("dragon_claw", (25 + 2.5 * amount) * multiplier, "Rune"), damageTypes: { [color]: 1 }, damageScalings: { [color]: 1 } } },
+                { name: "Dragon Bubble", packet: { ...activation("dragon_bubble", (20 + 2 * amount) * multiplier, "Rune"), damageTypes: { [color]: 1 }, damageScalings: { [color]: 1 } } }];
+        },
+        getMechanicsPreview() { const color = draconicColor(this); return [row("Claw cooldown", color === "Air" ? 3.75 : 5, "s"), row("Bubble cooldown", color === "Air" ? 5.25 : 7, "s"), row("Infusion duration / cooldown", "20s / 35s"), row("Damage preview", this.race?.id !== "dragon_blooded" ? "Non-Dragon damage penalty unknown; damage preview held" : !color ? "Select exactly one Draconic Color" : "Claw and Bubble are separate Rune activations")]; },
+        support: { "status": "Partial", "details": "Offers Draconic Infusion at 0.1 potency per perk, adding the selected applicant color to all output (0.075 Physical or 0.1 elemental per 0.1 potency). Dragon Blooded Claw/Bubble previews use base 25+2.5p / 20+2p, 1 color scaling/output, Earth x1.5 and Water x1.1 damage. Color is selected manually; non-Dragon damage is held because the penalty is unspecified. Claw/Bubble cooldowns show fixed Air x0.75. Other cooldown interactions, healing, random debuffs, stun, and automatic Rune replacement remain manual." },
         id: "draconic_blood",
         name: "Draconic Blood",
         category: "Perk",
@@ -1688,6 +1930,11 @@ export const Perks = {
             "cardId": "69214b9831723704c1edad58",
             "cardUrl": "https://trello.com/c/ryqD3r8n"
         },
+        outputPriority: 100,
+        onOutputCalculation(amount, args) { if (!positivePerk(amount) || args?.baseDamageData?.sourceType !== "Rune")
+            return; const colors = ["Fire", "Water", "Holy", "Hex", "Earth", "Air", "Physical"]; const chosen = colors.filter(color => selected(this, "draconic_color_" + color.toLowerCase())); if (chosen.length === 1)
+            addOutput(this, chosen[0], 0.05 * amount); },
+        support: { "status": "Partial", "details": "Choose exactly one Draconic Color scenario to add 0.05 output of that color per perk to Rune packets only. Color is manually selected rather than guessed from race/equipment. Conflicting colors produce no bonus; skin changes, infusion, and Draconic Blood are not implemented by this perk." }
     },
     dragigator_spirit: {
         id: "dragigator_spirit",
@@ -1722,6 +1969,11 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda9ee",
             "cardUrl": "https://trello.com/c/sAG0j9u3"
         },
+        damageScalings: { "Dexterity": 0.75, "Magic": 0.75, "Holy": 0.75 }, damageTypes: { "Magic": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; const hp = healthRatio(this); if (hp === undefined || hp <= 0.8)
+            return null; return activation("dragon_state", 2.5 + 2.5 * amount, "Perk", 1); },
+        support: { "status": "Partial", "details": "One wave above 80% HP, 2.5 + 2.5 * perk amount base, 0.75 Dexterity/Magic/Holy scaling, Magic output. The unspecified lower threshold at higher perk amounts is held; the verified >80% range remains usable. Independent activation preview; trigger rolls, timing, area/target counts, and automatic proc chains are not simulated." }
     },
     drone: {
         id: "drone",
@@ -1752,6 +2004,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda9fe",
             "cardUrl": "https://trello.com/c/pImd8rfP"
         },
+        damageScalings: { "Air": 1, "Summon": 1 }, damageTypes: { "Air": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("echo_blast", 2 + 1.5 * amount); },
+        support: { "status": "Partial", "details": "One summon's tornado, 2 + 1.5 * perk amount base with Air and Summon scaling. Multiple summons are not automatically multiplied into this preview. Separate activation preview; trigger rolls, cooldowns, area/target counts, and recursive procs are not simulated. Unspecified proc coefficients and crit eligibility use the existing direct-packet defaults." }
     },
     emergency_exit: {
         id: "emergency_exit",
@@ -1796,6 +2052,7 @@ export const Perks = {
     endless_despair: {
         id: "endless_despair",
         name: "Endless Despair",
+        support: { "status": "Partial", "details": "Ordinary potency-bearing debuffs combine source and stored additive potency before applying (1 + 0.35 * perk amount), then one flat +0.1. Duration preview uses base seconds * (1 + 0.75 * perk amount). User testing on 2026-10-21 found increased enemy Poison damage/duration and no effect on self-inflicted debuffs; self exclusion is enforced even for old saved manual opt-ins. Stored Potencies remain unchanged. Bleed/Burn/Poison now respond to enemy eligibility using an explicitly provisional ED estimate: evaluate the documented source/stat damage multiplier M first, treat M-1 as combined strength above base damage 1, then use 1 + (M-1)*(1+0.35*p) + 0.1 before offensive scaling and defenses. This numerical mapping is a builder assumption, not validated in-game. Zero-damage Cauterize ticks remain zero. Manual DoT potency inputs still override the additive component before combination. Cursed Flames keeps its separate documented weakening formula. Linear stacking and other duration interactions remain builder conventions." },
         category: "Perk",
         description: "Heavily increase debuff duration and slightly increase debuff potency.",
         "source": {
@@ -1865,8 +2122,13 @@ export const Perks = {
             "cardId": "69214b9831723704c1edaeb6",
             "cardUrl": "https://trello.com/c/DHbtUgdt"
         },
+        getPerkDamageInfo(amount) { return positivePerk(amount) ? { ...activation("essence_ray", 1.1 + 0.275 * amount, "WeaponArt"), hitAmount: 23, damageScalings: { ...this.damageScalings }, damageTypes: { True: 1 } } : null; },
+        support: { "status": "Partial", "details": "Previews one Essence Ray activation with 23 hits, each 1.1 + 0.275 * perk amount base, True output, and the weapon's scaling snapshot. Uses Weapon Art classification from its Ray parent. It is a separate preview; replacing the parent Ray panel, targeting, casting, and trigger timing are not simulated." }
     },
     essence_totem: {
+        previewInputs: ["baseHeal"],
+        getMechanicsPreview() { return [...healRows(this, "Entered totem tick", input(this, "baseHeal"), { Holy: .5, Earth: .5 }), row("Tick count", "Depends on post-CDR Weapon Art cooldown; exact relation is undocumented")]; },
+        support: { "status": "Partial", "details": "Applies documented 0.5 Holy/Earth scaling plus shared Heal Boost/critical healing to a manually entered base tick. No base heal, tick count, duration/cooldown relation, or area is fabricated; the ring is not a status effect." },
         id: "essence_totem",
         name: "Essence Totem",
         category: "Perk",
@@ -1892,6 +2154,8 @@ export const Perks = {
         }
     },
     exhaust: {
+        getMechanicsPreview() { const cd = this.getCooldownPreview(this.weaponart?.coolDown, "WeaponArt", this.weaponart?.id); return [row("Guaranteed Burn window", cd ? cd.value / 2 : undefined, "s"), row("Burn innate potency", "Unspecified; enter / select a Burn source manually")]; },
+        support: { "status": "Partial", "details": "Displays its Burn application window as half the equipped Weapon Art cooldown after reviewed cooldown modifiers. Duration of that application window is separate from Burn's own duration. Burn potency, automatic status application, and an attack timeline remain unverified/manual." },
         id: "exhaust",
         name: "Exhaust",
         category: "Perk",
@@ -1902,6 +2166,9 @@ export const Perks = {
         },
     },
     explosive_charge: {
+        previewInputs: ["preOutputHitDamage"],
+        getMechanicsPreview() { return [row("Explosion damage before its own post-output modifiers", input(this, "preOutputHitDamage")), row("Damage inherited from Weapon Art", 100, "%"), row("Automatic proc coefficient", 0), row("Outputs", "Physical and Fire; split is undocumented, so final output damage is held"), row("Self damage", "Also hits the user; not automatically applied")]; },
+        support: { "status": "Partial", "details": "Shows one explosion per Weapon Art hit using 100% of the entered pre-post-output damage, independent of perk stacks. No repeat offensive scaling is applied to that input. Physical/Fire split, self-damage, and area/stun are manual; cannot proc effects." },
         id: "explosive_charge",
         name: "Explosive Charge",
         category: "Perk",
@@ -1934,6 +2201,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda360",
             "cardUrl": "https://trello.com/c/5lI1gM4c"
         },
+        onSpecificDmgBonusMultiplier(amount, args) { return positivePerk(amount) && this.activeProcs?.includes("extinguish") && args?.outputType === "Water" ? 0.5 * amount : null; },
+        support: { "status": "Partial", "details": "Select Extinguish Proc for a qualifying proc-capable Water hit. It consumes target Burn from any applicant before Curse Rip and grants 50% damage per perk to Water only on the first hit; later hits see Burn removed. Input builds stay unchanged. Qualification for Water introduced only by output conversions, healing, and reapplication are manual." }
     },
     fell_rush: {
         id: "fell_rush",
@@ -1954,6 +2223,13 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda41a",
             "cardUrl": "https://trello.com/c/39iFQqea"
         },
+        damageScalings: { Fire: 1 }, damageTypes: { Fire: 1 },
+        getPerkDamageInfo(amount) {
+            if (!positivePerk(amount) || Math.floor(amount) < 1)
+                return null;
+            return { ...activation("fiery_pursuit", 10 + amount, "WeaponArt"), hitAmount: Math.floor(amount) };
+        },
+        support: { "status": "Partial", "details": "Previews one activation with floor(perk amount) dashes, each dealing 10 + perk amount base Fire damage with 1 Fire scaling. Counts as Weapon Art damage. Fractional perks increase damage but add no dash. Burn application, guard breaks, cast sequencing, and invincibility are manual." }
     },
     final_act: {
         id: "final_act",
@@ -1964,6 +2240,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3f4",
             "cardUrl": "https://trello.com/c/l83Hkyfa"
         },
+        damageScalings: { "Hex": 1, "Magic": 1, "Summon": 1 }, damageTypes: { "Hex": 0.5, "Magic": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("final_act", 10 + 10 * amount, "Perk"); },
+        support: { "status": "Partial", "details": "One Final Act activation deals 10 + 10 * perk amount base with Hex/Magic/Summon scaling and split Hex/Magic output. It is not multiplied by the summon count because the same enemy can only be hit once. This is an independent activation preview, not automatic DPS. Trigger rolls, cooldowns, area/target counts, and unspecified proc/crit rules are not simulated." }
     },
     flash_strike: {
         id: "flash_strike",
@@ -2001,8 +2281,15 @@ export const Perks = {
             "cardId": "69214b9831723704c1edad0a",
             "cardUrl": "https://trello.com/c/em0Wta94"
         },
+        outputPriority: 100,
+        onOutputCalculation(amount) { if (positivePerk(amount) && this.activeProcs?.includes("forgotten_chivalry"))
+            addOutput(this, "Holy", 0.4 * amount); },
+        support: { "status": "Partial", "details": "A positive Rune/Weapon Art hit while carrying Reinforce gains 0.4 Holy output per perk on the proccing hit and consumes that Reinforce on the calculation snapshot. Later hits in the packet no longer receive the bonus. Buff-count bonuses retain Reinforce for the first hit as an explicit ordering convention; poise and stun are not simulated." }
     },
     fractured_energy: {
+        previewInputs: ["damageDealt"],
+        getMechanicsPreview(amount) { const damage = input(this, "damageDealt"); return [row("Damage stored", 20 + 20 * amount, "%"), row("Selected stored damage", damage === undefined ? undefined : damage * (.2 + .2 * amount)), row("Storage duration", 5, "s"), row("Crit conversion", "Final per-hit crit chance becomes Fracture application chance in Crit Modifiers")]; },
+        support: { "status": "Partial", "details": "Converts the resolved per-hit critical chance to a displayed Fracture application chance and makes expected direct damage noncritical. Venom Eater cannot force a crit or consume Poison while converted. Stores 20% + 20% per perk of manually entered applicant damage for 5s. Earth/Magic split, return amplification/defenses, recording timeline, and application rolls are held." },
         id: "fractured_energy",
         name: "Fractured Energy",
         category: "Perk",
@@ -2086,6 +2373,8 @@ export const Perks = {
         }
     },
     frozen_waste: {
+        getMechanicsPreview(amount) { return [row("Blocking burst base damage", 15 + 15 * amount), row("Approximate cooldown at one perk", "5–8 seconds; higher-stack formula unknown"), row("Output / scalings", "Water output; Physical and Water scaling coefficients are undocumented")]; },
+        support: { "status": "Partial", "details": "Calculates the documented blocking burst base damage. Missing Physical/Water scaling coefficients, Slow potency, poise/stun, and cooldown curve are held; no final scaled damage is implied." },
         id: "frozen_waste",
         name: "Frozen Waste",
         category: "Perk",
@@ -2096,6 +2385,10 @@ export const Perks = {
         },
     },
     fungal_prototype: {
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "poisonpotency", amount); },
+        getMechanicsPreview(amount) { return [row("Stored Poison potency contributed", .1 * amount), row("Cloud", "Rune / Weapon Art hit; source damage relation and cloud potency are undocumented")]; },
+        support: { "status": "Partial", "details": "Adds +0.1 stored Poison potency per perk using the same user-specified grant convention as Venom Eater. Trello names the bonus without its amount. Cloud damage, source potency, size, and Rune/Weapon Art trigger are manual." },
         id: "fungal_prototype",
         name: "Fungal Prototype",
         category: "Perk",
@@ -2114,6 +2407,8 @@ export const Perks = {
             "cardId": "69214b9831723704c1edaee4",
             "cardUrl": "https://trello.com/c/zqgTEn7j"
         },
+        statusEffects: ["future_sight_ready"],
+        support: { "status": "Partial", "details": "Select Future Sight Ready for a manually qualified incoming direct hit: damage becomes zero. Recharge is max(5, 22.5 - 7.5 * perk amount) seconds, tracked manually. Remove the state after the dodge; multi-hit previews assume it stays active and should be split to model consumption. Status ticks are excluded; dodge-roll refresh and Critical Boost interactions are not simulated." }
     },
     gale_bursts: {
         id: "gale_bursts",
@@ -2124,8 +2419,14 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda440",
             "cardUrl": "https://trello.com/c/82Gmhs7I"
         },
+        damageScalings: { "Air": 1, "Dexterity": 1 }, damageTypes: { "Air": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; const number = finisherProcNumber(this); return activation("gale_bursts", (2.25 + 3.75 * amount) / (1 + number / 2), "Perk", 0.3); },
+        support: { "status": "Partial", "details": "One missile at the selected Finisher Proc Number (default 1), following the explicit formula (2.25 + 3.75 * perk amount) / (1 + number / 2). The card's one-perk example inconsistently uses 7.5; the formula takes precedence. Proc coefficient 0.3 is the base; inherited weapon-coefficient and alternating-hit suppression are manual. Independent activation preview; trigger rolls, timing, area/target counts, and automatic proc chains are not simulated." }
     },
     gaseous_smash: {
+        getMechanicsPreview(amount) { return [row("Poison cloud base damage per tick", amount), row("Output", "Hex; damage scaling and tick interval undocumented"), row("Activation", "Once per qualifying weapon slam")]; },
+        support: { "status": "Partial", "details": "Calculates one base damage per perk per cloud tick. Hex scaling, tick interval, duration, Poison source potency, and qualifying slam detection are held; cloud damage is separate from Poison status ticks." },
         id: "gaseous_smash",
         name: "Gaseous Smash",
         category: "Perk",
@@ -2158,6 +2459,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda478",
             "cardUrl": "https://trello.com/c/hugPFrtw"
         },
+        statusEffects: ["ghastly_rot"],
+        support: { "status": "Partial", "details": "Select the shared Ghastly Rot debuff on the target to make Poison from any applicant use True output. Poison scaling and ownership remain with the actual applicant. Its unspecified extra Poison damage, chance rolls, spreading, and application are not guessed." }
     },
     glacial_buildup: {
         id: "glacial_buildup",
@@ -2193,6 +2496,8 @@ export const Perks = {
             "cardId": "69214b9831723704c1edac6a",
             "cardUrl": "https://trello.com/c/9p6RpgS3"
         },
+        onSpecificDmgBonusMultiplier(amount, args) { return positivePerk(amount) && selected(this, "glyph_conduit") && args?.outputType === "Magic" ? 0.2 * amount : null; },
+        support: { "status": "Partial", "details": "Select Glyph Conduit after an RMB/Rune for 20% damage per perk to the pure Magic output portion only. Elemental portions do not qualify. Activation and expiration are manual; transferred-buff potency is unverified." }
     },
     gnawing_poison: {
         id: "gnawing_poison",
@@ -2203,6 +2508,11 @@ export const Perks = {
             "cardId": "69214b9831723704c1edad32",
             "cardUrl": "https://trello.com/c/OZUTZhKH"
         },
+        damageScalings: { "Hex": 1, "Physical": 1 }, damageTypes: { "Hex": 0.5, "Physical": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; if (!this.target?.deBuffs?.some(status => status.id === "poison" && status.getSourceBuild(this.target) === this))
+            return null; return activation("gnawing_poison", 8 * amount); },
+        support: { "status": "Partial", "details": "One bite: 8 * perk amount base, Hex/Physical scaling, half Hex/Physical output. Requires target Poison applied by this attacker; another applicant's Poison does not qualify. No unspecified innate Poison potency is invented. Separate activation preview; trigger rolls, cooldowns, area/target counts, and recursive procs are not simulated. Unspecified proc coefficients and crit eligibility use the existing direct-packet defaults." }
     },
     golden_crits: {
         id: "golden_crits",
@@ -2224,6 +2534,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1edabca",
             "cardUrl": "https://trello.com/c/S2yxgcVa"
         },
+        damageScalings: { "Earth": 1 }, damageTypes: { "Earth": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("golem_guillotine", 6 * amount); },
+        support: { "status": "Partial", "details": "One eligible ground-slam fissure deals 6 * perk amount base with 1 Earth scaling; Earth output is inferred from the description. Preview assumes a qualifying slam: Gloves, replaced finishers, and non-final Dual Greatsword M2 do not qualify in game. Separate activation preview; trigger rolls, cooldowns, area/target counts, and recursive procs are not simulated. Unspecified proc coefficients and crit eligibility use the existing direct-packet defaults." }
     },
     gorecast: {
         id: "gorecast",
@@ -2234,6 +2548,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1edab9c",
             "cardUrl": "https://trello.com/c/7HK2pKpv"
         },
+        onDmgBonusMultiplier(amount, args) {
+            return positivePerk(amount) && args?.baseDamageData?.sourceType === "WeaponArt" && hasDebuff(this.target, "bleed") && ((this.damageTypes.Physical || 0) > 0 || (this.damageTypes.Magic || 0) > 0) ? 0.15 * amount : null;
+        },
+        support: { "status": "Partial", "details": "Selected target Bleed enables 15% Weapon Art damage per perk when the packet contains Physical or Magic output. Elemental-only arts do not qualify. Bleed application, including on the triggering hit, is selected manually; the unspecified innate potency is not guessed. Hybrid packet bonus scope needs game verification." }
     },
     grandmagic_guard: {
         id: "grandmagic_guard",
@@ -2244,6 +2562,9 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda462",
             "cardUrl": "https://trello.com/c/n1JqetL7"
         },
+        onDmgReducedMultiplier(amount) { return positivePerk(amount) && selected(this, "magic_reinforce") ? 0.5 * amount : null; },
+        onFlatDamageTakenReduction(amount, args) { return positivePerk(amount) && selected(this, "magic_reinforce") && isMagicDamageType(args?.outputType) ? 0.5 * amount : null; },
+        support: { "status": "Partial", "details": "Select Magic Reinforce for 50% diminishing-return reduction per equipped perk and 0.5 flat reduction per perk to Magic and its six constituent elements. Flat reduction applies per hit/output after defense and reviewed reduction multipliers, floored at zero. Self-buff preview; transferred potency, knockback, and blocking activation are manual." }
     },
     gravitational_enforcer: {
         id: "gravitational_enforcer",
@@ -2254,6 +2575,11 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda442",
             "cardUrl": "https://trello.com/c/r9LM8Qcs"
         },
+        damageScalings: { "Earth": 1, "Magic": 1 }, damageTypes: { "Earth": 0.5, "Magic": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("gravitational_enforcer", 10 + amount, "Perk"); },
+        getSourcePotencies(amount) { return { shatterpotency: 0.1 * amount }; },
+        support: { "status": "Partial", "details": "One pull hit with 10 + perk amount base and 1 Earth/Magic scaling. Equal Earth/Magic output is inferred because output is unstated. Offers 0.1 * perk amount Shatter. RMB cooldown penalty, stun, guardbreak, and replacement precedence are unverified/manual. Independent activation preview; trigger rolls, timing, area/target counts, and automatic proc chains are not simulated." }
     },
     gravity_well: {
         id: "gravity_well",
@@ -2264,8 +2590,14 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3c4",
             "cardUrl": "https://trello.com/c/4ZoUZs3u"
         },
+        damageScalings: { "Earth": 0.5, "Magic": 0.5 }, damageTypes: { "Earth": 0.5, "Magic": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("gravity_well", 20 + 2 * amount); },
+        support: { "status": "Partial", "details": "One cast shockwave, 20 + 2 * perk amount base, half Earth/Magic scaling and output. It is a perk packet; the source does not classify the wave as Rune or Weapon Art damage. Separate activation preview; trigger rolls, cooldowns, area/target counts, and recursive procs are not simulated. Unspecified proc coefficients and crit eligibility use the existing direct-packet defaults." }
     },
     gremlin_spirit: {
+        getMechanicsPreview() { return [row("Hits per activation", 10), row("Activation", "Full spirit plus applying Bleed; damage coefficients undocumented")]; },
+        support: { "status": "Partial", "details": "Shows the documented ten-hit activation when full Spiritual Energy and Bleed application qualify. Base damage, scaling, output, per-hit coefficients, and automatic triggering are unavailable; no guessed damage packet." },
         id: "gremlin_spirit",
         name: "Gremlin Spirit",
         category: "Perk",
@@ -2296,6 +2628,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaba6",
             "cardUrl": "https://trello.com/c/FMywHsbl"
         },
+        onDmgBonusMultiplier(amount, args) { return positivePerk(amount) && args?.baseDamageData?.sourceType === "WeaponArt" && args.baseDamageData.source === "spin" ? 0.2 + 0.2 * amount : null; },
+        support: { "status": "Partial", "details": "The Spin Weapon Art gains a 20% base damage bonus plus 20% per perk. Other Weapon Arts and independent perk activations are unaffected; range is not simulated." }
     },
     guiding_winds: {
         id: "guiding_winds",
@@ -2306,6 +2640,9 @@ export const Perks = {
             "cardId": "69214b9831723704c1edacec",
             "cardUrl": "https://trello.com/c/PXHDPKRY"
         },
+        getSourcePotencies(amount) { return { tailwindpotency: 0.1 * amount }; },
+        onDmgBonusMultiplier(amount, args) { return positivePerk(amount) && selected(this, "guiding_winds_charged") ? (isRuneOrWeaponArtHit(args) ? 0.15 : 0.4) * amount : null; },
+        support: { "status": "Partial", "details": "Select Guiding Winds Charged for the full-charge damage cap: 40% per perk normally, approximately 15% per perk for Rune/Weapon Art packets per the source. This is an independent charge state, not calculated from Tailwind potency. Offers the max 0.1 Tailwind potency per perk source. Intermediate charge, buildup, and consumption are manual." }
     },
     hardened_will: {
         id: "hardened_will",
@@ -2318,6 +2655,9 @@ export const Perks = {
         },
     },
     heal_boost: {
+        previewInputs: ["baseHeal"],
+        getMechanicsPreview(amount) { return [row("Healing multiplier", 1 + .1 * amount, "x"), ...healRows(this, "Entered healing", input(this, "baseHeal"))]; },
+        support: { "status": "Partial", "details": "Adds 10% healing per perk to the scoped healing previews, multiplicatively after known source scaling. Excluded from Cursed and Perk Effectiveness per source. Entered base healing and supported healing sources show normal, critical, and expected results. Unknown level, True Balance healing, recipient modifiers, and skill-specific restrictions are explicitly outside this preview." },
         id: "heal_boost",
         name: "Heal Boost",
         category: "Perk",
@@ -2328,6 +2668,8 @@ export const Perks = {
         },
     },
     healing_arts: {
+        getMechanicsPreview(amount) { const factor = .075 + .2667 * amount; return [row("Regen duration from Rune", this.mainArmor.rune?.cooldown === undefined ? undefined : this.mainArmor.rune.cooldown * factor, "s"), row("Regen duration from Weapon Art", this.weaponart?.coolDown === undefined ? undefined : this.weaponart.coolDown * factor, "s"), row("Potency", "Regen innate potency unspecified; select / enter manually")]; },
+        support: { "status": "Partial", "details": "Displays Regen application duration as the triggering skill's base cooldown * (0.075+0.2667p), separately for Rune and Weapon Art. This is an unmodified application-duration preview; Contained and other duration choices belong to the selected Regen status. Missing Regen innate potency and healing-per-tick are not invented." },
         id: "healing_arts",
         name: "Healing Arts",
         category: "Perk",
@@ -2346,6 +2688,11 @@ export const Perks = {
             "cardId": "69214b9831723704c1edae36",
             "cardUrl": "https://trello.com/c/JJWBwgYQ"
         },
+        damageScalings: { "Magic": 1, "Earth": 1 }, damageTypes: { "Magic": 0.5, "Earth": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; if (!this.target?.deBuffs?.some(status => status.id === "heavy_gravitate" && status.getSourceBuild(this.target) === this))
+            return null; return activation("heavy_gravitate", (12.5 + 6.25 * amount) / 3, "Perk"); },
+        support: { "status": "Partial", "details": "One marked-target activation hit uses (12.5 + 6.25 * perk amount)/3 base with Magic/Earth scaling and split output. Requires selected Heavy Gravitate applied by this attacker. Hit count/proc coefficient above normal are unspecified and are not guessed. This is an independent activation preview, not automatic DPS. Trigger rolls, cooldowns, area/target counts, and unspecified proc/crit rules are not simulated." }
     },
     heavy_slate: {
         id: "heavy_slate",
@@ -2356,8 +2703,14 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaba2",
             "cardUrl": "https://trello.com/c/BCycQTfD"
         },
+        damageScalings: { "Earth": 1 }, damageTypes: { "Earth": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("heavy_slate", 3 * amount); },
+        support: { "status": "Partial", "details": "One threshold-triggered shockwave, 3 * perk amount base and 1 Earth scaling. Earth output is inferred from the description; stun/knockback thresholds remain manual. Separate activation preview; trigger rolls, cooldowns, area/target counts, and recursive procs are not simulated. Unspecified proc coefficients and crit eligibility use the existing direct-packet defaults." }
     },
     heightened_reflexes: {
+        getMechanicsPreview(amount) { return [row("Autoparries after a kill (whole-count preview)", Math.floor(amount) + 1), row("Fractional count", "Floor convention; fractional in-game rounding unverified"), row("Condition", "Blocking with post-kill autoparry active; ends on exhausted parries or timeout")]; },
+        support: { "status": "Partial", "details": "Shows one plus perk amount autoparries at integer amounts; fractional counts floor as a labelled builder convention. Kill activation, blocking, damage blocked, duration, and Parry/Royal Parry stun are not invented." },
         id: "heightened_reflexes",
         name: "Heightened Reflexes",
         category: "Perk",
@@ -2376,6 +2729,14 @@ export const Perks = {
             "cardId": "69214b9831723704c1edaf1c",
             "cardUrl": "https://trello.com/c/aFvDz28k"
         },
+        damageScalings: { Hex: 1 }, damageTypes: { Hex: 1 },
+        getPerkDamageInfo(amount) {
+            if (!positivePerk(amount))
+                return null;
+            const target = this.target, weakness = target?.deBuffs?.find(status => status.id === "weakness" && status.getSourceBuild(target) === this);
+            return target && weakness ? activation("hex_ray", (5 + amount) * (1 + 2 * weakness.getReceivedPotency(target) / 10), "Perk", 0) : null;
+        },
+        support: { "status": "Partial", "details": "With attacker-applied target Weakness selected, previews one ray: (5 + perk amount) * (1 + 2 * received Weakness game potency) base Hex damage with 1 Hex scaling/output and no proc coefficient. Final manual potency and received reductions are honored. Cursed Flames trigger, reapplication, and crit eligibility are not implemented." }
     },
     holy_tides: {
         id: "holy_tides",
@@ -2386,8 +2747,12 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda40c",
             "cardUrl": "https://trello.com/c/BlP2SvSq"
         },
+        getSourcePotencies(amount) { return { regenpotency: amount / 2 }; },
+        support: { "status": "Partial", "details": "Offers Regen at half the perk amount after a cleanse. The existing shared Regen status can be selected with this source. Healing calculations, additional Holy/Water heal scaling, cleansing triggers, and duration are not simulated." }
     },
     honey_arts: {
+        getMechanicsPreview() { return [row("Approximate applied Sticky duration", 5, "s"), row("Automatic proc coefficient", 0), row("Glob count", "Depends on Weapon Art cooldown; exact relation and glob damage unknown")]; },
+        support: { "status": "Partial", "details": "Shows the documented approximately 5s Sticky application and that honey blasts cannot proc other effects. Missing glob count/cooldown relation, base damage, scaling/output, and target area are held." },
         id: "honey_arts",
         name: "Honey Arts",
         category: "Perk",
@@ -2398,6 +2763,9 @@ export const Perks = {
         },
     },
     honey_gather: {
+        previewInputs: ["eligibleHitDamage"],
+        getMechanicsPreview(amount) { const damage = input(this, "eligibleHitDamage"), active = this.target?.deBuffs?.some(status => status.id === "sticky"); return [row("Sticky target", active ? "Active" : "Inactive: select target Sticky"), row("Healing before healing modifiers", active ? damage === undefined ? undefined : .01 * damage * amount + 1 : 0)]; },
+        support: { "status": "Partial", "details": "Against selected target Sticky, previews 0.01 * eligible damage * perk amount + 1 healing. Enter damage before damage-boosting perks and output above 1, which the card excludes; final combat HP damage is not silently substituted. No Sticky consumption or automatic healing is invented." },
         id: "honey_gather",
         name: "Honey Gather",
         category: "Perk",
@@ -2416,6 +2784,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1edab54",
             "cardUrl": "https://trello.com/c/Mte3unIP"
         },
+        getSourcePotencies(amount) { return { hypnotistpotency: amount / 10 }; },
+        support: { "status": "Partial", "details": "Offers the shared Hypnotist debuff at perk amount / 10 potency, granting 5 Magic-family penetration per source perk, including fractional amounts. Apply it after the triggering hit, since it does not benefit that hit. Aggro, application, and duration are manual. Magic family includes Magic and its six constituent elements." }
     },
     ice_barge: {
         id: "ice_barge",
@@ -2440,6 +2810,10 @@ export const Perks = {
             "cardId": "69214b9831723704c1edad3c",
             "cardUrl": "https://trello.com/c/cKbJP0nj"
         },
+        damageScalings: { "Water": 1, "Physical": 1 }, damageTypes: { "Water": 0.5, "Physical": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("ice_burst", 10, "Perk", 0); },
+        support: { "status": "Partial", "details": "One 10-base burst, 1 Water/Physical scaling, and no proc coefficient. Equal Water/Physical output is an inference because the ratio is unstated. Armor-break trigger, Bleed potency, and duration are manual. Independent activation preview; trigger rolls, timing, area/target counts, and automatic proc chains are not simulated." }
     },
     icestorm: {
         id: "icestorm",
@@ -2450,6 +2824,11 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda468",
             "cardUrl": "https://trello.com/c/F0tSuvN4"
         },
+        damageScalings: { "Magic": 1, "Water": 1 }, damageTypes: { "Magic": 0.5, "Water": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; if (!selected(this, "icestorm_active"))
+            return null; return activation("icestorm", 3 + amount, "Perk", 0); },
+        support: { "status": "Partial", "details": "Select Icestorm Active for one orbit hit: 3 + perk amount base, Magic/Water scaling, and split output, with no proc coefficient. Hit-based buildup, duration, and Slow application are manual. This is an independent activation preview, not automatic DPS. Trigger rolls, cooldowns, area/target counts, and unspecified proc/crit rules are not simulated." }
     },
     ichor_spark: {
         id: "ichor_spark",
@@ -2462,6 +2841,11 @@ export const Perks = {
         },
     },
     infection: {
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "poisonpotency", amount); },
+        previewInputs: ["poisonTickDamage"],
+        getMechanicsPreview(amount) { const tick = input(this, "poisonTickDamage"); return [row("Stored Poison potency contributed", .1 * amount), row("Spread Hex damage from one tick", tick === undefined ? undefined : 2 * tick), row("Condition", "Your Poison tick and a nearby non-poisoned recipient")]; },
+        support: { "status": "Partial", "details": "Adds +0.1 stored Poison potency per perk under the user grant convention, and previews Hex spread damage equal to twice an entered Poison tick, not multiplied by perk stacks. Spread range, recipient defenses, application potency/duration, and automatic spreading are held." },
         id: "infection",
         name: "Infection",
         category: "Perk",
@@ -2480,8 +2864,14 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3fe",
             "cardUrl": "https://trello.com/c/G89Ri2Oo"
         },
+        attackSpeedFactor(amount) { if (!positivePerk(amount))
+            return 1; const denominator = 350 - 50 * amount; return denominator > 0 ? Math.max(0, 1 + Math.min(3, ((this.stats.DexterityBoost || 0) + (this.stats.PhysicalBoost || 0)) / denominator)) : 1; },
+        support: { "status": "Partial", "details": "Weapon speed multiplies by 1 + min(3, (Dexterity Boost + Physical Boost) / (350 - 50 * perk amount)), floored at zero speed. Uses final selected stats after percentage-to-flat conversion and Kitsune. At perk amount >= 7 the documented denominator is invalid/nonpositive, so this factor is held at 1 pending a verified rule. No Rune/Weapon Art cast-speed inference." }
     },
     inoculation: {
+        previewInputs: ["preReductionDamage"],
+        getMechanicsPreview(amount) { const damage = input(this, "preReductionDamage"); return [row("Self-hit healing before healing modifiers", damage === undefined ? undefined : (.3 * damage + .1) * amount), row("Eligibility", "Self-inflicted direct damage only; self debuffs do not qualify")]; },
+        support: { "status": "Partial", "details": "Previews (0.3 * self-hit damage before all defenses/reductions + 0.1) * perk amount healing. Explicit input prevents using post-defense HP damage or a self-inflicted DoT, both excluded by the card. Preview only; no HP mutation, recursive self-heal, or invented healing-modifier ordering." },
         id: "inoculation",
         name: "Inoculation",
         category: "Perk",
@@ -2528,6 +2918,8 @@ export const Perks = {
         }
     },
     iron_slayer_spirit: {
+        getMechanicsPreview() { return [row("Enhanced active Rage", "+0.2 potency; double duration"), row("Activation", "Select Iron Slayer enhancement on the affected Rage")]; },
+        support: { "status": "Partial", "details": "Select Iron Slayer enhancement on an existing Rage to add a fixed 0.2 potency and double its duration. Enhancement is fixed, not multiplied by perk count, and final manual potency remains final. Charge buildup, roar Weakness potency, and automatic activation are unknown/manual." },
         id: "iron_slayer_spirit",
         name: "Iron Slayer Spirit",
         category: "Perk",
@@ -2560,6 +2952,24 @@ export const Perks = {
             "cardId": "69214b9831723704c1edacc0",
             "cardUrl": "https://trello.com/c/eCUCiY6y"
         },
+        weaponPriority: 20,
+        modifyWeaponConstruction(amount, data, base) {
+            if (!positivePerk(amount))
+                return;
+            if (base.handle === "pole") {
+                data.constructionType = "Scythe";
+                data.weaponFamily = "scythe";
+                data.m1 = [[7.5, 1]];
+                data.m2 = [[5, 3]];
+            }
+            else if (base.weaponType === "dagger") {
+                data.constructionType = "Dual Kamas";
+                data.weaponFamily = "dual_kamas";
+                data.m1 = [[4, 1], [4, 1], [3, 3]];
+                data.m2 = [[5.5, 1]];
+            }
+        },
+        support: { "status": "Partial", "details": "Dagger becomes Dual Kamas (4, 4, 3x3 LMB; 5.5 RMB), including the explicitly documented override of Dual Wielding. A Pole becomes Scythe (7.5 LMB; 5x3 RMB). Other base weapons stay unchanged. Construction is resolved after existing stances. Conflicts with other replacement perks use documented builder priority, pending in-game verification; animation, knockback, and automatic applications are not simulated." }
     },
     kindling: {
         id: "kindling",
@@ -2584,8 +2994,18 @@ export const Perks = {
             "cardId": "69214b9831723704c1edad1a",
             "cardUrl": "https://trello.com/c/KK5A6Gja"
         },
+        weaponPriority: 40,
+        modifyWeaponConstruction(amount, data) { if (positivePerk(amount) && ["greatsword", "unbalanced_sword"].includes(data.weaponFamily || "")) {
+            data.constructionType = "Lance (LMB preview)";
+            data.weaponFamily = "lance";
+            data.m1 = [[6, 1]];
+        } },
+        support: { "status": "Partial", "details": "Greatsword/Unbalanced Sword LMB becomes the documented 6-base Lance thrust. RMB retains its prior preview because the hold-dependent ~6.8-20 range and hit count do not establish an exact packet. Construction is resolved after existing stances. Conflicts with other replacement perks use documented builder priority, pending in-game verification; animation, knockback, and automatic applications are not simulated." }
     },
     life_drinker: {
+        previewInputs: ["damageDealt"],
+        getMechanicsPreview(amount) { const damage = input(this, "damageDealt"); return [row("DoT lifesteal before healing modifiers", damage === undefined ? undefined : .01 * damage * amount + .1), row("Condition", "One of your DoT ticks; duration increase has no coefficient")]; },
+        support: { "status": "Partial", "details": "Shows one eligible DoT tick lifesteal as 0.01 * damageDealt * perk amount + 0.1. The flat 0.1 is added once. Enter actual damage of a tick, including Caustic Slow/Melting Slime if applicable. Life Drinker duration coefficient is absent and remains held. No automatic HP mutation, tick timeline, or undocumented healing modifiers." },
         id: "life_drinker",
         name: "Life Drinker",
         category: "Perk",
@@ -2596,6 +3016,9 @@ export const Perks = {
         },
     },
     lifesteal: {
+        previewInputs: ["damageDealt"],
+        getMechanicsPreview(amount) { const damage = input(this, "damageDealt"); return [row("Direct-hit lifesteal before healing modifiers", damage === undefined ? undefined : (.005 * damage + .1) * amount), row("Condition", "Direct damage only; DoTs excluded")]; },
+        support: { "status": "Partial", "details": "Shows direct-hit healing as (0.005 * damageDealt + 0.1) * perk amount, using the card's per-perk interpretation. DoTs are excluded. Lifesteal and Heal Boost are now explicitly excluded from Cursed/Perk Effectiveness as their source cards require. Preview does not mutate HP or assert undocumented healing interactions." },
         id: "lifesteal",
         name: "Lifesteal",
         category: "Perk",
@@ -2606,6 +3029,8 @@ export const Perks = {
         },
     },
     light_bearer: {
+        getMechanicsPreview(amount) { return [row("M1 / M2 heal base chance", chance(50 * amount), "%"), row("Healing amount", "Not documented; no fabricated heal value")]; },
+        support: { "status": "Partial", "details": "Displays 50% base chance per perk for a heal on an M1/M2 hit, bounded to 100%. Proc coefficient and other eligibility still require the actual attack; this is a base-chance preview only. Missing heal amount/scaling is not fabricated, and no automatic heal or HP update is applied." },
         id: "light_bearer",
         name: "Light Bearer",
         category: "Perk",
@@ -2624,6 +3049,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaba0",
             "cardUrl": "https://trello.com/c/nQQ1tNKd"
         },
+        onFlatDamageTakenReduction(amount, args) { return positivePerk(amount) && selected(this, "lithic_veil") && args?.outputType === "Physical" ? 0.2 * amount : null; },
+        support: { "status": "Partial", "details": "Select Lithic Veil on its perk holder for 0.2 flat Physical reduction per perk, after defense and per hit/output. Dexterity/Summon output are not assumed Physical constituents. Transferred potency, stun resistance, healing triggers, and duration remain manual." }
     },
     locked_and_loaded: {
         id: "locked_and_loaded",
@@ -2644,6 +3071,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda418",
             "cardUrl": "https://trello.com/c/3VOQH5gn"
         },
+        damageScalings: { "Magic": 0.5, "Earth": 0.5, "Dexterity": 0.5 }, damageTypes: { "Earth": 0.5, "Magic": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("lodestone_barrage", 1.5 + 0.3 * amount, "Perk"); },
+        support: { "status": "Partial", "details": "One rock: 1.5 + 0.3 * perk amount base, 0.5 Magic/Earth/Dexterity scaling. Equal Earth/Magic output is an inference because the split is unstated. Rock-count rounding and the ambiguous 20%-per-perk count increase are held. Independent activation preview; trigger rolls, timing, area/target counts, and automatic proc chains are not simulated." }
     },
     lucky: {
         id: "lucky",
@@ -2673,6 +3104,8 @@ export const Perks = {
             "cardId": "69214b9831723704c1edac36",
             "cardUrl": "https://trello.com/c/se1uG8r0"
         },
+        getSourcePotencies(amount) { return { fervorpotency: amount / 10 }; },
+        support: { "status": "Partial", "details": "Offers Luminescent Fervor at perk amount / 10 potency. Its shared buff adds 0.5 * effective game potency Holy output to direct packets only. Ally application, original-caster kill credit, healing triggers, and duration are not simulated." }
     },
     mage_rage: {
         id: "mage_rage",
@@ -2698,6 +3131,10 @@ export const Perks = {
             "cardId": "69214b9831723704c1edac86",
             "cardUrl": "https://trello.com/c/ksLE0q3V"
         },
+        damageScalings: { "Magic": 1 }, damageTypes: { "Magic": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("mageling_spirit", 27.5, "Rune"); },
+        support: { "status": "Partial", "details": "One 27.5-base radial burst, 1 Magic scaling/output. Counts as Rune even if a Weapon Art triggers it, per the card. Cooldown reset, automatic blocking, guardbreak cancellation, and Spiritual Energy are manual. Independent activation preview; trigger rolls, timing, area/target counts, and automatic proc chains are not simulated." }
     },
     magic_circuit: {
         id: "magic_circuit",
@@ -2708,8 +3145,15 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaa44",
             "cardUrl": "https://trello.com/c/yp755O8x"
         },
+        damageScalings: { "Air": 0.5, "Magic": 0.5 }, damageTypes: { "Air": 0.5, "Magic": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; const cooldown = this.mainArmor.rune?.cooldown; if (cooldown === undefined || !Number.isFinite(cooldown) || cooldown < 0)
+            return null; return activation("magic_circuit", (1 + 0.75 * amount) * (1 + 0.05 * cooldown), "Perk"); },
+        support: { "status": "Partial", "details": "One chain hit uses (1 + 0.75 * perk amount) * (1 + 0.05 * selected Rune base cooldown), with half Air/Magic scaling and output. Base rather than adjusted cooldown is an explicit convention pending verification; chain target count is not multiplied. This is an independent activation preview, not automatic DPS. Trigger rolls, cooldowns, area/target counts, and unspecified proc/crit rules are not simulated." }
     },
     magic_guard: {
+        getMechanicsPreview(amount) { return [row("Blocking shockwave base damage", 15 + 15 * amount), row("Cooldown", 15, "s"), row("Output", "Magic; scaling and proc coefficient amounts undocumented")]; },
+        support: { "status": "Partial", "details": "Calculates the blocking shockwave base damage and fixed 15s cooldown. Magic scaling and proc coefficient are unnamed numerically, so final damage, proc rolls, and blocking activation are held." },
         id: "magic_guard",
         name: "Magic Guard",
         category: "Perk",
@@ -2747,6 +3191,15 @@ export const Perks = {
     melting_shred: {
         id: "melting_shred",
         name: "Melting Shred",
+        outputPriority: 100,
+        statusEffects: ["anti_heal"],
+        onOutputCalculation(amount, args) {
+            const packet = args?.baseDamageData;
+            if (!positivePerk(amount) || !packet || !(packet.sourceType === "Status" || packet.tags?.includes("DoT")) || !this.deBuffs.some(status => !!status.getDamageInfo))
+                return;
+            addOutput(this, "True", 0.1 * amount);
+        },
+        support: { status: "Partial", details: "User-authorized placeholder: +0.1 True output per perk on this applicant's DoT ticks while the applicant carries a selected damaging status (Bleed, Burn, or Poison). Preserves the DoT's existing profile and stacks with selected Wound. Anti-Heal is a separate manually selected debuff and does not require a self DoT; its healing reduction and duration are unknown. Actual game coefficients and zero-damage/status-specific exceptions remain unverified." },
         category: "Perk",
         description: "Gain additional true damage on DoTs and apply an anti healing debuff while under the effect of a DoT",
         "source": {
@@ -2773,6 +3226,12 @@ export const Perks = {
             "cardId": "69214b9831723704c1edad3a",
             "cardUrl": "https://trello.com/c/a0AQAx3n"
         },
+        weaponPriority: 70,
+        modifyWeaponConstruction(amount, data) { if (positivePerk(amount)) {
+            data.constructionType += " + Mine";
+            data.m2 = [[5, 1], [10, 1], [15, 1]];
+        } },
+        support: { "status": "Partial", "details": "Uses the construction formula card's three held-RMB stages: 5, 10, 15 base. Each row is a separate stage, not a summed cast. The formula card warns some bases may be outdated; Shatter amount is unknown. Construction is resolved after existing stances. Conflicts with other replacement perks use documented builder priority, pending in-game verification; animation, knockback, and automatic applications are not simulated." }
     },
     money_smart: {
         id: "money_smart",
@@ -2783,6 +3242,8 @@ export const Perks = {
             "cardId": "69214b9831723704c1edac72",
             "cardUrl": "https://trello.com/c/YpzDpSho"
         },
+        onDmgBonusMultiplier(amount) { return positivePerk(amount) && selected(this, "maximum_voxos") ? 0.2 * amount : null; },
+        support: { "status": "Partial", "details": "Select Maximum Voxos for the documented cap bonus of 20% damage per perk. Intermediate currency scaling and Voxos gains are not calculated." }
     },
     mortal_will: {
         id: "mortal_will",
@@ -2793,6 +3254,14 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3c8",
             "cardUrl": "https://trello.com/c/kGt8abkV"
         },
+        outputPriority: 100,
+        onOutputCalculation(amount, args) {
+            if (!positivePerk(amount) || !isFinisher(args))
+                return;
+            addOutput(this, "Holy", 0.1 * amount);
+            this.damageScalings.Holy = roundPerkValue((this.damageScalings.Holy || 0) + 0.15 * amount);
+        },
+        support: { "status": "Partial", "details": "Tagged finishers gain 0.1 Holy output and 0.15 Holy scaling per perk. Works with overlapping Weapon Art/Finisher tags. Current weapon packets tag M2 as finishers; unclassified M1 finishers are not inferred." }
     },
     mounted_defense: {
         id: "mounted_defense",
@@ -2838,6 +3307,8 @@ export const Perks = {
         },
     },
     ocean_song: {
+        getMechanicsPreview(amount) { const cd = this.weaponart?.coolDown; return [...healRows(this, "Ocean Song", cd === undefined ? undefined : (1 + .1 * amount) * (1 + cd / 30), { Water: 1, Dexterity: 1 }), row("Cooldown interpretation", "Uses base Weapon Art cooldown per Stats; description conflicts about Rune cooldown")]; },
+        support: { "status": "Partial", "details": "Previews (1+0.1p) base healing with 1 Water/Dexterity scaling and a 1+base Weapon Art cooldown/30 factor. Uses the Stats section's Weapon Art cooldown, while the description conflicts by naming Rune cooldown; flagged as an interpretation. Reduced-vs-base cooldown is unverified. No automatic cleanse, ally targeting, or undocumented level/recipient effects." },
         id: "ocean_song",
         name: "Ocean Song",
         category: "Perk",
@@ -2866,6 +3337,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda342",
             "cardUrl": "https://trello.com/c/u4gDE0wT"
         },
+        onDmgBonusMultiplier(amount) { return positivePerk(amount) && selected(this, "inventory_bonus_capped") ? 0.15 * amount : null; },
+        support: { "status": "Partial", "details": "Select Inventory Bonus Capped at 250/300 inventory or above for 15% damage per perk. Intermediate inventory scaling and outgoing healing are not calculated." }
     },
     pain_distribution: {
         id: "pain_distribution",
@@ -2876,6 +3349,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3ce",
             "cardUrl": "https://trello.com/c/VkKfeBEX"
         },
+        onDmgReducedMultiplier(amount) { return positivePerk(amount) && selected(this, "active_summons") ? 0.1 * amount : null; },
+        support: { "status": "Partial", "details": "Select Active Summons for 10% damage resistance per perk. Uses the builder's diminishing-return convention because the card does not specify stacking. Summon HP, shared damage distribution, and summon deaths are not simulated." }
     },
     parry: {
         id: "parry",
@@ -2886,6 +3361,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3a4",
             "cardUrl": "https://trello.com/c/E8dV0GFm"
         },
+        statusEffects: ["parry_hit"],
+        support: { "status": "Partial", "details": "Select Parried Hit on the recipient for the documented fixed 90% reduction of that direct hit. The scenario is manual; does not negate status ticks or trigger on-block/guardbreak effects, and cooldown/stun are not simulated." }
     },
     penance: {
         id: "penance",
@@ -2896,6 +3373,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1edabb0",
             "cardUrl": "https://trello.com/c/mPpoJZEF"
         },
+        onDmgBonusMultiplier(amount) { const hp = healthRatio(this); return positivePerk(amount) && hp !== undefined && hp <= 0.35 ? 0.25 * amount : null; },
+        support: { "status": "Partial", "details": "At 35% HP or less, applies the documented maximum 25% damage per perk. Intermediate above-threshold scaling is unknown and is not calculated. Bleed rolls/application and duration are manual." }
     },
     phalanx_stab: {
         id: "phalanx_stab",
@@ -2932,6 +3411,11 @@ export const Perks = {
         }
     },
     piercer: {
+        outputPriority: -250,
+        onOutputCalculation(amount, args) { if (!positivePerk(amount) || !isFinisher(args) || args?.baseDamageData?.sourceType !== "Weapon" || !piercerFamily(this.weaponFamily))
+            return; const total = Object.values(this.damageTypes).reduce((sum, value) => sum + (value || 0), 0); this.damageTypes = { True: total + .1 * amount }; },
+        onDmgBonusMultiplier(amount, args) { return positivePerk(amount) && isFinisher(args) && args?.baseDamageData?.sourceType === "Weapon" ? (piercerFamily(this.weaponFamily) ? .2 : .1) * amount : null; },
+        support: { "status": "Partial", "details": "Compatible weapon finishers (one-handed sword, spear, dagger, fists, rapier) convert their output entirely to True and add 0.1 True output per perk, plus 20% damage per perk. Other weapon families get the documented halved 10% bonus without the compatible-only conversion. M2 is classified automatically; unclassified M1 finishers and ability exceptions remain held. Conversion ordering after earlier output conversions is a builder convention." },
         id: "piercer",
         name: "Piercer",
         category: "Perk",
@@ -2989,8 +3473,15 @@ export const Perks = {
             "cardId": "69214b9831723704c1edaec2",
             "cardUrl": "https://trello.com/c/ejIfHxaz"
         },
+        damageScalings: { "Air": 1 }, damageTypes: { "Air": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("power_inhale", 20 * amount, "WeaponArt"); },
+        support: { "status": "Partial", "details": "One completed charge deals 20 * perk amount base with Air scaling/output and counts as Weapon Art damage. Completion/target eligibility are manual. This is an independent activation preview, not automatic DPS. Trigger rolls, cooldowns, area/target counts, and unspecified proc/crit rules are not simulated." }
     },
     power_surge: {
+        previewInputs: ["remainingRune"],
+        getMechanicsPreview(amount) { const remaining = input(this, "remainingRune"); return [row("Rune seconds removed per M1/M2 hit", .5 + .5 * amount, "s"), row("Rune cooldown after one hit", remaining === undefined ? undefined : Math.max(0, remaining - .5 - .5 * amount), "s")]; },
+        support: { "status": "Partial", "details": "Separate current Rune cooldown preview subtracts 0.5+0.5p seconds for one M1/M2 hit, floored at zero. It does not incorrectly change base cooldown, trigger on Rune/WA damage, or invent an internal cooldown. Hit detection and elapsed time are manual." },
         id: "power_surge",
         name: "Power Surge",
         category: "Perk",
@@ -3019,8 +3510,21 @@ export const Perks = {
             "cardId": "69214b9831723704c1edaea6",
             "cardUrl": "https://trello.com/c/gzKoVlYZ"
         },
+        getSourcePotencies(amount) { return { cloudpushpotency: amount / 10, cinderpullpotency: amount / 10 }; },
+        getPerkDamageInfo(amount) {
+            if (!positivePerk(amount))
+                return null;
+            return { ...activation("propelling_fun", 5 + 4 * amount), damageScalings: { Air: 1 }, damageTypes: hasDebuff(this, "burn") ? { Fire: 1 } : { Air: 1 } };
+        },
+        support: { "status": "Partial", "details": "Offers Cloudpush and Cinderpull at perk amount / 10 potency; their separate shared buffs add 7.5% Air/Fire output per 0.1 potency and can stack. Also previews a whirlwind with 5 + 4 * perk amount base and 1 Air scaling, using Fire output while Burning. The card's ambiguous extra Fire scaling/output parenthetical remains unimplemented. Original-applicant kill credit, jumping, and duration are manual." }
     },
     protector_spirit: {
+        onFinalDamageTakenMultiplier(amount) {
+            const ratio = healthRatio(this);
+            return positivePerk(amount) && selected(this, "protector_guard_ready") && (amount >= 2 || ratio !== undefined && ratio < .5) ? Math.max(0, 1 - .2 * amount) : null;
+        },
+        getMechanicsPreview(amount) { const ratio = healthRatio(this), assist = amount >= 2 || ratio !== undefined && ratio > .5; return [row("Assist available", assist ? "Yes" : "No"), row("Assist base damage", .4 + .1 * amount), row("Earth / Magic scaling", .5), row("Defensive reduction", Math.min(100, 20 * amount), "%"), row("Approximate defensive cooldown", 3, "s")]; },
+        support: { "status": "Partial", "details": "Selected Protector Guard Ready applies direct 20% damage reduction per perk below half HP, or at any HP with two or more perks, clamped to zero damage. Assist availability/base damage and 0.5 Earth/Magic scaling are displayed; its output type is undocumented so assist final damage is held. Cooldown/activation, stun, and simultaneous assist attacks are manual." },
         id: "protector_spirit",
         name: "Protector Spirit",
         category: "Perk",
@@ -3031,6 +3535,8 @@ export const Perks = {
         },
     },
     proto_tech: {
+        getMechanicsPreview(amount) { return [row("Poison lightning chance per second", chance(10 * amount), "%")]; },
+        support: { "status": "Partial", "details": "Shows 10% per perk per-second chance capped at 100%. Base lightning damage, output/scaling, Poison potency, and continuous rolls are undocumented; no per-hit proc is invented." },
         id: "proto_tech",
         name: "Proto Tech",
         category: "Perk",
@@ -3049,6 +3555,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3d4",
             "cardUrl": "https://trello.com/c/LtBiZA2N"
         },
+        onDmgBonusMultiplier(amount, args) { return positivePerk(amount) && selected(this, "pure_rot_poison") && args?.baseDamageData?.sourceType === "Status" && args.baseDamageData.source === "poison" ? 0.1 * amount : null; },
+        support: { "status": "Partial", "details": "Select Poison via Pure Rot on the original applicant only for a Poison preview created via this perk: +10% Poison damage per perk. Ordinary Poison and direct Hex hits stay unchanged when the control is off. Poison transfer/credit, Rotted source potency, purifying, and duration are not inferred." }
     },
     pursuit: {
         id: "pursuit",
@@ -3059,6 +3567,11 @@ export const Perks = {
             "cardId": "69214b9831723704c1edae76",
             "cardUrl": "https://trello.com/c/35mGGKLm"
         },
+        weaponPriority: 150,
+        modifyWeaponPackets(amount, packets) { if (positivePerk(amount))
+            for (const packet of packets.m1)
+                packet.damage *= Math.max(0, 0.6 + 0.2 * amount); },
+        support: { "status": "Partial", "details": "Generated LMB packets receive the verified x (0.6 + 0.2 * perk amount) damage factor. RMB is unchanged. M1 finisher replacement is held because legacy constructions lack reliable per-step finisher metadata; recovery time and knockback are not simulated." }
     },
     pyre_bloom: {
         id: "pyre_bloom",
@@ -3069,6 +3582,14 @@ export const Perks = {
             "cardId": "69214b9831723704c1edae32",
             "cardUrl": "https://trello.com/c/XHQ7jYcv"
         },
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "burnpotency", amount); },
+        damageScalings: { Fire: 1, Summon: 1 }, damageTypes: { Fire: 1 },
+        getPerkDamageInfo(amount) {
+            const cooldown = this.weaponart?.coolDown;
+            return positivePerk(amount) && cooldown !== undefined && Number.isFinite(cooldown) && cooldown >= 0 ? activation("pyre_bloom", (1.5 + 0.325 * amount) * (1 + cooldown / 120), "WeaponArt") : null;
+        },
+        support: { "status": "Partial", "details": "One fireball uses (1.5 + 0.325 * perk amount) * (1 + selected Weapon Art base cooldown / 120), with Fire/Summon scaling, Fire output, and Weapon Art classification. Adds one additive Burn potency point per perk from its potency source card. Ammo, plants, firing rate, targets, Burn application, and duration are manual." }
     },
     quake: {
         id: "quake",
@@ -3079,6 +3600,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda35e",
             "cardUrl": "https://trello.com/c/A3c7WDYY"
         },
+        damageScalings: { "Earth": 1 }, damageTypes: { "Earth": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("quake", 2.5 + 2.5 * amount); },
+        support: { "status": "Partial", "details": "One shockwave deals 2.5 + 2.5 * perk amount base with 1 Earth scaling; Earth output is inferred from the description. The 30 + 5 * perk amount percent chance is not averaged into this activation. Separate activation preview; trigger rolls, cooldowns, area/target counts, and recursive procs are not simulated. Unspecified proc coefficients and crit eligibility use the existing direct-packet defaults." }
     },
     quarry: {
         id: "quarry",
@@ -3089,8 +3614,14 @@ export const Perks = {
             "cardId": "69214b9831723704c1edacd8",
             "cardUrl": "https://trello.com/c/yNxjT0Qy"
         },
+        damageScalings: { "Holy": 1, "Physical": 1 }, damageTypes: { "Holy": 0.5, "Physical": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("quarry", 20 * amount, "Perk"); },
+        support: { "status": "Partial", "details": "One Hidden Treasure burst deals 20 * perk amount base with Holy/Physical scaling and split output. Four-stack buildup and per-enemy cooldown are manual. This is an independent activation preview, not automatic DPS. Trigger rolls, cooldowns, area/target counts, and unspecified proc/crit rules are not simulated." }
     },
     queen_bumblz_spirit: {
+        getMechanicsPreview() { return [row("Base damage per honey blast", 8), row("Shots per activation", 9), row("Volley base damage", 72), row("Approximate duration", 15, "s"), row("Applied Sticky duration", 5, "s"), row("Scaling", "Holy / Magic / Summon coefficients and output undocumented")]; },
+        support: { "status": "Partial", "details": "Displays fixed 8 base per shot, nine shots/72 total base over approximately 15s, and 5s Sticky. Holy/Magic/Summon scaling coefficients, output type, targeting/range, and Spiritual Energy activation are held. The queen is not treated as a summon." },
         id: "queen_bumblz_spirit",
         name: "Queen Bumblz Spirit",
         category: "Perk",
@@ -3121,6 +3652,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda486",
             "cardUrl": "https://trello.com/c/iXRhniBw"
         },
+        getSourcePotencies(amount) { return { queenspowerpotency: amount / 10 }; },
+        support: { "status": "Partial", "details": "Offers Queen's Power at perk amount / 10 potency. Its shared buff adds 20 + 100 * game potency Attack Speed points and 2 * game potency Summon scaling to M1/M2. Summoning, automatic application, and duration are manual. Status stats run after reviewed perk stat conversions." }
     },
     quick_witted: {
         id: "quick_witted",
@@ -3139,6 +3672,8 @@ export const Perks = {
         }
     },
     quickcast: {
+        getMechanicsPreview() { return [row("Stun reduction during Weapon Art", .2, "s"), row("Cast speed", "Faster; no numerical speed multiplier documented")]; },
+        support: { "status": "Partial", "details": "Shows the fixed 0.2s Weapon Art stun reduction, independent of stack count. Cast-time speed and combination with other stun modifiers are undocumented; no Rune/Weapon Art cooldown change is invented." },
         id: "quickcast",
         name: "Quickcast",
         category: "Perk",
@@ -3171,8 +3706,14 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda43a",
             "cardUrl": "https://trello.com/c/65ejRzni"
         },
+        damageScalings: { "Air": 1, "Earth": 1 }, damageTypes: { "Air": 0.5, "Earth": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("quicksand", 0.3, selected(this, "quicksand_weapon_art_tick") ? "WeaponArt" : "Perk", 0.2); },
+        support: { "status": "Partial", "details": "One pool tick, 0.3 base, 1 Air/Earth scaling, half Air/Earth output, base proc coefficient 0.2. Select Quicksand Weapon Art Tick for the half of ticks classified Weapon Art; other ticks remain Perk. Tick count is crossed out on the card and is not guessed. Independent activation preview; trigger rolls, timing, area/target counts, and automatic proc chains are not simulated." }
     },
     rabbits_foot: {
+        getMechanicsPreview(amount) { return [row("Incoming dodge chance", chance(amount), "%"), row("Roll invincibility multiplier", 1 + .5 * amount, "x"), row("Dodge consequence", "A successful dodge also prevents that attack's DoT application; no random dodge roll is simulated")]; },
+        support: { "status": "Partial", "details": "Displays 1% dodge chance per perk and 50% additional roll invincibility per perk, retaining fractional amounts and capping displayed chance at 100%. Does not turn chance into unconditional damage reduction or multiply all incoming damage by an expectation. Successful dodges and status-application prevention remain manual." },
         id: "rabbits_foot",
         name: "Rabbits Foot",
         category: "Perk",
@@ -3183,6 +3724,10 @@ export const Perks = {
         },
     },
     radiance: {
+        previewInputs: ["baseHeal"], damageTypes: { Holy: 1 }, damageScalings: { Holy: 10 },
+        getPerkDamageInfo(amount) { const heal = input(this, "baseHeal"); return !positivePerk(amount) || heal === undefined ? null : activation("radiance", 1 + heal * (1 + .1 * Math.max(0, this.perks.heal_boost || 0)) * (4 / 45) * amount); },
+        getMechanicsPreview() { return [row("Condition", "Enter pure base healing of a compatible heal; excludes recipient healing-received and critical healing"), row("Holy scaling", 10), row("Higher stacks", "Uses the card's literal formula; stacking note remains unverified")]; },
+        support: { "status": "Partial", "details": "Manual compatible-heal activation uses 1 + base healing * (1 + Heal Boost) * (4/45) * perk amount, with 10 Holy scaling/output. Recipient healing-received and critical-healing bonuses are excluded. Uses literal formula despite the card flagging higher stacks as untested. Heal compatibility, area, and automatic heal-trigger chains are manual." },
         id: "radiance",
         name: "Radiance",
         category: "Perk",
@@ -3215,6 +3760,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda390",
             "cardUrl": "https://trello.com/c/8IqoxhuL"
         },
+        onDmgReducedMultiplier(amount) { return positivePerk(amount) && selected(this, "scenario_blocking") ? 1 + 0.5 * amount : null; },
+        support: { "status": "Partial", "details": "Select Blocking for diminishing-return reduction: divide incoming damage by 2 + 0.5 * perk amount. Blocking effectiveness from unreviewed systems, guard breaks, and chip eligibility are manual." }
     },
     rejuvenating_flame: {
         id: "rejuvenating_flame",
@@ -3225,8 +3772,13 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda392",
             "cardUrl": "https://trello.com/c/U7SwdI8y"
         },
+        getSourcePotencies(amount, applicant) { return { cindersurgepotency: 0.05 * amount * (hasDebuff(applicant, "burn") ? 2 : 1) }; },
+        support: { "status": "Partial", "details": "Offers Cinder Surge at 0.05 * perk amount potency, doubled if the applicant is Burning when the source is selected. Its shared buff adds that effective potency as Fire output. Re-select the source to represent aura reapplication after Burn changes. Healing, range, and duration are manual." }
     },
     revel_in_death: {
+        previewInputs: ["summonBaseHP"],
+        getMechanicsPreview(amount) { const hp = input(this, "summonBaseHP"); return [...healRows(this, "Summon death (before unknown level scaling)", hp === undefined ? undefined : .1 * hp * amount), ...healRows(this, "Summon despawn (before unknown level scaling)", hp === undefined ? undefined : .01 * hp * amount)]; },
+        support: { "status": "Partial", "details": "Previews 10% of natural summon base HP per perk on death, or 1% on despawn. Uses natural base HP rather than scaled summon max HP. Heal Boost and a separate generic critical branch are displayed, but level scaling and whether this source can critically heal remain unverified; no death detection or HP mutation." },
         id: "revel_in_death",
         name: "Revel In Death",
         category: "Perk",
@@ -3245,6 +3797,15 @@ export const Perks = {
             "cardId": "69214b9831723704c1edaf04",
             "cardUrl": "https://trello.com/c/DOxZoBsS"
         },
+        statPriority: 120,
+        onStatCalculation(amount) { if (positivePerk(amount)) {
+            addStat(this, "Warding", -50 * amount);
+            addStat(this, "AttackSpeed", 5 * getDebuffCount(this));
+        } },
+        sourcepotencies: { shatterpotency: 0.3, weakeningpotency: 0.3 },
+        damageScalings: { Hex: 1 }, damageTypes: { Hex: 1 },
+        getPerkDamageInfo(amount) { return positivePerk(amount) ? activation("roaring_heads", 5 + 2.5 * amount) : null; },
+        support: { "status": "Partial", "details": "Adds -50 Warding per perk and +5 Attack Speed points per distinct self debuff. Received Weakness/Shatter potency is multiplied by max(0, 1 - 0.33 * perk amount); outgoing potency is unchanged and final manual overrides bypass reduction. Offers fixed 0.3 sources and a separate roar activation preview. Chance rolls, tenth-debuff counting, Anti Heal, and stun are manual." }
     },
     rocky_body: {
         id: "rocky_body",
@@ -3261,6 +3822,8 @@ export const Perks = {
         }
     },
     roguent_spirit: {
+        getMechanicsPreview() { return [row("Spirit charge consumed per use", 50), row("Critical chance of splinters", 100, "%"), row("Condition", "Must reach full charge before using; base damage and scaling unknown")]; },
+        support: { "status": "Partial", "details": "Shows fixed 50 spirit charge per use and guaranteed critical splinters, with the full-charge prerequisite. Damage/scaling/output, charge gain, and automatic spirit consumption remain held; guaranteed crit is not applied to ordinary weapon attacks." },
         id: "roguent_spirit",
         name: "Roguent Spirit",
         category: "Perk",
@@ -3289,6 +3852,14 @@ export const Perks = {
             "cardId": "69214b9831723704c1edac4a",
             "cardUrl": "https://trello.com/c/RtJsuD74"
         },
+        weaponPriority: 200,
+        modifyWeaponPackets(amount, packets) { if (!positivePerk(amount))
+            return; for (const packet of [...packets.m1, ...packets.m2]) {
+            packet.damage *= 0.5 * (1 + 0.2 * amount);
+            packet.hitAmount *= 2;
+            packet.procCoefficient = (packet.procCoefficient ?? 1) * 0.7;
+        } },
+        support: { "status": "Partial", "details": "Generated weapon packets have twice the hit count, per-hit damage x 0.5 * (1 + 0.2 * perk amount), and proc coefficient x0.7. Applies once after replacements, preserving their profiles. Independent Rune/Weapon Art/Perk activations are unaffected. Displayed totals include every hit; no automatic perk-proc chain is added." }
     },
     royal_finisher: {
         id: "royal_finisher",
@@ -3299,6 +3870,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda398",
             "cardUrl": "https://trello.com/c/GR94krv6"
         },
+        damageScalings: { "Magic": 1 }, damageTypes: { "Magic": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("royal_finisher", 3 + amount); },
+        support: { "status": "Partial", "details": "One finisher wave, 3 + perk amount base and 1 Magic scaling. Magic output is inferred from the description; the wave itself is a Perk packet, not a weapon finisher. Separate activation preview; trigger rolls, cooldowns, area/target counts, and recursive procs are not simulated. Unspecified proc coefficients and crit eligibility use the existing direct-packet defaults." }
     },
     royal_parry: {
         id: "royal_parry",
@@ -3309,8 +3884,12 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda45c",
             "cardUrl": "https://trello.com/c/7rLtzchF"
         },
+        critical: { requiredBuff: "guaranteed_crit", fixedHitMultiplier: 1.5 },
+        support: { "status": "Partial", "details": "Selected Guaranteed Crit enables a fixed 1.5 multiplier on the critical branch only, even when that buff came from another source. Natural crit chance or perk-only guaranteed crit does not enable it. Buff consumption, buff-vs-natural crit attribution at already-100% chance, and duration remain manual." }
     },
     ruler_of_the_sands: {
+        getMechanicsPreview(amount) { const luck = selected(this, "kings_luck"); const rate = (cd) => luck ? 100 : cd === undefined ? undefined : chance((1 + .9 * cd) * amount); return [row("Sandstorm chance · Rune", rate(this.mainArmor.rune?.cooldown), "%"), row("Sandstorm chance · Weapon Art", rate(this.weaponart?.coolDown), "%"), row("Chance basis", luck ? "King's Luck guarantees activation" : "Base ability cooldown; ignores CDR"), row("Sandstorm duration", "approximately 5s; damage coefficients missing")]; },
+        support: { "status": "Partial", "details": "Displays sandstorm chance (1+0.9*base ability cooldown)*p percent separately for Rune/WA, unaffected by CDR. Selected King's Luck guarantees activation as its source interaction specifies. Missing damage/scaling coefficients and stacking duration are not invented; proc rolls and multiple sandstorms remain manual." },
         id: "ruler_of_the_sands",
         name: "Ruler Of The Sands",
         category: "Perk",
@@ -3321,6 +3900,8 @@ export const Perks = {
         },
     },
     runic_blades: {
+        getMechanicsPreview(amount) { return [row("Base damage per blade", 3.5), row("Approximate mark duration", 6.5 * amount, "s"), row("Approximate trigger cooldown", "0.05–0.1 seconds"), row("Scaling / output", "Undocumented; blade damage is independent of the triggering hit")]; },
+        support: { "status": "Partial", "details": "Shows fixed 3.5 base blade damage, approximately 6.5s mark duration per perk, and 0.05\u20130.1s trigger cooldown. No invented scaling/output, reduced proc coefficient, automatic marking, or hit-generated blades." },
         id: "runic_blades",
         name: "Runic Blades",
         category: "Perk",
@@ -3364,8 +3945,12 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda38a",
             "cardUrl": "https://trello.com/c/6l6zNB5w"
         },
+        sourcepotencies: { poisonpotency: 2 },
+        support: { "status": "Partial", "details": "Offers the documented displayed potency 2 self-Poison source on summoning. Select Poison with Applied by Self; source innate potency stays separate from additive gear potency. Summon decay, HP restoration, automatic application, and seven-tick duration are not simulated." }
     },
     sandy_wounds: {
+        getMechanicsPreview() { return [row("Bleed scaling", "Transfers existing Physical scaling to Earth, Dexterity to Air"), row("Additional outputs / duration", "Amounts unknown; not added")]; },
+        support: { "status": "Partial", "details": "Applicant-owned Bleed transfers its existing Physical/Dexterity scaling coefficients to Earth/Air as a stated builder convention. Status source ownership and manual potency inputs are retained. Extra Earth/Air output coefficients and longer duration are undocumented and held." },
         id: "sandy_wounds",
         name: "Sandy Wounds",
         category: "Perk",
@@ -3376,6 +3961,13 @@ export const Perks = {
         },
     },
     savage_combo: {
+        weaponPriority: 100,
+        modifyWeaponPackets(amount, packets) { if (positivePerk(amount))
+            packets.m1.forEach((packet, index) => { packet.comboStep = index + 1; }); },
+        onDmgBonusMultiplier(amount, args) { if (!positivePerk(amount) || args?.baseDamageData?.sourceType !== "Weapon" || args.baseDamageData.sourceDamageType !== "M1")
+            return null; const index = args.baseDamageData.comboStep ?? this.buff?.find(status => status.id === "savage_combo_step")?.stacks; return index && Number.isFinite(index) ? .15 * (Math.max(1, Math.floor(index)) - 1) : null; },
+        getMechanicsPreview() { return [row("M1 combo ramp", "First 0%, second +15%, third +30%, etc.; shown in each attack column"), row("Reset", "Original combo resets automatically in the table; manual single-hit snapshots can use Savage Combo Step")]; },
+        support: { "status": "Partial", "details": "Original M1 packets carry their attack number, giving no ramp on the first attack and +15% per previous M1 in each table column, independent of hit count or perk stacks. Rune/M2/status packets do not qualify. The original combo resets when recalculated. Savage Combo Step remains a fallback for manual single-hit snapshots; unmodelled continuous attack loops and the first-attack baseline are explicit conventions." },
         id: "savage_combo",
         name: "Savage Combo",
         category: "Perk",
@@ -3394,6 +3986,14 @@ export const Perks = {
             "cardId": "69214b9831723704c1edac54",
             "cardUrl": "https://trello.com/c/09qOIev2"
         },
+        weaponPriority: 30,
+        modifyWeaponConstruction(amount, data) { if (positivePerk(amount) && data.weaponFamily === "fist") {
+            data.constructionType = "Saw Fists";
+            data.weaponFamily = "saw_fists";
+            data.m1 = [[3.5, 2], [3.5, 2], [3.5, 2]];
+            data.m2 = [[2.6, 7]];
+        } },
+        support: { "status": "Partial", "details": "Basic Fist becomes Saw Fists: three 3.5x2 LMB steps and 2.6x7 RMB. Does not replace Dual Guns or another resolved stance. Bleed/Shatter potency and proc chance are unknown. Construction is resolved after existing stances. Conflicts with other replacement perks use documented builder priority, pending in-game verification; animation, knockback, and automatic applications are not simulated." }
     },
     saw_stance: {
         id: "saw_stance",
@@ -3414,6 +4014,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaa10",
             "cardUrl": "https://trello.com/c/rlZxlEzw"
         },
+        damageScalings: { "Air": 1 }, damageTypes: { "Air": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("screeching_sound", 1); },
+        support: { "status": "Partial", "details": "One block-triggered shockwave deals fixed 1 base with 1 Air scaling; Air output is inferred from the description. Poise, stun, and Taunt are not simulated. Separate activation preview; trigger rolls, cooldowns, area/target counts, and recursive procs are not simulated. Unspecified proc coefficients and crit eligibility use the existing direct-packet defaults." }
     },
     seismic_momentum: {
         id: "seismic_momentum",
@@ -3436,8 +4040,17 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3a6",
             "cardUrl": "https://trello.com/c/EXxrHQii"
         },
+        onDmgBonusMultiplier(amount, args) {
+            return positivePerk(amount) && isFinisher(args) ? 0.2 * amount : null;
+        },
+        onStatCalculation(amount) { if (positivePerk(amount))
+            this.potencies.bleedpotency = roundPerkValue((this.potencies.bleedpotency || 0) + 2 * amount); },
+        support: { "status": "Partial", "details": "Tagged finishers gain 20% damage at one perk and +0.2 additive Bleed potency per perk. Linear damage stacking beyond one perk is provisional because the source only specifies damage at one. Bleed application/duration are manual; unclassified M1 finishers are not inferred." }
     },
     shamanic_flow: {
+        previewInputs: ["remainingWeaponArt"],
+        getMechanicsPreview(amount) { const remaining = input(this, "remainingWeaponArt"); return [row("WA seconds removed per weapon hit", .3 * amount, "s"), row("WA cooldown after one hit", remaining === undefined ? undefined : Math.max(0, remaining - .3 * amount), "s")]; },
+        support: { "status": "Partial", "details": "Separate current Weapon Art cooldown preview subtracts 0.3 seconds per perk for one landed weapon hit, floored at zero. Static/base cooldown stays intact. The result is one manual event snapshot rather than an automatic countdown or an unconditional permanent cooldown bonus." },
         id: "shamanic_flow",
         name: "Shamanic Flow",
         category: "Perk",
@@ -3456,6 +4069,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda348",
             "cardUrl": "https://trello.com/c/HPVgS8Ti"
         },
+        getSourcePotencies(amount) { return { bleedpotency: amount }; },
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "bleedpotency", amount); },
+        support: { "status": "Partial", "details": "Offers innate Bleed potency equal to perk amount for guard-breaking attacks and adds the separate additive Bleed potency point per perk from the Bleed Potency source card. Select the separate Wound debuff to add the user-authorized placeholder 0.1 True output to Bleed; this is not a verified game coefficient. Wound stun remains uncalculated; application and duration are manual." }
     },
     sharp_crits: {
         id: "sharp_crits",
@@ -3477,6 +4094,8 @@ export const Perks = {
             "cardId": "69214b9831723704c1edaea0",
             "cardUrl": "https://trello.com/c/joVhTK4K"
         },
+        onDmgBonusMultiplier(amount, args) { return positivePerk(amount) && selected(this, "sharpshooter_range") && isProcHit(args) ? 0.2 * amount : null; },
+        support: { "status": "Partial", "details": "Select Sharpshooter Range for 20% damage per perk on proc-capable direct packets. No numeric range is invented from the source image. Range detection and projectile travel are manual." }
     },
     shattering_justice: {
         id: "shattering_justice",
@@ -3510,8 +4129,12 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaaf2",
             "cardUrl": "https://trello.com/c/FamRjoPX"
         },
+        statusEffects: ["sticky_sickness_variant"],
+        support: { "status": "Partial", "details": "Keep one normal Sticky debuff selected and add Sticky: Sickness Variant on the recipient. That neutral qualifier adds the documented +20% Hex vulnerability; normal Sticky retains its existing +20% pure Magic vulnerability. It does not create/count a second Sticky. Sneeze base damage, application, random timing, and the 0.75 Hex/Earth scaling without a base are held." }
     },
     siphoning_rot: {
+        getMechanicsPreview(amount) { const poison = this.target?.deBuffs?.find(status => status.id === "poison" && status.getSourceBuild(this.target) === this); return [row("Healing per enemy Poison tick before modifiers", poison ? amount : 0), row("Eligibility", poison ? "Your Poison on selected opponent; use an enemy, not a teammate" : "Needs your Poison on selected opponent")]; },
+        support: { "status": "Partial", "details": "Displays one HP healed per perk for each selected enemy Poison tick actually owned by the applying build, including fractional perk amounts. Self Poison does not qualify. Target must represent an enemy, not a teammate. Other healing modifiers, tick timing, spreading, and automatic HP updates are not invented." },
         id: "siphoning_rot",
         name: "Siphoning Rot",
         category: "Perk",
@@ -3522,6 +4145,11 @@ export const Perks = {
         },
     },
     slayer_rage: {
+        getSourcePotencies(amount, applicant) { const ticks = Math.min(20, Math.max(0, Math.floor(applicant?.buff?.find(status => status.id === "slayer_rage_ticks")?.stacks || 0))), rune = applicant?.mainArmor.rune; if (rune?.id === "rage_rune")
+            return { ragepotency: (rune.sourcepotencies?.ragepotency || 0) + .01 * amount * ticks, weakeningpotency: .2 }; if (rune?.id === "weakening_roar_rune")
+            return { ragepotency: .2, weakeningpotency: (rune.sourcepotencies?.weakeningpotency || 0) + .005 * amount * ticks }; return {}; },
+        getMechanicsPreview(amount) { const ticks = Math.min(20, Math.max(0, Math.floor(this.buff?.find(status => status.id === "slayer_rage_ticks")?.stacks || 0))); return [row("Selected channel ticks", ticks), row("Rage-rune potency added", .01 * amount * ticks), row("Weakening-roar potency added", .005 * amount * ticks), row("Status source", "Select Slayer Rage on Rage / Weakness after setting ticks; source is an application snapshot")]; },
+        support: { "status": "Partial", "details": "Selectable Slayer Rage sources combine the equipped Rage/Weakening Roar Rune's base innate potency with 0.01p / 0.005p per selected channel tick, capped at 20 ticks. Rage Rune also offers fixed 0.2 Weakness; Weakening Roar offers fixed 0.2 Rage. Re-select to snapshot a new tick count. Every-second-hit Weakness application, damage base, self HP drain, and channel timeline remain held." },
         id: "slayer_rage",
         name: "Slayer Rage",
         category: "Perk",
@@ -3532,6 +4160,11 @@ export const Perks = {
         },
     },
     slow_leak: {
+        // Same +0.1-per-perk stored potency convention used for Blood Thirsty.
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "bleedpotency", amount); },
+        getMechanicsPreview(amount) { return [row("Bleed duration vs enemy mobs", 1 + .5 * amount, "x"), row("Condition", "Select Enemy Mob on the Bleed recipient; players do not qualify")]; },
+        support: { "status": "Partial", "details": "Adds one stored Bleed potency point (+0.1 displayed) per perk, following the user's Blood Thirsty potency convention; Trello names the bonus without an amount. Increases applicant-owned Bleed duration by 50% per perk only on a recipient explicitly selected as Enemy Mob. Players and self-Bleed do not qualify for the duration bonus; duration is a preview." },
         id: "slow_leak",
         name: "Slow Leak",
         category: "Perk",
@@ -3598,6 +4231,13 @@ export const Perks = {
         },
     },
     spirit_commune: {
+        previewInputs: ["baseSpiritGain"],
+        getMechanicsPreview(amount) {
+            const base = input(this, "baseSpiritGain"), speed = (this.stats.AttackSpeed || 0) / 100;
+            const gain = base === undefined ? undefined : speed >= 0 ? base / (1 + speed) : base * (1 - speed);
+            return [row("Fist M1 charge before weapon-speed adjustment", gain), row("RMB charge before weapon-speed adjustment", gain === undefined ? undefined : 2 * gain), row("Dual Guns M1 charge before weapon-speed adjustment", gain === undefined ? undefined : 1.3 * gain), row("Glove stat multiplier (unverified source note)", 1 + .25 * Math.max(0, amount - 1), "x"), row("Additional associated glove perk (unverified)", Math.max(0, amount - 1))];
+        },
+        support: { "status": "Partial", "details": "Applies the documented positive/negative Attack Speed stat charge-gain curve to a manually entered base gain; shows doubled RMB and 1.3x Dual Guns M1 gains. Missing weapon base-speed adjustment and spirit-specific rates remain held. Source calls glove-stat/perk scaling probable, so those formulas are labelled previews rather than silently changing equipped stats." },
         id: "spirit_commune",
         name: "Spirit Commune",
         category: "Perk",
@@ -3638,6 +4278,9 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda4a4",
             "cardUrl": "https://trello.com/c/nCZV51YK"
         },
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "bleedpotency", amount); },
+        support: { "status": "Partial", "details": "Adds the verified additive Bleed potency point per perk. Crit-triggered Bleed innate potency and stun bonus are unspecified; apply a separately established Bleed source manually." }
     },
     spore_burst: {
         id: "spore_burst",
@@ -3648,8 +4291,15 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda4c0",
             "cardUrl": "https://trello.com/c/LT3dMrYa"
         },
+        sourcepotencies: { poisonpotency: 1 },
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "poisonpotency", amount); },
+        support: { "status": "Partial", "details": "Offers the fixed 1 innate potency self-Poison source and adds one separate additive Poison potency point per perk from the Poison Potency source card. Select Poison with Applied by Self. Burst damage and the amount of Poison resistance are unspecified; neither is guessed." }
     },
     spore_trooper: {
+        previewInputs: ["storedCount"],
+        getMechanicsPreview(amount) { const n = input(this, "storedCount"), cap = Math.floor(2 + amount); return [row("Stored Sporeling cap", cap), row("Sporelings selected", n === undefined ? undefined : Math.min(cap, Math.floor(n))), row("Approximate time per stored Sporeling", 5, "s"), row("Sporeling size", amount >= 2 ? "Big" : "Normal")]; },
+        support: { "status": "Partial", "details": "Shows 2 + perk amount stored capacity (whole-count floor convention), clamps an entered stored count, and displays approximately 5s per stored Sporeling and Big prefix at two perks. No automatic timer, summon damage/stat table, or Echo Blast chain." },
         id: "spore_trooper",
         name: "Spore Trooper",
         category: "Perk",
@@ -3695,6 +4345,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaa0a",
             "cardUrl": "https://trello.com/c/DqfOAy87"
         },
+        getSourcePotencies(amount) { return { bouncepotency: amount / 10 }; },
+        support: { "status": "Partial", "details": "Offers perk amount / 10 Bounce potency after a blocking proc. Its shared Bounce status can be selected manually. Explosion base damage beyond one perk is untested; finisher-hit counts, proc rolls, and duration are not simulated." }
     },
     standoff: {
         id: "standoff",
@@ -3734,6 +4386,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda400",
             "cardUrl": "https://trello.com/c/Ln0JZU0u"
         },
+        getSourcePotencies(amount) { return { friendshippotency: amount / 10 }; },
+        support: { "status": "Partial", "details": "Offers Friendship at perk amount / 10 potency. Its shared buff adds 50% diminishing-return Weapon Art CDR per 0.1 effective potency, using the applicant and final overrides. The explicit coefficient/formula takes precedence over the inconsistent 0.3-potency example on the card. Healing triggers and removal after the next cast are manual." }
     },
     star_struck: {
         id: "star_struck",
@@ -3746,6 +4400,13 @@ export const Perks = {
         },
     },
     static_buildup: {
+        previewInputs: ["preOutputHitDamage", "storedCount"],
+        getMechanicsPreview(amount) {
+            const hit = input(this, "preOutputHitDamage"), n = input(this, "storedCount"), charge = n === undefined ? undefined : Math.min(20, Math.floor(n));
+            const strikes = charge === undefined ? undefined : amount === 1 && charge === 3 || amount === 2 && charge === 3 ? 1 : amount === 1 && charge === 20 ? 3 : amount === 2 && charge === 10 ? 2 : amount === 2 && charge === 20 ? 5 : undefined;
+            return [row("Lightning damage before its own modifiers", hit === undefined ? undefined : 3 + .15 * hit), row("Charges selected", charge), row("Maximum charges", 20), row("Strikes at selected tested breakpoint", strikes === undefined ? "Unknown for this charge / perk combination" : strikes)];
+        },
+        support: { "status": "Partial", "details": "Calculates 3 + 15% of entered noncritical RMB damage before post-output modifiers per lightning strike. Clamps charge to 20 and shows only the documented 1/2-perk charge breakpoints; no interpolation for the explicitly unknown strike-count formula. Scaling, output, and automatic charge buildup are held." },
         id: "static_buildup",
         name: "Static Buildup",
         category: "Perk",
@@ -3764,6 +4425,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda350",
             "cardUrl": "https://trello.com/c/0bVkfnHv"
         },
+        onDmgBonusMultiplier(amount) { return positivePerk(amount) && selected(this, "stealth_advantage") ? 0.1 * amount : null; },
+        support: { "status": "Partial", "details": "Select Stealth Advantage for an NPC/target dummy or an opponent not targeting you: 10% damage per perk. Detection range and aggro rolls are not simulated." }
     },
     steam_charge: {
         id: "steam_charge",
@@ -3774,6 +4437,18 @@ export const Perks = {
             "cardId": "69214b9831723704c1edaef6",
             "cardUrl": "https://trello.com/c/IK4uFapU"
         },
+        weaponPriority: 100,
+        modifyWeaponConstruction(amount, data) { if (positivePerk(amount) && selected(this, "steam_buildup_ready")) {
+            data.constructionType += " + Steam Charge";
+            data.m2 = [[6, 10]];
+        } },
+        modifyWeaponPackets(amount, packets) { if (positivePerk(amount) && selected(this, "steam_buildup_ready"))
+            for (const packet of packets.m2) {
+                packet.damageTypes = { Fire: 0.5, Air: 0.5 };
+                packet.damageScalings = { Fire: 1, Air: 1 };
+                packet.source = "steam_charge";
+            } },
+        support: { "status": "Partial", "details": "Select Steam Buildup Ready at 8 / perk amount stacks to replace RMB with 10 hits of 6 base, half Fire/Air output, 1 Fire/Air scaling, and M2/Finisher tags. Buildup and consumption are manual. Runs after other reviewed replacements; that combined-perk priority is a builder convention. Construction is resolved after existing stances. Conflicts with other replacement perks use documented builder priority, pending in-game verification; animation, knockback, and automatic applications are not simulated." }
     },
     steam_powered: {
         id: "steam_powered",
@@ -3799,8 +4474,12 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda480",
             "cardUrl": "https://trello.com/c/mxB5qpj1"
         },
+        getSourcePotencies(amount) { return { reinforcepotency: 0.2 * amount }; },
+        support: { "status": "Partial", "details": "Offers 0.2 * perk amount Reinforce after hitting a Sticky opponent. Select Reinforce with this source for its existing shared diminishing-return reduction. Hit application and ten-second expiration are manual." }
     },
     sticky_summons: {
+        getMechanicsPreview(amount) { return [row("Summon Magic Defense bonus", 30 * amount, "%"), row("Summon Sticky chance", 25, "%"), row("Recipient", "Summons only; player Magic Defense is unchanged")]; },
+        support: { "status": "Partial", "details": "Displays +30% Magic Defense per perk for summons and fixed 25% Sticky proc chance independent of perk count. The player's own Magic Defense is not changed. Without separate summon actors, automatic Sticky application, summon defenses in combat, and innate Sticky potency remain manual." },
         id: "sticky_summons",
         name: "Sticky Summons",
         category: "Perk",
@@ -3833,6 +4512,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda43c",
             "cardUrl": "https://trello.com/c/1XTUhwjd"
         },
+        onFinalDamageTakenMultiplier(amount) { return positivePerk(amount) && selected(this, "stoneskin_active") ? Math.max(0.2, 1 - 0.3 * amount) : null; },
+        support: { "status": "Partial", "details": "Select Stoneskin Active during a Weapon Art or its aftermath for direct damage reduction of 30% per perk, capped at 80%. Stun/knockback immunity and expiration are not simulated." }
     },
     stored_corruption: {
         id: "stored_corruption",
@@ -3843,8 +4524,15 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda94a",
             "cardUrl": "https://trello.com/c/IpTbECa3"
         },
+        onFinalDamageTakenMultiplier(amount) { return positivePerk(amount) ? 1 + 0.05 * amount : null; },
+        support: { "status": "Partial", "details": "Incoming damage is multiplied by 1 + 0.05 * perk amount without a cap. Debuff durations and their application timeline are not calculated." }
     },
     storm_caster: {
+        previewInputs: ["preOutputHitDamage"],
+        modifyWeaponPackets(_amount, packets) { for (const packet of packets.m2)
+            packet.procCoefficient = .6; },
+        getMechanicsPreview() { const hit = input(this, "preOutputHitDamage"); return [row("Lightning on original target before its own modifiers", hit === undefined ? undefined : .66 * hit), row("Lightning on one chained target before its own modifiers", hit === undefined ? undefined : .33 * hit), row("RMB proc coefficient", .6)]; },
+        support: { "status": "Partial", "details": "Applies the documented 0.6 proc coefficient to RMB packets and previews 66%/33% original/chained-target lightning from entered source damage. Replacement weapon damage/scaling, independent chain crits, chain timing, and half-rate finisher procs are held; original combo damage remains labelled by its construction." },
         id: "storm_caster",
         name: "Storm Caster",
         category: "Perk",
@@ -3863,6 +4551,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda44c",
             "cardUrl": "https://trello.com/c/idtrv53q"
         },
+        getSourcePotencies(amount) { return { electricalrendpotency: amount / 10 }; },
+        support: { "status": "Partial", "details": "Offers Electrical Rend at perk amount / 10 potency: its shared debuff grants 10 penetration per 0.1 potency, separate from Shatter. The chain lightning's base damage, proc chance progression, stun, and special resistance to perk modifiers remain unverified/manual." }
     },
     stormcaller: {
         id: "stormcaller",
@@ -3873,6 +4563,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3c0",
             "cardUrl": "https://trello.com/c/GFZMcUhT"
         },
+        damageScalings: { "Air": 1, "Magic": 1 }, damageTypes: { "Air": 0.5, "Magic": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("stormcaller", 24); },
+        support: { "status": "Partial", "details": "One lightning strike deals fixed 24 base damage with Air/Magic scaling and half Air/Magic output. Does not multiply by its fixed 2.5% chance or recursively trigger itself. Separate activation preview; trigger rolls, cooldowns, area/target counts, and recursive procs are not simulated. Unspecified proc coefficients and crit eligibility use the existing direct-packet defaults." }
     },
     stratos_winds: {
         id: "stratos_winds",
@@ -3902,6 +4596,8 @@ export const Perks = {
         },
     },
     swarm: {
+        getMechanicsPreview(amount) { return [row("Summon cap without Trusty Servant", 15 + amount), row("Spawn count multiplier", 2, "x"), row("Summon HP / damage at exactly one perk", amount === 1 ? "0.5x / 0.5x" : "Only the one-perk penalty (0.5x each) is documented"), row("Trusty Servant interaction", this.perks.trusty_servant > 0 ? "Cap conflict unresolved; no combined cap asserted" : "No conflicting cap")]; },
+        support: { "status": "Partial", "details": "Displays default summon cap 15 plus one per perk, with a fixed doubled spawn count that does not keep increasing with extra perks. Shows halved summon HP/damage only at the documented one-perk case. Fractional cap rounding, higher-stack penalties, and cap precedence with Trusty Servant are unresolved and explicitly held; player HP/damage is unchanged." },
         id: "swarm",
         name: "Swarm",
         category: "Perk",
@@ -3947,6 +4643,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda364",
             "cardUrl": "https://trello.com/c/GEos2u2J"
         },
+        getSourcePotencies(amount) { return { tailwindpotency: 0.1 * amount }; },
+        support: { "status": "Partial", "details": "Offers 0.1 Tailwind potency per perk and adds a fixed 0.1 to all Tailwind applied by this build, including its own source. Final manual overrides bypass additive source bonuses. Weapon Art application, duration, and movement are manual." }
     },
     tectonic_heat: {
         id: "tectonic_heat",
@@ -3957,6 +4655,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda408",
             "cardUrl": "https://trello.com/c/BWDgvozQ"
         },
+        damageScalings: { "Fire": 1, "Earth": 1 }, damageTypes: { "Fire": 0.5, "Earth": 0.5 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("tectonic_heat", 2.5 + 2.5 * amount, "Perk"); },
+        support: { "status": "Partial", "details": "One magma ball, 2.5 + 2.5 * perk amount base, 1 Fire/Earth scaling. Equal Fire/Earth output is an inference because the split is unstated. No Burn or guardbreak is added. Independent activation preview; trigger rolls, timing, area/target counts, and automatic proc chains are not simulated." }
     },
     thief_training: {
         id: "thief_training",
@@ -3977,6 +4679,12 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda352",
             "cardUrl": "https://trello.com/c/cscyrY4S"
         },
+        damageScalings: { "Dexterity": 1 }, damageTypes: { "Physical": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; return activation("thorns", amount, "Perk"); },
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "bleedpotency", amount); },
+        support: { "status": "Partial", "details": "One retaliation hit, perk amount base and 1 Dexterity scaling. Physical output is inferred because the card leaves output unstated. Adds one additive Bleed potency point per perk from the primary potency-stat card; innate Bleed application is not guessed. Independent activation preview; trigger rolls, timing, area/target counts, and automatic proc chains are not simulated." }
     },
     toadzerker_spirit: {
         id: "toadzerker_spirit",
@@ -3991,6 +4699,8 @@ export const Perks = {
         }
     },
     torpedo_barrage: {
+        getMechanicsPreview(amount) { return [row("Base damage per torpedo", 1.5 + .4 * amount), row("Approximate proc coefficient", .65), row("Output", "Physical / Water; split and scaling coefficients undocumented"), row("Condition", "Store from non-Rune / non-Weapon-Art hits; release on Rune / Weapon Art hit")]; },
+        support: { "status": "Partial", "details": "Calculates 1.5 + 0.4 per perk base damage per torpedo and shows approximate 0.65 proc coefficient. Missing Physical/Water split, scaling and stored-count curve prevent a final damage packet. Storage and release are manual." },
         id: "torpedo_barrage",
         name: "Torpedo Barrage",
         category: "Perk",
@@ -4033,6 +4743,9 @@ export const Perks = {
         }
     },
     trickster: {
+        previewInputs: ["reflectedPotency"],
+        getMechanicsPreview(amount) { const potency = input(this, "reflectedPotency"); return [row("Reflection base chance", chance(75 * amount), "%"), row("Reflected potency", potency === undefined ? undefined : potency + amount / 10 * (1 + potency)), row("Eligibility", "Also supports reflecting self-inflicted debuffs back onto self; apply the result manually")]; },
+        support: { "status": "Partial", "details": "Previews reflected potency original + (p/10)*(1+original), with 75% base proc chance per perk bounded to 100%. Original is the base potency specified by the card; no automatic re-application, reflection chain, or assumed debuff eligibility. Supports manually testing self-reflection. Missing extra global potency grants are not invented." },
         id: "trickster",
         name: "Trickster",
         category: "Perk",
@@ -4086,8 +4799,22 @@ export const Perks = {
             "cardId": "69214b9831723704c1edad0e",
             "cardUrl": "https://trello.com/c/EPjAtlTP"
         },
+        outputPriority: -200,
+        onOutputCalculation(amount, args) {
+            if (!positivePerk(amount) || args?.baseDamageData?.sourceType !== "Weapon")
+                return;
+            const converted = Math.max(0, this.damageTypes.Magic || 0) * Math.min(1, 0.3 * amount);
+            addOutput(this, "Magic", -converted);
+            addOutput(this, "True", converted);
+        },
+        damageScalings: { Magic: 1 }, damageTypes: { Magic: 1 },
+        getPerkDamageInfo(amount) { return positivePerk(amount) ? activation("true_moon", 2.5 * amount) : null; },
+        support: { "status": "Partial", "details": "Converts up to 100% of a weapon packet's Magic output to True at 30% per perk; Rune/Weapon Art and status packets are unaffected. Conversion runs after additive outputs and Spirit Winds as a builder convention. Also previews one moon at 2.5 * perk amount base and 1 Magic scaling; Magic output is inferred, and its unspecified reduced proc coefficient/chance are not simulated." }
     },
     trusty_servant: {
+        previewInputs: ["summonBaseHP"],
+        getMechanicsPreview(amount) { const hp = input(this, "summonBaseHP"); return [row("Summon cap", this.perks.swarm > 0 ? "Conflict with Swarm unresolved" : 1), row("Summon HP at exactly one perk", amount === 1 ? hp === undefined ? undefined : hp * 3 : "Higher-stack HP multiplier unspecified"), row("Decay", "Disabled"), row("Damage / Tenacity", "Increases, but numeric coefficients missing")]; },
+        support: { "status": "Partial", "details": "Displays one summon cap, no decay, and tripled entered natural summon HP at exactly one perk. Higher-stack HP/damage/Tenacity coefficients and interactions with other summon HP modifiers are not invented. Swarm cap precedence is flagged instead of silently choosing a cap. No player stats or live summon simulation are altered." },
         id: "trusty_servant",
         name: "Trusty Servant",
         category: "Perk",
@@ -4098,6 +4825,10 @@ export const Perks = {
         },
     },
     undying_rot: {
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "poisonpotency", amount); },
+        getMechanicsPreview(amount) { return [row("Stored Poison potency contributed", .1 * amount), row("Poison remains a debuff", "Yes"), row("Healing / defense", "Poison-potency dependent; coefficients undocumented")]; },
+        support: { "status": "Partial", "details": "Adds +0.1 stored Poison potency per perk using the user grant convention. Poison stays a debuff and continues its ordinary damage. Healing and defense amounts are undocumented, so no guessed immunity, defense, or regeneration is applied." },
         id: "undying_rot",
         name: "Undying Rot",
         category: "Perk",
@@ -4116,6 +4847,8 @@ export const Perks = {
             "cardId": "69214b9831723704c1edaefe",
             "cardUrl": "https://trello.com/c/Z0kLf1bS"
         },
+        sourcepotencies: { slowpotency: 0.3 },
+        support: { "status": "Partial", "details": "Offers manual self Slow at 0.3 potency. All received Slow is forced to 0.3 while this perk is equipped, including a manual override. Movement slowing, continuous reapplication, reflected stun/poise damage, and duration are not calculated." }
     },
     untethered: {
         id: "untethered",
@@ -4193,6 +4926,9 @@ export const Perks = {
         name: "Venom Eater",
         category: "Perk",
         description: "If you hit a poisoned opponent that was poisoned by you remove the poison, crit, deal bonus damage, and heal slightly. But reduces crit damage at low amounts. Grants poison potency.",
+        // One stored potency point (+0.1 displayed) per perk, per the user's game value.
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "poisonpotency", amount); },
         onDmgBonusMultiplier(perkAmount) {
             return perkAmount && perkAmount > 0 && this.activeProcs?.includes("venom_eater") ? 0.1 * perkAmount : null;
         },
@@ -4203,7 +4939,7 @@ export const Perks = {
             // Replace the ordinary +50% base with +20%, then add +10% per perk.
             return perkAmount && perkAmount > 0 ? -0.3 + 0.1 * perkAmount : null;
         },
-        support: { "status": "Partial", "details": "Base crit damage is 1.2x + 0.1x per perk. Select Venom Eater Proc with attacker-owned Poison for guaranteed crit and 10% damage per perk. Poison ordering is a manual preview choice; healing and automatic triggers are not calculated." },
+        support: { "status": "Partial", "details": "Adds one stored Poison potency point (+0.1 displayed) per perk using the user's game value; Trello names the bonus without an amount. Base crit damage is 1.2x + 0.1x per perk. Select Venom Eater Proc with attacker-owned Poison for guaranteed crit and 10% damage per perk. Poison ordering is a manual preview choice; healing and automatic triggers are not calculated." },
         "source": {
             "cardId": "69214b9731723704c1eda3f8",
             "cardUrl": "https://trello.com/c/jwcQQv1k"
@@ -4233,6 +4969,9 @@ export const Perks = {
             "cardId": "69214b9731723704c1eda3ae",
             "cardUrl": "https://trello.com/c/619cSwkY"
         },
+        damageScalings: { Hex: 1 }, damageTypes: { Hex: 1 },
+        getPerkDamageInfo(amount) { return positivePerk(amount) ? activation("vile_presence", 1.2 * amount, "Perk", 0) : null; },
+        support: { "status": "Partial", "details": "One aura tick deals 1.2 * perk amount base Hex damage with 1 Hex scaling. Explicitly not a DoT and cannot proc effects. Tick frequency, range, target counts, and crit eligibility remain unverified/manual." }
     },
     virulent_core: {
         id: "virulent_core",
@@ -4243,6 +4982,9 @@ export const Perks = {
             "cardId": "69214b9831723704c1edad24",
             "cardUrl": "https://trello.com/c/UATBZ9I5"
         },
+        onStatCalculation(amount) { if (positivePerk(amount))
+            addPotency(this, "poisonpotency", amount); },
+        support: { "status": "Partial", "details": "Adds the verified additive Poison potency point per perk. Poisonous-blast weapon bases, scaling/output, and source potency are missing, so its weapon replacement remains held." }
     },
     vital_mist: {
         id: "vital_mist",
@@ -4253,6 +4995,8 @@ export const Perks = {
             "cardId": "69214b9831723704c1edacb6",
             "cardUrl": "https://trello.com/c/bgEf9hA0"
         },
+        getSourcePotencies(amount) { return { tailwindpotency: 0.15 + amount / 10 }; },
+        support: { "status": "Partial", "details": "Offers 0.15 + perk amount / 10 Tailwind potency for the above-50-meter on-heal state. Select Tailwind with this source. Lifesteal absorption, meter buildup/consumption, healing, radius, and duration are manual." }
     },
     void_contract: {
         id: "void_contract",
@@ -4263,6 +5007,8 @@ export const Perks = {
             "cardId": "69214b9831723704c1edac64",
             "cardUrl": "https://trello.com/c/qKhzP8SE"
         },
+        getSourcePotencies(amount) { return { voidcontractpotency: amount / 10 }; },
+        support: { "status": "Partial", "details": "Offers Void Contract at perk amount / 10 potency. Its shared target debuff increases direct damage by 30% per source perk only for its applicant, and does not affect DoTs. Mark application, remaining-hit limit, expiration, and removal after consumption are manual; a multi-hit preview assumes the mark stays active." }
     },
     void_root_spirit: {
         id: "void_root_spirit",
@@ -4275,6 +5021,10 @@ export const Perks = {
         },
     },
     volatile_shell: {
+        damageTypes: { Hex: 1 }, damageScalings: { Hex: 1, Protection: .1 },
+        getPerkDamageInfo(amount) { return positivePerk(amount) ? activation("volatile_shell", 25 + 20 * amount) : null; },
+        getMechanicsPreview(amount) { return [row("Protection damage absorption", amount === 1 ? "85% at one perk; other amounts unverified" : "Only the one-perk value (85%) is documented"), row("Explosion Poison duration", "approximately 5s; potency missing")]; },
+        support: { "status": "Partial", "details": "Separate shield-break explosion uses 25+20p base damage, 1 Hex output, 1 Hex and 0.1 Protection scaling. Protection scaling reads the flat Protection stat. Does not automatically deplete a shield or apply Poison; Poison potency and shield absorption stacking beyond the documented 85% at one perk are held. No cooldown is invented." },
         id: "volatile_shell",
         name: "Volatile Shell",
         category: "Perk",
@@ -4307,6 +5057,9 @@ export const Perks = {
         }
     },
     wave_rider: {
+        cooldown: { sources: ["WeaponArt"], ratePerPerk: .5, requiredBuff: "wave_rider_ready" },
+        getMechanicsPreview(amount) { return [row("Normal Gathering Tide gain", Math.round(3 + 2 * amount), "per second"), row("After cleanse · first tick", Math.round(3 + 8 * amount)), row("After cleanse · next three ticks", Math.round(3 + 6 * amount)), row("After cleanse · fifth tick", Math.round(3 + 4 * amount)), row("Empowered M2 / WA base damage", "40 / 35; output split not stated, full damage held"), ...healRows(this, "Empowered M2 healing", 8, { Water: 1 }), ...healRows(this, "Empowered WA healing", 7, { Water: 1 }), row("Empowered WA", "Select Wave Rider Ready only for the next empowered WA; remove after use")]; },
+        support: { "status": "Partial", "details": "Displays rounded Gathering Tide gains 3+2p per second, with only the 2p portion multiplied by 4/3/2 over five post-cleanse ticks. At selected Wave Rider Ready, the next empowered WA gains 50% diminishing CDR per perk. Shows base damage 40/35 and Water-scaled healing 8/7; missing damage output split and self-hit interaction stay held. Readiness consumption and charge timeline are manual." },
         id: "wave_rider",
         name: "Wave Rider",
         category: "Perk",
@@ -4369,6 +5122,15 @@ export const Perks = {
         },
     },
     wild_bolt: {
+        modifyWeaponArtPacket(_amount, packet) {
+            if (packet.source !== "laser")
+                return;
+            const types = ["Fire", "Water", "Holy", "Hex", "Earth", "Air"].filter(id => selected(this, "wild_bolt_" + id.toLowerCase()));
+            if (types.length === 1)
+                packet.damageTypes = { [types[0]]: 1 };
+        },
+        getMechanicsPreview() { return [row("Laser output", "Select exactly one Wild Bolt element in Buffs; ambiguous selection leaves Laser unchanged"), row("Random debuff", "Use the appropriate target debuff; no random roll or source potency inferred")]; },
+        support: { "status": "Partial", "details": "Changes selected Laser output to exactly one manually selected Fire/Water/Holy/Hex/Earth/Air element, retaining base damage and scaling. Multiple or no element selectors leave Laser unchanged. Random selection, debuff application/potency, size, and range are manual." },
         id: "wild_bolt",
         name: "Wild Bolt",
         category: "Perk",
@@ -4416,6 +5178,8 @@ export const Perks = {
             "cardId": "69214b9831723704c1edac8a",
             "cardUrl": "https://trello.com/c/JrCM1W6l"
         },
+        sourcepotencies: { shatterpotency: 0.2 },
+        support: { "status": "Partial", "details": "Offers the initial roar's fixed 0.2 innate Shatter source, including fractional perk amounts. Use the shared target Shatter debuff. Spirit attacks' bases, scaling coefficients, Bleed source potency, summoning, and ten-second mark duration are not established/manual." }
     },
     woof_spirit: {
         id: "woof_spirit",
@@ -4462,6 +5226,8 @@ export const Perks = {
         },
     },
     contained: {
+        getMechanicsPreview(amount) { return [row("Buff / debuff duration factor", 1 + .33 * amount, "x")]; },
+        support: { "status": "Partial", "details": "Increases selected source-applied buff and debuff duration previews by 33% per perk. This applicant-side interpretation and multiplicative stacking with other duration perks are builder conventions pending source clarification. Reference durations are editable; no expiration timeline is simulated." },
         id: "contained",
         name: "Contained",
         category: "Perk",
@@ -4480,6 +5246,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaa8e",
             "cardUrl": "https://trello.com/c/mQcZDH0s"
         },
+        onDmgBonusMultiplier(amount) { return positivePerk(amount) ? 0.155 * amount * diminishedTenacity(this.stats.Tenacity || 0) : null; },
+        support: { "status": "Partial", "details": "Adds 15.5% damage per perk per diminished Tenacity, using whole harmonic units plus the fractional remainder divided by the next unit. Zero and integer Tenacity remain finite; negative Tenacity contributes zero because its behavior is undocumented." }
     },
     frenzy: {
         id: "frenzy",
@@ -4490,6 +5258,9 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaaa6",
             "cardUrl": "https://trello.com/c/XdrbSgVW"
         },
+        onDmgBonusMultiplier(amount) { return positivePerk(amount) && hasBuff(this, "rage") ? amount * (5 + 100 / 6 * selectedBuffPotency(this, "rage")) / 100 : null; },
+        onFinalDamageTakenMultiplier(amount) { return positivePerk(amount) && hasBuff(this, "rage") ? 1.3 : null; },
+        support: { "status": "Partial", "details": "Selected Rage grants the separate universal damage multiplier 1 + perk amount * (5 + 100/6 * effective Rage potency)/100 and a fixed 1.3 incoming multiplier. Does not create another buff. Summon transfer, movement, healing penalties, and duration are not calculated." }
     },
     hex_shield: {
         id: "hex_shield",
@@ -4500,8 +5271,13 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaa96",
             "cardUrl": "https://trello.com/c/xqCMsx9X"
         },
+        getSourcePotencies(amount) { return { convertedenergypotency: amount / 10 }; },
+        support: { "status": "Partial", "details": "Offers Converted Energy at perk amount / 10 potency after Hex Shield activates. Its shared real buff grants 10% damage per 0.1 effective potency and works for recipients without the perk. Shield charge buildup, debuff blocking, consumption, healing, and duration are manual." }
     },
     magic_surge: {
+        previewInputs: ["failedResets"],
+        getMechanicsPreview(amount) { const failures = Math.floor(input(this, "failedResets") ?? 0); const rate = chance(5 + 10 * amount); return [row("Initial reset chance", rate, "%"), row("Reset chance after selected failures", chance(rate + 10 * failures), "%"), row("Extra casts ignoring failure ramp", rate >= 100 ? "Unbounded at 100%" : rate / (100 - rate)), row("Lucky", "No effect on this reset chance")]; },
+        support: { "status": "Partial", "details": "Displays Weapon Art reset chance 5+10p percent, plus 10 percentage points per explicitly entered consecutive failure, bounded to 100%. Shows chance/(1-chance) additional casts only for the initial chance, explicitly ignoring failure ramp. Lucky does not modify this. Does not replace base cooldown with expected cooldown or simulate reset history." },
         id: "magic_surge",
         name: "Magic Surge",
         category: "Perk",
@@ -4520,8 +5296,12 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaa8a",
             "cardUrl": "https://trello.com/c/LjisLTST"
         },
+        getSourcePotencies(amount, applicant) { return { minionabsorbedpotency: Math.max(0, 0.002 * (applicant?.stats.SummonBoost || 0) * amount) }; },
+        support: { "status": "Partial", "details": "Offers Minion Absorbed with damage fraction 0.002 * applicant Summon Boost * perk amount, captured on application. Its shared buff grants that damage bonus to the recipient. Cursed and Perk Effectiveness do not modify this perk. Unknown summon-strength healing/duration and consumption are manual; negative computed bonus floors at zero." }
     },
     rainstorm: {
+        getMechanicsPreview(amount) { return [row("Chance per eligible hit", chance(10 * amount), "%"), row("Size", 4 * amount, "studs"), row("Water scaling", 2), row("Damage / healing", "Base values and per-enemy cooldown are undocumented")]; },
+        support: { "status": "Partial", "details": "Calculates 10% proc chance and four-stud size per perk with the documented 2 Water scaling shown. Base damage/healing and cooldown are unavailable, so neither final damage nor healing is guessed." },
         id: "rainstorm",
         name: "Rainstorm",
         category: "Perk",
@@ -4540,6 +5320,10 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaaaa",
             "cardUrl": "https://trello.com/c/whDhtayi"
         },
+        outputPriority: 100,
+        onOutputCalculation(amount, args) { if (positivePerk(amount) && args?.baseDamageData?.sourceType === "Weapon")
+            addOutput(this, "Earth", 0.3 * amount); },
+        support: { "status": "Partial", "details": "Weapon packets gain 0.3 Earth output per perk. Rune/Weapon Art inheritance from weapon output and the card's explicitly probable attack-speed penalty are not calculated." }
     },
     tempest: {
         id: "tempest",
@@ -4550,8 +5334,14 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaaa8",
             "cardUrl": "https://trello.com/c/2K6SqVTl"
         },
+        damageScalings: { "Air": 1 }, damageTypes: { "Air": 1 },
+        getPerkDamageInfo(amount) { if (!positivePerk(amount))
+            return null; const number = finisherProcNumber(this); return activation("tempest", (0.8 + 0.2667 * amount) * 0.75 ** (number - 1), "Perk", 0.3); },
+        support: { "status": "Partial", "details": "One tornado at Finisher Proc Number (default 1), (0.8 + 0.2667 * perk amount) * 0.75^(number - 1) base and Air scaling/output. Base proc coefficient 0.3; weapon-coefficient inheritance, alternating eligible hits, and sequence reset are manual. Independent activation preview; trigger rolls, timing, area/target counts, and automatic proc chains are not simulated." }
     },
     turtle: {
+        getMechanicsPreview(amount) { return [row("Passive block chance", chance(20 * amount), "%"), row("Block behavior", "Can be guardbroken; select actual block-related state manually")]; },
+        support: { "status": "Partial", "details": "Displays passive block chance at 20% per perk, bounded to 100%, including fractional perk amounts. Does not pretend every hit is blocked or invent chip damage, block effectiveness, or guardbreak rules. Actual blocking and block-trigger activations remain selected snapshots." },
         id: "turtle",
         name: "Turtle",
         category: "Perk",
@@ -4584,6 +5374,8 @@ export const Perks = {
             "cardId": "69214b9731723704c1edaab2",
             "cardUrl": "https://trello.com/c/hIribjZ3"
         },
+        getSourcePotencies(amount) { return { redirectpotency: amount / 10 }; },
+        support: { "status": "Partial", "details": "Offers Redirect at 0.1 potency per perk. Its shared buff multiplies recipient incoming damage by max(0, 1 - effective game potency), except Explosive Charge self-damage. Redirected damage to the applicant, ally proximity, application, and expiration are not calculated. The exception checks both the explosion packet source and actual self-damage identity." }
     },
     wildfire: {
         id: "wildfire",

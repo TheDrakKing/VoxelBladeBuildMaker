@@ -3807,6 +3807,306 @@
       "name": "Voxlmas Glacial Snapper Mount Rune"
     },
     {
+      "category": "enchantment",
+      "id": "legendary",
+      "sourceKey": "69214b9731723704c1eda22c",
+      "name": "Legendary"
+    },
+    {
+      "category": "enchantment",
+      "id": "refined",
+      "sourceKey": "69214b9731723704c1eda4d2",
+      "name": "Refined"
+    },
+    {
+      "category": "enchantment",
+      "id": "strengthened",
+      "sourceKey": "69214b9731723704c1eda22e",
+      "name": "Strengthened"
+    },
+    {
+      "category": "enchantment",
+      "id": "dexterous",
+      "sourceKey": "69214b9731723704c1eda27a",
+      "name": "Dexterous"
+    },
+    {
+      "category": "enchantment",
+      "id": "burning",
+      "sourceKey": "69214b9731723704c1eda1f6",
+      "name": "Burning"
+    },
+    {
+      "category": "enchantment",
+      "id": "wet",
+      "sourceKey": "69214b9731723704c1eda278",
+      "name": "Wet"
+    },
+    {
+      "category": "enchantment",
+      "id": "earthen",
+      "sourceKey": "69214b9731723704c1eda2cc",
+      "name": "Earthen"
+    },
+    {
+      "category": "enchantment",
+      "id": "magical",
+      "sourceKey": "69214b9731723704c1eda27c",
+      "name": "Magical"
+    },
+    {
+      "category": "enchantment",
+      "id": "cursed",
+      "sourceKey": "69214b9731723704c1eda4e0",
+      "name": "Cursed"
+    },
+    {
+      "category": "enchantment",
+      "id": "windy",
+      "sourceKey": "69214b9731723704c1eda4e4",
+      "name": "Windy"
+    },
+    {
+      "category": "enchantment",
+      "id": "enlightened",
+      "sourceKey": "69214b9731723704c1eda4de",
+      "name": "Enlightened"
+    },
+    {
+      "category": "enchantment",
+      "id": "summoner",
+      "sourceKey": "69214b9731723704c1eda4d6",
+      "name": "Summoner's"
+    },
+    {
+      "category": "enchantment",
+      "id": "hardened",
+      "sourceKey": "69214b9731723704c1eda4d8",
+      "name": "Hardened"
+    },
+    {
+      "category": "enchantment",
+      "id": "warded",
+      "sourceKey": "69214b9731723704c1eda4e6",
+      "name": "Warded"
+    },
+    {
+      "category": "enchantment",
+      "id": "tenacious",
+      "sourceKey": "69214b9731723704c1eda4e2",
+      "name": "Tenacious"
+    },
+    {
+      "category": "enchantment",
+      "id": "insulated",
+      "sourceKey": "69214b9731723704c1eda29c",
+      "name": "Insulated"
+    },
+    {
+      "category": "enchantment",
+      "id": "vampiric",
+      "sourceKey": "69214b9731723704c1eda292",
+      "name": "Vampiric"
+    },
+    {
+      "category": "enchantment",
+      "id": "tanky",
+      "sourceKey": "69214b9731723704c1eda4d4",
+      "name": "Tanky"
+    },
+    {
+      "category": "enchantment",
+      "id": "berserking",
+      "sourceKey": "69214b9731723704c1eda4dc",
+      "name": "Berserking"
+    },
+    {
+      "category": "enchantment",
+      "id": "fragile",
+      "sourceKey": "69214b9731723704c1eda230",
+      "name": "Fragile"
+    },
+    {
+      "category": "enchantment",
+      "id": "worthless",
+      "sourceKey": "69214b9731723704c1eda1f8",
+      "name": "Worthless"
+    },
+    {
+      "category": "enchantment",
+      "id": "thirsty",
+      "sourceKey": "69214b9731723704c1eda280",
+      "name": "Thirsty"
+    },
+    {
+      "category": "enchantment",
+      "id": "corroded",
+      "sourceKey": "69214b9831723704c1edad10",
+      "name": "Corroded"
+    },
+    {
+      "category": "enchantment",
+      "id": "sweet",
+      "sourceKey": "69214b9831723704c1edae38",
+      "name": "Sweet"
+    },
+    {
+      "category": "enchantment",
+      "id": "corrupt",
+      "sourceKey": "69214b9731723704c1eda4da",
+      "name": "Corrupt"
+    },
+    {
+      "category": "enchantment",
+      "id": "mythical",
+      "sourceKey": "69214b9731723704c1edaa6c",
+      "name": "Mythical"
+    },
+    {
+      "category": "enchantment",
+      "id": "flawless",
+      "sourceKey": "69214b9731723704c1edaa74",
+      "name": "Flawless"
+    },
+    {
+      "category": "enchantment",
+      "id": "brawny",
+      "sourceKey": "69214b9731723704c1edaa64",
+      "name": "Brawny"
+    },
+    {
+      "category": "enchantment",
+      "id": "quick",
+      "sourceKey": "69214b9731723704c1edaab6",
+      "name": "Quick"
+    },
+    {
+      "category": "enchantment",
+      "id": "blazing",
+      "sourceKey": "69214b9731723704c1edaaa2",
+      "name": "Blazing"
+    },
+    {
+      "category": "enchantment",
+      "id": "raining",
+      "sourceKey": "69214b9731723704c1edaa6a",
+      "name": "Raining"
+    },
+    {
+      "category": "enchantment",
+      "id": "stone",
+      "sourceKey": "69214b9731723704c1edaa66",
+      "name": "Stone"
+    },
+    {
+      "category": "enchantment",
+      "id": "surging",
+      "sourceKey": "69214b9731723704c1edaa6e",
+      "name": "Surging"
+    },
+    {
+      "category": "enchantment",
+      "id": "eldritch",
+      "sourceKey": "69214b9731723704c1edaa84",
+      "name": "Eldritch"
+    },
+    {
+      "category": "enchantment",
+      "id": "tempestuous",
+      "sourceKey": "69214b9731723704c1edaa70",
+      "name": "Tempestuous"
+    },
+    {
+      "category": "enchantment",
+      "id": "blessed",
+      "sourceKey": "69214b9731723704c1edaaa0",
+      "name": "Blessed"
+    },
+    {
+      "category": "enchantment",
+      "id": "sacrificial",
+      "sourceKey": "69214b9731723704c1edaa92",
+      "name": "Sacrificial"
+    },
+    {
+      "category": "enchantment",
+      "id": "wall_of",
+      "sourceKey": "69214b9731723704c1edaa90",
+      "name": "Wall of"
+    },
+    {
+      "category": "enchantment",
+      "id": "spell_proof",
+      "sourceKey": "69214b9731723704c1edaa94",
+      "name": "Spell Proof"
+    },
+    {
+      "category": "enchantment",
+      "id": "ferocious",
+      "sourceKey": "69214b9731723704c1edaa8c",
+      "name": "Ferocious"
+    },
+    {
+      "category": "enchantment",
+      "id": "contained",
+      "sourceKey": "69214b9731723704c1edaa72",
+      "name": "Contained"
+    },
+    {
+      "category": "enchantment",
+      "id": "necrotic",
+      "sourceKey": "69214b9731723704c1edaaae",
+      "name": "Necrotic"
+    },
+    {
+      "category": "enchantment",
+      "id": "turtle_king_s",
+      "sourceKey": "69214b9731723704c1edaaba",
+      "name": "Turtle King's"
+    },
+    {
+      "category": "enchantment",
+      "id": "frenzied",
+      "sourceKey": "69214b9731723704c1edaa88",
+      "name": "Frenzied"
+    },
+    {
+      "category": "enchantment",
+      "id": "piercing",
+      "sourceKey": "69214b9731723704c1edaa7c",
+      "name": "Piercing"
+    },
+    {
+      "category": "enchantment",
+      "id": "restored",
+      "sourceKey": "69214b9731723704c1edaa7a",
+      "name": "Restored"
+    },
+    {
+      "category": "enchantment",
+      "id": "quenched",
+      "sourceKey": "69214b9731723704c1edaa78",
+      "name": "Quenched"
+    },
+    {
+      "category": "enchantment",
+      "id": "acidic",
+      "sourceKey": "69214b9831723704c1edad12",
+      "name": "Acidic"
+    },
+    {
+      "category": "enchantment",
+      "id": "candied",
+      "sourceKey": "69214b9831723704c1edae3a",
+      "name": "Candied"
+    },
+    {
+      "category": "enchantment",
+      "id": "warped",
+      "sourceKey": "69214b9731723704c1edaa60",
+      "name": "Warped"
+    },
+    {
       "category": "blade",
       "id": "basic_blade",
       "sourceKey": "69214b9731723704c1eda180",

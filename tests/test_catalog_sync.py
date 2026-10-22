@@ -78,4 +78,28 @@ class CatalogSyncTests(unittest.TestCase):
         changed=copy.deepcopy(old);changed['bindings'][0]['id']='unreviewed_new_id'
         with self.assertRaises(ValueError):sync.validate_bindings(old,changed)
 
+class EnchantmentSyncTests(unittest.TestCase):
+    def record(self,fields):
+        data,_=example();source=data['records'][0]['source']
+        return {'id':'enchant','slug':'acidic','name':'Acidic','category':'Enchants','source':{**source,'cardId':'enchant'},'rawDescription':'Obtained from upgrading Corroded','sections':[{'heading':'Stat Boosts','level':1,'content':'','fields':fields}]}
+
+    def test_rework_replaces_obsolete_potency_and_preserves_existing_save_id(self):
+        data,baseline=example();data['records']=[self.record([{'kind':'stat','id':'HexBoost','name':'Hex Boost','rawValue':'+3%','value':3,'rawLine':'Hex +3%'},{'kind':'perk','id':'melting_shred','name':'Melting Shred','rawValue':'+1','value':1,'rawLine':'Melting Shred +1'}])]
+        baseline['items']=[{'id':'acidic','name':'Acidic','storeCategory':'enchantment','potencies':{'poisonpotency':3}}]
+        items,_,review=sync.build_catalog_update(data,baseline,[]);enchant=items['enchantment']['acidic']
+        self.assertEqual(enchant['potencies'],{});self.assertEqual(enchant['stats'],{'HexBoost':3});self.assertEqual(enchant['perks'],{'melting_shred':1});self.assertTrue(enchant['ascended']);self.assertEqual(review['newItems'],0)
+
+    def test_multipliers_are_kept_separate_from_additive_fields(self):
+        record=self.record([{'kind':'stat','id':'SummonBoost','name':'Summon Boost','rawValue':'1.1x','value':None,'rawLine':'Summon x1.1'},{'kind':'stat','id':'SummonBoost','name':'Summon Boost','rawValue':'+5%','value':5,'rawLine':'Summon +5%'}])
+        result=sync.enchantment_data(record,sync.STAT_NAMES,sync.perk_id)
+        self.assertEqual(result['stats'],{'SummonBoost':5});self.assertEqual(result['enchantmentTransforms'],[{'scope':'stat','stat':'SummonBoost','factor':1.1}])
+
+    def test_unknown_transform_never_gets_silently_imported(self):
+        record=self.record([{'kind':'transform','id':'mystery','name':'Mystery','rawValue':'x2','value':None,'rawLine':'Mystery x2'}])
+        with self.assertRaisesRegex(ValueError,'Unknown enchant transform'):sync.enchantment_data(record,sync.STAT_NAMES,sync.perk_id)
+
+    def test_overview_cards_do_not_become_enchantments(self):
+        data,baseline=example();record=self.record([]);record['name']='Ascended Enchants';data['records']=[record]
+        items,_,_=sync.build_catalog_update(data,baseline,[]);self.assertNotIn('enchantment',items)
+
 if __name__=='__main__':unittest.main()

@@ -12,6 +12,7 @@ const enchantmentsTable = Enchantments;
 export class events {
 }
 export const potencyAliases = {
+    draconicinfusionpotency: "Draconic Infusion Potency",
     bouncepotency: "Bounce Potency",
     bleedpotency: "Bleed Potency",
     burnpotency: " Burn Potency",
@@ -26,6 +27,22 @@ export const potencyAliases = {
     tailwindpotency: "Tailwind Potency",
     bloodlustpotency: "Blood Lust Potency",
     despairpotency: "Despair Potency",
+    slowpotency: "Slow Potency",
+    fervorpotency: "Luminescent Fervor Potency",
+    queenspowerpotency: "Queen's Power Potency",
+    channeleddepthspotency: "Channeled Depths Potency",
+    cleansedbladepotency: "Cleansed Blade Potency",
+    airpressurepotency: "Air Pressure Potency",
+    voidcontractpotency: "Void Contract Potency",
+    hypnotistpotency: "Hypnotist Potency",
+    electricalrendpotency: "Electrical Rend Potency",
+    convertedenergypotency: "Converted Energy Potency",
+    friendshippotency: "Friendship Potency",
+    cindersurgepotency: "Cinder Surge Potency",
+    cloudpushpotency: "Cloudpush Potency",
+    cinderpullpotency: "Cinderpull Potency",
+    redirectpotency: "Redirect Potency",
+    minionabsorbedpotency: "Minion Absorbed Potency",
     weakeningpotency: "Weakening Potency",
 };
 function normalizePotencyKey(value) {
@@ -152,7 +169,7 @@ export class ItemStore {
             return this.enchantmentNames;
         const names = [];
         for (const id in enchantmentsTable) {
-            names.push(this.getByID(id).name);
+            names.push(this.getByID(id, "enchantment").name);
         }
         this.enchantmentNames = Object.freeze(names);
         return this.enchantmentNames;

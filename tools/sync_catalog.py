@@ -9,9 +9,33 @@ from pathlib import Path
 import re
 import sys
 import unicodedata
+TRANSFORMS={'positive_stats','negative_stats','overall_stats','defense_boosts','positive_defenses','negative_defenses','positive_base_defense_stats','perks'}
+
+def enchantment_data(record, stat_names, normalize_perk):
+    stats={};perks={};transforms=[]
+    fields=[f for section in record['sections'] for f in section.get('fields',[])]
+    for field in fields:
+        kind=field['kind'];key=field['id'];raw=field['rawValue'].strip()
+        match=re.fullmatch(r'(?:[xX]([-+]?\d+(?:\.\d+)?)|([-+]?\d+(?:\.\d+)?)[xX])',raw)
+        if match:
+            factor=float(match.group(1) or match.group(2))
+            if not math.isfinite(factor):raise ValueError('Nonfinite enchant multiplier.')
+            if kind=='stat' and key in stat_names:transforms.append({'scope':'stat','stat':key,'factor':factor})
+            elif kind=='transform' and key in TRANSFORMS:transforms.append({'scope':key,'factor':factor})
+            else:raise ValueError(f'Unknown enchant transform: {field["name"]}')
+        elif kind in {'stat','perk'} and isinstance(field.get('value'),(int,float)) and not isinstance(field['value'],bool) and math.isfinite(field['value']):
+            if kind=='stat':
+                if key not in stat_names:raise ValueError(f'Unknown enchant stat: {key}')
+                stats[key]=field['value']
+            else:perks[normalize_perk(key)]=field['value']
+        else:raise ValueError(f'Unreviewed enchant field: {field["name"]} = {raw}')
+    return {'stats':stats,'perks':perks,'potencies':{},'enchantmentTransforms':transforms,
+            'ascended': 'obtained from upgrading' in record['rawDescription'].lower(),
+            'description':'\n'.join(f['rawLine'] for f in fields)}
+
 
 ROOT=Path(__file__).resolve().parent.parent
-CATEGORIES={"Handles":"handle","Blades":"blade","Fist Gloves":"glove","Fist Essence":"essence","Rings":"ring","Runes":"rune"}
+CATEGORIES={"Enchants":"enchantment","Handles":"handle","Blades":"blade","Fist Gloves":"glove","Fist Essence":"essence","Rings":"ring","Runes":"rune"}
 PERK_ALIASES={"immovable":"immoveable","berserking_strength":"berserkingstrength","frequent_flyer":"frequent_flier","glyth_conduit":"glyph_conduit","queens_guard":"queen_s_guard","queens_power":"queen_s_power"}
 STAT_NAMES={f"{x}Boost" for x in ["Physical","Magic","Fire","Water","Air","Earth","Holy","Hex","Dexterity","Summon"]} | {f"{x}Defense" for x in ["Physical","Magic","Fire","Water","Air","Earth","Holy","Hex"]} | {"AttackSpeed","SpeedBoost","JumpBoost","CritRate","CritDamage","HeatResistance","ColdResistance","Protection","Warding","Tenacity","ArmorPenetration"}
 SCALES={"Physical","Magic","Fire","Water","Air","Earth","Holy","Hex","Dexterity","Summon","True"}
@@ -57,6 +81,7 @@ def build_catalog_update(dataset,baseline,issues):
                 fields,description=fields_for_piece(record,piece)
                 candidates.append((record,piece['slot'],piece['name'],fields,description,piece['id']))
         elif record['category'] in CATEGORIES:
+            if record['category']=='Enchants' and record['name'] in {'Enchant Rates and Priority','Ascended Enchants'}:continue
             fields=[f for section in record['sections'] if section['heading'].casefold() not in {'obtainment','obtained','notes','requirements','sources','preview'} for f in section.get('fields',[])]
             candidates.append((record,CATEGORIES[record['category']],record['name'],fields,record['rawDescription'],record['id']))
     for record,category,name,fields,description,source_key in candidates:
@@ -65,25 +90,34 @@ def build_catalog_update(dataset,baseline,issues):
             held.append({'name':name,'category':category,'recordId':record['id'],'reason':'Unknown equipment field requires review.'});continue
         if record['id'] in blocked:
             held.append({'name':name,'category':category,'recordId':record['id'],'reason':'Unresolved source structure or field; legacy definition retained.'});continue
-        maps={kind:{} for kind in ['stat','perk','potency','sourcePotency','scaling','output']};warnings=[]
-        for field in fields:
-            kind=field['kind'];value=field.get('value');key=field['id']
-            if kind not in maps:continue
-            if not numeric(value):
-                warnings.append(f'{field["name"]} is not an unambiguous numeric value.');continue
-            if kind=='stat' and key not in STAT_NAMES:raise ValueError(f'Unknown stat ID: {key}')
-            if kind in {'scaling','output'} and key not in SCALES:raise ValueError(f'Unknown scaling/output ID: {key}')
-            if kind in {'potency','sourcePotency'} and key not in POTENCIES:raise ValueError(f'Unknown potency ID: {key}')
-            if kind=='perk':key=perk_id(key);referenced.setdefault(key,(field['name'],record['source']))
-            if key in maps[kind] and maps[kind][key]!=value:warnings.append(f'Conflicting values for {field["name"]}.')
-            maps[kind][key]=value
-        if warnings:
-            held.append({'name':name,'category':category,'recordId':record['id'],'reason':' '.join(warnings)});continue
+        enchant = enchantment_data(record,STAT_NAMES,perk_id) if category=='enchantment' else None
+        if enchant:
+            maps={kind:{} for kind in ['stat','perk','potency','sourcePotency','scaling','output']}
+            maps['stat']=enchant['stats'];maps['perk']=enchant['perks']
+            for section in record['sections']:
+                for field in section.get('fields',[]):
+                    if field['kind']=='perk':referenced.setdefault(perk_id(field['id']),(field['name'],record['source']))
+        else:
+            maps={kind:{} for kind in ['stat','perk','potency','sourcePotency','scaling','output']};warnings=[]
+            for field in fields:
+                kind=field['kind'];value=field.get('value');key=field['id']
+                if kind not in maps:continue
+                if not numeric(value):
+                    warnings.append(f'{field["name"]} is not an unambiguous numeric value.');continue
+                if kind=='stat' and key not in STAT_NAMES:raise ValueError(f'Unknown stat ID: {key}')
+                if kind in {'scaling','output'} and key not in SCALES:raise ValueError(f'Unknown scaling/output ID: {key}')
+                if kind in {'potency','sourcePotency'} and key not in POTENCIES:raise ValueError(f'Unknown potency ID: {key}')
+                if kind=='perk':key=perk_id(key);referenced.setdefault(key,(field['name'],record['source']))
+                if key in maps[kind] and maps[kind][key]!=value:warnings.append(f'Conflicting values for {field["name"]}.')
+                maps[kind][key]=value
+            if warnings:
+                held.append({'name':name,'category':category,'recordId':record['id'],'reason':' '.join(warnings)});continue
         # A tree overview or a card containing only obtainment text is not equipment.
-        if not any(maps.values()) and not any(f['kind']=='weaponSpeed' for f in fields):continue
+        if not any(maps.values()) and not (enchant and enchant['enchantmentTransforms']) and not any(f['kind']=='weaponSpeed' for f in fields):continue
         legacy_matches=by_name[(category,identity(name))]
         definition={'name':name,'stats':maps['stat'],'perks':maps['perk'],'potencies':maps['potency'],
                     'source':{**runtime_source(record['source']),'sectionId':source_key}}
+        if enchant:definition.update(enchant)
         if maps['sourcePotency']:definition['sourcepotencies']=maps['sourcePotency']
         if maps['scaling']:definition['damageScalings']=maps['scaling']
         if maps['output']:definition['damageTypes']=maps['output']

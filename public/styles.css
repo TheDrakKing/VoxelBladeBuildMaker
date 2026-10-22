@@ -912,7 +912,10 @@
 /* Manual scenario values stay inside their status card at every viewport width. */
 .buff_Select.status-scenario {
     flex-direction: column;
-    width: 180px;
+    box-sizing: border-box;
+    width: 202px;
+    max-width: 100%;
+    min-width: 0;
     height: auto;
     min-height: 84px;
     padding: 10px;
@@ -922,6 +925,7 @@
 .status-scenario .select_buff_wrapper { width: 100%; min-height: 36px; }
 .status-scenario label {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     width: 100%;
@@ -941,9 +945,17 @@
 .status-scenario select { max-width: 6rem; font: inherit; }
 
 .status-scenario .proc-state {
+    display: block;
+    width: 100%;
     color: var(--muted-text);
     font-size: 0.72rem;
     line-height: 1.35;
     text-align: center;
     overflow-wrap: anywhere;
 }
+#perk_mechanics { max-height: 42rem; overflow-y: auto; padding: 0.4rem; display: flex; flex-direction: column; gap: 0.55rem; width: 100%; }
+#perk_mechanics .statHolder_template { flex-wrap: wrap; }
+#perk_mechanics .stat_value { overflow-wrap: anywhere; }
+#perk_mechanics h4 { margin: 1.4rem 0 0.5rem; }
+.mechanics-input { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.7rem; }
+.mechanics-input input { width: 7rem; padding: 0.4rem; border-radius: 8px; border: 1px solid var(--border-soft); color: var(--text-color); background: var(--panel-muted); font: inherit; }

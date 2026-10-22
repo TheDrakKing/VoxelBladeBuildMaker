@@ -24,6 +24,10 @@ export interface eventsArgs {
 }
 
 export class events {
+  /** Flat reduction per output and hit, after defense/reduction multipliers. */
+  onFlatDamageTakenReduction?: (this: CombatContext, amount?: number, args?: eventsArgs) => number | null;
+  /** Recipient-side conversion on the cloned opponent attack profile. */
+  onIncomingOutputCalculation?: (this: CombatContext, amount?: number, args?: eventsArgs) => void;
   /** Direct damage-taken multiplier for effects that explicitly bypass diminishing returns. */
   onFinalDamageTakenMultiplier?: (this: CombatContext, perkAmount?: number, restArgs?: eventsArgs) => number | null;
   onAdded?: (this: Build.Build, perkAmount?: number, restArgs?: eventsArgs) => number | null | void;
@@ -91,9 +95,27 @@ export type potency =
   | "tailwindpotency"
   | "bloodlustpotency"
   | "despairpotency"
+  | "slowpotency"
+  | "fervorpotency"
+  | "queenspowerpotency"
+  | "channeleddepthspotency"
+  | "cleansedbladepotency"
+  | "airpressurepotency"
+  | "voidcontractpotency"
+  | "hypnotistpotency"
+  | "electricalrendpotency"
+  | "convertedenergypotency"
+  | "friendshippotency"
+  | "cindersurgepotency"
+  | "cloudpushpotency"
+  | "cinderpullpotency"
+  | "redirectpotency"
+  | "minionabsorbedpotency"
+  | "draconicinfusionpotency"
   | "weakeningpotency";
 
 export const potencyAliases: { [k in potency]: string } = {
+  draconicinfusionpotency: "Draconic Infusion Potency",
   bouncepotency: "Bounce Potency",
   bleedpotency: "Bleed Potency",
   burnpotency: " Burn Potency",
@@ -108,6 +130,22 @@ export const potencyAliases: { [k in potency]: string } = {
   tailwindpotency: "Tailwind Potency",
   bloodlustpotency: "Blood Lust Potency",
   despairpotency: "Despair Potency",
+  slowpotency: "Slow Potency",
+  fervorpotency: "Luminescent Fervor Potency",
+  queenspowerpotency: "Queen's Power Potency",
+  channeleddepthspotency: "Channeled Depths Potency",
+  cleansedbladepotency: "Cleansed Blade Potency",
+  airpressurepotency: "Air Pressure Potency",
+  voidcontractpotency: "Void Contract Potency",
+  hypnotistpotency: "Hypnotist Potency",
+  electricalrendpotency: "Electrical Rend Potency",
+  convertedenergypotency: "Converted Energy Potency",
+  friendshippotency: "Friendship Potency",
+  cindersurgepotency: "Cinder Surge Potency",
+  cloudpushpotency: "Cloudpush Potency",
+  cinderpullpotency: "Cinderpull Potency",
+  redirectpotency: "Redirect Potency",
+  minionabsorbedpotency: "Minion Absorbed Potency",
   weakeningpotency: "Weakening Potency",
 };
 
@@ -182,6 +220,7 @@ export type stat =
   | "ArmorPenetration";
 
 export type scale =
+  | "Protection"
   | "Magic"
   | "Physical"
   | "Earth"
@@ -194,7 +233,7 @@ export type scale =
   | "Summon"
   | "True";
 
-export type damageType = scale;
+export type damageType = Exclude<scale, "Protection">;
 
 export class Item extends events {
   source?: { cardId: string; cardUrl: string; sectionId?: string };
@@ -222,6 +261,8 @@ export class Item extends events {
   /**
    * source potencies don't get added to the build, they are for exmaple rage run which has base 0.3 potency when actvited
    */
+  enchantmentTransforms?: import("./Enchantments.js").EnchantmentTransform[];
+  ascended?: boolean;
   sourcepotencies?: { [k in potency]?: number };
   stats?: { [k in stat]?: number };
   perks?: { [id: string]: number };
@@ -366,7 +407,7 @@ export class ItemStore {
     if (this.enchantmentNames.length) return this.enchantmentNames;
     const names = [];
     for (const id in enchantmentsTable) {
-      names.push(this.getByID(id as string).name);
+      names.push(this.getByID(id as string, "enchantment").name);
     }
     this.enchantmentNames = Object.freeze(names);
     return this.enchantmentNames;
@@ -378,7 +419,7 @@ export class ItemStore {
   //   const names = [];
   //   for (const id in armorTable) {
   //     items.push(this.getByID(id as string));
-  //     names.push(this.getByID(id as string).name);
+  //     names.push(this.getByID(id as string, "enchantment").name);
   //   }
   //   this.allCache = Object.freeze(items);
   //   this.itemNames = Object.freeze(names);

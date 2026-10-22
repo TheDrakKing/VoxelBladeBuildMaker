@@ -6,7 +6,9 @@ import * as WeaponTypes from "../models/WeaponTypes.js";
 import { GuildStore } from "./Guild.js";
 import { RaceStore } from "./Race.js";
 import { WeaponArtStore } from "./WeaponArt.js";
+import { applyEnchantmentTransforms } from "./Enchantments.js";
 import { calculateCooldown } from "./Cooldowns.js";
+import { cleanMechanicsInputs } from "./Mechanics.js";
 let damageMultiplier = {
     // damageMultiplier is the total of damage modification of a type
     damage_bonus_multiplier: {},
@@ -26,6 +28,8 @@ function cloneDamageAmount(damageAmount) {
 }
 export class Build {
     constructor() {
+        this.mechanicsInputs = {};
+        this.enchantmentProtectedPerks = {};
         this.weapon = undefined;
         this.mainArmor = {};
         this.infuseArmor = {};
@@ -37,6 +41,7 @@ export class Build {
         this.stats = {};
         this.effectiveBoosts = {};
         this.perks = {};
+        this.enchantmentProtectedPerks = {};
         this.damageScalings = {};
         this.damageTypes = {};
         this.totEffBoost = 0;
@@ -71,7 +76,15 @@ export class Build {
         const avgAtkSpe = (bladeAtkSpe + handleAtkSpe) / 2;
         // Percentage attack-speed points convert to a flat numeric speed bonus.
         const statBonus = (this.stats.AttackSpeed || 0) / 100;
-        this.weapon.attackSpeed = roundBuildValue(avgAtkSpe + statBonus + (this.race?.flatAttackSpeed || 0));
+        let speed = avgAtkSpe + statBonus + (this.race?.flatAttackSpeed || 0);
+        for (const [id, amount] of Object.entries(this.perks)) {
+            if (!Number.isFinite(amount) || amount <= 0)
+                continue;
+            const factor = PerkModule.PerkStore.getByID(id).attackSpeedFactor?.call(this, amount);
+            if (factor !== undefined && Number.isFinite(factor) && factor >= 0)
+                speed *= factor;
+        }
+        this.weapon.attackSpeed = roundBuildValue(speed);
     }
     /** Isolated race modifier; other cooldown perks and a cast timeline are not included. */
     getRaceAdjustedCooldown(baseCooldown, source) {
@@ -147,6 +160,12 @@ export class Build {
                 };
             }
         }
+        weaponConstructionData.weaponFamily = this.perks.locked_and_loaded && baseWeaponTypeId === "fist" ? "dual_guns" : resolvedWeaponTypeId;
+        const entries = Object.entries(this.perks).filter(([, amount]) => Number.isFinite(amount) && amount > 0)
+            .map(([id, amount]) => ({ perk: PerkModule.PerkStore.getByID(id), amount }))
+            .sort((a, b) => (a.perk.weaponPriority || 0) - (b.perk.weaponPriority || 0) || a.perk.id.localeCompare(b.perk.id));
+        for (const { perk, amount } of entries)
+            perk.modifyWeaponConstruction?.call(this, amount, weaponConstructionData, { weaponType: baseWeaponTypeId, handle: handleTypeId, blade: bladeTypeId });
         return weaponConstructionData;
     }
     calculateUpgrade(stats, upgrade) {
@@ -304,7 +323,7 @@ export class Build {
             const perk = PerkModule.PerkStore.get(perkId);
             if (!Number.isFinite(amount) || amount <= 0)
                 continue;
-            const innate = (perk.getSourcePotencies?.(amount) ?? perk.sourcepotencies)?.[inatePotency];
+            const innate = (perk.getSourcePotencies?.(amount, this) ?? perk.sourcepotencies)?.[inatePotency];
             if (innate === undefined || !Number.isFinite(innate) || innate < 0)
                 continue;
             sources[perkId] = {
@@ -483,6 +502,7 @@ export class Build {
         this.stats = {};
         this.effectiveBoosts = {};
         this.perks = {};
+        this.enchantmentProtectedPerks = {};
         this.potencies = {};
         this.damageScalings = {};
         this.damageTypes = {};
@@ -553,13 +573,17 @@ export class Build {
             Object.assign(item.perks, value.perks);
             Object.assign(item.potencies, value.potencies);
             //////////////////////// Enchants activation ////////////////////////
+            const protectedPerks = {};
             const armorEnchantments = this.enchantments[key];
             if (armorEnchantments) {
-                for (let index = 0; index < armorEnchantments.length; index++) {
+                for (let index = armorEnchantments.length - 1; index >= 0; index--) {
                     if (!armorEnchantments[index])
                         continue;
                     const enchantment = armorEnchantments[index];
-                    if (enchantment.onStatCalculation) {
+                    if (enchantment.enchantmentTransforms !== undefined) {
+                        applyEnchantmentTransforms(item, enchantment, value.stats, protectedPerks);
+                    }
+                    else if (enchantment.onStatCalculation) {
                         enchantment.onStatCalculation.apply(this, [undefined, { item }]);
                     }
                     // add the stats from the enchantment to the item
@@ -577,6 +601,8 @@ export class Build {
                     for (const [perk, amount] of Object.entries(enchantment.perks || {})) {
                         if (!item.perks)
                             item.perks = {};
+                        if (enchantment.ascended)
+                            protectedPerks[perk] = (protectedPerks[perk] || 0) + amount;
                         if (item.perks[perk]) {
                             item.perks[perk] += amount;
                         }
@@ -597,6 +623,8 @@ export class Build {
                     }
                 }
             }
+            for (const [id, amount] of Object.entries(protectedPerks))
+                this.enchantmentProtectedPerks[id] = (this.enchantmentProtectedPerks[id] || 0) + amount;
             // when add enchment bounus they go on the armor not the overall build by them slef
             this.addItemStatsToBuild(item, false, key);
         }
@@ -615,6 +643,10 @@ export class Build {
         //////////////////////// Perk Stats mods ////////////////////////
         this.runPerkEvent("onPerkMod");
         this.runPerkEvent("onStatCalculation");
+        // Potency-dependent status stats use the completed applicant/perk stats.
+        for (const status of this.buff || []) {
+            status.onStatCalculation?.apply(this, [status.getReceivedPotency(this)]);
+        }
         //////////////////////// Run the displayStats() to add show the build stats ////////////////////////
         const oldMaxHp = this.maxHp;
         this.maxHp = this.getHp();
@@ -649,6 +681,9 @@ export class Build {
             stacks: status.stacks,
             consumptionTiming: status.consumptionTiming,
             appliedBy: status.appliedBy,
+            endlessDespairEligible: status.endlessDespairEligible,
+            baseDurationOverride: status.baseDurationOverride,
+            ironSlayerEnhanced: status.ironSlayerEnhanced,
         };
     }
     static restoreStatuses(statuses, legacyIds) {
@@ -667,6 +702,12 @@ export class Build {
                 status.stacks = saved.stacks;
             if (saved.consumptionTiming === "before" || saved.consumptionTiming === "after")
                 status.consumptionTiming = saved.consumptionTiming;
+            if (typeof saved.endlessDespairEligible === "boolean")
+                status.endlessDespairEligible = saved.endlessDespairEligible;
+            if (typeof saved.baseDurationOverride === "number" && Number.isFinite(saved.baseDurationOverride) && saved.baseDurationOverride >= 0)
+                status.baseDurationOverride = saved.baseDurationOverride;
+            if (typeof saved.ironSlayerEnhanced === "boolean")
+                status.ironSlayerEnhanced = saved.ironSlayerEnhanced;
             if (saved.appliedBy === "self" || saved.appliedBy === "opponent")
                 status.appliedBy = saved.appliedBy;
             return status;
@@ -674,6 +715,7 @@ export class Build {
     }
     toSavedBuild() {
         return {
+            mechanicsInputs: cleanMechanicsInputs(this.mechanicsInputs),
             version: 2,
             level: this.level,
             hp: this.hp,
@@ -717,6 +759,7 @@ export class Build {
     }
     static dictToBuild(data) {
         const build = new Build();
+        build.mechanicsInputs = cleanMechanicsInputs(data.mechanicsInputs);
         build.level = data.level ?? 1;
         build.hp = data.hp ?? 100;
         build.maxHp = data.maxHp || build.getHp();
@@ -760,7 +803,7 @@ export class Build {
             build.enchantments[key] = savedEnchantments.map((id) => {
                 if (!id)
                     return undefined;
-                return ItemModule.ItemStore.getByID(id);
+                return ItemModule.ItemStore.getByID(id, "enchantment");
             });
         });
         build.buff = Build.restoreStatuses(data.buffs, data.buffIds);

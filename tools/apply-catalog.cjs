@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const ts = require(process.env.VOXL_TYPESCRIPT_PATH || 'typescript');
 const TABLES = {
+  enchantment: ['Enchantments', 'Enchantments'],
   helmet: ['Helmets', 'Helmets'], chestplate: ['Chestplates', 'Chestplate'],
   legging: ['Leggings', 'Leggings'], blade: ['Blades', 'Blades'],
   handle: ['Handles', 'Handles'], glove: ['Gloves', 'Gloves'],

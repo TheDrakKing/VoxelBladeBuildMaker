@@ -6,6 +6,9 @@ import * as Perk from "../models/Perk.js";
 import * as GuildModule from "../models/Guild.js";
 import * as RaceModule from "../models/Race.js";
 import * as WeaponArtModule from "../models/WeaponArt.js";
+import { getMechanicsPreview, previewInputs, PreviewInput } from "../models/Mechanics.js";
+import { getPotencyPreview } from "../models/PotencyPreview.js";
+import { getPoisePreview } from "../models/Poise.js";
 //Buttons
 const infuseGearButtons =  document.querySelectorAll<HTMLButtonElement>('.infuseGear');
 const mainGearButtons =  document.querySelectorAll<HTMLButtonElement>('.mainGear');
@@ -204,13 +207,13 @@ type appTheme = "dark" | "light";
 type savedWorkspaceTab = {
   id: string;
   name: string;
+  customName: boolean;
   build: Build.savedBuild;
   target: Build.savedBuild;
 };
 type savedWorkspace = {
   version: number;
   activeTabId: string;
-  nextTabNumber: number;
   theme: appTheme;
   tabs: savedWorkspaceTab[];
 };
@@ -301,6 +304,7 @@ function createSavedWorkspaceTab(
   return {
     id: createTabId(),
     name,
+    customName: false,
     build: nextBuild.toSavedBuild(),
     target: nextTarget.toSavedBuild(),
   };
@@ -310,16 +314,9 @@ function createDefaultWorkspace(): savedWorkspace {
   return {
     version: 1,
     activeTabId: "",
-    nextTabNumber: 2,
     theme: getCurrentTheme(),
     tabs: [createSavedWorkspaceTab("Tab 1")],
   };
-}
-
-function getNextTabName() {
-  const name = `Tab ${workspaceState.nextTabNumber}`;
-  workspaceState.nextTabNumber += 1;
-  return name;
 }
 
 function getWorkspaceTab(tabId = workspaceState.activeTabId) {
@@ -394,6 +391,10 @@ function normalizeSavedWorkspace(value: unknown): savedWorkspace | null {
           name: typeof candidateTab.name === "string" && candidateTab.name.trim()
             ? candidateTab.name.trim()
             : `Tab ${index + 1}`,
+          // Older workspaces stored automatic names without a separate rename flag.
+          customName: typeof candidateTab.customName === "boolean"
+            ? candidateTab.customName
+            : typeof candidateTab.name === "string" && !!candidateTab.name.trim() && !/^Tab \d+$/.test(candidateTab.name.trim()),
           build: nextBuild.toSavedBuild(),
           target: nextTarget.toSavedBuild(),
         });
@@ -408,17 +409,9 @@ function normalizeSavedWorkspace(value: unknown): savedWorkspace | null {
   const activeTabId = tabs.some((tab) => tab.id === rawWorkspace.activeTabId)
     ? rawWorkspace.activeTabId as string
     : tabs[0].id;
-  const nextTabNumber =
-    typeof rawWorkspace.nextTabNumber === "number" &&
-      Number.isFinite(rawWorkspace.nextTabNumber) &&
-      rawWorkspace.nextTabNumber > 0
-      ? Math.floor(rawWorkspace.nextTabNumber)
-      : tabs.length + 1;
-
   return {
     version: 1,
     activeTabId,
-    nextTabNumber,
     theme: rawWorkspace.theme === "light" ? "light" : "dark",
     tabs,
   };
@@ -446,7 +439,8 @@ function loadWorkspaceTab(tab: savedWorkspaceTab) {
 function renderWorkspaceTabs() {
   workspaceTabsContainer.replaceChildren();
 
-  workspaceState.tabs.forEach((tab) => {
+  workspaceState.tabs.forEach((tab, index) => {
+    if (!tab.customName) tab.name = `Tab ${index + 1}`;
     const isActive = tab.id === workspaceState.activeTabId;
     const tabItem = document.createElement("div");
     tabItem.className = `workspace-tab_item${isActive ? " is-active" : ""}`;
@@ -501,7 +495,7 @@ function switchWorkspaceTab(tabId: string) {
 function addWorkspaceTab() {
   persistWorkspaceToStorage();
 
-  const nextTab = createSavedWorkspaceTab(getNextTabName());
+  const nextTab = createSavedWorkspaceTab(`Tab ${workspaceState.tabs.length + 1}`);
   workspaceState.tabs.push(nextTab);
   workspaceState.activeTabId = nextTab.id;
   loadWorkspaceTab(nextTab);
@@ -551,6 +545,7 @@ function renameWorkspaceTab(tabId: string) {
   if (!nextName) return;
 
   tab.name = nextName.slice(0, 40);
+  tab.customName = true;
   renderWorkspaceTabs();
   scheduleWorkspaceSave();
 }
@@ -596,7 +591,7 @@ function initializeWorkspace() {
 }
 
 function getBuffEffectivePotency(currentBuild: Build.Build, buff: BuffModule.Buff) {
-  return buff.getEffectivePotency(getBuffSourceBuild(currentBuild, buff));
+  return buff.getReceivedPotency(currentBuild);
 }
 
 function updateWeaponSlotLabels() {
@@ -637,8 +632,9 @@ function displayDamageModificationGroup(
   container.innerHTML = "";
 
   for (const [key, value] of Object.entries(modifications) as [string, number][]) {
-    const label = suffix ? `${key} ${suffix}` : key;
-    createStatHolder(label, (value * 100) + "%", container);
+    const flat = key.startsWith("[flat] ");
+    const label = flat ? key.slice(7) + " flat reduction" : suffix ? `${key} ${suffix}` : key;
+    createStatHolder(label, flat ? `${formatDamageNumber(value)} damage` : (value * 100) + "%", container);
   }
 }
 
@@ -740,6 +736,41 @@ function createNonWeaponDamageCard(entry: nonWeaponDamageDisplay, containerDiv: 
   containerDiv.appendChild(cardDiv);
 }
 
+function renderMechanicsPanel() {
+  const container = document.getElementById("perk_mechanics"); if (!container) return;
+  container.replaceChildren();
+  const preview = getMechanicsPreview(build);
+  if (!preview.groups.length) { createStatHolder("Status", "No additional perk calculations equipped", container); return; }
+  const note = document.createElement("p"); note.className = "activation-preview-note";
+  note.textContent = "Healing is shown before level and recipient modifiers. Enter one eligible hit, tick, or heal to preview its effect. Cooldown and summon results describe the selected event."; container.appendChild(note);
+  for (const key of preview.fields) {
+    const label = document.createElement("label"); label.className = "mechanics-input"; label.textContent = previewInputs[key] + " ";
+    const input = document.createElement("input"); input.type = "number"; input.min = "0"; input.step = key === "failedResets" ? "1" : "0.1";
+    input.setAttribute("aria-label", previewInputs[key]); input.value = build.mechanicsInputs[key]?.toString() ?? ""; input.placeholder = "Enter value";
+    input.addEventListener("change", () => { const value = input.value === "" ? undefined : Number(input.value); if (value !== undefined && (!Number.isFinite(value) || value < 0)) return; if (value === undefined) delete build.mechanicsInputs[key]; else build.mechanicsInputs[key] = value; resetPage(); });
+    label.appendChild(input); container.appendChild(label);
+  }
+  for (const group of preview.groups) {
+    const heading = document.createElement("h4"); heading.textContent = group.name; container.appendChild(heading);
+    for (const entry of group.rows) createStatHolder(entry.label, entry.value + (entry.unit ? " " + entry.unit : ""), container);
+  }
+}
+
+function renderPoisePanel() {
+  const container = document.getElementById("poise_damage");
+  if (!container) return;
+  container.replaceChildren();
+  const preview = getPoisePreview(build, target);
+  if (!preview.effects.length) { createStatHolder("Status", "No poise modifiers selected", container); return; }
+  const note = document.createElement("p"); note.className = "activation-preview-note";
+  note.textContent = "Poise modifier preview only. Base attack poise and stagger thresholds are unknown. Placeholder values are not verified game data.";
+  container.appendChild(note);
+  for (const effect of preview.effects) {
+    createStatHolder(effect.name + (effect.placeholder ? " (placeholder)" : ""), effect.active ? `+${Math.round(effect.bonus * 10000) / 100}% poise damage` : `Inactive: target needs ${effect.requiredDebuff}`, container);
+  }
+  createStatHolder("Poise damage multiplier", `${preview.multiplier}x`, container);
+}
+
 function renderNonWeaponDamages(entries: nonWeaponDamageDisplay[]) {
   perkDamageContainerDiv.innerHTML = "";
   statusDamageContainerDiv.innerHTML = "";
@@ -748,6 +779,10 @@ function renderNonWeaponDamages(entries: nonWeaponDamageDisplay[]) {
   const statusEntries = entries.filter((entry) => entry.category === "Debuff" || entry.category === "Buff");
 
   if (perkEntries.length) {
+    const note = document.createElement("p");
+    note.className = "activation-preview-note";
+    note.textContent = "Separate activation previews. Trigger conditions, chance rolls, cooldowns, and automatic status application are manual. These totals are not added to weapon damage.";
+    perkDamageContainerDiv.appendChild(note);
     perkEntries.forEach((entry) => createNonWeaponDamageCard(entry, perkDamageContainerDiv));
   } else {
     createStatHolder("Status", "No perk damage detected", perkDamageContainerDiv);
@@ -793,11 +828,12 @@ function appendRaceCooldownPreview(container: HTMLElement, base: number | undefi
     createStatHolder("Cooldown", "Not documented", container);
     return;
   }
-  createStatHolder("Base cooldown", `${base}s`, container);
+  createStatHolder("Base cooldown", `${preview.baseOverride ?? base}s`, container);
   const row = createStatHolder("Cooldown (reviewed effects)", `${preview.value}s`, container);
+  const additions = Object.entries(preview.additions || {}).map(([name, seconds]) => `${name}: +${seconds}s before CDR`);
   const rates = Object.entries(preview.rates).map(([name, rate]) => `${name}: ${Math.round(rate * 10000) / 100}% CDR`);
   const factors = Object.entries(preview.factors).map(([name, factor]) => `${name}: x${factor}`);
-  if (row) row.title = [...rates, ...factors, "Reviewed CDR rates are summed; direct factors multiply. Triggered resets, elapsed cooldown, and unreviewed effects are not simulated."].join("; ");
+  if (row) row.title = [...additions, ...rates, ...factors, "Reviewed CDR rates are summed; direct factors multiply. Triggered resets, elapsed cooldown, and unreviewed effects are not simulated."].join("; ");
 }
 
 function renderRunePanel(rune?: ItemModule.Item, damageResult?: nonWeaponDamageResult) {
@@ -820,6 +856,9 @@ function renderWeaponArtPanel(weaponArt?: WeaponArtModule.WeaponArt, damageResul
     title: "Weapon Art",
   });
   if (weaponArt) appendRaceCooldownPreview(weaponArtDamageContainerDiv, weaponArt.coolDown, "WeaponArt", weaponArt.id);
+  if (weaponArt?.id === "lunge" && build.perks.heat_drill > 0) {
+    createStatHolder("Heat Drill damage", "Replacement formula unverified; table shows legacy Lunge damage", weaponArtDamageContainerDiv);
+  }
 }
 
 function createItemBox(item: ItemModule.Item | BuffModule.Buff | GuildModule.Guild | WeaponArtModule.WeaponArt): HTMLElement | null {
@@ -988,7 +1027,6 @@ function createBuffBox(buff: BuffModule.Buff, ContainerDiv:HTMLElement, source?:
   inputs.forEach((input) => (input.value = ""));
 
   clonedDiv.style.display = "flex";
-  if (buff.potencyId || buff.stacks !== undefined || buff.id === "blood_thirsty_proc" || buff.id === "venom_eater_proc") clonedDiv.classList.add("status-scenario");
 
   var itemBoxImg = clonedDiv.children[0].children[0].children[0] as HTMLImageElement;
   itemBoxImg.src = buff.img ? resolveAssetPath(buff.img) : "";
@@ -1020,6 +1058,10 @@ function createBuffBox(buff: BuffModule.Buff, ContainerDiv:HTMLElement, source?:
     mouseLeave();
   });
 
+  if (buff.calculationNote) {
+    const note = document.createElement("span"); note.className = "proc-state"; note.textContent = buff.calculationNote;
+    clonedDiv.appendChild(note);
+  }
   const consumingProc = buff.id === "blood_thirsty_proc" ? { perk: "blood_thirsty", status: "bleed", name: "Bleed" } :
     buff.id === "venom_eater_proc" ? { perk: "venom_eater", status: "poison", name: "Poison" } : undefined;
   if (consumingProc) {
@@ -1043,7 +1085,7 @@ function createBuffBox(buff: BuffModule.Buff, ContainerDiv:HTMLElement, source?:
     label.appendChild(select); clonedDiv.appendChild(label);
   }
 
-  if (buff.potencyId) {
+  if (buff.potencyId || buff.category === "Debuff") {
     const ownerLabel = document.createElement("label");
     ownerLabel.textContent = "Applied by ";
     ownerLabel.title = "Auto potency uses the applying build's bonuses. A manual potency value overrides them.";
@@ -1060,11 +1102,16 @@ function createBuffBox(buff: BuffModule.Buff, ContainerDiv:HTMLElement, source?:
       buff.setSourceData();
       const holder = source || build;
       const applicant = getBuffSourceBuild(holder, buff);
-      const sources = applicant.getSourcesForBuff(buff.potencyId!);
-      if (Object.keys(sources).length) showBuffSourceSelector(buff, sources, holder);
+      buff.endlessDespairEligible = undefined;
+      if (buff.potencyId) {
+        const sources = applicant.getSourcesForBuff(buff.potencyId);
+        if (Object.keys(sources).length) showBuffSourceSelector(buff, sources, holder);
+      }
       resetPage();
     });
     ownerLabel.appendChild(ownerSelect); clonedDiv.appendChild(ownerLabel);
+  }
+  if (buff.potencyId) {
     const label = document.createElement("label");
     label.textContent = buff.getDamageInfo ? "DoT potency " : "Potency ";
     label.title = buff.getDamageInfo ? "Additive DoT potency in game units. Source potency stays separate. Leave blank for the applying build's bonuses." :
@@ -1084,23 +1131,64 @@ function createBuffBox(buff: BuffModule.Buff, ContainerDiv:HTMLElement, source?:
     label.appendChild(input);
     clonedDiv.appendChild(label);
   }
+  if (buff.category === "Debuff" || buff.category === "Buff" && buff.countsAsBuff !== false) {
+    const holder = source || build, applicant = buff.getSourceBuild(holder);
+    const endlessAmount = applicant.perks.endless_despair || 0;
+    if (endlessAmount > 0 || applicant.perks.contained > 0 || buff.id === "rage" && (applicant.perks.fury > 0 || applicant.perks.iron_slayer_spirit > 0 || buff.ironSlayerEnhanced) || buff.id === "bleed" && applicant.perks.slow_leak > 0 || buff.endlessDespairEligible !== undefined || buff.baseDurationOverride !== undefined) {
+      if (buff.category === "Debuff" && (endlessAmount > 0 || buff.endlessDespairEligible !== undefined)) {
+      const label = document.createElement("label"); label.textContent = "Endless Despair ";
+      label.title = "Self-inflicted statuses do not receive Endless Despair. Opponent-applied statuses qualify unless explicitly excluded.";
+      const select = document.createElement("select"); select.setAttribute("aria-label", `${buff.name} Endless Despair eligibility`);
+      for (const [value, text] of [["auto", "Auto eligibility"], ["yes", "Qualifies"], ["no", "Does not qualify"]]) { const option = document.createElement("option"); option.value = value; option.textContent = text; select.appendChild(option); }
+      select.value = buff.getAppliedBy() === "self" ? "no" : buff.endlessDespairEligible === undefined ? "auto" : buff.endlessDespairEligible ? "yes" : "no";
+      select.disabled = buff.getAppliedBy() === "self";
+      select.addEventListener("change", () => { buff.endlessDespairEligible = select.value === "auto" ? undefined : select.value === "yes"; resetPage(); });
+      label.appendChild(select); clonedDiv.appendChild(label);
+      const state = document.createElement("span"); state.className = "proc-state";
+      const amount = buff.getEndlessDespairAmount(applicant);
+      state.textContent = amount <= 0 ? buff.getAppliedBy() === "self" ? "Self-inflicted: Endless Despair does not apply" : "Endless Despair bonus off" :
+        buff.getDamageInfo ? "ED damage estimate active" : buff.potencyId ? `Received potency: ${Math.round(buff.getReceivedPotency(holder) * 1000) / 10000}` : "Duration bonus active";
+      if (buff.effectivePotencyOverride !== undefined && buff.potencyId && !buff.getDamageInfo) state.textContent = "Manual final potency overrides Endless Despair";
+      if (amount > 0 && buff.id === "burn" && applicant.perks.cursed_flames > 0) state.textContent += "; documented Cursed Flames weakening active";
+      clonedDiv.appendChild(state);
+      }
+      if (buff.id === "rage" && (applicant.perks.iron_slayer_spirit > 0 || buff.ironSlayerEnhanced)) {
+        const label = document.createElement("label"); label.textContent = "Iron Slayer enhanced "; const check = document.createElement("input"); check.type = "checkbox"; check.checked = !!buff.ironSlayerEnhanced; check.setAttribute("aria-label", "Rage Iron Slayer enhancement"); check.addEventListener("change", () => { buff.ironSlayerEnhanced = check.checked; resetPage(); }); label.appendChild(check); clonedDiv.appendChild(label);
+      }
+      const durationLabel = document.createElement("label"); durationLabel.textContent = "Base seconds ";
+      durationLabel.title = "Unmodified duration for this application, before duration perks. Blank uses the legacy status reference, which may differ by source. No countdown is simulated.";
+      const input = document.createElement("input"); input.type = "number"; input.min = "0"; input.step = "0.1"; input.style.width = "5rem";
+      input.setAttribute("aria-label", `${buff.name} base duration`); input.value = buff.baseDurationOverride?.toString() ?? "";
+      const preview = buff.getDurationPreview(applicant, holder); input.placeholder = preview.base?.toString() ?? "Unknown";
+      input.addEventListener("change", () => { const value = input.value === "" ? undefined : Number(input.value); if (value !== undefined && (!Number.isFinite(value) || value < 0)) return; buff.baseDurationOverride = value; resetPage(); });
+      durationLabel.appendChild(input); clonedDiv.appendChild(durationLabel);
+      const duration = document.createElement("span"); duration.className = "proc-state";
+      duration.textContent = preview.duration === undefined ? `Duration: enter base seconds (×${preview.multiplier})` : `Duration preview: ${preview.duration}s (×${preview.multiplier})${preview.manual ? "" : " · reference base"}`;
+      clonedDiv.appendChild(duration);
+    }
+  }
   if (buff.stacks !== undefined) {
     const label = document.createElement("label");
-    label.textContent = "Hit count ";
+    const sequence = buff.id === "finisher_proc_number" || buff.id === "savage_combo_step";
+    const channel = buff.id === "slayer_rage_ticks";
+    label.textContent = sequence ? "Sequence number " : channel ? "Channel ticks " : "Hit count ";
     const input = document.createElement("input");
-    input.type = "number"; input.min = "1"; input.step = "1";
+    input.type = "number"; input.min = channel ? "0" : "1"; input.step = "1"; if (channel) input.max = "20";
     input.value = String(buff.stacks);
     input.style.width = "5rem";
-    input.setAttribute("aria-label", `${buff.name} hit count`);
+    input.setAttribute("aria-label", `${buff.name} ${sequence ? "sequence number" : channel ? "channel ticks" : "hit count"}`);
     input.addEventListener("change", () => {
       const value = Number(input.value);
-      if (!Number.isSafeInteger(value) || value < 1) return;
+      if (!Number.isSafeInteger(value) || value < (channel ? 0 : 1) || channel && value > 20) return;
       buff.stacks = value;
       resetPage();
     });
     label.appendChild(input);
     clonedDiv.appendChild(label);
   }
+
+  // Every note/control needs the expanded layout, including debuffs without potency.
+  clonedDiv.classList.toggle("status-scenario", clonedDiv.children.length > 1);
 
   // Create a clickable link for each game
   ContainerDiv?.appendChild(clonedDiv);
@@ -1292,7 +1380,7 @@ function perkHover(perk: Perk.Perk, value?: number) {
     sourceUrl: perk.source?.cardUrl,
     sections: [
       { title: "Stats", rows: statRows },
-      { title: "Available innate sources", rows: getHoverRows(perk.getSourcePotencies?.(value ?? 1) ?? perk.sourcepotencies, {
+      { title: "Available innate sources", rows: getHoverRows(perk.getSourcePotencies?.(value ?? 1, build) ?? perk.sourcepotencies, {
         labelFormatter: key => ItemModule.potencyAliases[key as ItemModule.potency] || key,
         valueFormatter: value => typeof value === "number" ? Math.round(value * 10000) / 10000 : value,
       }) },
@@ -1404,7 +1492,7 @@ function raceHover(race: RaceModule.Race) {
 function weaponArtHover(weaponArt: WeaponArtModule.WeaponArt) {
   const cooldown = build.getCooldownPreview(weaponArt.coolDown, "WeaponArt", weaponArt.id);
   const statRows: hoverInfoRow[] = cooldown === undefined ? [{ label: "Cooldown", value: "Not documented" }] : [
-    { label: "Base cooldown", value: `${weaponArt.coolDown}s` },
+    { label: "Base cooldown", value: `${cooldown.baseOverride ?? weaponArt.coolDown}s` },
     { label: "Cooldown (reviewed effects)", value: `${cooldown.value}s` },
   ];
   const requirementRows: hoverInfoRow[] = [];
@@ -1480,9 +1568,8 @@ function displayStats(){
   }
 
   potenciesContainerDiv.innerHTML = "";
-  for (const [key, value] of Object.entries(build.potencies) as [ItemModule.potency, number? ][]) {
-    if (value === undefined) continue;
-    createStatHolder(ItemModule.potencyAliases[key], value / 10, potenciesContainerDiv);
+  for (const entry of getPotencyPreview(build)) {
+    createStatHolder(entry.label, entry.value, potenciesContainerDiv);
   }
 
   damageScalingsContainerDiv.innerHTML = "";
@@ -1769,11 +1856,11 @@ function resetPage(item?: ItemModule.Item | string):boolean | void {
 
   //Run WeaponArt Damage calculation
   const weaponArt = build.weaponart;
-  const weaponArtBaseDamageInfo = helper.getWeaponArtBaseDamagePacket(weaponArt);
+  const weaponArtBaseDamageInfo = helper.getWeaponArtBaseDamagePacket(weaponArt, build);
   if (weaponArt && weaponArtBaseDamageInfo) {
     const attackerBuild: Partial<helper.SerializedBuild> = {
-      damageScalings: weaponArt.damageScalings,
-      damageTypes: weaponArt.damageTypes,
+      damageScalings: weaponArtBaseDamageInfo.damageScalings ?? weaponArt.damageScalings,
+      damageTypes: weaponArtBaseDamageInfo.damageTypes ?? weaponArt.damageTypes,
     };
     weaponArtDamageResult = helper.runNonWeaponDamageCalculation(weaponArtBaseDamageInfo, build, target, attackerBuild);
   }
@@ -1785,21 +1872,22 @@ function resetPage(item?: ItemModule.Item | string):boolean | void {
   for (const [perk, amount] of Object.entries(build.perks)) {
     if (!Perk.PerkStore.getByID(perk)) continue;
     let perkData = Perk.PerkStore.getByID(perk);
-    let callBack = perkData.getPerkDamageInfo;
-    if (!callBack) continue;
-    const baseDamageInfo = helper.normalizeBaseDamagePacket(callBack.apply(build, [amount]));
-    if (!baseDamageInfo) continue;
-    const attackerBuild: Partial<helper.SerializedBuild> = {
-      damageScalings: perkData.damageScalings,
-      damageTypes: perkData.damageTypes,
+    const stages = perkData.getPerkDamageStages?.call(build, amount) ?? [{ name: perkData.name, packet: perkData.getPerkDamageInfo?.call(build, amount) }];
+    for (const stage of stages) {
+      const baseDamageInfo = helper.normalizeBaseDamagePacket(stage.packet);
+      if (!baseDamageInfo) continue;
+      const attackerBuild: Partial<helper.SerializedBuild> = {
+        damageScalings: baseDamageInfo.damageScalings ?? perkData.damageScalings,
+        damageTypes: baseDamageInfo.damageTypes ?? perkData.damageTypes,
+      };
+      const results = helper.runNonWeaponDamageCalculation(baseDamageInfo, build, target, attackerBuild);
+      nonWeaponDamages.push({
+        source: stage.name || perkData.name || baseDamageInfo.source || perk,
+        outputs: results.outputs,
+        total: results.total,
+        category: "Perk",
+      });
     }
-    const results = helper.runNonWeaponDamageCalculation(baseDamageInfo, build, target, attackerBuild);
-    nonWeaponDamages.push({
-      source: perkData.name || baseDamageInfo.source || perk,
-      outputs: results.outputs,
-      total: results.total,
-      category: "Perk",
-    });
   }
 
   // Status damage uses the selected applicant for potency and offensive stats.
@@ -1808,7 +1896,7 @@ function resetPage(item?: ItemModule.Item | string):boolean | void {
     const results = helper.resolveStatusDamage(debuff, target);
     if (!results) continue;
     nonWeaponDamages.push({
-      source: `${debuff.name || debuff.id}${debuff.getAppliedBy() === "self" ? " (self-inflicted)" : ""}`,
+      source: `${debuff.name || debuff.id}${debuff.getAppliedBy() === "self" ? " (self-inflicted)" : debuff.getEndlessDespairAmount(debuff.getSourceBuild(target)) > 0 ? " (ED estimate)" : ""}`,
       outputs: results.outputs,
       total: results.total,
       category: "Debuff",
@@ -1847,6 +1935,8 @@ function resetPage(item?: ItemModule.Item | string):boolean | void {
   //////////////////////// Run the displayStats() to add show the build stats ////////////////////////
   displayStats();
   renderNonWeaponDamages(nonWeaponDamages);
+  renderPoisePanel();
+  renderMechanicsPanel();
 
   //Displays the Damages to the table
   addHeaderToTable(build.weapon.m1, m1Rows, m1DamageTable, "normal");

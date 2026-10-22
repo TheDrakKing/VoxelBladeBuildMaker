@@ -10,8 +10,10 @@ const perksTable: perkDataTable = Perks;
 export type PerkEventName = "onPerkMod" | "onStatCalculation";
 type PerkCalculationEventName = PerkEventName | "onOutputCalculation";
 export interface CooldownEffect {
+  overrideBase?: number;
   sources: ("Rune" | "WeaponArt")[];
   ratePerPerk?: number;
+  additionalBase?: number;
   directBase?: number;
   directPerPerk?: number;
   requiredBuff?: string;
@@ -39,14 +41,18 @@ export function getPerkSupport(perk: Perk): PerkSupport {
   }
   if (perk.id === "voltaic_body") return { status: "Partial", details: "Charged-hit damage preview. Select Static Charge to choose hit count; activation and cooldown are not simulated." };
   const hasBehavior = Object.values(perk).some((value) => typeof value === "function") ||
-    !!(perk.stats || perk.sourcepotencies || perk.baseDamage || perk.critical || perk.cooldown);
+    !!(perk.stats || perk.sourcepotencies || perk.baseDamage || perk.critical || perk.cooldown || perk.poise || perk.statusEffects?.length);
   return hasBehavior
     ? { status: "Partial", details: "Some effects are calculated. Trigger timing and the complete interaction rules are not implemented." }
     : { status: "Unsupported", details: "Listed for reference; this perk's effects are not currently calculated." };
 }
 
 export class Perk extends Item.events {
+  previewInputs?: import("./Mechanics.js").PreviewInput[];
+  getMechanicsPreview?: (this: Build, amount: number) => import("./Mechanics.js").MechanicsRow[];
   source?: { cardId: string; cardUrl: string };
+  statusEffects?: string[];
+  poise?: { bonusPerPerk: number; requiredTargetDebuff?: string; placeholder?: boolean };
   critical?: CriticalEffect;
   support?: PerkSupport;
   id: string;
@@ -56,6 +62,12 @@ export class Perk extends Item.events {
   statPriority?: number;
   outputPriority?: number;
   cooldown?: CooldownEffect;
+  /** Applied to cloned construction after the existing stance resolution; ascending priority. */
+  weaponPriority?: number;
+  modifyWeaponConstruction?: (this: Build, amount: number, data: import("./WeaponTypes").ConstructionData, base: { weaponType: string; handle: string; blade: string }) => void;
+  modifyWeaponPackets?: (this: Build, amount: number, packets: { m1: baseDamageData[]; m2: baseDamageData[] }) => void;
+  modifyWeaponArtPacket?: (this: Build, amount: number, packet: baseDamageData) => void;
+  attackSpeedFactor?: (this: Build, amount: number) => number;
   baseDamage?: number;
   stats?: { [k in Item.stat]?: number };
   /**
@@ -75,8 +87,10 @@ export class Perk extends Item.events {
    */
   sourcepotencies?: { [k in Item.potency]?: number };
   /** Innate source potency at the equipped (possibly fractional) perk amount. */
-  getSourcePotencies?: (perkAmount: number) => Partial<Record<Item.potency, number>>;
+  getSourcePotencies?: (perkAmount: number, applicant?: Build) => Partial<Record<Item.potency, number>>;
   getPerkDamageInfo?:(this: Build, perkAmount?: number) => baseDamageData | null;
+  /** Separate homogeneous segments of one activation, avoiding averaged per-hit damage. */
+  getPerkDamageStages?: (this: Build, perkAmount?: number) => { name: string; packet: baseDamageData }[];
 
 
   constructor(data?: any) {

@@ -128,3 +128,60 @@ Cooldown panels now show **Cooldown (reviewed effects)**, replacing the earlier 
 Bastion Bless increases effective potency of actual potency-bearing buffs from their applying build; final overrides remain final and debuffs/neutral controls are excluded. Seismic Momentum replaces default Dexterity chance with Earth-based chance while retaining the separately calculated Dexterity damage bonus, a source ambiguity marked Partial. Rocky Body's coefficient also remains flagged as probable by the card.
 
 Pending workspace autosaves are flushed on `pagehide`, preventing an immediate reload from losing the last selected condition before the debounce fires. New conditions and source ownership continue to use the existing saved-status format and IDs.
+
+## Third forty-perk batch: shared buffs and separate activations
+
+Forty more previously Unsupported source cards now have scoped calculations, selectable sources, or separate damage activation previews. All remain Partial; formulas, source links, eligibility, and unresolved assumptions are recorded in `docs/activation-perks.md`.
+
+Selected Queen’s Power supplies Attack Speed through the shared status stat phase after perk stat calculations. Its Summon scaling, Fervor Holy output, Channeled Depths Water output, and Cleansed Blade’s separate Water-based damage multiplier work from selected statuses without requiring the original perk on the recipient. The Effect Added panels now include these shared status changes as well as perk changes.
+
+`Buff.getReceivedPotency` separates applicant bonuses from reviewed recipient effects. Roaring Heads reduces received Weakness and Shatter without changing outgoing potency; final manual overrides remain final. Unmoving’s explicit all-Slow exception forces 0.3 potency even for overrides. Tailwind’s fixed 0.1 source-side bonus is separate from its per-perk innate source. Existing saved source metadata remains an application snapshot.
+
+Royal Parry’s multiplier is critical-only and requires the selected Guaranteed Crit buff. Stoneskin uses a direct capped damage-taken multiplier; Reinforced Block uses its documented diminishing-return denominator. Shared direct-multiplier hooks also handle Stored Corruption and Frenzy vulnerability. Proc-capable gating and applicant ownership prevent Sharpshooter, Gnawing Poison, and Hex Ray from activating under unrelated selected states.
+
+Perk Activation Damage shows one independent activation, not an automatic contribution to every attack or a DPS estimate. Fiery Pursuit retains its documented Weapon Art classification and integer dash count; Air Pressure release counts as Rune damage. Roaring Heads, lightning, fissures, auras, and tornadoes do not automatically generate recursive procs or trigger chains. Final crit/proc behavior is only asserted where the card specifies it.
+
+Ferocity and legacy Ferocious use finite harmonic math at integer Tenacity. Shatter penetration now preserves fractional received potency to four decimal places. The new regression suite is `tests/activation-perks.test.cjs`.
+
+## Fourth forty-perk batch: consumption, shared status effects, and activation profiles
+
+Forty more previously Unsupported source cards now have scoped behavior. All remain Partial, with formulas and limits recorded in `docs/fourth-perks.md`. Conditional damage/defense, True Moon conversion, applicant-owned Void Contract, Cursed Flames, and Ghastly Rot run on calculation snapshots. Perk `statusEffects` metadata can explicitly identify behavior implemented by a shared status.
+
+Consumption snapshots now distinguish recipient debuffs from attacker buffs. Selected Extinguish consumes target Burn before Curse Rip and boosts the first Water hit only. Forgotten Chivalry consumes the attacker's Reinforce after the first positive Rune/Weapon Art hit, leaving later hits without its Holy output. Both effects preserve saved selections and report consumption traces; Reinforce’s first-hit effect on other buff readers is a documented convention.
+
+Optional packet damage profiles support dynamic activation output/scaling. Explicit calculation overrides take precedence, and profiles are copied before mutation. Recipient-side selected-status output callbacks let Ghastly Rot convert incoming Poison from any applicant while preserving total output and applicant scaling. Source ownership remains intact during self-damage, which is explicitly identified in the calculation context for Wall's exception.
+
+Cooldown previews support fixed base additions before grouped CDR and direct factors. Apollo Boost adds two Rune seconds regardless of perk amount; shared Friendship adds its applicant/potency-based Weapon Art rate. Existing static cooldowns and isolated race helpers retain their scope. Proc previews remain separate single activations rather than automatic contributions or DPS.
+
+Grandmagic Guard adds a flat-reduction event after defense and reviewed multipliers, per output and per hit. Normal and critical damage floor independently at zero before the expected-value average is recalculated. Flat reduction traces show damage units. Magic family includes pure Magic and the six constituent elements listed by Wild Bolt. Unverified transfer and special-vulnerability ordering remain flagged.
+
+The new regression suite is `tests/fourth-perks.test.cjs`, including source ownership, multiple simultaneous consumptions, fractional potency, missing cooldown data, recipient conversions, profile isolation, zero-damage floors, save/reload, and all-forty combined snapshots.
+
+## Fifth forty-perk batch: weapon packets and selected statuses
+
+Forty further source cards have scoped calculations, detailed in `docs/fifth-perks.md`. Perk construction hooks run on cloned stance data in documented ascending builder priority. Packet hooks preserve attack profiles while changing hit counts, per-hit base, and proc coefficient. Rotating Blades composes with selected Steam Charge; Pursuit only applies its verified M1 damage factor while finisher replacement remains held.
+
+Resolved weapon-family metadata is included in combat snapshots for Berserking Strength qualification. Optional speed factors run after part speed, converted AttackSpeed points, and Kitsune flat speed. Inhuman Swings caps at +300%; its nonpositive denominator range remains held. Multiple activation stages can be rendered separately, preserving Caci Spirit's heterogeneous per-hit bases rather than averaging them.
+
+New shared/scenario selections support Minion Absorbed, Anti-Venom, Lithic Veil, parried hits, Future Sight readiness, green Sticky, Draconic Color, Pure Rot Poison qualification, and finisher emission numbers. Applicant snapshots, final potency overrides, real-buff counts, and save/reload semantics remain intact. Cauterize retains enemy Burn identity with zero tick damage, leaving self-inflicted Burn unchanged and a separate first-application burst. Missing formulas and activation/consumption limitations are explicitly Partial.
+
+
+## User-authorized Wound, Melting Shred, and Dominating placeholders
+
+Wound is a separate target debuff with fixed +0.1 True output on Bleed. Melting Shred adds +0.1 True output per perk on DoT packets while the actual applicant carries a selected damaging status. Both are explicit user-selected placeholders, not verified source formulas; they preserve the existing output and applicant scaling. Anti-Heal is a separate selectable marker, with unknown healing reduction left uncalculated.
+
+Dominating has separate poise metadata and a Poise Damage preview: +20% per perk against target Taunt. This user-selected placeholder changes only the displayed poise multiplier, leaving HP damage unchanged. Base poise values and stagger thresholds are unknown. Details and limits are in docs/wound-melting-dominating.md.
+
+## Endless Despair
+
+Stored Potencies stay unchanged. Ordinary enemy debuffs combine source and additive potency before the documented percentage-plus-flat ED rule. Enemy duration previews apply 75% per perk; self-inflicted statuses cannot receive ED, including legacy saved opt-ins. This follows the user's in-game test on 2026-10-21.
+
+The copied DoT formula uses dP/10 and a nonlinear source/stat combination. Its ED placement is still unknown, so the earlier additive-only adjustment was removed. Enemy DoT damage now has an explicitly provisional ED estimate after the source/stat curve, while its duration preview includes ED. Eligibility changes both. The estimate treats the curve multiplier minus its fixed base 1 as combined potency; this mapping remains unverified in-game. Full source details and the distinction between measured behavior and unverified numerical placement are in docs/endless-despair.md.
+
+## Sixth forty-perk batch and visible potency calculations
+
+Forty formerly Unsupported cards now have source-scoped combat, status-duration, healing, cooldown-event, summon-modifier, or chance previews. Other Perk Effects exposes formulas and editable event inputs. Following user feedback, Potencies shows only potency names and stored additive numbers. Formula notes, source alternatives, modifier summaries, and selected-status duplicates are removed.
+
+Original M1 packet indices drive Savage Combo by attack column. Piercer converts compatible weapon finishers to True; Echo Incineration exchanges Fire/Air halves simultaneously. Draconic Infusion follows original applicant color/potency; Volatile Shell can scale on flat Protection without treating Protection as a damage type. Contained, Fury, Slow Leak, and selected Iron Slayer enhancement extend duration previews. Healing excludes undocumented level/recipient rules; current-cooldown events remain separate from static cooldown. Full scope and conventions are in docs/sixth-perks.md.
+
+The earlier additive-only ED interpretation was superseded by the user's in-game test. Stored potency remains unchanged, self statuses are excluded, and the enemy DoT damage placement remains unverified; an explicitly provisional after-combination estimate now lets the eligibility control affect damage.

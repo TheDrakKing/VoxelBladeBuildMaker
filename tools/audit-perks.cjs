@@ -2,7 +2,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 function signals(definition) {
   const result=Object.entries(definition).filter(([,value])=>typeof value==='function').map(([name])=>name);
-  for(const key of ['critical','stats','potencies','sourcepotencies','cooldown']) if(definition[key]&&Object.keys(definition[key]).length) result.push(key);
+  for(const key of ['critical','stats','potencies','sourcepotencies','cooldown','statusEffects','poise']) if(definition[key]&&Object.keys(definition[key]).length) result.push(key);
   if(definition.baseDamage)result.push('baseDamage');
   return result;
 }
@@ -42,7 +42,7 @@ function renderAudit(audit) {
   const esc=value=>String(value??'').replace(/\|/g,'\\|').replace(/[\r\n]+/g,' ');
   const lines=['# Perk coverage audit','',`Source: **${esc(audit.boardName)}**, ${audit.rows.length} perk cards. Application registry: ${audit.registeredDefinitions} definitions.`,
     '',`Source-card coverage: **${audit.counts.Implemented} Implemented**, **${audit.counts.Partial} Partial**, **${audit.counts.Unsupported} Unsupported**.`,
-    '', 'This is a repeatable inventory of registered behavior and support labels. Hook presence is evidence of code, not proof that the full source rule is correct. Status/potency, Bleed/Poison, races, and both forty-perk batches have explicit reviewed details and regression tests. Older Partial entries still need formula-by-formula review.',
+    '', 'This is a repeatable inventory of registered behavior and support labels. Hook presence is evidence of code, not proof that the full source rule is correct. Status/potency, Bleed/Poison, races, and the reviewed forty-perk batches have explicit scope details and regression tests. Older Partial entries still need formula-by-formula review.',
     '', 'Trigger/timing and scenario tags are triage hints from the source text. They do not enable effects. Source-only potency definitions identify possible status sources; they do not simulate application. Race stats and guild behavior can live outside Perks.ts.',
     '', `Unmapped source cards: ${audit.unmapped.length?audit.unmapped.map(esc).join(', '):'none'}.`];
   for(const status of ['Implemented','Partial','Unsupported']){

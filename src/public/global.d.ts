@@ -5,10 +5,15 @@ declare global {
     
     type attackTag = "Weapon" | "Rune" | "WeaponArt" | "Perk" | "Status" | "M1" | "M2" | "Finisher" | "DoT";
     export interface baseDamageData {
+        /** Optional per-activation profile; isolated from the weapon's saved profile. */
+        damageTypes?: Partial<Record<import("../models/Item.js").damageType, number>>;
+        damageScalings?: Partial<Record<import("../models/Item.js").scale, number>>;
         /** Damage is per hit. Tags can overlap (e.g. a WeaponArt that is also a Finisher). */
         tags?: attackTag[];
         canCrit?: boolean;
         procCoefficient?: number;
+        /** Original M1 attack number, independent of its hit count. */
+        comboStep?: number;
         /**
          * The dmaage amount
          */

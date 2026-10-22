@@ -5,7 +5,55 @@ function getStatusDamageFromPotency(additivePotency = 0, sourcePotency = 0) {
   return (1 + Math.max(0, sourcePotency)) * (1 + potency) ** (potency < 1 ? 1 + potency : 2);
 }
 
+import { isMagicDamageType } from "../models/Conditions.js";
+
 export const Debuffs: import("../models/Buffs").BuffDataTable = {
+  wound: {
+    id: "wound", name: "Wound", category: "Debuff", baseDuration: 6,
+    calculationNote: "Placeholder: +0.1 True output on Bleed",
+    scenarioDetails: "User-selected placeholder: adds 0.1 True output to incoming Bleed ticks, preserving their existing output and applicant scaling. The game value and stun amount are undocumented. Wound is a separate debuff, so it counts for debuff-count effects and remains when Bleed is consumed. Application and approximately six-second expiration are manual; owning Sharp Claws is not required to receive Wound.",
+    onIncomingOutputCalculation(_potency, args) {
+      if (this.target && args?.baseDamageData?.sourceType === "Status" && args.baseDamageData.source === "bleed") this.target.damageTypes.True = (this.target.damageTypes.True || 0) + 0.1;
+    },
+  },
+  anti_heal: {
+    id: "anti_heal", name: "Anti-Heal", category: "Debuff",
+    calculationNote: "Melting Shred marker; healing reduction uncalculated",
+    scenarioDetails: "Separate anti-healing debuff from Melting Shred. Counts for debuff-count effects. The board gives no healing-reduction amount or exact duration, so neither is invented. Application is manual and does not require the applicant to be under a DoT.",
+  },
+  void_contract: {
+    id: "void_contract", name: "Void Contract", category: "Debuff", potencyId: "voidcontractpotency",
+    scenarioDetails: "Direct damage from this mark's applicant gains 30% per source perk. Other attackers and DoTs do not qualify. Remaining hits and removal are manual.",
+    onIncreaseDmgTaken(potency, args) {
+      const mark = this.deBuffs.find(status => status.id === "void_contract"), packet = args?.baseDamageData;
+      return mark && mark.getSourceBuild(this) === this.target && packet && packet.sourceType !== "Status" && !packet.tags?.includes("DoT") ? 0.3 * (potency || 0) : null;
+    },
+  },
+  hypnotist: {
+    id: "hypnotist", name: "Hypnotist", category: "Debuff", potencyId: "hypnotistpotency", baseDuration: 15,
+    scenarioDetails: "Adds 5 Magic-family penetration per source perk. Select after the applying hit. Aggro and expiration are manual.",
+    onArmorPenCalculation(potency, args) { return potency && isMagicDamageType(args?.outputType) ? -5 * potency : null; },
+  },
+  electrical_rend: {
+    id: "electrical_rend", name: "Electrical Rend", category: "Debuff", potencyId: "electricalrendpotency",
+    scenarioDetails: "Adds 10 penetration per 0.1 effective potency. Separate from Shatter; chain damage, stun, and application are manual.",
+    onArmorPenCalculation(potency) { return potency ? -10 * potency : null; },
+  },
+  ghastly_rot: {
+    id: "ghastly_rot", name: "Ghastly Rot", category: "Debuff",
+    scenarioDetails: "Poison on this target uses True output regardless of its applicant. Unknown bonus damage, spreading, and chance rolls are not calculated.",
+    onIncomingOutputCalculation(_potency, args) {
+      if (this.target && args?.baseDamageData?.sourceType === "Status" && args.baseDamageData.source === "poison") {
+        const total = Object.values(this.target.damageTypes).reduce((sum, value) => sum + Math.max(0, value || 0), 0);
+        this.target.damageTypes = { True: total };
+      }
+    },
+  },
+  heavy_gravitate: {
+    id: "heavy_gravitate", name: "Heavy Gravitate", category: "Debuff", baseDuration: 15,
+    scenarioDetails: "Select the marked target and correct applicant for a Heavy Gravitate RMB activation preview. Slow, poise, automatic application, and consumption are manual.",
+  },
+
   despair: {
     id: "despair", name: "Despair", category: "Debuff", potencyId: "despairpotency",
     scenarioDetails: "Despair grants +8.5% damage per 0.1 effective potency to its holder. For Grounded Despair, select its source and Applied by Self. Jump/landing application and shockwave are manual.",
@@ -20,7 +68,7 @@ export const Debuffs: import("../models/Buffs").BuffDataTable = {
     onArmorPenCalculation(perkAmount) {
       if (!perkAmount) return null;
       const multiplier = -10 * perkAmount;
-      return Math.trunc(multiplier * 10) / 10;
+      return Math.round(multiplier * 10000) / 10000;
     },
     img: "",
   },
@@ -56,6 +104,13 @@ export const Debuffs: import("../models/Buffs").BuffDataTable = {
     id: "burn",
     name: "Burn",
     category: "Debuff",
+    onDecreaseDmgBonusMultiplier() {
+      const burn = this.deBuffs.find(status => status.id === "burn"), source = burn?.getSourceBuild(this);
+      if (!source || (source.perks.cursed_flames || 0) <= 0) return null;
+      const potency = source.potencies.burnpotency || 0;
+      const endless = burn?.getEndlessDespairAmount(source) || 0;
+      return endless > 0 ? 0.2 + 0.1 * potency * endless : 0.1 + 0.1 * potency;
+    },
     baseDuration: 5,
     potencyId: "burnpotency",
     damageScalings: {
@@ -68,7 +123,7 @@ export const Debuffs: import("../models/Buffs").BuffDataTable = {
       const baseDamage = getStatusDamageFromPotency(additivePotency, sourcePotency);
       if (baseDamage === null) return null;
       return {
-        damage: baseDamage,
+        damage: (() => { const applicant = this.deBuffs?.find(status => status.id === "burn")?.getSourceBuild(this); return applicant && applicant !== this && (applicant.perks.cauterize || 0) > 0 ? 0 : baseDamage; })(),
         hitAmount: 1,
         source: "burn",
         sourceDamageType: "Status",
@@ -124,6 +179,8 @@ export const Debuffs: import("../models/Buffs").BuffDataTable = {
   slow: {
     id: "slow",
     name: "Slow",
+    potencyId: "slowpotency",
+    scenarioDetails: "Unmoving forces received Slow to 0.3 potency regardless of source or override. Movement effects are not calculated.",
     category: "Debuff",
     baseDuration: 5,
     img: "",

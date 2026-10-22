@@ -1,6 +1,17 @@
 import * as ItemModule from "./Item.js";
 import { Buffs } from "../data/Buffs.js";
 import { Debuffs } from "../data/Debuffs.js";
+/** Game units: percentage first, then one flat 0.1 regardless of perk count. */
+export function applyEndlessDespairPotency(base, amount) {
+    return typeof amount === "number" && Number.isFinite(amount) && amount > 0 ? base * (1 + .35 * amount) + .1 : base;
+}
+/** Provisional DoT rule: combine the documented source/stat curve first, then
+ * modify its strength above the fixed base-1 damage. Not an in-game-verified formula. */
+export function estimateEndlessDespairDotDamage(combinedDamage, amount) {
+    if (!Number.isFinite(combinedDamage) || combinedDamage <= 0 || !Number.isFinite(amount) || !amount || amount < 0)
+        return combinedDamage;
+    return 1 + applyEndlessDespairPotency(combinedDamage - 1, amount);
+}
 const buffTable = Buffs;
 const deBuffTable = Debuffs;
 export class Buff extends ItemModule.events {
@@ -31,11 +42,45 @@ export class Buff extends ItemModule.events {
     getSourceBuild(holder) {
         return this.getAppliedBy() === "opponent" ? holder.statusOpponent || holder.target || holder : holder;
     }
+    /** Internal potency points after applicant bonuses and reviewed recipient effects. */
+    getReceivedPotency(holder) {
+        if (this.id === "slow" && (holder.perks.unmoving || 0) > 0)
+            return 3;
+        const potency = this.getEffectivePotency(this.getSourceBuild(holder));
+        // The override is a final received value; source bonuses and reductions are already included.
+        if (typeof this.effectivePotencyOverride === "number" && Number.isFinite(this.effectivePotencyOverride))
+            return potency;
+        const roaring = holder.perks.roaring_heads || 0;
+        return (this.id === "weakness" || this.id === "shatter") && Number.isFinite(roaring) && roaring > 0
+            ? potency * Math.max(0, 1 - 0.33 * roaring) : potency;
+    }
+    isEndlessDespairEligible() {
+        return this.category === "Debuff" && this.getAppliedBy() === "opponent" && this.endlessDespairEligible !== false;
+    }
+    getEndlessDespairAmount(sourceBuild) {
+        const amount = sourceBuild?.perks?.endless_despair || 0;
+        return this.isEndlessDespairEligible() && Number.isFinite(amount) && amount > 0 ? amount : 0;
+    }
+    getDurationPreview(sourceBuild, recipient) {
+        const manual = this.baseDurationOverride;
+        const base = typeof manual === "number" && Number.isFinite(manual) && manual >= 0 ? manual :
+            typeof this.baseDuration === "number" && Number.isFinite(this.baseDuration) && this.baseDuration >= 0 ? this.baseDuration : undefined;
+        const positive = (id) => { const value = sourceBuild?.perks?.[id]; return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : 0; };
+        const realStatus = this.category === "Debuff" || this.category === "Buff" && this.countsAsBuff !== false;
+        const contained = realStatus ? 1 + .33 * positive("contained") : 1;
+        const fury = this.id === "rage" ? 1 + .5 * positive("fury") : 1;
+        const slowLeak = this.id === "bleed" && this.getAppliedBy() === "opponent" && recipient?.buff?.some(status => status.id === "enemy_mob") ? 1 + .5 * positive("slow_leak") : 1;
+        const iron = this.id === "rage" && this.ironSlayerEnhanced ? 2 : 1;
+        const multiplier = (1 + 0.75 * this.getEndlessDespairAmount(sourceBuild)) * contained * fury * slowLeak * iron;
+        return { base, multiplier, duration: base === undefined ? undefined : Math.round((base * multiplier + Number.EPSILON) * 10000) / 10000, manual: manual !== undefined };
+    }
+    /** Raw DoT inputs; the ED estimate runs after the source/stat damage combination. */
     getDotPotencies(sourceBuild) {
         const override = this.effectivePotencyOverride;
         const additive = typeof override === "number" && Number.isFinite(override)
             ? Math.max(0, override) * 10
             : Math.max(0, (this.potencyId ? sourceBuild?.potencies[this.potencyId] || 0 : 0) + (this.potency || 0) * 10);
+        // Keep stored points and source snapshots unchanged; ED is applied after this curve.
         return { additive, source: Math.max(0, this.sourceData?.sourceInatePotency || 0) };
     }
     getEffectivePotency(sourceBuild) {
@@ -47,9 +92,15 @@ export class Buff extends ItemModule.events {
             ? sourceBuild.potencies[this.potencyId] || 0
             : 0;
         const directPotency = this.potency || 0;
+        const tailwind = this.id === "tailwind" && (sourceBuild?.perks?.tailwind || 0) > 0 ? 0.1 : 0;
         const bastion = sourceBuild?.perks?.bastion_bless || 0;
         const multiplier = this.category === "Buff" && this.countsAsBuff !== false && Number.isFinite(bastion) && bastion > 0 ? 1 + 0.1 * bastion : 1;
-        return (sourcePotency + (additivePotency / 10) + directPotency) * 10 * multiplier;
+        let potency = (sourcePotency + (additivePotency / 10) + directPotency + tailwind) * multiplier;
+        if (this.id === "rage" && this.ironSlayerEnhanced)
+            potency += .2;
+        const endless = this.potencyId && !this.getDamageInfo ? this.getEndlessDespairAmount(sourceBuild) : 0;
+        potency = applyEndlessDespairPotency(potency, endless);
+        return potency * 10;
     }
 }
 export class BuffStore {
