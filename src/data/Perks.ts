@@ -408,7 +408,7 @@ export const Perks: import("../models/Perk").perkDataTable = {
       return 0.2 * perkAmount;
     },
 
-    support: {"status": "Partial", "details": "Adds one stored Bleed potency point (+0.1 displayed) per perk using the user's game value; Trello names the bonus without an amount. Select Blood Thirsty Proc: consumes attacker-owned Bleed before other Bleed bonuses and grants 20% damage per perk. Curse Rip sees the remaining debuffs after consumption. Healing and automatic triggers are not calculated."},
+    support: {"status": "Partial", "details": "Adds one stored Bleed potency point (+0.1 displayed) per perk using the user's game value; Trello names the bonus without an amount. Select Blood Thirsty Proc: Hemorrhage applies first per the user's in-game test, then attacker-owned Bleed is consumed and Blood Thirsty grants 20% damage per perk. Other modeled Bleed readers and Curse Rip see remaining debuffs; their ordering is unchanged pending further game tests. Healing and automatic triggers are not calculated."},
 
     "source": {
       "cardId": "69214b9731723704c1eda402",
@@ -595,12 +595,12 @@ export const Perks: import("../models/Perk").perkDataTable = {
     description:
       "Hitting a Bleeding opponent adds bonus Damage, Stun, and a small amount of True Damage Type. Grants Bleed potency.",
     onDmgBonusMultiplier(perkAmount, args) {
-      if (!perkAmount || perkAmount <= 0 || !isProcHit(args) || !hasDebuff(this.target, "bleed")) return null;
+        if (!perkAmount || perkAmount <= 0 || !isProcHit(args) || !(hasDebuff(this.target, "bleed") || this.activeProcs?.includes("hemorrhage_before_blood_thirsty"))) return null;
       const multiplier = (10 + 10 * perkAmount) / 100;
       return multiplier;
     },
     onOutputCalculation(perkAmount, args) {
-      if (!perkAmount || perkAmount <= 0 || !isProcHit(args) || !hasDebuff(this.target, "bleed")) return null;
+        if (!perkAmount || perkAmount <= 0 || !isProcHit(args) || !(hasDebuff(this.target, "bleed") || this.activeProcs?.includes("hemorrhage_before_blood_thirsty"))) return null;
       const outputMultiplier = 0.1 * perkAmount;
       let previousValue = this.damageTypes["True"];
       this.damageTypes["True"] = previousValue
@@ -609,7 +609,7 @@ export const Perks: import("../models/Perk").perkDataTable = {
       return null;
     },
 
-    support: {"status": "Partial", "details": "Direct proc-capable hits against Bleed gain (10 + 10 * perkAmount)% damage and 0.1 True output per perk. Consumed Bleed no longer qualifies. Stun is not calculated; the source grants no Bleed potency."},
+    support: {"status": "Partial", "details": "Direct proc-capable hits against Bleed gain (10 + 10 * perkAmount)% damage and 0.1 True output per perk. Per the user's in-game test, both bonuses apply before Blood Thirsty consumes Bleed on that hit. Later hits require Bleed to remain or be reapplied; no automatic reapplication. Other perk ordering is unchanged. Stun is not calculated; the reviewed source grants no Bleed potency."},
 
     "source": {
       "cardId": "69214b9731723704c1eda420",

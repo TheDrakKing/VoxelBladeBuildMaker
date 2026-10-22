@@ -782,6 +782,9 @@ function prepareStatusConsumptions(attacker: CombatContext, target: CombatContex
     const owned = target.deBuffs.filter(status => status.id === statusId && status.getSourceBuild(target) === attacker);
     if (!owned.length) continue;
     (attacker.activeProcs ||= []).push(perkId);
+      // User's in-game test: Hemorrhage reads Bleed before Blood Thirsty consumes it.
+      // Preserve eligibility for this hit only; other Bleed readers use the remaining statuses.
+      if (perkId === "blood_thirsty" && attacker.perks.hemorrhage > 0) attacker.activeProcs.push("hemorrhage_before_blood_thirsty");
     for (const status of owned) pending.push({ status, perkId, before: perkId === "blood_thirsty" || selection.consumptionTiming === "before" });
   }
   target.deBuffs = target.deBuffs.filter(status => !pending.some(entry => entry.before && entry.status === status));
