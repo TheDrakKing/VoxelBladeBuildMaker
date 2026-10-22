@@ -3,3 +3,4 @@
 .vscode
 /backup
 /backup/*
+/tests/
