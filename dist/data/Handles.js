@@ -2136,7 +2136,7 @@ export const Handles = {
         name: "Honeycomb Handle",
         tier: 5,
         category: "Handle",
-        type: "Large Handle",
+        type: "Long Handle",
         attackSpeed: 0.9,
         stats: {
             MagicBoost: 4,
@@ -2164,7 +2164,7 @@ export const Handles = {
         name: "Honeysteel Handle",
         tier: 5,
         category: "Handle",
-        type: "Large Handle",
+        type: "Long Handle",
         attackSpeed: 0.9,
         stats: {
             MagicBoost: 6,

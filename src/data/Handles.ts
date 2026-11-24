@@ -2216,7 +2216,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Honeycomb Handle",
     tier: 5,
     category: "Handle",
-    type: "Large Handle",
+    type: "Long Handle",
     attackSpeed: 0.9,
     stats: {
       MagicBoost: 4,
@@ -2245,7 +2245,7 @@ export const Handles: import("../models/Item").ItemDataTable = {
     name: "Honeysteel Handle",
     tier: 5,
     category: "Handle",
-    type: "Large Handle",
+    type: "Long Handle",
     attackSpeed: 0.9,
     stats: {
       MagicBoost: 6,
